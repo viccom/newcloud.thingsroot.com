@@ -123,6 +123,31 @@ function app_restart_result_response(result, inst, oldvalue){
     }
 }
 
+
+function app_upgrade_result_response(result, inst, oldvalue){
+    if(result){
+
+        $("button.update_check").text("检查更新" );
+        $("button.update_check").data("flag","0");
+        $(".update_tip").html("已经是最新版本" );
+        var newver = $(".app-inst").data("cloudver");
+        $(".app-gatever").html("v" + newver);
+        $(".app-cloudver").html("");
+    }else{
+
+    }
+}
+
+
+
+function send_output_result_response(result, inst, oldvalue){
+    if(result){
+        $(".output_result").data("flag","1");
+    }else{
+        $(".output_result").data("flag","0");
+    }
+}
+
 // 监控开机启动关闭的执行结果
 function doCrontab(){
     var q = localStorage.getItem(pagename + '_Back_taskslist');
@@ -159,18 +184,26 @@ function doCrontab(){
                                 app_stop_result_response(true, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_restart"){
                                 app_restart_result_response(true, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_upgrade"){
+                                app_upgrade_result_response(true, q[i].inst, q[i].value)
+                            }else if(q[i].action=="send_output"){
+                                send_output_result_response(true, q[i].inst, q[i].value)
                             }
                             q.splice(i,1);// 删除任务
                         }else if(req.message.result==false) {
                             action_result_tips(q[i].title + "执行失败", q[i].id + "<br/>返回信息：" + req.message.message, 'warning')
                             if(q[i].action=="app_auto"){
-                                app_auto_result_response(true, q[i].inst, q[i].value)
+                                app_auto_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_start"){
-                                app_start_result_response(true, q[i].inst, q[i].value)
+                                app_start_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_stop"){
-                                app_stop_result_response(true, q[i].inst, q[i].value)
+                                app_stop_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_restart"){
-                                app_restart_result_response(true, q[i].inst, q[i].value)
+                                app_restart_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_upgrade") {
+                                app_upgrade_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="send_output"){
+                                send_output_result_response(false, q[i].inst, q[i].value)
                             }
                             q.splice(i, 1);// 删除任务
                         }
@@ -179,13 +212,17 @@ function doCrontab(){
                         if(q[i].times==0){ // 十次查询完毕还未成功，表明失败。
                             action_result_tips("等待超时", req, 'warning')
                             if(q[i].action=="app_auto"){
-                                app_auto_result_response(true, q[i].inst, q[i].value)
+                                app_auto_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_start"){
-                                app_start_result_response(true, q[i].inst, q[i].value)
+                                app_start_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_stop"){
-                                app_stop_result_response(true, q[i].inst, q[i].value)
+                                app_stop_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_restart"){
-                                app_restart_result_response(true, q[i].inst, q[i].value)
+                                app_restart_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_upgrade") {
+                                app_upgrade_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="send_output"){
+                                send_output_result_response(false, q[i].inst, q[i].value)
                             }
                             q.splice(i,1);
                         }

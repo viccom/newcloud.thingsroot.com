@@ -1,7 +1,7 @@
 
-gate_sn  = getParam('sn');
+var gate_sn  = getParam('sn');
 console.log(gate_sn);
-pagename = "Gates_apps";
+var pagename = "Gates_apps";
 
 
 var table = $('#example1').DataTable({
@@ -66,3 +66,30 @@ $(".applist-refresh").click(function(){
     gate_applist(gate_sn, table);
 });
 
+$(".ren_confirm").click(function(){
+    var instname = $("input.ren-appname").val();
+    var app_action = "app_rename";
+    var oldval = 0;
+    var task_desc = '应用改名/'+ instname;
+    var id = 'app_rename/' + gate_sn + '/'+ instname +'/'+ Date.parse(new Date())
+    var _act = {
+        "device": gate_sn,
+        "data": {"inst": instname},
+        "id": id
+    };
+    // gate_exec_action(app_action, _act, task_desc, inst, app_action, oldval);
+});
+
+$(".uninstall_confirm").click(function(){
+    var instname = $(".uninstall-appname").text();
+    var app_action = "app_uninstall";
+    var oldval = 0;
+    var task_desc = '卸载应用'+ instname;
+    var id = 'app_uninstall/' + gate_sn + '/'+ instname +'/'+ Date.parse(new Date())
+    var _act = {
+        "device": gate_sn,
+        "data": {"inst": instname},
+        "id": id
+    };
+    // gate_exec_action(app_action, _act, task_desc, inst, app_action, oldval);
+});

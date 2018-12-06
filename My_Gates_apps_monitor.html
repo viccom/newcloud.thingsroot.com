@@ -37,12 +37,60 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <style type="text/css">
-        /*table th, table td {*/
-            /*!*text-align: center;*!*/
-            /*vertical-align: middle!important;*/
+        /*
+         * Component: monitor Box
+         * -------------------
+         */
+        .monitor-box {
+            display: block;
+            min-height: 90px;
+            background: #fff;
+            width: 290px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            margin-bottom: 15px;
+        }
+        .monitor-box small {
+            font-size: 14px;
+        }
+
+        .monitor-box-icon {
+            border-top-left-radius: 2px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 2px;
+            display: block;
+            float: left;
+            height: 90px;
+            width: 90px;
+            text-align: center;
+            font-size: 45px;
+            line-height: 90px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .monitor-box-icon > img {
+            max-width: 100%;
+        }
+        .monitor-box-content {
+            padding: 5px 10px;
+            margin-left: 90px;
+
+        }
+        .monitor-box-number {
+            display: block;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        /*.progress-description,*/
+        /*.monitor-box-text {*/
+            /*display: block;*/
+            /*font-size: 14px;*/
+            /*white-space: nowrap;*/
+            /*overflow: hidden;*/
+            /*text-overflow: ellipsis;*/
         /*}*/
-        /*#table_comm{*/
-            /*table-layout: fixed;*/
+        /*.monitor-box-text {*/
+            /*text-transform: uppercase;*/
         /*}*/
     </style>
 
@@ -347,7 +395,7 @@
             <h1>
                 <a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>
                 应用监控
-                <!--<small>Control panel</small>-->
+                <small><span class="gate_name"></span></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -363,13 +411,13 @@
             <!-- Info boxes -->
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                    <div class="monitor-box">
+                        <span class="monitor-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
-                        <div class="info-box-content">
-                            <span class="info-box-number app-inst">HW_UPS</span>
-                            <span class="info-box-text">当前版本：<span class="app-gatever">8</span> | 最新版本：<span class="app-cloudver">9</span></span>
-                            <span class="info-box-text">
+                        <div class="monitor-box-content">
+                            <span class="monitor-box-number app-inst">HW_UPS</span>
+                            <span class="monitor-box-text">当前版本：<span class="app-gatever">8</span> | 最新版本：<span class="app-cloudver">9</span></span>
+                            <div style="width: 180px">
                                 <button type="button" class="btn btn-info app-action">启动</button>
                                 <button type="button" class="btn btn-warning app-restart">重启</button>
                                 <!--更多 下拉按钮组 start-->
@@ -386,7 +434,7 @@
                                     </ul>
                                 </div>
                                 <!--更多 下拉按钮组 end-->
-                            </span>
+                            </div>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -522,6 +570,57 @@
                 <!-- /.col -->
             </div>
             <!-- /.row -->
+
+            <!-- /.modal default start-->
+            <div class="modal fade" id="modal-default">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">更改实例名</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">实例名</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputEmail3" placeholder="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary">保存</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal end-->
+            <!-- /.modal warning start-->
+            <div class="modal modal-warning fade" id="modal-warning">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">卸载应用</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>确定卸载应用XXXXXX！</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-outline">确定</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal end-->
+
 
         </section>
         <!-- /.content -->

@@ -341,7 +341,7 @@
             <h1>
                 <a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>
                 我的网关
-                <small>上海-徐家汇站</small>
+                <small><span class="gate_name"></span></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -408,13 +408,13 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="col-md-7"><p class="lead">| 基本信息</p></div>
-                        <div class="col-md-5"><button type="button" class="btn btn-block btn-default btn-flat pull-right gate_advanced">高级设置</button></div>
+                        <div class="col-md-5"><button type="button" class="btn btn-block btn-primary btn-flat pull-right gate_advanced">高级设置</button></div>
 
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table nowrap">
                                     <tr>
                                         <th style="width:100px">序列号：</th>
                                         <td><span class="gate_sn"></span></td>
@@ -442,7 +442,7 @@
                         <div class="col-md-12">
                             <p class="lead">| 配置信息</p>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table nowrap">
                                     <tr>
                                         <th style="width:100px">CPU：</th>
                                         <td><span class="gate_cpu"></span></td>
@@ -482,7 +482,7 @@
                     </div>
                     <!-- /.col -->
 
-                    <div class="col-md-8">
+                    <div class="col-md-7">
 
                         <!-- LINE CHART1 start -->
                         <div class="box box-info">

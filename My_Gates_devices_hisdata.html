@@ -266,40 +266,35 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <span class="hidden-xs user-name">user</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header">
-                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
-                                </p>
-                            </li>
                             <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
+                            <li class="user-panel">
+
+                                <div class="text-center">
+                                    <a href="#">基本资料</a>
                                 </div>
-                                <!-- /.row -->
+                            </li>
+                            <li class="user-panel">
+
+                                <div class="text-center">
+                                    <a href="#">AccessKey</a>
+                                </div>
+
+                            </li>
+
+                            <li class="user-panel">
+                                <div class="text-center">
+                                    <a href="#">虚拟序列号</a>
+                                </div>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+
+                                <div class="text-center">
+                                    <a href="javascript:logout();"  class="btn btn-default btn-flat">退出</a>
                                 </div>
                             </li>
                         </ul>
@@ -348,7 +343,7 @@
             <h1>
                 <a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>
                 历史数据
-                <small><span class="device_name"></span></small>
+                <small><span class="gate_name"></span></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -373,10 +368,10 @@
 
 
 
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="box">
                 <div class="box-header">
-                    <label>设备点表</label>
+                    <label>选中变量:</label><span class="selected-tag">xxxxxx</span>
                     <div class="pull-right">
                         <div class="input-group input-group-sm" style="width: 33px;">
                             <div class="input-group-btn">
@@ -407,7 +402,7 @@
                 <!-- /.box-body -->
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="box">
                 <div class="box-header">
 
@@ -482,7 +477,14 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <tr>
+                            <td>
 
+                            </td>
+                            <td>
+                                未选择变量
+                            </td>
+                        </tr>
                         </tbody>
 
                     </table>

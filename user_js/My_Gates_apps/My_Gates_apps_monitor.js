@@ -5,7 +5,8 @@ pagename = "Gates_apps_monitor";
 log_subscribed = false;
 comm_subscribed = false;
 
-gate_app_detail(gate_sn, inst);
+gate_info(gate_sn);
+gate_app_detail(gate_sn, inst, pagename);
 
 $(function () {
     /**
@@ -183,7 +184,7 @@ var mqtt_upload_ret= setInterval(function(){
     if(lens<1000){
         if(mqttc_connected){
             if(log_subscribed){
-                var id = "sys_enable_log" + ' ' + gate_sn + ' '+ Date.parse(new Date())
+                var id = "sys_enable_log" + '/' + gate_sn + '/'+ Date.parse(new Date())
                 var _act = {
                     "device": gate_sn,
                     "data": 60,
@@ -192,7 +193,7 @@ var mqtt_upload_ret= setInterval(function(){
                 gate_upload_mes("sys_enable_log", _act)
             }
             if(comm_subscribed){
-                var id = "app_upload_comm" + ' ' + gate_sn + ' '+ Date.parse(new Date())
+                var id = "app_upload_comm" + '/' + gate_sn + '/'+ Date.parse(new Date())
                 var _act = {
                     "device": gate_sn,
                     "data": {"inst":inst, "sec":60},
@@ -233,7 +234,7 @@ $(".app-action").click(function(){
     var app_action = "app_start";
     var oldval = 0;
     var task_desc = '启动应用'+ inst;
-    var id = 'start ' + gate_sn + '\'s '+ inst +' '+ Date.parse(new Date())
+    var id = 'start/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date())
     if($(".app-action:button").text()=="停止"){
         app_action = "app_stop";
         oldval = 1;
@@ -253,7 +254,7 @@ $(".app-restart").click(function(){
     var app_action = "app_restart";
     var oldval = 0;
     var task_desc = '重启应用'+ inst;
-    var id = 'restart ' + gate_sn + '\'s '+ inst +' '+ Date.parse(new Date())
+    var id = 'restart/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date())
     if($(".app-action:button").text()=="停止"){
         oldval = 1;
     }
@@ -274,7 +275,7 @@ $(".appinfo-upload").click(function(){
     var topic_map=["log", "comm"];
     var app_action = info_map[$(".nav-tabs li.active").index()];
     var topic = gate_sn + "/" + topic_map[$(".nav-tabs li.active").index()];
-    var id = info_map[$(".nav-tabs li.active").index()] + ' ' + gate_sn + ' '+ Date.parse(new Date())
+    var id = info_map[$(".nav-tabs li.active").index()] + '/' + gate_sn + '/'+ Date.parse(new Date())
     var _act_log = {
         "device": gate_sn,
         "data": 60,
@@ -367,7 +368,7 @@ $(".btn-log-subscribe").click(function(){
                 if(lens<1000){
                     mqtt_client.subscribe(gate_sn + "/" + "log", {qos: 0});
                     log_subscribed = true
-                    var id = "sys_enable_log" + ' ' + gate_sn + ' '+ Date.parse(new Date())
+                    var id = "sys_enable_log" + '/' + gate_sn + '/'+ Date.parse(new Date())
                     var _act = {
                         "device": gate_sn,
                         "data": 60,
@@ -408,7 +409,7 @@ $(".btn-comm-subscribe").click(function(){
             if(lens<1000){
                 mqtt_client.subscribe(gate_sn + "/" + "comm", {qos: 0});
                 comm_subscribed = true;
-                var id = "app_upload_comm" + ' ' + gate_sn + ' '+ Date.parse(new Date())
+                var id = "app_upload_comm" + '/' + gate_sn + '/'+ Date.parse(new Date())
                 var _act = {
                     "device": gate_sn,
                     "data": {"inst":inst, "sec":60},
