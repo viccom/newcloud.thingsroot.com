@@ -58,7 +58,10 @@ var table = $('#example1').DataTable({
 
 gate_info(gate_sn);
 gate_applist(gate_sn, table);
-setInterval(function(){gate_applist(gate_sn, table);},8000);
+setInterval(function(){
+    gate_info(gate_sn);
+    gate_applist(gate_sn, table);
+    },8000);
 
 $(".applist-refresh").click(function(){
     gate_info(gate_sn);
@@ -92,4 +95,9 @@ $(".uninstall_confirm").click(function(){
         "id": id
     };
     // gate_exec_action(app_action, _act, task_desc, inst, app_action, oldval);
+});
+
+$(".btn-box-tool").click(function(){
+    var url = "My_Gates_setting.html?sn="+ gate_sn;
+    redirect(url);
 });

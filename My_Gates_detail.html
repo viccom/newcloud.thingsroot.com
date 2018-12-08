@@ -366,8 +366,8 @@
                         <div class="box-body no-padding">
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="javascript:redirect('My_Gates_devices.html?sn='+ gate_sn);"><i class="fa fa-inbox"></i> 设备列表
-                                    <span class="label label-primary pull-right gate_devs_len">12</span></a></li>
-                                <li><a href="javascript:redirect('My_Gates_apps.html?sn='+ gate_sn);"><i class="fa fa-th"></i> 应用列表 <span class="label label-warning pull-right gate_apps_len">6</span></a>
+                                    <span class="label label-primary pull-right gate_devs_len">0</span></a></li>
+                                <li><a href="javascript:redirect('My_Gates_apps.html?sn='+ gate_sn);"><i class="fa fa-th"></i> 应用列表 <span class="label label-warning pull-right gate_apps_len">0</span></a>
                                 </li>
                                 <li class="active"><a href="javascript:redirect('My_Gates_detail.html?sn='+ gate_sn);"><i class="fa fa-area-chart"></i> 网关状态</a></li>
                             </ul>
@@ -410,7 +410,7 @@
 
                     <div class="col-md-5">
                         <div class="col-md-7"><p class="lead">| 基本信息</p></div>
-                        <div class="col-md-5"><button type="button" class="btn btn-block btn-primary btn-flat pull-right gate_advanced">高级设置</button></div>
+                        <div class="col-md-5"><button type="button" class="btn btn-block btn-primary btn-flat pull-right gate_setting">高级设置</button></div>
 
                         <div class="col-md-12">
                             <div class="table-responsive">
@@ -461,11 +461,21 @@
                                     </tr>
                                     <tr>
                                         <th>核心软件：</th>
-                                        <td><span class="gate_skynet_version"></span></td>
+                                        <td>
+                                            <span class="pull-left gate_skynet_version"></span>
+
+                                            <span class="pull-right"><i class="fa fa-chevron-right text-green hide new_skynet_version"></i></span>
+                                            <a href="javascript:void(0)" class="pull-right text-green hide new_skynet_version">发现新版本</a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>业务软件：</th>
-                                        <td><span class="gate_iot_version"></span></td>
+                                        <td>
+                                            <span class="pull-left gate_iot_version"></span>
+
+                                            <span class="pull-right"><i class="fa fa-chevron-right hide text-green new_iot_version"></i></span>
+                                            <a href="javascript:void(0)" class="pull-right hide text-green new_iot_version">发现新版本</a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>公网IP：</th>
@@ -474,6 +484,14 @@
                                     <tr>
                                         <th>调试模式：</th>
                                         <td><span class="gate_iot_beta"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>数据上传：</th>
+                                        <td><span class="gate_data_upload"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>统计上传：</th>
+                                        <td><span class="gate_stat_upload"></span></td>
                                     </tr>
                                 </table>
                             </div>

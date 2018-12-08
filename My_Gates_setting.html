@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | 网关设备列表</title>
+    <title>冬笋云 | 网关设定</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -36,14 +36,28 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
     <style type="text/css">
+
+        .table tr {
+            height: 60px;
+
+        }
         .table th, .table td {
-            /*text-align: center;*/
+
+            text-align: left;
             vertical-align: middle!important;
+        }
+        .table > tbody > tr > td:nth-child(2) {
+            padding-left:50px;
+            /*border-left: 0;*/
+        }
+        .table > tbody > tr > td:nth-child(3) {
+            padding-left:50px;
+            /*border-left: 0;*/
         }
 
     </style>
-
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -323,13 +337,13 @@
                 <li><a href="Index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li class="active treeview"><a href="javascript:redirect('/My_Gates_list.html');"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
+                <li class="active treeview"><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
                 <li><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
                 <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
-                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
-                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+                <li><a href="MyMessages/Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
+                <li><a href="MyMessages/Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
 
 
             </ul>
@@ -343,8 +357,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>
-                我的网关
+                <a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>
+                网关设定
                 <small><span class="gate_name"></span></small>
             </h1>
             <ol class="breadcrumb">
@@ -353,132 +367,132 @@
             </ol>
         </section>
 
+
+
+
         <!-- Main content -->
         <section class="content">
+
             <div class="row">
-                <!-- page left nav menu start -->
-                <div class="col-md-2">
-                    <span class="btn btn-success btn-block margin-bottom gate_status">在线</span>
-                    <div class="box box-solid">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">基本功能</h3>
-
-                            <div class="box-tools">
-
-                            </div>
-                        </div>
-                        <div class="box-body no-padding">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li class="active"><a href="javascript:redirect('My_Gates_devices.html?sn='+ gate_sn);"><i class="fa fa-inbox"></i> 设备列表
-                                    <span class="label label-primary pull-right gate_devs_len">0</span></a></li>
-                                <li><a href="javascript:redirect('My_Gates_apps.html?sn='+ gate_sn);"><i class="fa fa-th"></i> 应用列表 <span class="label label-warning pull-right gate_apps_len">0</span></a>
-                                </li>
-                                <li><a href="javascript:redirect('My_Gates_detail.html?sn='+ gate_sn);"><i class="fa fa-area-chart"></i> 网关状态</a></li>
-                            </ul>
-                        </div>
-                        <!-- /.box-body -->
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /. box -->
-                    <div class="box box-solid">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">扩展功能</h3>
-
-                            <div class="box-tools">
-                                <button type="button" class="btn btn-box-tool"><i class="fa fa-cog"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="box-body no-padding">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="My_Gates_NetManager.html"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
-                                <li><a href="My_Gates_vpn.html"><i class="fa fa-circle-o text-yellow"></i> VPN通道</a></li>
-                            </ul>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                </div>
-                <!-- page left nav menu end -->
-
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
 
-                            <div class="col-md-3"><i class="fa fa fa-dot-circle-o"></i> 名称：<span class="gate_name"></span></div>
-                            <div class="col-md-4"><i class="fa fa fa-dot-circle-o"></i> 描述：<span class="gate_desc"></span></div>
-                            <div class="col-md-5"><i class="fa fa fa-dot-circle-o"></i> 序号：<span class="gate_sn"></span></div>
-                            <!--<div class="col-md-2"><i class="fa fa-circle"></i> 调试模式：</div>-->
+                            <div class="col-md-2"><i class="fa fa-dot-circle-o"></i> 名称：<span class="gate_name"></span></div>
+                            <div class="col-md-3"><i class="fa fa-dot-circle-o"></i> 描述：<span class="gate_desc"></span></div>
+                            <div class="col-md-4"><i class="fa fa-dot-circle-o"></i> 序号：<span class="gate_sn"></span></div>
+                            <div class="col-md-2"><i class="fa fa-circle"></i> 状态：<span class="gate_status"></span></div>
                         </div>
                     </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
 
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
-                                    <div class="pull-left">
+                    <div class="box-body no-padding">
+                        <table class="table table-condensed">
+                            <tbody>
+                            <tr>
+                                <td style="width: 15%"></td>
+                                <td style="width: 35%">
 
-                                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh devices-refresh"></i></button>
+                                    <h4>
+                                        <i class="fa fa-connectdevelop"></i> 调试模式
+                                    </h4>
 
+                                </td>
+                                <td style="width: 50%">
+                                    <span class="hide one" >处理中……</span>
+                                    <div  class="one" data-on="success" data-off="warning">
+                                        <input data-inst="one" class="switch" type="checkbox"  />
                                     </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 15%"></td>
+                                <td style="width: 35%">
 
-                                    <div class="pull-right">
-                                        <div class="input-group" style="width: 250px;">
-                                            <div class="input-group-btn">
-                                                <button type="button" class="btn btn-default">名称</button>
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                                    <span class="caret"></span>
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">名称</a></li>
-                                                    <li><a href="#">描述</a></li>
-                                                </ul>
-                                            </div>
-                                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                                            <div class="input-group-btn">
-                                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                            </div>
+                                    <h4>
+                                        <i class="fa fa-cloud-upload"></i> 数据上传
+                                    </h4>
 
-                                        </div>
-
-
+                                </td>
+                                <td style="width: 50%">
+                                    <span class="hide two" >处理中……</span>
+                                    <div  class="two" data-on="success" data-off="warning">
+                                        <input data-inst="two" class="switch" type="checkbox"  />
                                     </div>
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                    <table id="table_devices" class="table table-bordered row-border  nowrap" cellspacing="0" width="100%">
-                                        <thead>
-                                        <tr>
-                                            <th>名称</th>
-                                            <th>描述</th>
-                                            <th>I/O/C</th>
-                                            <th>设备SN</th>
-                                            <th>所属实例</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 15%"></td>
+                                <td style="width: 35%">
 
-                                        </tbody>
+                                    <h4>
+                                        <i class="fa fa-globe"></i> 统计上传
+                                    </h4>
 
-                                    </table>
-                                </div>
-                                <!-- /.box-body -->
+                                </td>
+                                <td style="width: 50%">
+                                    <span class="hide three" >处理中……</span>
+                                    <div  class="three" data-on="success" data-off="warning">
+                                        <input data-inst="three" class="switch" type="checkbox"  />
+                                    </div>
+                                </td>
+                            </tr>
 
-                            </div>
-                            <!-- /.box -->
-                        </div>
+                            <tr>
+                                <td style="width: 15%"></td>
+                                <td style="width: 35%">
+
+                                    <h4>
+                                        <i class="fa fa-wrench"></i> 网络配置
+                                    </h4>
+
+                                </td>
+                                <td style="width: 50%">
+                                    <span class="hide four" >处理中……</span>
+                                    <div  class="four" data-on="success" data-off="warning">
+                                        <input data-inst="four" class="switch" type="checkbox"  />
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 15%"></td>
+                                <td style="width: 35%">
+
+                                    <h4>
+                                        <i class="fa fa-key"></i> 虚拟网络
+                                    </h4>
+
+                                </td>
+                                <td style="width: 50%">
+                                    <span class="hide five" >处理中……</span>
+                                    <div  class="five" data-on="success" data-off="warning">
+                                        <input data-inst="five" class="switch" type="checkbox"  />
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
                     </div>
-
-
-
+                    <!-- /.box-body -->
+                </div>
                 </div>
             </div>
+            <!-- /.row -->
+
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
 
 
     <!-- Control Sidebar start-->
@@ -670,12 +684,15 @@
 <script src="user_js/common/user.js"></script>
 
 <!-- load user is -->
-<script src="user_js/My_Gates_devices/My_Gates_devices_lib.js" type="text/javascript"></script>
-<script src="user_js/My_Gates_devices/My_Gates_devices.js" type="text/javascript"></script>
+<script src="user_js/My_Gates_detail/My_Gates_detail_lib.js" type="text/javascript"></script>
+<script src="user_js/My_Gates_detail/My_Gates_setting.js" type="text/javascript"></script>
+
 <script>
     $(function () {
 
-    })
+
+    });
 </script>
+
 </body>
 </html>

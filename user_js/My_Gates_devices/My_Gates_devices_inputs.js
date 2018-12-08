@@ -83,7 +83,19 @@ table_inputs = $('#table_inputs').DataTable({
     "order": [ 0, "desc" ],
     "ajax": {
         "url": rtdata_url,
-        "dataSrc": "message"
+        "type": "GET",
+        "error": function (e) {
+            console.log(e)
+        },
+        "dataSrc":  function (d) {
+            console.log($.isEmptyObject(d))
+            if($.isEmptyObject(d)){
+                return []
+            }else{
+                return d.message
+            }
+
+        }
     },
     "columns": [
         {"data": null},
@@ -105,7 +117,7 @@ table_inputs = $('#table_inputs').DataTable({
         "sInfoPostFix": "",
         "sSearch": "搜索:",
         "sUrl": "",
-        "sEmptyTable": "设备无变量",
+        "sEmptyTable": "设备无数据",
         "sLoadingRecords": "载入中...",
         "sInfoThousands": ",",
         "oPaginate": {

@@ -61,7 +61,16 @@ var    table_gates = $('#table_gates').DataTable({
         "order": [[ 3, "asc" ]],
         "ajax": {
             "url": gates_url,
-            "dataSrc": "message"
+            "type": "GET",
+            "error": function (e) {
+                console.log(e)
+            },
+            "dataSrc":  function (d) {
+                if($.isEmptyObject(d)){
+                    return []
+                }else{
+                    return d.message
+                }}
         },
         "columns": [
             {"data": "device_name"},
@@ -82,7 +91,7 @@ var    table_gates = $('#table_gates').DataTable({
             "sInfoPostFix": "",
             "sSearch": "搜索:",
             "sUrl": "",
-            "sEmptyTable": "设备无变量",
+            "sEmptyTable": "未找到网关",
             "sLoadingRecords": "载入中...",
             "sInfoThousands": ",",
             "oPaginate": {

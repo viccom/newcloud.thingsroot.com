@@ -186,15 +186,17 @@ function in_array(stringToSearch, arrayToSearch) {
 }
 
 // 函数将查询字符串解析到变量中 	parse_str 反向函数
-function parse_url(){
-	url = location.search.substr(1);
-	var querys = url
-    .substring(url.indexOf('?') + 1)
-    .split('&')
-    .map((query) => query.split('='))
-    .reduce((params, pairs) => (params[pairs[0]] = pairs[1] || '', params), {});new `   `
-	return querys;
-}
+// function parse_url(){
+// 	url = location.search.substr(1);
+// 	var querys = url
+//     .substring(url.indexOf('?') + 1)
+//     .split('&')
+//     .map((query) => query.split('='))
+//     .reduce((params, pairs) => (params[pairs[0]] = pairs[1] || '', params), {});new `   `
+// 	return querys;
+// }
+
+
 // 函数将查询字符串解析到变量中 	parse_url 反向函数
 function parse_str(obj) { 
 	var ret = []; 
@@ -300,8 +302,12 @@ function gate_exec_action(action, act_post, task_desc, inst, action_str ,val){
         success:function(req){
             // console.log("1", req);
             // console.log("2", act_post.id);
+            var times = 20;
+            if(action=="sys_upgrade"){
+                times = 40;
+            }
             if(req.message){
-                var idarr = {'id':req.message, 'times':20, 'title':task_desc, 'inst':inst, "action":action_str, "value":val};
+                var idarr = {'id':req.message, 'times':times, 'title':task_desc, 'inst':inst, "action":action_str, "value":val};
                 addCrontab(idarr);
                 $.notify({
                     title: "<strong>提交任务成功:</strong><br><br> ",

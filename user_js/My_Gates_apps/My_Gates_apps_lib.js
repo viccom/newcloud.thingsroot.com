@@ -18,10 +18,7 @@ function gate_info(sn){
             if(gateinfo!=null){
                 localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
                 set_label(sn);
-            }else{
-                localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
             }
-
         },
         error:function(req){
             console.log(req);
@@ -35,7 +32,7 @@ function gate_info(sn){
 function set_label(sn){
     var gateinfo = localStorage.getItem("gate_info/"+ sn);
 
-    if(gateinfo){
+    if(gateinfo!=null && typeof(gateinfo) != "undefined"){
         gateinfo = JSON.parse(gateinfo);
         $(".gate_status").html(gateinfo.basic.status);
         if(gateinfo.basic.status=="ONLINE"){
@@ -64,29 +61,29 @@ function set_label(sn){
  *	获取网关已安装应用列表
  */
 function gate_applist(sn, tableobj){
-    var q = localStorage.getItem(pagename + '_Back_taskslist');
-    if(q!==null && JSON.parse(q).length>0){
-        return false;
-    }else{
-        $.ajax({
-            url: '/apis/api/method/iot_ui.iot_api.gate_applist',
-            headers: {
-                Accept: "application/json; charset=utf-8",
-                "X-Frappe-CSRF-Token": auth_token
-            },
-            type: 'get',
-            data: {"sn": sn},
-            dataType:'json',
-            success:function(req){
-                // console.log(req);
+
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.gate_applist',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: {"sn": sn},
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+            if(req.message!=null){
                 localStorage.setItem("gate_apps/"+ sn, JSON.stringify(req.message));
                 set_tabel(sn, tableobj);
-            },
-            error:function(req){
-                console.log(req);
             }
-        });
-    }
+
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+
 
 
 }
@@ -98,8 +95,10 @@ function gate_applist(sn, tableobj){
 function set_tabel(sn, tableobj){
     var appsinfo = localStorage.getItem("gate_apps/"+ sn);
     tableobj.clear().draw();
-    if(appsinfo){
-        var appsinfo = JSON.parse(appsinfo);
+    // console.log(typeof appsinfo)
+    // console.log(appsinfo)
+    if(appsinfo!=null && typeof(appsinfo) != "undefined"){
+        appsinfo = JSON.parse(appsinfo);
 
         for (i = 0; i < appsinfo.length; i++){
             // console.log(i, appsinfo[i].info.auto);
@@ -158,7 +157,7 @@ function set_tabel(sn, tableobj){
                     var auto_act = {
                         "device": sn,
                         "data": {"inst": inst, "option": "auto", "value": 0},
-                        "id": 'disable ' + sn + 's '+ inst +' autorun '+ Date.parse(new Date())
+                        "id": 'disable/' + sn + '/'+ inst +'/autorun/'+ Date.parse(new Date())
                     };
 
                     var task_desc = '禁止应用'+ inst +'开机自启';
@@ -170,7 +169,7 @@ function set_tabel(sn, tableobj){
                     var auto_act = {
                         "device": sn,
                         "data": {"inst": inst, "option": "auto", "value": 1},
-                        "id": 'enable ' + sn + '\'s '+ inst +' autorun '+ Date.parse(new Date())
+                        "id": 'enable/' + sn + '/'+ inst +'/autorun/'+ Date.parse(new Date())
                     };
                     var task_desc = '设置应用'+ inst +'开机自启';
                     gate_exec_action("app_option", auto_act, task_desc, inst, action_str, 0);
@@ -235,7 +234,7 @@ function gate_app_detail(sn, inst, pagename){
  */
 function set_app_monitor_label(sn, inst){
     var appinfo = localStorage.getItem("app_info/"+ sn + "/" + inst);
-    if(appinfo) {
+    if(appinfo!=null && typeof(appinfo) != "undefined") {
         appinfo = JSON.parse(appinfo);
         $(".app-inst").html(appinfo.info.inst);
         $(".app-gatever").html(appinfo.info.version);
@@ -266,7 +265,7 @@ function set_app_monitor_label(sn, inst){
  */
 function set_app_upgrade_label(sn, inst){
     var appinfo = localStorage.getItem("app_info/"+ sn + "/" + inst);
-    if(appinfo) {
+    if(appinfo!=null && typeof(appinfo) != "undefined") {
         appinfo = JSON.parse(appinfo);
         $(".app-inst").html(appinfo.info.inst);
         $(".app-gatever").html("v" + appinfo.info.version);
@@ -296,7 +295,7 @@ function set_app_upgrade_label(sn, inst){
 function gate_app_versions(){
     var iotbeta = $(".app-inst").data("iotbeta");
     var appid = $(".app-inst").data("appid");
-    console.log(appid, iotbeta)
+    // console.log(appid, iotbeta)
     if(iotbeta!=null && appid!=null){
         $.ajax({
             url: '/apis/api/method/app_center.api.get_versions',
@@ -332,7 +331,7 @@ function gate_app_versions(){
 function set_app_timeline(){
     var maxnum = Math.min(4, app_versions.length);
     for (i = 0; i < maxnum; i++){
-        console.log(app_versions[i].modified.split(" ")[1].split(".")[0])
+        // console.log(app_versions[i].modified.split(" ")[1].split(".")[0])
         var html = '<ul class="timeline">'
             + '<li class="time-label">'
             + '<span class="bg-blue ver-data">'
@@ -355,9 +354,6 @@ function set_app_timeline(){
             + '</ul>'
         $(".app-change-log").append(html);
 
-
     }
-
-
 
 }

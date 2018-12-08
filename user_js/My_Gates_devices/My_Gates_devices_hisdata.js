@@ -29,7 +29,12 @@ function creat_histable(his_url) {
         "order": [ 3, "desc" ],
         "ajax": {
             "url": his_url,
-            "dataSrc": "message",
+            "dataSrc": function (d) {
+                if($.isEmptyObject(d)){
+                    return []
+                }else{
+                    return d.message
+                }}
         },
         "columns": [
             {"data": null},
@@ -99,12 +104,14 @@ function creat_histable(his_url) {
 }
 
 if(tag_name){
+    $("#table_no_tag").addClass("hide");
     $(".selected-tag").html(tag_name);
     hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + tag_name +"&vt=" + tag_type +"&time_condition=" + time_condition;
     creat_histable(hisdata_url);
 
 }else{
     $(".selected-tag").html("--");
+    $("#table_no_tag").removeClass("hide");
 }
 
 
@@ -132,7 +139,16 @@ table_inputs = $('#table_inputs').DataTable({
     "order": [ 0, "asc" ],
     "ajax": {
         "url": rtdata_url,
-        "dataSrc": "message"
+        "type": "GET",
+        "error": function (e) {
+            console.log(e)
+        },
+        "dataSrc": function (d) {
+            if($.isEmptyObject(d)){
+                return []
+            }else{
+                return d.message
+            }}
     },
     "columns": [
         {"data": "name"},
@@ -183,25 +199,29 @@ table_inputs = $('#table_inputs').DataTable({
         $('#table_inputs tbody').on('click', 'tr', function () {
             var data = table_inputs.row(this).data();
             // console.log(data);
-            var tag_vt = "float";
-            if(data.vt!=null){
-                if(data.vt=='int'){
-                    tag_vt = 'int';
-                }else if(data.vt=='string'){
-                    tag_vt = 'string';
-                }else{
-                    tag_vt = "float";
+            if(data){
+                var tag_vt = "float";
+                if(data.vt!=null){
+                    if(data.vt=='int'){
+                        tag_vt = 'int';
+                    }else if(data.vt=='string'){
+                        tag_vt = 'string';
+                    }else{
+                        tag_vt = "float";
+                    }
                 }
-            }
-            if(tag_name==null){
-                tag_name = data.name;
+                if(tag_name==null){
+                    tag_name = data.name;
+                    $("#table_no_tag").addClass("hide");
+                    hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + data.name +"&vt=" + tag_vt +"&time_condition=" + time_condition;
+                    creat_histable(hisdata_url);
+                }
+
                 hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + data.name +"&vt=" + tag_vt +"&time_condition=" + time_condition;
-                creat_histable(hisdata_url);
+                table_hisdata.ajax.url(hisdata_url).load(null,false);
+                $(".selected-tag").html(tag_name);
             }
 
-            hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + data.name +"&vt=" + tag_vt +"&time_condition=" + time_condition;;
-            table_hisdata.ajax.url(hisdata_url).load(null,false);
-            $(".selected-tag").html(tag_name);
         } );
 
         // $('#table_inputs tbody').on( 'click', 'tr', function () {
@@ -211,7 +231,10 @@ table_inputs = $('#table_inputs').DataTable({
 });
 
 $(".hisdata-refresh").click(function(){
-    table_hisdata.ajax.url(hisdata_url).load(null,false);
+    if(tag_name){
+        table_hisdata.ajax.url(hisdata_url).load(null,false);
+    }
+
 });
 
 $(".rtdata-refresh").click(function(){

@@ -16,11 +16,97 @@ function gate_info(sn){
             var gateinfo = localStorage.getItem("gate_info/"+ sn);
             if(gateinfo!=null){
                 localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
-                set_label(sn);
-            }else{
-                localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
-            }
+                var gate_skynet_ver = req.message.config.skynet_version;
+                var gate_freeioe_ver = req.message.config.iot_version;
+                var data_up = req.message.config.data_upload;
+                var data_up_span = req.message.config.data_upload_period;
+                var skynet_appid = req.message.config.platform + "_skynet";
+                var gate_beta = req.message.basic.iot_beta;
 
+                $.get("/apis/api/method/app_center.api.get_latest_version", {"app":"freeioe","beta":gate_beta},function(result){
+                    if(pagename=="Gates_detail"){
+                        if(result.message>gate_freeioe_ver){
+                            console.log("升级gate_freeioe");
+                            $(".new_iot_version").removeClass("hide");
+                        }else{
+                            $(".new_iot_version").addClass("hide");
+                        }
+                    }else if(pagename=="Gates_firmware_upgrade"){
+                        console.log("设置！！！！")
+                        if(result.message>gate_freeioe_ver){
+                            $(".app-freeioe").data("freeioeflag", "1");
+                            $(".freeioe-cloudver").html("→"+ result.message);
+                            $(".freeioe_update_tip").html("可升级到最新版");
+                            $(".update_check").html("升级更新");
+                        }else{
+                            $(".app-freeioe").data("freeioeflag", "0");
+                            $(".freeioe_update_tip").html("已经是最新版");
+
+                        }
+
+                    }
+                });
+
+
+                $.get("/apis/api/method/app_center.api.get_latest_version",{"app":skynet_appid,"beta":gate_beta}, function(result){
+                    if(pagename=="Gates_detail"){
+                        if(result.message>gate_skynet_ver){
+                            console.log("升级gate_skynet");
+                            $(".new_skynet_version").removeClass("hide");
+                        }else{
+                            $(".new_skynet_version").addClass("hide");
+                        }
+                    }else if(pagename=="Gates_firmware_upgrade"){
+                        $(".app-skynet").data("iotbeta", gate_beta);
+                        $(".app-skynet").data("appid", skynet_appid);
+                        $(".app-skynet").data("cloudver", result.message);
+                        $(".app-skynet").data("data_up", data_up);
+                        $(".app-skynet").data("data_up_span", data_up_span);
+                        gate_firmware_detail();
+                        if(result.message>gate_skynet_ver){
+                            $(".app-skynet").data("skynetflag", "1");
+                            $(".skynet-cloudver").html("→"+ result.message);
+                            $(".skynet_update_tip").html("可升级到最新版");
+
+                        }else{
+                            $(".app-skynet").data("skynetflag", "0");
+                            $(".skynet_update_tip").html("已经是最新版");
+
+                        }
+
+                    }
+
+                });
+
+
+                if(pagename=="Gates_detail"){
+                    set_label(sn);
+                }else if(pagename=="Gates_firmware_upgrade"){
+                    set_firmware_label(sn);
+                }else if(pagename=="Gates_setting"){
+                    var gateinfo = localStorage.getItem("gate_info/"+ sn);
+                    if(gateinfo) {
+                        gateinfo = JSON.parse(gateinfo);
+                        $(".gate_sn").html(gateinfo.basic.sn);
+                        $(".gate_name").html(gateinfo.basic.name);
+                        $(".gate_desc").html(gateinfo.basic.desc);
+                        if (gateinfo.basic.status == "ONLINE") {
+                            $(".gate_status").addClass("text-success");
+                            $(".gate_status").removeClass("text-warning");
+                            $(".gate_status").html("ONLINE");
+
+                        } else if (gateinfo.basic.status == "OFFLINE") {
+                            $(".gate_status").addClass("text-warning");
+                            $(".gate_status").removeClass("text-success");
+                            $(".gate_status").html("OFFLINE");
+                        } else {
+                            $(".gate_status").addClass("text-warning");
+                            $(".gate_status").removeClass("text-success");
+                            $(".gate_status").html("OFFLINE");
+                        }
+                    }
+                }
+            }
         },
         error:function(req){
             console.log(req);
@@ -33,7 +119,13 @@ function gate_info(sn){
  */
 function set_label(sn){
     var gateinfo = localStorage.getItem("gate_info/"+ sn);
-    var gate_debug = ["关闭", "开启"];
+    var debug_on = '<span class="text-yellow">开启</span>';
+    var debug_off = '<span>关闭</span>';
+    var datau_on = '<span class="text-green">开启</span>';
+    var datau_off = '<span class="text-yellow">关闭</span>';
+
+    var gate_debug = [debug_off, debug_on];
+    var gate_upload = [datau_off, datau_on];
 
     if(gateinfo){
         gateinfo = JSON.parse(gateinfo);
@@ -41,7 +133,6 @@ function set_label(sn){
         if(gateinfo.basic.status=="ONLINE"){
             $(".gate_status").addClass("btn-success");
             $(".gate_status").removeClass("btn-warning");
-
         }else if(gateinfo.basic.status=="OFFLINE"){
             $(".gate_status").addClass("btn-warning");
             $(".gate_status").removeClass("btn-success");
@@ -50,10 +141,17 @@ function set_label(sn){
             $(".gate_status").removeClass("btn-success");
             $(".gate_status").html("OFFLINE");
         }
+
+        var Cts = "2-30002";
+        var gate_model = "unknown";
+        if(gateinfo.basic.sn.indexOf(Cts) >= 0 ) {
+            console.log(true)
+            gate_model = gateinfo.basic.model;
+        }
         $(".gate_sn").html(gateinfo.basic.sn);
         $(".gate_name").html(gateinfo.basic.name);
         $(".gate_desc").html(gateinfo.basic.desc);
-        $(".gate_model").html(gateinfo.basic.model);
+        $(".gate_model").html(gate_model);
         $(".gate_apps_len").html(gateinfo.apps_len);
         $(".gate_devs_len").html(gateinfo.devs_len);
 
@@ -65,7 +163,7 @@ function set_label(sn){
         $(".gate_iot_version").html(gateinfo.config.iot_version);
         $(".gate_public_ip").html(gateinfo.config.public_ip);
         $(".gate_iot_beta").html(gate_debug[gateinfo.basic.iot_beta]);
-
+        $(".gate_data_upload").html(gate_upload[gateinfo.config.data_upload]);
     }
 }
 
@@ -94,4 +192,155 @@ function gate_hisdata(sn, vsn, vt, tag, time_condition){
             console.log(req);
         }
     });
+}
+
+
+/**
+ *	使用网关状态信息更新固件升级页面标签
+ */
+function set_firmware_label(sn){
+    var gateinfo = localStorage.getItem("gate_info/"+ sn);
+    var gate_debug = ["关闭", "开启"];
+    var gate_upload = ["关闭", "开启"];
+
+    if(gateinfo){
+        gateinfo = JSON.parse(gateinfo);
+        // $(".gate_status").html(gateinfo.basic.status);
+        // if(gateinfo.basic.status=="ONLINE"){
+        //     $(".gate_status").addClass("btn-success");
+        //     $(".gate_status").removeClass("btn-warning");
+        //
+        // }else if(gateinfo.basic.status=="OFFLINE"){
+        //     $(".gate_status").addClass("btn-warning");
+        //     $(".gate_status").removeClass("btn-success");
+        // }else{
+        //     $(".gate_status").addClass("btn-warning");
+        //     $(".gate_status").removeClass("btn-success");
+        //     $(".gate_status").html("OFFLINE");
+        // }
+
+        $(".gate_name").html(gateinfo.basic.name);
+
+        $(".skynet-gatever").html(gateinfo.config.skynet_version);
+        $(".freeioe-gatever").html(gateinfo.config.iot_version);
+
+    }
+}
+
+
+/**
+ *	获取固件最新版本描述
+ */
+function gate_firmware_detail(){
+
+    var iotbeta = $(".app-skynet").data("iotbeta");
+    var skynetid = $(".app-skynet").data("appid");
+    var freeioeid = "freeioe";
+    console.log(skynetid, freeioeid, iotbeta);
+
+    if(iotbeta!=null) {
+
+        /**
+         *    获取skynet升级日志
+         */
+        $.ajax({
+            url: '/apis/api/method/app_center.api.get_versions',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'get',
+            data: {"app": skynetid, "beta": iotbeta},
+            dataType: 'json',
+            success: function (req) {
+                // console.log(req.message);
+                if (req.message != null) {
+                    if(req.message!=null){
+                        var app_detail = req.message;
+                        var label = $(".skynet-change-log");
+                        set_firmware_timeline(label, app_detail)
+                    }
+                }
+
+            },
+            error: function (req) {
+                console.log(req);
+            }
+        });
+
+        /**
+         *	获取freeioe升级日志
+         */
+
+        $.ajax({
+            url: '/apis/api/method/app_center.api.get_versions',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'get',
+            data: {"app": freeioeid, "beta": iotbeta},
+            dataType:'json',
+            success:function(req){
+                // console.log(req.message);
+                if(req.message!=null){
+                    var app_detail = req.message;
+                    var label = $(".freeioe-change-log");
+                    set_firmware_timeline(label, app_detail)
+                }
+
+            },
+            error:function(req){
+                console.log(req);
+            }
+        });
+    }
+
+
+}
+
+/**
+ *	生成应用升级日志
+ */
+function set_firmware_timeline(label, app_detail){
+    var skynetflag = $(".app-skynet").data("skynetflag");
+    var freeioeflag = $(".app-freeioe").data("freeioeflag");
+    if(skynetflag=="1" || freeioeflag=="1"){
+        $(".update_check").html("升级更新");
+    }else{
+        $(".update_check").html("检查更新");
+    }
+    var maxnum = Math.min(4, app_detail.length);
+    label.empty();
+    for (i = 0; i < maxnum; i++){
+        // console.log(app_versions[i].modified.split(" ")[1].split(".")[0])
+        var isbeta= "";
+        if(app_detail[i].beta==1){
+            isbeta=" --【beta】"
+        }
+
+        var html = '<ul class="timeline">'
+            + '<li class="time-label">'
+            + '<span class="bg-blue ver-data">'
+            + app_detail[i].modified.split(" ")[0]
+            + '</span>'
+            + '</li>'
+            + '<li>'
+            + '<i class="fa fa-thumbs-up bg-blue"></i>'
+            + '<div class="timeline-item">'
+            + '<span class="time"><i class="fa fa-clock-o"></i> <span class="ver-time">'
+            + app_detail[i].modified.split(" ")[1].split(".")[0]
+            + '</span></span>'
+            + '<h3 class="timeline-header"><a>升级日志</a></h3>'
+            + '<div class="timeline-body ver-comment">'
+            + "--V" + app_detail[i].version + isbeta + '<br />'
+            + app_detail[i].comment.replace(/\r\n/gm,"<br>")
+            + '</div>'
+            + '</div>'
+            + '</li>'
+            + '</ul>'
+        label.append(html);
+
+    }
+
 }

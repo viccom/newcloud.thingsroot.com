@@ -1,9 +1,10 @@
-gate_sn  = getParam('sn');
-inst = getParam('inst');
+var gate_sn  = getParam('sn');
+var inst = getParam('inst');
 console.log(gate_sn, inst);
-pagename = "Gates_apps_monitor";
-log_subscribed = false;
-comm_subscribed = false;
+var pagename = "Gates_apps_monitor";
+var log_subscribed = false;
+var comm_subscribed = false;
+
 
 gate_info(gate_sn);
 gate_app_detail(gate_sn, inst, pagename);
@@ -490,6 +491,12 @@ $('div.comm_filter li').on('click', function(){
     table_map[$(".nav-tabs li.active").index()].search("").draw();
 
 });
+
+$('a.go-app-upgrade').on('click', function(){
+    var url = "My_Gates_apps_upgrade.html?sn=" + gate_sn + "&inst=" + inst;
+    redirect(url);
+});
+
 
 $("input.J_keyword").bind("input propertychange",function(event){
     var table_map=[table_log, table_comm];

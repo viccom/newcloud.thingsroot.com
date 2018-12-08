@@ -13,13 +13,9 @@ function gate_info(sn){
         data: {"sn": sn},
         dataType:'json',
         success:function(req){
-            // console.log(req);
-            var gateinfo = localStorage.getItem("gate_info/"+ sn);
-            if(gateinfo!=null){
+            if(req.message!=null){
                 localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
                 set_label(sn);
-            }else{
-                localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
             }
 
         },
@@ -78,9 +74,12 @@ function gate_devs_list(sn, tableobj){
             data: {"sn": sn},
             dataType:'json',
             success:function(req){
-                console.log(req);
-                localStorage.setItem("gate_devices/"+ sn, JSON.stringify(req.message));
-                set_table(sn, tableobj);
+                // console.log(req);
+                if(req.message!=null){
+                    localStorage.setItem("gate_devices/"+ sn, JSON.stringify(req.message));
+                    set_table(sn, tableobj);
+                }
+
             },
             error:function(req){
                 console.log(req);
@@ -96,7 +95,7 @@ function gate_devs_list(sn, tableobj){
 function set_table(sn, tableobj){
     var deviceinfo = localStorage.getItem("gate_devices/"+ sn);
     // console.log(deviceinfo);
-    // tableobj.clear().draw();
+    tableobj.clear().draw();
     if(deviceinfo){
         var deviceinfo = JSON.parse(deviceinfo);
 

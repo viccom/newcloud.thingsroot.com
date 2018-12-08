@@ -71,3 +71,20 @@ var table_devices = $('#table_devices').DataTable({
 });
 
 gate_devs_list(gate_sn, table_devices);
+
+
+setInterval(function(){
+    gate_info(gate_sn);
+    gate_devs_list(gate_sn, table_devices);
+},20000);
+
+$(".devices-refresh").click(function(){
+    // console.log("shua")
+    gate_info(gate_sn);
+    gate_devs_list(gate_sn, table_devices);
+});
+
+$(".btn-box-tool").click(function(){
+    var url = "My_Gates_setting.html?sn="+ gate_sn;
+    redirect(url);
+});

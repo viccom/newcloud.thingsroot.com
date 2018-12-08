@@ -465,30 +465,62 @@
 
 
                 <!-- /.box-header -->
+
+
+
                 <div class="box-body">
-                    <table id="table_hisdata" class="table table-bordered row-border  nowrap" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>名称</th>
-                            <th>数值</th>
-                            <th>时间</th>
-                            <th>质量戳</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
+                    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                        <div class="hide" id="table_no_tag">
+                            <div class="dataTables_filter">
+                                <label>搜索:<input type="search" class="form-control input-sm" placeholder="">
+                                </label>
+                            </div>
+                        </div>
 
-                            </td>
-                            <td>
-                                未选择变量
-                            </td>
-                        </tr>
-                        </tbody>
+                        <table id="table_hisdata" class="table table-bordered row-border nowrap dataTable no-footer" cellspacing="0" width="100%" role="grid" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                <th>序号</th>
+                                <th>名称</th>
+                                <th>数值</th>
+                                <th>时间</th>
+                                <th>质量戳</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                    </table>
+                                <tr style="height: 200px" ><td style="display:table-cell; vertical-align:middle" align="center" colspan="5" class="dataTables_empty">未选择变量，请在左侧设备点表中选择变量</td></tr>
+                            </tbody>
+
+                        </table>
+                    </div>
                 </div>
+
+
+                <!--<div class="box-body">-->
+                    <!--<table id="table_hisdata" class="table table-bordered row-border  nowrap" cellspacing="0" width="100%">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th>序号</th>-->
+                            <!--<th>名称</th>-->
+                            <!--<th>数值</th>-->
+                            <!--<th>时间</th>-->
+                            <!--<th>质量戳</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr>-->
+                            <!--<td></td>-->
+                            <!--<td>-->
+                                <!--未选择变量-->
+                            <!--</td>-->
+                            <!--<td></td>-->
+                            <!--<td></td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+
+                    <!--</table>-->
+                <!--</div>-->
                 <!-- /.box-body -->
             </div>
 

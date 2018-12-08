@@ -1,8 +1,8 @@
 /**
- * @file            crontab.js
+ * @file            add_back_task.js
  * @description     监控一些执行任务结果。
- * @author          dongsun Team ( http://www.dongsun.com/ )
- * @date            2018-03-08 dongsun
+ * @author          thingsroot Team ( http://www.thingsroot.com/ )
+ * @date            2018-11-08 thingsroot
  **/
 
 /**
@@ -139,12 +139,33 @@ function app_upgrade_result_response(result, inst, oldvalue){
 }
 
 
-
 function send_output_result_response(result, inst, oldvalue){
     if(result){
         $(".output_result").data("flag","1");
     }else{
         $(".output_result").data("flag","0");
+    }
+}
+
+
+function sys_upgrade_result_response(result, inst, oldvalue){
+    if(result){
+        console.log("升级完成");
+        $(".app-freeioe").data("freeioeflag", "0");
+        $(".app-skynet").data("skynetflag", "0");
+        setTimeout(function () {
+            $('.update_check').trigger("updateClick");
+            $('.update_check').attr("disabled","disabled");
+            action_result_tips("升级提示：", "如升级状态未刷新，请60秒后点击检查更新", "info");
+        }, 3000);
+        setTimeout(function () {
+            $('.update_check').trigger("updateClick");
+            $('.update_check').removeAttr("disabled");
+        }, 55000);
+
+    }else{
+        console.log("升级失败");
+        gate_info(gate_sn);
     }
 }
 
@@ -158,7 +179,7 @@ function doCrontab(){
     q = JSON.parse(q);
     if(q || q.length>0){
         for (var i = 0; i < q.length; i++) {
-            // console.log(q[i]);
+            console.log(q[i]);
             $.ajax({
                 url: '/apis/api/method/iot.device_api.get_action_result',
                 headers: {
@@ -170,7 +191,7 @@ function doCrontab(){
                 data: {"id": q[i].id},
                 contentType: "application/json; charset=utf-8",
                 dataType:'json',
-                timeout: 1000,
+                timeout: 3000,
                 success:function(req){
                     // console.log(req);
                     if(req.message && typeof req.message!=='undefined'){
@@ -188,7 +209,11 @@ function doCrontab(){
                                 app_upgrade_result_response(true, q[i].inst, q[i].value)
                             }else if(q[i].action=="send_output"){
                                 send_output_result_response(true, q[i].inst, q[i].value)
+                            }else if(q[i].action=="sys_upgrade"){
+                                sys_upgrade_result_response(true, q[i].inst, q[i].value)
                             }
+
+
                             q.splice(i,1);// 删除任务
                         }else if(req.message.result==false) {
                             action_result_tips(q[i].title + "执行失败", q[i].id + "<br/>返回信息：" + req.message.message, 'warning')
@@ -204,6 +229,8 @@ function doCrontab(){
                                 app_upgrade_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="send_output"){
                                 send_output_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="sys_upgrade"){
+                                sys_upgrade_result_response(false, q[i].inst, q[i].value)
                             }
                             q.splice(i, 1);// 删除任务
                         }
@@ -223,6 +250,8 @@ function doCrontab(){
                                 app_upgrade_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="send_output"){
                                 send_output_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="sys_upgrade"){
+                                sys_upgrade_result_response(false, q[i].inst, q[i].value)
                             }
                             q.splice(i,1);
                         }
