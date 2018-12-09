@@ -281,7 +281,7 @@
 
                             <li class="user-panel">
                                 <div class="text-center">
-                                    <a href="javascript:void(0)">虚拟序列号</a>
+                                    <a href="javascript:void(0)">虚拟网关</a>
                                 </div>
                             </li>
                             <!-- Menu Footer-->
@@ -335,19 +335,62 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                个人资料
+                个人信息
                 <small>虚拟网关</small>
+                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
+            <!--<ol class="breadcrumb">-->
+                <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+                <!--<li class="active">Dashboard</li>-->
+            <!--</ol>-->
         </section>
 
         <!-- Main content -->
         <section class="content">
 
+            <div class="row">
 
+
+                <div class="col-md-12">
+                    <div class="box-header">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary new_virtual_gate">申请虚拟网关</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box">
+
+                        <table id="Virtual_Gates" class="table display" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th style="width:28%; min-width:330px">虚拟网关序列号</th>
+                                <th style="width:6%; min-width:50px">状态</th>
+                                <th style="min-width:300px">网关名称</th>
+                                <th style="min-width:300px">网关描述</th>
+                                <th style="width:6%; min-width:40px">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
 
 
         </section>
@@ -554,6 +597,187 @@
 <script>
     $(function () {
         pagename="Virtual_Gates";
+        // get_virtual_gates();
+
+        /**
+         *	获取用户虚拟网关
+         */
+        function get_virtual_gates() {
+            // var userid = getCookie('usr');
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.get_virtual_gates?' + Date.parse(new Date()),
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'get',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log(req);
+                },
+                error:function(req){
+                    console.log(req);
+
+                }
+            });
+        }
+
+
+
+    });
+</script>
+
+<script>
+    var    virtual_gates_url="/apis/api/method/iot_ui.iot_api.get_virtual_gates";
+    var    table_virtual_gates = $('#Virtual_Gates').DataTable({
+        "dom":"",
+        "filter": false,
+        "info": false,
+        "paging": false,
+        "searching":false,
+        "iDisplayLength" : 5,
+        // "lengthMenu": [ 10, 20, 50, 75, 100 ],
+        "processing": false,
+        "bStateSave": false,
+        "fnDraw":false,
+        "order": [[ 0, "asc" ]],
+        "ajax": {
+            "url": virtual_gates_url,
+            "type": "GET",
+            "error": function (e) {
+                console.log(e)
+            },
+            "dataSrc":  function (d) {
+                if($.isEmptyObject(d)){
+                    return []
+                }else{
+                    return d.message
+                }}
+        },
+        "columns": [
+            {"data": "device_sn"},
+            {"data": "device_status"},
+            {"data": "device_name"},
+            {"data": "device_desc"},
+            {"data": null}
+        ],
+        "language": {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "未找到网关",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        columnDefs: [
+            {
+                //   指定第2列
+                targets: 1,
+                searchable: false,
+                render: function(row, type, data, meta) {
+                    if(row=="ONLINE"){
+                        return '<i class="fa fa-circle text-success"></i>' +  '<span class="text-success">  在线</span>';
+                    }
+                    else if(row=="OFFLINE"){
+                        return '<i class="fa fa-circle text-yellow"></i>' +  '<span class="text-yellow">  离线</span>';
+                    }
+                    else{
+                        return '<i class="fa fa-circle text-gray"></i>' +  '<span class="text-gray">  未连接</span>';
+                    }
+                }
+            },
+            {
+                //   指定第最后一列
+                targets: 4,
+                searchable: false,
+                orderable: false,
+                render: function(row, type, data, meta) {
+                    // console.log(data.device_sn);
+                    var gen_html = '<a class="Delete_Virgate" href="#"  data-sn="'+ data.device_sn +  '">--</a>'
+                    return gen_html;
+                }
+            }],
+        "initComplete": function(settings, json) {
+            console.log("init over");
+            $("body").on("click", "a.Delete_Virgate", function() {
+                console.log($(this).data("sn"));
+
+            });
+
+        }
+    });
+
+
+
+    /**
+     *	新建用户虚拟网关
+     */
+    function new_virtual_gate() {
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.new_virtual_gate?' + Date.parse(new Date()),
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'post',
+            contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success:function(req){
+                // console.log(req);
+                table_virtual_gates.ajax.url(virtual_gates_url).load(null,false);
+            },
+            error:function(req){
+                console.log(req);
+
+            }
+        });
+    }
+
+
+    /**
+     *	删除用户虚拟网关
+     */
+    function delete_virtual_gate(virtual_sn) {
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.delete_virtual_gate?' + Date.parse(new Date()),
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'post',
+            data:{"virtual_sn":virtual_sn},
+            contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success:function(req){
+                console.log(req);
+            },
+            error:function(req){
+                console.log(req);
+
+            }
+        });
+    }
+
+
+    $("button.new_virtual_gate").click(function(){
+        new_virtual_gate();
 
     });
 </script>
