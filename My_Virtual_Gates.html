@@ -36,6 +36,18 @@
 
     <!-- Google Font -->
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+    <style type="text/css">
+
+        /*.table tr {*/
+            /*height: 50px;!important;*/
+        /*}*/
+        .table th, .table td {
+            /*text-align: center;*/
+            vertical-align: middle!important;
+        }
+
+    </style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -354,6 +366,11 @@
 
                 <div class="col-md-12">
                     <div class="box-header">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default virtual_gate-refresh"><i class="fa fa-refresh"></i></button>
+
+                        </div>
+
                         <div class="pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary new_virtual_gate">申请虚拟网关</button>
@@ -368,9 +385,9 @@
                             <tr>
                                 <th style="width:28%; min-width:330px">虚拟网关序列号</th>
                                 <th style="width:6%; min-width:50px">状态</th>
-                                <th style="min-width:300px">网关名称</th>
-                                <th style="min-width:300px">网关描述</th>
-                                <th style="width:6%; min-width:40px">操作</th>
+                                <th style="min-width:250px">网关名称</th>
+                                <th style="min-width:250px">网关描述</th>
+                                <th style="width:8%; min-width:80px">操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -710,7 +727,9 @@
                 orderable: false,
                 render: function(row, type, data, meta) {
                     // console.log(data.device_sn);
-                    var gen_html = '<a class="Delete_Virgate" href="#"  data-sn="'+ data.device_sn +  '">--</a>'
+                    var gen_html = '<a href="/My_Gates_apps.html?sn=' + data.device_sn + '">查看</a>'
+                                + ' | '
+                                + '<a class="Delete_Virgate" href="#"  data-sn="'+ data.device_sn +  '">--</a>'
                     return gen_html;
                 }
             }],
@@ -778,7 +797,10 @@
 
     $("button.new_virtual_gate").click(function(){
         new_virtual_gate();
+    });
 
+    $("button.virtual_gate-refresh").click(function(){
+        table_virtual_gates.ajax.url(virtual_gates_url).load(null,false);
     });
 </script>
 </body>
