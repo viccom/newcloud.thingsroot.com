@@ -159,6 +159,7 @@ function get_NewToken() {
             var new_token  =  req.message;
             // console.log("new token:::",new_token);
             setCookie('auth_token',req.message);
+            apply_AccessKey();
             if(page_name.search("login") != -1){
                 redirect('/');
             }
@@ -181,6 +182,60 @@ function get_NewToken() {
                     redirect('login.html');
                 }
             }
+
+        }
+    });
+}
+
+/**
+ *	更新获取用户信息
+ */
+function User_info() {
+    var userid = getCookie('usr');
+    $.ajax({
+        url: '/apis/api/resource/User/'+ userid +'?' + Date.parse(new Date()),
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        contentType: "application/json; charset=utf-8",
+        dataType:'json',
+        success:function(req){
+            // console.log(req.data);
+            $("span.user_nickname").text(req.data.full_name);
+            $("span.user_id").text(userid);
+            $("span.user_phone").text(req.data.mobile_no);
+            $("span.user_email").text(req.data.email);
+        },
+        error:function(req){
+            console.log(req);
+
+        }
+    });
+}
+
+/**
+ *	更新获取用户公司
+ */
+function user_company() {
+    var userid = getCookie('usr');
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.user_company?' + Date.parse(new Date()),
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        contentType: "application/json; charset=utf-8",
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+            $("span.user_company").text(req.message.company);
+            $("span.user_role").text("普通用户");
+        },
+        error:function(req){
+            console.log(req);
 
         }
     });

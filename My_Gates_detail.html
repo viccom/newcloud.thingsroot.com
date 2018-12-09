@@ -35,7 +35,7 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
     <style type="text/css">
 
     </style>
@@ -264,7 +264,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs user-name">user</span>
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
                         </a>
                         <ul class="dropdown-menu">
 
@@ -272,20 +272,20 @@
                             <li class="user-panel">
 
                                 <div class="text-center">
-                                    <a href="#">基本资料</a>
+                                    <a href="User_Settings.html">基本资料</a>
                                 </div>
                             </li>
                             <li class="user-panel">
 
                                 <div class="text-center">
-                                    <a href="#">AccessKey</a>
+                                    <a href="My_AccessKey.html">AccessKey</a>
                                 </div>
 
                             </li>
 
                             <li class="user-panel">
                                 <div class="text-center">
-                                    <a href="#">虚拟序列号</a>
+                                    <a href="My_Virtual_Gates.html">虚拟序列号</a>
                                 </div>
                             </li>
                             <!-- Menu Footer-->
@@ -339,14 +339,16 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>
+                <!--<a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>-->
                 我的网关
                 <small><span class="gate_name"></span></small>
+                <div class="pull-right"><a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
+            <!--<ol class="breadcrumb">-->
+                <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+                <!--<li class="active">Dashboard</li>-->
+            <!--</ol>-->
         </section>
 
         <!-- Main content -->

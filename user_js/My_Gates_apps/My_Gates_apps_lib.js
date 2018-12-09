@@ -97,27 +97,27 @@ function set_tabel(sn, tableobj){
     tableobj.clear().draw();
     // console.log(typeof appsinfo)
     // console.log(appsinfo)
-    if(appsinfo!=null && typeof(appsinfo) != "undefined"){
+    if(appsinfo!=null && typeof(appsinfo) != "undefined") {
         appsinfo = JSON.parse(appsinfo);
 
-        for (i = 0; i < appsinfo.length; i++){
+        for (i = 0; i < appsinfo.length; i++) {
             // console.log(i, appsinfo[i].info.auto);
             var appico = "<span class=\"info-box-icon bg-green\"><i class=\"fa fa-flag-o\"></i></span>";
             var status = "";
             var runtime = "";
-            if(appsinfo[i].info.running){
+            if (appsinfo[i].info.running) {
                 status = '<span class="label label-success">running</span>';
-                runtime =  new Date(Number(appsinfo[i].info.running)*1000).toLocaleString('zh', { hour12: false })
+                runtime = new Date(Number(appsinfo[i].info.running) * 1000).toLocaleString('zh', {hour12: false})
                 // runtime =  new Date(Number(appsinfo[i].info.running)*1000).toLocaleString('zh-Hans-CN', { timeZone: 'Asia/Shanghai' })
                 // runtime =  DateFormat.format(new Date(Number(appsinfo[i].info.running)*1000))
-            }else{
+            } else {
                 status = '<span class="label label-warning">stoped</span>';
             }
-            var app_auto = '<span class="hide" id="'+ appsinfo[i].info.inst +'">处理中……</span><div  class="'+ appsinfo[i].info.inst +'" data-on="success" data-off="warning">\n' +
+            var app_auto = '<div  class="' + appsinfo[i].info.inst + '" data-on="success" data-off="warning">\n' +
                 '<input  data-inst="' + appsinfo[i].info.inst + '" class="switch" type="checkbox"/>\n' +
                 '</div>'
-            if(String(appsinfo[i].info.auto)=="1"){
-                app_auto = '<span class="hide" id="'+ appsinfo[i].info.inst +'">处理中……</span><div  class="'+ appsinfo[i].info.inst +'" data-on="success" data-off="warning">\n' +
+            if (String(appsinfo[i].info.auto) == "1") {
+                app_auto = '<div  class="' + appsinfo[i].info.inst + '" data-on="success" data-off="warning">\n' +
                     '<input data-inst="' + appsinfo[i].info.inst + '" class="switch" type="checkbox" checked />\n' +
                     '</div>'
             }
@@ -129,38 +129,48 @@ function set_tabel(sn, tableobj){
                 + '<span class="sr-only">Toggle Dropdown</span>'
                 + '</button>'
                 + '<ul class="dropdown-menu" role="menu">'
-                + '<li><a href="My_Gates_apps_upgrade.html?sn=' + gate_sn + '&inst='+ appsinfo[i].info.inst + '">应用升级</a></li>'
+                + '<li><a href="My_Gates_apps_upgrade.html?sn=' + gate_sn + '&inst=' + appsinfo[i].info.inst + '">应用升级</a></li>'
                 + '<li><a href="#" class="app_uninstall_btn" data-inst="' + appsinfo[i].info.inst + '" data-toggle="modal" data-target="#modal-app-uninstall">应用卸载</a></li>'
-                + '<li><a href="#" class="app_renname_btn" data-inst="' + appsinfo[i].info.inst + '" data-toggle="modal" data-target="#modal-app-rename">更改实例名</a></li>'
+                + '<li><a href="#" class="app_rename_btn" data-inst="' + appsinfo[i].info.inst + '" data-toggle="modal" data-target="#modal-app-rename">更改实例名</a></li>'
                 + '</ul>'
                 + '</div>'
 
             var arrayObj = new Array(appico,
                 appsinfo[i].info.inst, appsinfo[i].info.name,
-                appsinfo[i].info.devs_len,status,
+                appsinfo[i].info.devs_len, status,
                 runtime, app_auto, ops);
             // console.log(arrayObj);
             tableobj.row.add(arrayObj).draw();
-            }
-        $('.switch').bootstrapSwitch({ onSwitchChange:function(event, state){
+        }
+
+        $('.switch').bootstrapSwitch({
+            onSwitchChange: function (event, state) {
                 // var inst = $(this).data("inst");
+
+                var self_index = table.cell($(this).parents('td')).index();
+                var next_index = table.cell($(this).parents('td').next()).index();
+                console.log(self_index, next_index);
+                table.cell(self_index).data("处理中……").draw();
+                table.cell(next_index).data("---").draw();
+
                 var inst = $(this).attr("data-inst");
                 var action_str = "app_auto";
                 // console.log(state);
                 // console.log("inst:",inst);
-                var table_aaaaa = "."+inst+" div";
-                var table_bbbbb = "#"+inst;
-                $(table_aaaaa).addClass("hide");
-                $(table_bbbbb).removeClass("hide");
-                if (state==false){
+
+                // var table_aaaaa = "."+inst+" div";
+                // var table_bbbbb = "#"+inst;
+                // $(table_aaaaa).addClass("hide");
+                // $(table_bbbbb).removeClass("hide");
+                if (state == false) {
                     // console.log(0);
                     var auto_act = {
                         "device": sn,
                         "data": {"inst": inst, "option": "auto", "value": 0},
-                        "id": 'disable/' + sn + '/'+ inst +'/autorun/'+ Date.parse(new Date())
+                        "id": 'disable/' + sn + '/' + inst + '/autorun/' + Date.parse(new Date())
                     };
 
-                    var task_desc = '禁止应用'+ inst +'开机自启';
+                    var task_desc = '禁止应用' + inst + '开机自启';
                     gate_exec_action("app_option", auto_act, task_desc, inst, action_str, 1);
 
                 }
@@ -169,26 +179,62 @@ function set_tabel(sn, tableobj){
                     var auto_act = {
                         "device": sn,
                         "data": {"inst": inst, "option": "auto", "value": 1},
-                        "id": 'enable/' + sn + '/'+ inst +'/autorun/'+ Date.parse(new Date())
+                        "id": 'enable/' + sn + '/' + inst + '/autorun/' + Date.parse(new Date())
                     };
-                    var task_desc = '设置应用'+ inst +'开机自启';
+                    var task_desc = '设置应用' + inst + '开机自启';
                     gate_exec_action("app_option", auto_act, task_desc, inst, action_str, 0);
                 }
-            } });
-
-        $(".app-monitor").click(function(){
-            var inst = $(this).attr("data-inst");
-            redirect("My_gates_apps_monitor.html?sn="+ gate_sn + "&inst=" + inst);
-            });
-
-        $(".app_uninstall_btn").click(function(){
-            $(".uninstall-appname").text($(this).data("inst"));
-            console.log("卸载", $(this).data("inst"))
+            }
         });
 
-        $(".app_renname_btn").click(function(){
+
+        $("body").on("click", ".app-monitor", function () {
+            var inst = $(this).attr("data-inst");
+            redirect("My_gates_apps_monitor.html?sn=" + gate_sn + "&inst=" + inst);
+        });
+
+
+        $("body").on("click", ".app_uninstall_btn", function () {
+            var inst = $(this).data("inst");
+            $(".uninstall-appname").text($(this).data("inst"));
+            $(".uninstall-appname").data("inst", $(this).data("inst"));
+            console.log("卸载", $(this).data("inst"))
+            // table.DataTable().row($(this).parents('tr')).data();
+            var self_index = table.cell($(this).parents('td')).index();
+            var prev_index = table.cell($(this).parents('td').prev()).index();
+            cell_record[inst] = [self_index, table.cell(self_index).data(), prev_index, table.cell(prev_index).data()]
+            // console.log(self_index, prev_index);
+            // console.log(table.cell(self_index).data())
+            // console.log(table.cell(prev_index).data())
+            // table.cell(self_index).data("卸载中……").draw();
+            // table.cell(prev_index).data("---").draw();
+
+            // var data_tnp = table.row($(this).parents('tr')).data();
+            // data_tnp[4] = "卸载中……";
+            // data_tnp[5] = " ";
+            // data_tnp[6] = " ";
+            // data_tnp[7] = " ";
+            // table.row($(this).parents('tr')).remove().draw();
+            // table.row.add( data_tnp ).draw();
+            // table.cell( $(this).parents('td') ).data( "卸载中……" ).draw();
+
+
+        });
+
+
+        $("body").on("click", ".app_rename_btn", function () {
+            var inst = $(this).data("inst");
             $("input.ren-appname").val($(this).data("inst"));
-            console.log("改名",$(this).data("inst"))
+            $("input.ren-appname").data("inst", $(this).data("inst"));
+            console.log("改名", $(this).data("inst"));
+            var self_index = table.cell($(this).parents('td')).index();
+            var prev_index = table.cell($(this).parents('td').prev()).index();
+            cell_record[inst] = [self_index, table.cell(self_index).data(), prev_index, table.cell(prev_index).data()]
+            console.log(cell_record[inst]);
+            // table.cell(self_index).data("改名中……").draw();
+            // table.cell(prev_index).data("---").draw();
+
+
         });
 
     }

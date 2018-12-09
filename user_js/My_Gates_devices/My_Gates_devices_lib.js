@@ -137,7 +137,7 @@ function set_table(sn, tableobj){
                 + '</button>'
                 + '<ul class="dropdown-menu" role="menu">'
                 + outputs_btn
-                + command_btn
+                // + command_btn
                 + '<li><a href="My_Gates_devices_hisdata.html?sn='+ gate_sn + '&vsn=' + device_sn +'">历史浏览</a></li>'
                 + '</ul>'
                 + '</div>'
@@ -348,16 +348,20 @@ function set_table_outputs(sn, vsn, tableobj){
     if(device_tags){
         for (i = 0; i < device_tags.length; i++) {
             var tag_type = "float";
-            if(device_tags[i].vt!==null){
-                tag_type = device_tags[i].vt
+            console.log(device_tags[i].vt);
+            if(device_tags[i].hasOwnProperty("vt")){
+                if(device_tags[i].vt!==null){
+                    tag_type = device_tags[i].vt
+                }
             }
             var tag_name = device_tags[i].name;
             var tag_desc = device_tags[i].desc;
             var tag_unit = "--";
-            if(device_tags[i].unit!=null){
-                tag_unit = device_tags[i].unit
+            if(device_tags[i].hasOwnProperty("unit")){
+                if(device_tags[i].unit!=null){
+                    tag_unit = device_tags[i].unit
+                }
             }
-
             var tag_value = "--";
             var tag_time = "--";
             if(device_datas){

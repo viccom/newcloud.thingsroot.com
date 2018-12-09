@@ -84,27 +84,8 @@ function gate_info(sn){
                 }else if(pagename=="Gates_firmware_upgrade"){
                     set_firmware_label(sn);
                 }else if(pagename=="Gates_setting"){
-                    var gateinfo = localStorage.getItem("gate_info/"+ sn);
-                    if(gateinfo) {
-                        gateinfo = JSON.parse(gateinfo);
-                        $(".gate_sn").html(gateinfo.basic.sn);
-                        $(".gate_name").html(gateinfo.basic.name);
-                        $(".gate_desc").html(gateinfo.basic.desc);
-                        if (gateinfo.basic.status == "ONLINE") {
-                            $(".gate_status").addClass("text-success");
-                            $(".gate_status").removeClass("text-warning");
-                            $(".gate_status").html("ONLINE");
+                    switch_setting();
 
-                        } else if (gateinfo.basic.status == "OFFLINE") {
-                            $(".gate_status").addClass("text-warning");
-                            $(".gate_status").removeClass("text-success");
-                            $(".gate_status").html("OFFLINE");
-                        } else {
-                            $(".gate_status").addClass("text-warning");
-                            $(".gate_status").removeClass("text-success");
-                            $(".gate_status").html("OFFLINE");
-                        }
-                    }
                 }
             }
         },
@@ -342,5 +323,232 @@ function set_firmware_timeline(label, app_detail){
         label.append(html);
 
     }
+
+}
+
+
+
+/**
+ *	生成应用升级日志
+ */
+function switch_setting(){
+    var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
+    if(gateinfo) {
+        gateinfo = JSON.parse(gateinfo);
+        $(".gate_sn").html(gateinfo.basic.sn);
+        $(".gate_name").html(gateinfo.basic.name);
+        $(".gate_desc").html(gateinfo.basic.desc);
+        ex_setting.iot_beta=gateinfo.basic.iot_beta;
+        ex_setting.data_upload=gateinfo.config.data_upload;
+        ex_setting.stat_upload=gateinfo.config.stat_upload;
+        // ex_app.iot_beta=gateinfo.basic.iot_beta;
+        if(gateinfo.hasOwnProperty("applist")){
+            var applist= gateinfo.applist
+            if(applist.hasOwnProperty("ioe_frpc")){
+                ex_setting.ioe_frpc=true;
+            }else{
+                ex_setting.ioe_frpc=false;
+            }
+            if(applist.hasOwnProperty("Net_Manager")){
+                ex_setting.Net_Manager=true;
+            }else{
+                ex_setting.Net_Manager=false;
+            }
+        }
+
+
+        if (gateinfo.basic.status == "ONLINE") {
+            $(".gate_status").addClass("text-success");
+            $(".gate_status").removeClass("text-warning");
+            $(".gate_status").html("ONLINE");
+
+        } else if (gateinfo.basic.status == "OFFLINE") {
+            $(".gate_status").addClass("text-warning");
+            $(".gate_status").removeClass("text-success");
+            $(".gate_status").html("OFFLINE");
+        } else {
+            $(".gate_status").addClass("text-warning");
+            $(".gate_status").removeClass("text-success");
+            $(".gate_status").html("OFFLINE");
+        }
+
+        console.log(ex_setting);
+
+        var html = '';
+        if(ex_setting.iot_beta==1){
+            html = '<input data-inst="iot_beta" class="switch" type="checkbox" checked />\n'
+        }else{
+            html = '<input  data-inst="iot_beta" class="switch" type="checkbox"/>\n'
+        }
+        $("div.iot_beta").html(html);
+
+
+        if(ex_setting.data_upload==1){
+            html = '<input data-inst="data_upload" class="switch" type="checkbox" checked />\n'
+        }else{
+            html = '<input  data-inst="data_upload" class="switch" type="checkbox"/>\n'
+        }
+        $("div.data_upload").html(html);
+
+        if(ex_setting.stat_upload==1){
+            html = '<input data-inst="stat_upload" class="switch" type="checkbox" checked />\n'
+        }else{
+            html = '<input  data-inst="stat_upload" class="switch" type="checkbox"/>\n'
+        }
+        $("div.stat_upload").html(html);
+
+
+        if(ex_setting.Net_Manager){
+            html = '<input data-inst="Net_Manager" class="switch" type="checkbox" checked />\n'
+        }else{
+            html = '<input  data-inst="Net_Manager" class="switch" type="checkbox"/>\n'
+        }
+        $("div.Net_Manager").html(html);
+
+        if(ex_setting.ioe_frpc){
+            html = '<input data-inst="ioe_frpc" class="switch" type="checkbox" checked />\n'
+        }else{
+            html = '<input  data-inst="ioe_frpc" class="switch" type="checkbox"/>\n'
+        }
+        $("div.ioe_frpc").html(html);
+
+    }
+
+
+    $('.switch').bootstrapSwitch({ onSwitchChange:function(event, state){
+            // var inst = $(this).data("inst");
+
+            var inst = $(this).attr("data-inst");
+            console.log(state);
+            console.log("inst:",inst);
+            var action = "";
+            var task_desc = "";
+            var id = "";
+            var post_data ={};
+            var data = 1;
+
+            if(inst=="iot_beta"){
+                action = "sys_enable_beta";
+                if (state==false){
+                    task_desc = '关闭网关'+ gate_sn +'调试模式';
+                    id = 'disable/' + gate_sn + '/beta/'+ Date.parse(new Date());
+                    data = 0;
+                }else{
+                    task_desc = '开启网关'+ gate_sn +'调试模式';
+                    id = 'enable/' + gate_sn + '/beta/'+ Date.parse(new Date());
+                    data = 1;
+
+                    $.ajax({
+                        url: '/apis/api/method/iot_ui.iot_api.enable_beta?sn='+ gate_sn,
+                        headers: {
+                            Accept: "application/json; charset=utf-8",
+                            "X-Frappe-CSRF-Token": auth_token
+                        },
+                        type: 'post',
+                        contentType: "application/json; charset=utf-8",
+                        dataType:'json',
+                        error:function(req){
+                            console.log(req);
+                        }
+                    });
+
+                }
+                post_data = {
+                    "device": gate_sn,
+                    "id": id,
+                    "data": data
+                };
+            }else if(inst=="data_upload"){
+                action = "sys_enable_data";
+                if (state==false){
+                    task_desc = '关闭网关'+ gate_sn +'数据上传';
+                    id = 'disable/' + gate_sn + '/data_upload/'+ Date.parse(new Date());
+                    data = 0;
+                }else{
+                    task_desc = '开启网关'+ gate_sn +'数据上传';
+                    id = 'enable/' + gate_sn + '/data_upload/'+ Date.parse(new Date());
+                    data = 1;
+                }
+                post_data = {
+                    "device": gate_sn,
+                    "id": id,
+                    "data": data
+                };
+            }else if(inst=="stat_upload"){
+                action = "sys_enable_stat";
+                if (state==false){
+                    task_desc = '关闭网关'+ gate_sn +'统计上传';
+                    id = 'disable/' + gate_sn + '/stat_upload/'+ Date.parse(new Date());
+                    data = 0;
+                }else{
+                    task_desc = '开启网关'+ gate_sn +'统计上传';
+                    id = 'enable/' + gate_sn + '/stat_upload/'+ Date.parse(new Date());
+                    data = 1;
+                }
+                post_data = {
+                    "device": gate_sn,
+                    "id": id,
+                    "data": data
+                };
+            }else if(inst=="Net_Manager"){
+
+                if (state==false){
+                    action = "app_uninstall";
+                    task_desc = '关闭网关'+ gate_sn +'网络管理';
+                    id = 'uninstall/' + gate_sn + '/net_manager/'+ Date.parse(new Date())
+                    data = 0;
+                }else{
+                    action = "app_install";
+                    task_desc = '开启网关'+ gate_sn +'网络管理';
+                    id = 'install/' + gate_sn + '/net_manager/'+ Date.parse(new Date())
+                    data = 1;
+                }
+                post_data = {
+                    "device": gate_sn,
+                    "id": id,
+                    "data": {
+                        "inst": "Network",
+                        "name": "network_uci",
+                        "version":'latest'
+                    }
+                };
+
+            }else if(inst=="ioe_frpc"){
+
+                if (state==false){
+                    action = "app_uninstall";
+                    task_desc = '关闭网关'+ gate_sn +'点对点VPN';
+                    id = 'uninstall/' + gate_sn + '/p2p_vpn/'+ Date.parse(new Date());
+                    data = 0;
+                }else{
+                    action = "app_install";
+                    task_desc = '开启网关'+ gate_sn +'点对点VPN';
+                    id = 'install/' + gate_sn + '/p2p_vpn/'+ Date.parse(new Date())
+                    data = 1;
+                }
+                post_data = {
+                    "device": gate_sn,
+                    "id": id,
+                    "data": {
+                        "inst": "ioe_frpc",
+                        "name": "frpc",
+                        "from_web": 1,
+                        "conf": {
+                            "enable_web": true,
+                            "token": "BWYJVj2HYhVtdGZL",
+                            "auto_start": true
+                        },
+                        "version":'latest'
+                    }}
+            }
+
+
+            var obj_aaaaa = "div."+inst;
+            var obj_bbbbb = "span."+inst;
+            $(obj_aaaaa).addClass("hide");
+            $(obj_bbbbb).removeClass("hide");
+            console.log(action, post_data, task_desc, inst, action, data);
+            gate_exec_action(action, post_data, task_desc, inst, action, data);
+        } });
 
 }

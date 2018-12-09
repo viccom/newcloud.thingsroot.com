@@ -38,7 +38,7 @@ function creat_histable(his_url) {
         },
         "columns": [
             {"data": null},
-            {"data": "name"},
+            {"data": null},
             {"data": "value"},
             {"data": "time"},
             {"data": "quality"}
@@ -82,7 +82,11 @@ function creat_histable(his_url) {
                 targets: 1,
                 searchable: false,
                 orderable: false,
-                width: '20%'
+                width: '20%',
+                render: function(data, type, row, meta) {
+                    // console.log(meta)
+                    return "原始值";
+                }
             },
             {
                 //   指定第最后4列

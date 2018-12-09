@@ -135,6 +135,7 @@ var    table_gates = $('#table_gates').DataTable({
             {
                 //   指定第4列
                 targets: 3,
+                searchable: false,
                 width: '8%',
                 render: function(row, type, data, meta) {
                     // console.log(data);
@@ -154,11 +155,15 @@ var    table_gates = $('#table_gates').DataTable({
             {
                 //   指定第5列
                 targets: 4,
+                searchable: false,
+                orderable: false,
                 width: '8%'
             },
             {
                 //   指定第6列
                 targets: 5,
+                searchable: false,
+                orderable: false,
                 width: '8%'
             },
 

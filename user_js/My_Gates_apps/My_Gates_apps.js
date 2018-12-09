@@ -1,10 +1,11 @@
 
-var gate_sn  = getParam('sn');
+gate_sn  = getParam('sn');
 console.log(gate_sn);
-var pagename = "Gates_apps";
+pagename = "Gates_apps";
 
+cell_record = new Object();
 
-var table = $('#example1').DataTable({
+table = $('#example1').DataTable({
     // "dom": '<if<t>>',
     "filter": false,
     "info": false,
@@ -60,8 +61,51 @@ gate_info(gate_sn);
 gate_applist(gate_sn, table);
 setInterval(function(){
     gate_info(gate_sn);
-    gate_applist(gate_sn, table);
-    },8000);
+    // gate_applist(gate_sn, table);
+    },15000);
+
+function set_switch(){
+    $('.switch').bootstrapSwitch({ onSwitchChange:function(event, state){
+            var self_index = table.cell( $(this).parents('td')).index();
+            var next_index = table.cell( $(this).parents('td').next()).index();
+            // console.log(self_index, next_index);
+            table.cell( self_index ).data("处理中……").draw();
+            table.cell( next_index ).data("---").draw();
+            var inst = $(this).data("inst");
+            var action_str = "app_auto";
+            if (state==false){
+                // console.log(0);
+                var auto_act = {
+                    "device": gate_sn,
+                    "data": {"inst": inst, "option": "auto", "value": 0},
+                    "id": 'disable/' + gate_sn + '/'+ inst +'/autorun/'+ Date.parse(new Date())
+                };
+                var task_desc = '禁止应用'+ inst +'开机自启';
+                gate_exec_action("app_option", auto_act, task_desc, inst, action_str, 1);
+            }
+            else {
+                // console.log(1);
+                var auto_act = {
+                    "device": gate_sn,
+                    "data": {"inst": inst, "option": "auto", "value": 1},
+                    "id": 'enable/' + gate_sn + '/'+ inst +'/autorun/'+ Date.parse(new Date())
+                };
+                var task_desc = '设置应用'+ inst +'开机自启';
+                gate_exec_action("app_option", auto_act, task_desc, inst, action_str, 0);
+            }
+        } });
+}
+
+// 给刷新按钮绑定事件，给后台任务调用；
+$('.applist-refresh').bind("refreshapp", function(){
+    gate_upload_applist(gate_sn);
+    setTimeout(function () {
+        gate_info(gate_sn);
+        $(".app-list-table  tr:not(:first)").empty();
+        gate_applist(gate_sn, table);
+    },1000);
+
+});
 
 $(".applist-refresh").click(function(){
     gate_info(gate_sn);
@@ -70,34 +114,82 @@ $(".applist-refresh").click(function(){
 });
 
 $(".ren_confirm").click(function(){
-    var instname = $("input.ren-appname").val();
+    var inst = $("input.ren-appname").val();
     var app_action = "app_rename";
-    var oldval = 0;
-    var task_desc = '应用改名/'+ instname;
-    var id = 'app_rename/' + gate_sn + '/'+ instname +'/'+ Date.parse(new Date())
+    var oldname = $("input.ren-appname").data("inst");
+    var task_desc = '应用改名/'+ oldname;
+    var id = 'app_rename/' + gate_sn + '/'+ oldname +'/'+ Date.parse(new Date())
     var _act = {
         "device": gate_sn,
-        "data": {"inst": instname},
+        "data": {"inst": oldname, "new_name": inst},
         "id": id
     };
-    // gate_exec_action(app_action, _act, task_desc, inst, app_action, oldval);
+    gate_exec_action(app_action, _act, task_desc, oldname, app_action, inst);
+
+    var temdata = cell_record[oldname];
+    console.log(inst, temdata);
+    table.cell( temdata[0] ).data("改名中……").draw();
+    table.cell( temdata[2] ).data("--").draw();
+
+    $("#modal-app-rename").modal('hide');
+
+});
+
+$(".ren_cancel").click(function(){
+
 });
 
 $(".uninstall_confirm").click(function(){
-    var instname = $(".uninstall-appname").text();
+    var inst = $(".uninstall-appname").data("inst");
     var app_action = "app_uninstall";
     var oldval = 0;
-    var task_desc = '卸载应用'+ instname;
-    var id = 'app_uninstall/' + gate_sn + '/'+ instname +'/'+ Date.parse(new Date())
+    var task_desc = '卸载应用'+ inst;
+    var id = 'app_uninstall/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date())
     var _act = {
         "device": gate_sn,
-        "data": {"inst": instname},
+        "data": {"inst": inst},
         "id": id
     };
-    // gate_exec_action(app_action, _act, task_desc, inst, app_action, oldval);
+    gate_exec_action(app_action, _act, task_desc, inst, app_action, oldval);
+
+        var temdata = cell_record[inst];
+        console.log(inst, temdata);
+        table.cell( temdata[0] ).data("卸载中……").draw();
+        table.cell( temdata[2] ).data("--").draw();
+    $("#modal-app-uninstall").modal('hide');
 });
+
+// $('#modal-app-uninstall').on('hide.bs.modal',
+//     function() {
+//         var inst = $(".uninstall-appname").data("inst");
+//         var temdata = cell_record[inst];
+//         console.log(inst, temdata);
+//         table.cell( temdata[0] ).data(temdata[1]).draw();
+//         table.cell( temdata[2] ).data(temdata[3]).draw();
+//
+//         set_switch()
+//     });
+
+// $('#modal-app-rename').on('hide.bs.modal',
+//     function() {
+//         var inst = $("input.ren-appname").val();
+//         var temdata = cell_record[inst];
+//         console.log(inst, temdata);
+//         table.cell( temdata[0] ).data(temdata[1]).draw();
+//         table.cell( temdata[2] ).data(temdata[3]).draw();
+//
+//         set_switch()
+//     });
+
+
+// $(".uninstall_cancel").click(function(){
+// console.log("取消");
+// });
+
+
 
 $(".btn-box-tool").click(function(){
     var url = "My_Gates_setting.html?sn="+ gate_sn;
     redirect(url);
 });
+

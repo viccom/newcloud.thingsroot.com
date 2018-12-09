@@ -307,6 +307,7 @@ function gate_exec_action(action, act_post, task_desc, inst, action_str ,val){
                 times = 40;
             }
             if(req.message){
+                console.log("success", req);
                 var idarr = {'id':req.message, 'times':times, 'title':task_desc, 'inst':inst, "action":action_str, "value":val};
                 addCrontab(idarr);
                 $.notify({
@@ -316,6 +317,7 @@ function gate_exec_action(action, act_post, task_desc, inst, action_str ,val){
                     type: 'success'
                 });
             }else{
+                console.log("fail", req);
                 $.notify({
                     title: "<strong>提交任务失败:</strong><br><br> ",
                     message: task_desc
@@ -327,15 +329,17 @@ function gate_exec_action(action, act_post, task_desc, inst, action_str ,val){
             // var retid = setInterval(function(){get_action_result(act_post.id);},3000);
         },
         error:function(req){
-            console.log(JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]).message);
-            $.notify({
-                title: "<strong>服务器错误提示:</strong><br><br> ",
-                message: decodeUTF8(JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]).message)
-            },{
-                type: 'warning'
-            });
+            console.log(req);
+            // console.log(JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]).message);
+            // $.notify({
+            //     title: "<strong>服务器错误提示:</strong><br><br> ",
+            //     message: decodeUTF8(JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]).message)
+            // },{
+            //     type: 'warning'
+            // });
         }
     });
+
 }
 
 /**
@@ -367,3 +371,101 @@ function gate_upload_mes(action, act_post){
     });
 }
 
+
+/**
+ *	网关上传应用列表
+ */
+function gate_upload_applist(sn){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.app_list',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify({"device":sn}),
+        contentType: "application/json; charset=utf-8",
+        dataType:'json',
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+/**
+ *	获取或申请当前用户AccessKey
+ */
+function apply_AccessKey(){
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.apply_AccessKey',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        contentType: "application/json; charset=utf-8",
+        dataType:'json',
+        success:function(req){
+            if(req.message){
+                $("span.user-name").data("accesskey",req.message);
+                $("span.user_AccessKey").text(req.message);
+            }
+            // console.log(req);
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+/**
+ *	更新当前用户AccessKey
+ */
+function renew_AccessKey(){
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.renew_AccessKey',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        contentType: "application/json; charset=utf-8",
+        dataType:'json',
+        success:function(req){
+            if(req.message){
+                $("span.user-name").data("accesskey",req.message);
+                $("span.user_AccessKey").text(req.message);
+            }
+            // console.log(req);
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+/**
+ *	删除当前用户AccessKey
+ */
+function delete_AccessKey(){
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.delete_AccessKey',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        contentType: "application/json; charset=utf-8",
+        dataType:'json',
+        success:function(req){
+            if(req.message){
+                $("span.user-name").data("accesskey","");
+                // $("span.user_AccessKey").text("");
+            }
+            // console.log(req);
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}

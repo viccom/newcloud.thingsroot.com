@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | Dashboard</title>
+    <title>冬笋云 | 虚拟网关</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -36,64 +36,6 @@
 
     <!-- Google Font -->
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
-    <style type="text/css">
-        /*
-         * Component: monitor Box
-         * -------------------
-         */
-        .monitor-box {
-            display: block;
-            min-height: 90px;
-            background: #fff;
-            width: 290px;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-            border-radius: 2px;
-            margin-bottom: 15px;
-        }
-        .monitor-box small {
-            font-size: 14px;
-        }
-
-        .monitor-box-icon {
-            border-top-left-radius: 2px;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 2px;
-            display: block;
-            float: left;
-            height: 90px;
-            width: 90px;
-            text-align: center;
-            font-size: 45px;
-            line-height: 90px;
-            background: rgba(0, 0, 0, 0.2);
-        }
-        .monitor-box-icon > img {
-            max-width: 100%;
-        }
-        .monitor-box-content {
-            padding: 5px 10px;
-            margin-left: 90px;
-
-        }
-        .monitor-box-number {
-            display: block;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        /*.progress-description,*/
-        /*.monitor-box-text {*/
-            /*display: block;*/
-            /*font-size: 14px;*/
-            /*white-space: nowrap;*/
-            /*overflow: hidden;*/
-            /*text-overflow: ellipsis;*/
-        /*}*/
-        /*.monitor-box-text {*/
-            /*text-transform: uppercase;*/
-        /*}*/
-    </style>
-
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -318,7 +260,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs user-name" data-accesskey="">user</span>
+                            <span class="hidden-xs user-name">user</span>
                         </a>
                         <ul class="dropdown-menu">
 
@@ -339,7 +281,7 @@
 
                             <li class="user-panel">
                                 <div class="text-center">
-                                    <a href="My_Virtual_Gates.html">虚拟序列号</a>
+                                    <a href="javascript:void(0)">虚拟序列号</a>
                                 </div>
                             </li>
                             <!-- Menu Footer-->
@@ -373,13 +315,13 @@
                 <li><a href="Index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li class="active treeview"><a href="javascript:redirect('/My_Gates_list.html');"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
                 <li><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
-                <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
+                <li class="treeview"><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
-                <li><a href="MyMessages/Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
-                <li><a href="MyMessages/Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
 
 
             </ul>
@@ -393,9 +335,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>
-                应用监控
-                <small><span class="gate_name"></span></small>
+                个人资料
+                <small>虚拟网关</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -403,230 +344,17 @@
             </ol>
         </section>
 
-
-
-
         <!-- Main content -->
         <section class="content">
-            <!-- Info boxes -->
-            <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="monitor-box">
-                        <span class="monitor-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
-                        <div class="monitor-box-content">
-                            <span class="monitor-box-number app-inst"></span>
-                            <span class="monitor-box-text">当前版本：<span class="app-gatever">8</span> | 最新版本：<span class="app-cloudver">9</span></span>
-                            <div style="width: 180px">
-                                <button type="button" class="btn btn-info app-action">启动</button>
-                                <button type="button" class="btn btn-warning app-restart">重启</button>
-                                <!--更多 下拉按钮组 start-->
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                        更多<span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-
-                                        <li><a href="#"  class="go-app-upgrade">应用升级</a></li>
-                                        <li><a href="#"  data-toggle="modal" data-target="#modal-warning">应用卸载</a></li>
-                                        <li><a href="#"  data-toggle="modal" data-target="#modal-default">更改实例名</a></li>
-
-                                    </ul>
-                                </div>
-                                <!--更多 下拉按钮组 end-->
-                            </div>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#table_log_div" data-toggle="tab">运行日志</a></li>
-                            <li><a href="#table_comm_div" data-toggle="tab">通讯报文</a></li>
-
-                            <li class="pull-right">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control pull-right J_keyword " placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default J_keyword"><i class="fa fa-search "></i></button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="pull-right log_li">
-                                <div class="btn-group log_filter" role="group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="search_keyword search_log" data-search_keyword="1">内容</span>
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li data-name="device_name"><a style="cursor:pointer">内容</a></li>
-                                        <li data-name="device_desc"><a style="cursor:pointer">ID</a></li>
-                                        <li data-name="device_desc"><a style="cursor:pointer">类型</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="pull-right comm_li hide">
-                                <div class="btn-group comm_filter" role="group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="search_keyword search_comm" data-search_keyword="1">报文</span>
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li data-name="device_name"><a style="cursor:pointer">报文</a></li>
-                                        <li data-name="device_desc"><a style="cursor:pointer">方向</a></li>
-                                        <li data-name="device_desc"><a style="cursor:pointer">设备ID</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <!--<li class="pull-right"><button type="button" class="btn btn-primary appinfo-query">查询</button></li>-->
-                            <!--<li class="pull-right"><button type="button" class="btn btn-primary appinfo-stop">停止</button></li>-->
-                            <li class="pull-right"><button type="button" class="btn btn-primary appinfo-clear">清除</button></li>
-
-                            <li class="pull-right comm-subscribe hide"><button type="button" class="btn btn-primary btn-comm-subscribe">报文订阅</button></li>
-                            <li class="pull-right log-subscribe"><button type="button" class="btn btn-primary btn-log-subscribe">日志订阅</button></li>
-                            <li class="pull-right"><button type="button" class="btn btn-primary appinfo-upload">连接</button></li>
-                            <li class="pull-right"><a><span>日志：</span><span class="log_nums">0</span>&nbsp&nbsp|&nbsp&nbsp<span>报文：</span><span class="comm_nums">0</span></a></li>
-                        </ul>
-                        <div class="tab-content">
-
-                            <!-- Font Awesome Icons -->
-                            <div class="tab-pane active" id="table_log_div">
-
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="box">
-
-                                            <!-- /.box-header -->
-                                            <div class="box-body">
-                                                <table id="table_log" class="table table-bordered row-border" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>时间</th>
-                                                        <th>类型</th>
-                                                        <th>实例ID</th>
-                                                        <th>内容</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- /.box-body -->
-
-                                        </div>
-                                        <!-- /.box -->
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- /#fa-icons -->
-
-                            <!-- glyphicons-->
-                            <div class="tab-pane " id="table_comm_div">
 
 
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="box">
-
-                                            <!-- /.box-header -->
-                                            <div class="box-body">
-                                                <table id="table_comm" class="table table-bordered row-border" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>时间</th>
-                                                        <th>设备ID</th>
-                                                        <th>方向</th>
-                                                        <th>报文</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- /.box-body -->
-                                        </div>
-                                        <!-- /.box -->
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- /#ion-icons -->
-
-
-                        </div>
-                        <!-- /.tab-content -->
-                    </div>
-                    <!-- /.nav-tabs-custom -->
-                </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
-
-            <!-- /.modal default start-->
-            <div class="modal fade" id="modal-default">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">更改实例名</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">实例名</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="name">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary">保存</button>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-            <!-- /.modal end-->
-            <!-- /.modal warning start-->
-            <div class="modal modal-warning fade" id="modal-warning">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">卸载应用</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>确定卸载应用XXXXXX！</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-outline">确定</button>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-            <!-- /.modal end-->
 
 
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
 
     <!-- Control Sidebar start-->
     <!-- Control Sidebar -->
@@ -792,6 +520,14 @@
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Bootstrap switch -->
@@ -808,33 +544,18 @@
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
 <script src="user_js/common/skin.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<script src="user_js/common/add_back_task.js"></script>
+<!--<script src="user_js/common/add_back_task.js"></script>-->
 <script src="user_js/common/user.js"></script>
-
-<!-- paho.mqtt App -->
-<script src="plugins/paho.mqtt/paho-mqtt-min.js"></script>
-<script src="plugins/paho.mqtt/paho-utility.js"></script>
-
-<!-- load user is -->
-<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>
-<script src="user_js/My_Gates_apps/My_Gates_apps_monitor.js" type="text/javascript"></script>
-
 <script>
     $(function () {
-        // $(".switch").bootstrapSwitch();
-
-        $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-            $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-        } );
+        pagename="Virtual_Gates";
 
     });
-
 </script>
 </body>
 </html>

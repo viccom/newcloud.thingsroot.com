@@ -8,16 +8,41 @@
 /**
  *	添加任务
  */
+crontab_list = new Array();
 function addCrontab(arr){
-    var crontab_list = new Array();
-    var crontab_tmp = localStorage.getItem(pagename + '_Back_taskslist'); // 任务列表
-    if(crontab_tmp!==null){
-        crontab_list = JSON.parse(crontab_tmp);
-    }
+    // var crontab_tmp = localStorage.getItem(pagename + '_Back_taskslist'); // 任务列表
+    console.log("后台任务1：", crontab_list)
+    // if(crontab_tmp!==null){
+    //     var p = JSON.parse(crontab_tmp);
+    //     console.log("后台任务2：", p)
+    //     if(p.length>0){
+    //         crontab_list = p
+    //     }
+    // }
     crontab_list.push(arr);
+    console.log("后台任务2：", crontab_list)
     localStorage.setItem(pagename + '_Back_taskslist',JSON.stringify(crontab_list));
     return ;
 }
+
+
+
+// function addCrontab(arr){
+//     var crontab_list = new Array();
+//     var crontab_tmp = localStorage.getItem(pagename + '_Back_taskslist'); // 任务列表
+//     console.log("后台任务1：", crontab_tmp)
+//     if(crontab_tmp!==null){
+//         var p = JSON.parse(crontab_tmp);
+//         console.log("后台任务2：", p)
+//         if(p.length>0){
+//             crontab_list = p
+//         }
+//     }
+//     crontab_list.push(arr);
+//     console.log("后台任务3：", crontab_list)
+//     localStorage.setItem(pagename + '_Back_taskslist',JSON.stringify(crontab_list));
+//     return ;
+// }
 
 /**
  *	任务执行结果提示
@@ -33,6 +58,29 @@ function action_result_tips(title, content, infotype){
 }
 
 function app_auto_result_response(result, inst, oldvalue){
+    console.log("刷新应用列表");
+    setTimeout(function () {
+        $('.applist-refresh').trigger("refreshapp");
+    },1000);
+
+}
+
+function app_rename_result_response(result, inst, oldvalue){
+    console.log("刷新应用列表");
+    setTimeout(function () {
+        $('.applist-refresh').trigger("refreshapp");
+    },1000);
+
+}
+
+function app_uninstall_result_response(result, inst, oldvalue){
+    console.log("刷新应用列表");
+    setTimeout(function () {
+        $('.applist-refresh').trigger("refreshapp");
+    },1000);
+
+}
+function app_auto_result_response_bak(result, inst, oldvalue){
     var _aaaaa = "."+inst+" div";
     var _bbbbb = "#"+inst;
     var html = "";
@@ -169,15 +217,50 @@ function sys_upgrade_result_response(result, inst, oldvalue){
     }
 }
 
+
+function gate_setting_result_response(result, inst, oldvalue){
+    var _aaaaa = "div."+inst;
+    var _bbbbb = "span."+inst;
+    var html = "";
+    if(oldvalue==0){
+        html = '<input  data-inst="' + inst + '" class="switch" type="checkbox"/>\n'
+    }else{
+        html = '<input data-inst="' + inst + '" class="switch" type="checkbox" checked />\n'
+    }
+    if(result){
+
+        setTimeout(function () {
+            $(_aaaaa).removeClass("hide");
+            $(_bbbbb).addClass("hide");
+            $('.fa-connectdevelop').trigger("upload_applist");
+            console.log("刷新")
+            gate_info(gate_sn);
+
+        }, 2000);
+
+    }else{
+        setTimeout(function () {
+            $(_aaaaa).html(html);
+            $(_aaaaa).removeClass("hide");
+            $(_bbbbb).addClass("hide");
+        }, 2000);
+
+    }
+
+}
+
+
+
+
 // 监控开机启动关闭的执行结果
 function doCrontab(){
-    var q = localStorage.getItem(pagename + '_Back_taskslist');
-    if(q==null){
+    var q = crontab_list;
+    if(q==null || q.length<1){
         console.log(pagename + '_Back_taskslist is null');
         return false;
     }
-    q = JSON.parse(q);
-    if(q || q.length>0){
+    console.log(Date.parse(new Date()),q);
+    if(q && q.length>0){
         for (var i = 0; i < q.length; i++) {
             console.log(q[i]);
             $.ajax({
@@ -211,6 +294,12 @@ function doCrontab(){
                                 send_output_result_response(true, q[i].inst, q[i].value)
                             }else if(q[i].action=="sys_upgrade"){
                                 sys_upgrade_result_response(true, q[i].inst, q[i].value)
+                            }else if(pagename=="Gates_setting"){
+                                gate_setting_result_response(true, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_rename"){
+                                app_rename_result_response(true, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_uninstall"){
+                                app_uninstall_result_response(true, q[i].inst, q[i].value)
                             }
 
 
@@ -231,7 +320,14 @@ function doCrontab(){
                                 send_output_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="sys_upgrade"){
                                 sys_upgrade_result_response(false, q[i].inst, q[i].value)
+                            }else if(pagename=="Gates_setting"){
+                                gate_setting_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_rename"){
+                                app_rename_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_uninstall"){
+                                app_uninstall_result_response(false, q[i].inst, q[i].value)
                             }
+
                             q.splice(i, 1);// 删除任务
                         }
                     }else{
@@ -252,6 +348,12 @@ function doCrontab(){
                                 send_output_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="sys_upgrade"){
                                 sys_upgrade_result_response(false, q[i].inst, q[i].value)
+                            }else if(pagename=="Gates_setting"){
+                                gate_setting_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_rename"){
+                                app_rename_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_uninstall"){
+                                app_uninstall_result_response(false, q[i].inst, q[i].value)
                             }
                             q.splice(i,1);
                         }
@@ -275,6 +377,7 @@ function doCrontab(){
 $(function(){
     // 周期监控执行结果
     setInterval(function(){
+
         doCrontab();
     }, 2000);
 })
