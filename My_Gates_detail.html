@@ -341,7 +341,7 @@
             <h1>
                 <!--<a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>-->
                 我的网关
-                <small><span class="gate_name"></span></small>
+                <small><span class="gate_name"></span>>网关详情</small>
                 <div class="pull-right"><a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
 
             </h1>
@@ -389,8 +389,8 @@
                         </div>
                         <div class="box-body no-padding">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
-                                <li><a href="javascript:redirect('My_Gates_vpn.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> VPN通道</a></li>
+                                <li class="Gates_NetManager hide"><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
+                                <li class="Gates_vpn hide"><a href="javascript:redirect('My_Gates_vpn.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> VPN通道</a></li>
                             </ul>
                         </div>
                         <!-- /.box-body -->
@@ -411,92 +411,95 @@
                     </div>
 
                     <div class="col-md-5">
-                        <div class="col-md-7"><p class="lead">| 基本信息</p></div>
-                        <div class="col-md-5"><button type="button" class="btn btn-block btn-primary btn-flat pull-right gate_setting">高级设置</button></div>
+                        <div class="box box-body">
+                            <div class="col-md-7"><p class="lead">| 基本信息</p></div>
+                            <div class="btn-group pull-right"><button type="button" class="btn btn-block btn-primary btn-flat pull-right gate_setting">高级设置</button></div>
 
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table nowrap">
-                                    <tr>
-                                        <th style="width:100px">序列号：</th>
-                                        <td><span class="gate_sn"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>位置：</th>
-                                        <td>北京上地</td>
-                                    </tr>
-                                    <tr>
-                                        <th>名称：</th>
-                                        <td><span class="gate_name"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>描述：</th>
-                                        <td><span class="gate_desc"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>型号：</th>
-                                        <td><span class="gate_model"></span></td>
-                                    </tr>
-                                </table>
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table nowrap">
+                                        <tr>
+                                            <th style="width:100px">序列号：</th>
+                                            <td><span class="gate_sn"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>位置：</th>
+                                            <td>北京上地</td>
+                                        </tr>
+                                        <tr>
+                                            <th>名称：</th>
+                                            <td><span class="gate_name"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>描述：</th>
+                                            <td><span class="gate_desc"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>型号：</th>
+                                            <td><span class="gate_model"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <p class="lead">| 配置信息</p>
-                            <div class="table-responsive">
-                                <table class="table nowrap">
-                                    <tr>
-                                        <th style="width:100px">CPU：</th>
-                                        <td><span class="gate_cpu"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>内存：</th>
-                                        <td><span class="gate_ram"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>存储：</th>
-                                        <td><span class="gate_rom"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>操作系统：</th>
-                                        <td><span class="gate_os"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>核心软件：</th>
-                                        <td>
-                                            <span class="pull-left gate_skynet_version"></span>
+                            <div class="col-md-12">
+                                <p class="lead">| 配置信息</p>
+                                <div class="table-responsive">
+                                    <table class="table nowrap">
+                                        <tr>
+                                            <th style="width:100px">CPU：</th>
+                                            <td><span class="gate_cpu"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>内存：</th>
+                                            <td><span class="gate_ram"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>存储：</th>
+                                            <td><span class="gate_rom"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>操作系统：</th>
+                                            <td><span class="gate_os"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>核心软件：</th>
+                                            <td>
+                                                <span class="pull-left gate_skynet_version"></span>
 
-                                            <span class="pull-right"><i class="fa fa-chevron-right text-green hide new_skynet_version"></i></span>
-                                            <a href="javascript:void(0)" class="pull-right text-green hide new_skynet_version">发现新版本</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>业务软件：</th>
-                                        <td>
-                                            <span class="pull-left gate_iot_version"></span>
+                                                <span class="pull-right"><i class="fa fa-chevron-right text-green hide new_skynet_version"></i></span>
+                                                <a href="javascript:void(0)" class="pull-right text-green hide new_skynet_version">发现新版本</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>业务软件：</th>
+                                            <td>
+                                                <span class="pull-left gate_iot_version"></span>
 
-                                            <span class="pull-right"><i class="fa fa-chevron-right hide text-green new_iot_version"></i></span>
-                                            <a href="javascript:void(0)" class="pull-right hide text-green new_iot_version">发现新版本</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>公网IP：</th>
-                                        <td><span class="gate_public_ip"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>调试模式：</th>
-                                        <td><span class="gate_iot_beta"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>数据上传：</th>
-                                        <td><span class="gate_data_upload"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>统计上传：</th>
-                                        <td><span class="gate_stat_upload"></span></td>
-                                    </tr>
-                                </table>
+                                                <span class="pull-right"><i class="fa fa-chevron-right hide text-green new_iot_version"></i></span>
+                                                <a href="javascript:void(0)" class="pull-right hide text-green new_iot_version">发现新版本</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>公网IP：</th>
+                                            <td><span class="gate_public_ip"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>调试模式：</th>
+                                            <td><span class="gate_iot_beta"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>数据上传：</th>
+                                            <td><span class="gate_data_upload"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>统计上传：</th>
+                                            <td><span class="gate_stat_upload"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
+
                         </div>
 
                     </div>
@@ -505,7 +508,7 @@
                     <div class="col-md-7">
 
                         <!-- LINE CHART1 start -->
-                        <div class="box box-info">
+                        <div class="box box-body">
                             <div class="box-header with-border">
                                 <h3 class="box-title">CPU负载</h3>
 
@@ -525,7 +528,7 @@
                         <!-- LINE CHART1 end -->
 
                         <!-- LINE CHART2 start -->
-                        <div class="box box-info">
+                        <div class="box box-body">
                             <div class="box-header with-border">
                                 <h3 class="box-title">内存负载</h3>
 

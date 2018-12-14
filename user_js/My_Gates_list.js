@@ -464,7 +464,7 @@ var    table_gates = $('#table_gates').DataTable({
             owner_type: owner_type[attach]
         }
         console.log(data);
-
+        ttips($(this),"暂不支持")
     });
 
 

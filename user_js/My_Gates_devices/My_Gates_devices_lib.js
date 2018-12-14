@@ -52,6 +52,20 @@ function set_label(sn){
         $(".gate_apps_len").html(gateinfo.apps_len);
         $(".gate_devs_len").html(gateinfo.devs_len);
 
+        if(gateinfo.hasOwnProperty("applist")){
+            var applist= gateinfo.applist
+            if(applist.hasOwnProperty("ioe_frpc")){
+                $("li.Gates_vpn").removeClass("hide");
+            }else{
+                $("li.Gates_vpn").addClass("hide");
+            }
+            if(applist.hasOwnProperty("Net_Manager")){
+                $("li.Gates_NetManager").removeClass("hide");
+            }else{
+                $("li.Gates_NetManager").addClass("hide");
+            }
+        }
+
     }
 
 }
@@ -152,7 +166,7 @@ function set_table(sn, tableobj){
         $(".device-inputs").click(function(){
             var vsn = $(this).attr("data-vsn");
             var device_name = $(this).attr("device_name");
-            redirect("My_gates_devices_inputs.html?sn="+ gate_sn + "&vsn=" + vsn + "&device_name=" + device_name);
+            redirect("My_Gates_devices_inputs.html?sn="+ gate_sn + "&vsn=" + vsn + "&device_name=" + device_name);
         });
 
         return false;
@@ -271,7 +285,7 @@ function set_table_inputs(sn, vsn, tableobj){
                         tag_value = device_datas[j].pv;
                         tag_time = device_datas[j].tm;
                         tag_qulity = device_datas[j].q;
-                        ops = '<a href="My_gates_devices_hisdata.html?sn='+ gate_sn + '&vsn=' + device_sn +'&tag_name=' + tag_name + '&vt=' + tag_type +'">历史浏览</a>';
+                        ops = '<a href="My_Gates_devices_hisdata.html?sn='+ gate_sn + '&vsn=' + device_sn +'&tag_name=' + tag_name + '&vt=' + tag_type +'">历史浏览</a>';
                     }
                 }
             }

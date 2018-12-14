@@ -53,7 +53,7 @@ $(document).ready(function(){
     },1000);
 
     gate_info(gate_sn);
-
+    sys_enable_data_one_short(gate_sn);
 
 
 // 本地查询按钮------开始

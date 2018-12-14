@@ -53,6 +53,25 @@ function set_label(sn){
         $(".gate_apps_len").html(gateinfo.apps_len);
         $(".gate_devs_len").html(gateinfo.devs_len);
 
+
+        if(gateinfo.hasOwnProperty("applist")){
+            var applist= gateinfo.applist
+            if(applist.hasOwnProperty("ioe_frpc")){
+                $("li.Gates_vpn").removeClass("hide");
+            }else{
+                $("li.Gates_vpn").addClass("hide");
+            }
+            if(applist.hasOwnProperty("Net_Manager")){
+                $("li.Gates_NetManager").removeClass("hide");
+            }else{
+                $("li.Gates_NetManager").addClass("hide");
+            }
+        }
+
+
+
+
+
     }
 
 }
@@ -121,19 +140,27 @@ function set_tabel(sn, tableobj){
                     '<input data-inst="' + appsinfo[i].info.inst + '" class="switch" type="checkbox" checked />\n' +
                     '</div>'
             }
-            var ops = '<button type="button" class="btn btn-default app-monitor" data-inst="' + appsinfo[i].info.inst + '">监视</button>'
-                + '<button type="button" class="btn btn-default">配置</button>'
-                + '<div class="btn-group">'
-                + '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">更多'
-                + '<span class="caret"></span>'
-                + '<span class="sr-only">Toggle Dropdown</span>'
-                + '</button>'
-                + '<ul class="dropdown-menu" role="menu">'
-                + '<li><a href="My_Gates_apps_upgrade.html?sn=' + gate_sn + '&inst=' + appsinfo[i].info.inst + '">应用升级</a></li>'
-                + '<li><a href="#" class="app_uninstall_btn" data-inst="' + appsinfo[i].info.inst + '" data-toggle="modal" data-target="#modal-app-uninstall">应用卸载</a></li>'
-                + '<li><a href="#" class="app_rename_btn" data-inst="' + appsinfo[i].info.inst + '" data-toggle="modal" data-target="#modal-app-rename">更改实例名</a></li>'
-                + '</ul>'
-                + '</div>'
+
+            var inst_arr = ["ioe_frpc", "Net_Manager"]
+            // console.log($.inArray(appsinfo[i].info.inst, inst_arr))
+            var ops = '';
+            if($.inArray(appsinfo[i].info.inst, inst_arr)){
+                console.log(appsinfo[i].info.inst);
+                ops = '<button type="button" class="btn btn-default app-monitor" data-inst="' + appsinfo[i].info.inst + '">监视</button>'
+                    + '<button type="button" class="btn btn-default">配置</button>'
+                    + '<div class="btn-group">'
+                    + '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">更多'
+                    + '<span class="caret"></span>'
+                    + '<span class="sr-only">Toggle Dropdown</span>'
+                    + '</button>'
+                    + '<ul class="dropdown-menu" role="menu">'
+                    + '<li><a href="My_Gates_apps_upgrade.html?sn=' + gate_sn + '&inst=' + appsinfo[i].info.inst + '">应用升级</a></li>'
+                    + '<li><a href="#" class="app_uninstall_btn" data-inst="' + appsinfo[i].info.inst + '" data-toggle="modal" data-target="#modal-app-uninstall">应用卸载</a></li>'
+                    + '<li><a href="#" class="app_rename_btn" data-inst="' + appsinfo[i].info.inst + '" data-toggle="modal" data-target="#modal-app-rename">更改实例名</a></li>'
+                    + '</ul>'
+                    + '</div>'
+            }
+
 
             var arrayObj = new Array(appico,
                 appsinfo[i].info.inst, appsinfo[i].info.name,
@@ -190,7 +217,7 @@ function set_tabel(sn, tableobj){
 
         $("body").on("click", ".app-monitor", function () {
             var inst = $(this).attr("data-inst");
-            redirect("My_gates_apps_monitor.html?sn=" + gate_sn + "&inst=" + inst);
+            redirect("My_Gates_apps_monitor.html?sn=" + gate_sn + "&inst=" + inst);
         });
 
 

@@ -145,6 +145,24 @@ function set_label(sn){
         $(".gate_public_ip").html(gateinfo.config.public_ip);
         $(".gate_iot_beta").html(gate_debug[gateinfo.basic.iot_beta]);
         $(".gate_data_upload").html(gate_upload[gateinfo.config.data_upload]);
+
+
+        if(gateinfo.hasOwnProperty("applist")){
+            var applist= gateinfo.applist
+            if(applist.hasOwnProperty("ioe_frpc")){
+                $("li.Gates_vpn").removeClass("hide");
+            }else{
+                $("li.Gates_vpn").addClass("hide");
+            }
+            if(applist.hasOwnProperty("Net_Manager")){
+                $("li.Gates_NetManager").removeClass("hide");
+            }else{
+                $("li.Gates_NetManager").addClass("hide");
+            }
+        }
+
+
+
     }
 }
 

@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>冬笋云 | 网关VPN通道</title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -42,7 +43,6 @@
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
     <style type="text/css">
         .table th, .table td {
-            text-align: center;
             vertical-align: middle!important;
         }
 
@@ -396,8 +396,8 @@
                         </div>
                         <div class="box-body no-padding">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
-                                <li class="active"><a href="javascript:redirect('My_Gates_vpn.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> VPN通道</a></li>
+                                <li class="Gates_NetManager hide"><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
+                                <li class="Gates_vpn active"><a href="javascript:redirect('My_Gates_vpn.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> VPN通道</a></li>
                             </ul>
                         </div>
                         <!-- /.box-body -->
@@ -437,7 +437,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
+                                                    <div class="form-group hide">
                                                         <label class="col-sm-4 control-label">授权码:</label>
                                                         <div class="col-sm-8">
                                                             <input type="text" class="form-control tunnel_config" id="authcode" placeholder="" value="" readonly>
@@ -610,7 +610,7 @@
                                                 <p><span>云端隧道状态：</span> <span class="service_error" id="cloud_tunnel_status"></span></p><br />
                                                 <p><span>本次启动时间：</span> <span class="service_error" id="this_start_time"></span></p><br />
                                                 <p><span>上次消耗流量：</span> <span class="service_error" id="last_Traffic_data"></span></p><br />
-                                                <p><span>Ping设备IP状态：</span> <span class="service_error" id="ping_devip_result"></span></p><br />
+                                                <p><span>Ping网关IP状态：</span> <span class="service_error" id="ping_devip_result"></span></p><br />
 
 
 

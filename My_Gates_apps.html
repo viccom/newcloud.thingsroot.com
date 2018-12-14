@@ -349,7 +349,7 @@
             <h1>
                 <!--<a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>-->
                 我的网关
-                <small><span class="gate_name"></span></small>
+                <small><span class="gate_name"></span> >应用列表</small>
                 <div class="pull-right"><a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
 
             </h1>
@@ -396,8 +396,8 @@
                         </div>
                         <div class="box-body no-padding">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
-                                <li><a href="javascript:redirect('My_Gates_vpn.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> VPN通道</a></li>
+                                <li class="Gates_NetManager hide"><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
+                                <li class="Gates_vpn hide"><a href="javascript:redirect('My_Gates_vpn.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> VPN通道</a></li>
                               </ul>
                         </div>
                         <!-- /.box-body -->
@@ -429,7 +429,7 @@
                                     <div class="pull-right">
                                         <div class="input-group input-group-sm" style="width: 33px;">
                                             <div class="input-group-btn">
-                                                <button type="button" class="btn btn-primary btn-sm gate-install-app">安装新应用</button>
+                                                <button type="button" class="btn btn-primary gate-install-app">安装新应用</button>
                                             </div>
 
                                         </div>

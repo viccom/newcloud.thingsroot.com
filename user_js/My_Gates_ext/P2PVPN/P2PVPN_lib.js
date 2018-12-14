@@ -26,6 +26,29 @@ function gate_info(sn){
 }
 
 /**
+ *	强制网关上传某个设备的快照值
+ */
+function sys_enable_data_one_short(sn){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.sys_enable_data_one_short',
+        headers: {
+            "Accept": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify({"device":sn,"data":60}),
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+/**
  *	使用网关状态信息更新标签
  */
 function set_label(sn){
@@ -51,6 +74,20 @@ function set_label(sn){
         $(".gate_desc").html(gateinfo.basic.desc);
         $(".gate_apps_len").html(gateinfo.apps_len);
         $(".gate_devs_len").html(gateinfo.devs_len);
+
+        if(gateinfo.hasOwnProperty("applist")){
+            var applist= gateinfo.applist
+            if(applist.hasOwnProperty("ioe_frpc")){
+                $("li.Gates_vpn").removeClass("hide");
+            }else{
+                $("li.Gates_vpn").addClass("hide");
+            }
+            if(applist.hasOwnProperty("Net_Manager")){
+                $("li.Gates_NetManager").removeClass("hide");
+            }else{
+                $("li.Gates_NetManager").addClass("hide");
+            }
+        }
 
     }
 
@@ -106,7 +143,7 @@ function check_local_status() {
             var index = $.inArray("RUNNING", services_status);
             // console.log(index);
             if (index < 0) {
-                $("button#start_vpn").addClass("btn-primary");
+                $("button#start_vpn").addClass("btn-success");
                 $("button#start_vpn").removeClass("btn-danger");
                 $("button#start_vpn").html("启动VPN");
                 vpn_running = false;
@@ -561,7 +598,8 @@ function check_gate_isbusy(sn, url, code) {
     $.ajax({
         url: 'http://127.0.0.1:5000/gate_isbusy',
         headers: {
-            Authorization: "Bearer 123123123"
+            "Authorization": "Bearer 123123123",
+            "Access-Control-Allow-Origin":"*"
         },
         type: 'post',
         contentType: "application/json; charset=utf-8",

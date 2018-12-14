@@ -230,7 +230,7 @@ table_inputs = $('#table_inputs').DataTable({
                         tag_vt = "float";
                     }
                 }
-                var ops = '<a href="My_gates_devices_hisdata.html?sn='+ gate_sn + '&vsn=' + device_sn +'&tag_name=' + row.name + '&vt=' + tag_vt +'">历史浏览</a>';
+                var ops = '<a href="My_Gates_devices_hisdata.html?sn='+ gate_sn + '&vsn=' + device_sn +'&tag_name=' + row.name + '&vt=' + tag_vt +'">历史浏览</a>';
                 return ops;
                 // return data.split("+")[0].replace("T", " ");
             }
