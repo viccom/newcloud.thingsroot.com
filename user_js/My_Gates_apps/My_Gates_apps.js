@@ -187,6 +187,13 @@ $(".uninstall_confirm").click(function(){
 // });
 
 
+$("button.gate-install-app").click(function(){
+    // ttips($(this), '功能暂时未实现.')
+    var url = "My_Gates_apps_install.html?sn="+ gate_sn;
+    redirect(url);
+
+});
+
 
 $(".btn-box-tool").click(function(){
     var url = "My_Gates_setting.html?sn="+ gate_sn;

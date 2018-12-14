@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- DataTables-Responsive -->
     <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
@@ -376,8 +378,7 @@
                 <small>网关一览</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#" class="tooltip-show" data-toggle="tooltip"
-                       title="show"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">Dashboard</li>
             </ol>
         </section>
@@ -387,44 +388,23 @@
             <div class="box">
                 <div class="box-header">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm gate-filter-refresh"><i class="fa fa-refresh"></i></button>
+                        <button type="button" class="btn btn-default gate-filter-refresh"><i class="fa fa-refresh"></i></button>
 
-                        <button type="button" class="btn btn-primary btn-sm gate-filter" data-id="online">在线</button>
-                        <button type="button" class="btn btn-default btn-sm gate-filter" data-id="offline">离线</button>
-                        <button type="button" class="btn btn-default btn-sm gate-filter" data-id="offline_7d">离线7天</button>
-                        <button type="button" class="btn btn-default btn-sm gate-filter" data-id="all">全部</button>
+                        <button type="button" class="btn btn-primary gate-filter" data-id="online">在线</button>
+                        <button type="button" class="btn btn-default gate-filter" data-id="offline">离线</button>
+                        <button type="button" class="btn btn-default gate-filter" data-id="offline_7d">离线7天</button>
+                        <button type="button" class="btn btn-default gate-filter" data-id="all">全部</button>
 
                     </div>
 
-<!--                    <div class="pull-right">
-                        <div class="input-group input-group-sm" style="width: 33px;">
 
-                            &lt;!&ndash;                            <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default">名称</button>
-                                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                                                <span class="caret"></span>
-                                                                <span class="sr-only">Toggle Dropdown</span>
-                                                            </button>
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <li><a href="#">名称</a></li>
-                                                                <li><a href="#">描述</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                                                        <div class="input-group-btn">
-                                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                                        </div>
-                                                        &ndash;&gt;
-
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh gate-filter-refresh"></i></button>
-                            </div>
-                        </div>
-                    </div>-->
 
                     <div class="pull-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-sm add_new_gate">添加新网关</button>
+                            <button type="button" class="btn btn-primary add_thingslink"  data-toggle="modal" data-target="#modal-add-thingslink">添加ThingsLink</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary add_new_gate">添加虚拟网关</button>
                         </div>
                     </div>
 
@@ -456,42 +436,223 @@
             </div>
             <!-- /.box -->
 
-            <!-- /.modal default start-->
-            <div class="modal fade" id="modal-default">
+
+
+            <!-- /.modal update start-->
+            <div class="modal fade" id="modal-add-thingslink" data-backdrop="static">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">更改实例名</h4>
+                            <h4 class="modal-title">添加ThingsLink网关</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="inputEmai0" class="col-sm-2 control-label">序号：</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmai0" placeholder="name">
-                                </div>
-                                <label for="inputEmai1" class="col-sm-2 control-label">名称：</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmai1" placeholder="name">
-                                </div>
-                                <label for="inputEmai2" class="col-sm-2 control-label">描述：</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmai2" placeholder="name">
-                                </div>
-                                <label for="inputEmai3" class="col-sm-2 control-label">归属：</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmai3" placeholder="name">
-                                </div>
-                                <label for="inputEmai4" class="col-sm-2 control-label">组名：</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmai4" placeholder="name">
-                                </div>
+                            <div class="tab-pane active" id="thingslink">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="device-sn" class="col-sm-2 control-label">序号：</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control popover-warning1"  data-placement="top" data-content="序列号不能为空" id="thingslink-sn" placeholder="必填">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="device-name" class="col-sm-2 control-label">名称：</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control popover-warning2"  data-placement="top" data-content="名称不能为空" id="thingslink-name" placeholder="必填">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="device-desc" class="col-sm-2 control-label">描述：</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="thingslink-desc" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">所属：</label>
+
+                                        <div class="col-sm-10">
+
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <button class="btn btn-primary attach_select select_company" data-attach="2">
+                                                    <input type="radio" name="select_company" value="2">公司
+                                                </button>
+                                                <button class="btn btn-default attach_select select_personal" data-attach="1">
+                                                    <input type="radio" name="select_personal" value="1">个人
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">组名：</label>
+
+                                        <div class="col-sm-10">
+                                            <!--<input type="text" class="form-control" id="user-group" placeholder="">-->
+
+                                            <select class="form-control select2 group_select popover-warning3"  data-placement="top" data-content="组不能为空" style="width: 100%;">
+                                                <!--<option selected="selected">root</option>-->
+                                                <!--<option>北京</option>-->
+                                                <!--<option>上海</option>-->
+                                                <!--<option>广州</option>-->
+                                                <!--<option>深圳</option>-->
+                                                <!--<option>杭州</option>-->
+                                            </select>
+
+                                            <!-- /.form-group -->
+
+
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
+                            <!-- /.tab-pane -->
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary">保存</button>
+                            <button type="button" class="btn btn-primary add_thingslink_confirm">保存</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal end-->
+
+
+            <!-- /.modal update start-->
+            <div class="modal fade" id="modal-update-gate" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">更改名称</h4>
+                        </div>
+                        <div class="modal-body">
+                                <div class="tab-pane active" id="settings">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="device-sn" class="col-sm-2 control-label">序号：</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="device-sn" placeholder="" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="device-name" class="col-sm-2 control-label">名称：</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control popover-warning"  data-placement="top" data-content="名称不能为空" id="device-name" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="device-desc" class="col-sm-2 control-label">描述：</label>
+
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="device-desc" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">所属：</label>
+
+                                            <div class="col-sm-10">
+
+                                                <div class="btn-group" data-toggle="buttons">
+                                                    <button class="btn btn-primary attach_select select_company" data-attach="2">
+                                                        <input type="radio" name="select_company" value="2">公司
+                                                    </button>
+                                                    <button class="btn btn-default attach_select select_personal" data-attach="1">
+                                                        <input type="radio" name="select_personal" value="1">个人
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">组名：</label>
+
+                                            <div class="col-sm-10">
+                                                <!--<input type="text" class="form-control" id="user-group" placeholder="">-->
+
+                                                    <select class="form-control select2 group_select" style="width: 100%;">
+                                                        <!--<option selected="selected">root</option>-->
+                                                        <!--<option>北京</option>-->
+                                                        <!--<option>上海</option>-->
+                                                        <!--<option>广州</option>-->
+                                                        <!--<option>深圳</option>-->
+                                                        <!--<option>杭州</option>-->
+                                                    </select>
+
+                                                <!-- /.form-group -->
+
+
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <!-- /.tab-pane -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary rename_confirm">保存</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal end-->
+
+
+            <!-- /.modal remove start-->
+            <div class="modal modal-warning fade" id="modal-remove-gate" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">移除网关</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="tab-pane active" id="settings1">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="device-sn" class="col-sm-2 control-label">序号：</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="remove-device-sn" placeholder="" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="device-name" class="col-sm-2 control-label">名称：</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control popover-warning"  data-placement="top" data-content="名称不能为空" id="remove-device-name" placeholder="" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="device-desc" class="col-sm-2 control-label">描述：</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="remove-device-desc" placeholder="" disabled>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary remove_confirm">确定</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -681,6 +842,8 @@
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<!-- Select2 -->
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- SlimScroll -->
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -700,7 +863,8 @@
 <script>
     $(function () {
 
-
+        //Initialize Select2 Elements
+        $('.select2').select2()
 
    })
 </script>

@@ -1,9 +1,22 @@
+$.ajaxSetup({
+    headers: { // 默认添加请求头
+        "X-Frappe-CSRF-Token": auth_token
+    }
+});
+
+
 var gate_sn  = getParam('sn');
 var device_sn =  getParam('vsn');
 var tag_name  =  getParam('tag_name');
 var tag_type  =  getParam('vt');
+if(tag_type==null){
+    tag_type = "float"
+}
 var pagename = "Gates_devices_hisdata";
-var time_condition = 'time > now() - 1h';
+var time_span = '1h';
+var time_condition = 'time > now() - '+ time_span;
+var value_method = 'raw';
+var group_time_span = '5m';
 var table_hisdata = new Object();
 var hisdata_url=null;
 
@@ -30,6 +43,7 @@ function creat_histable(his_url) {
         "ajax": {
             "url": his_url,
             "dataSrc": function (d) {
+                // console.log(d);
                 if($.isEmptyObject(d)){
                     return []
                 }else{
@@ -85,7 +99,7 @@ function creat_histable(his_url) {
                 width: '20%',
                 render: function(data, type, row, meta) {
                     // console.log(meta)
-                    return "原始值";
+                    return value_method;
                 }
             },
             {
@@ -98,7 +112,15 @@ function creat_histable(his_url) {
             {
                 //   指定第最后一列
                 targets: 4,
-                width: '10%'
+                width: '10%',
+                render: function(data, type, row, meta) {
+                    // console.log(data);
+                    if(data==null){
+                        return "--"
+                    }else{
+                        return data
+                    }
+                }
             }],
         "initComplete": function(settings, json) {
             console.log("over")
@@ -109,12 +131,13 @@ function creat_histable(his_url) {
 
 if(tag_name){
     $("#table_no_tag").addClass("hide");
-    $(".selected-tag").html(tag_name);
-    hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + tag_name +"&vt=" + tag_type +"&time_condition=" + time_condition;
+    $(".selected-tag").val(tag_name);
+    time_condition = 'time > now() - '+ time_span;
+    hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + tag_name +"&vt=" + tag_type +"&time_condition=" + time_condition +"&value_method=" + value_method +"&group_time_span=" + group_time_span;
     creat_histable(hisdata_url);
 
 }else{
-    $(".selected-tag").html("--");
+    $(".selected-tag").val("--");
     $("#table_no_tag").removeClass("hide");
 }
 
@@ -204,26 +227,33 @@ table_inputs = $('#table_inputs').DataTable({
             var data = table_inputs.row(this).data();
             // console.log(data);
             if(data){
-                var tag_vt = "float";
+
                 if(data.vt!=null){
                     if(data.vt=='int'){
-                        tag_vt = 'int';
+                        tag_type = 'int';
                     }else if(data.vt=='string'){
-                        tag_vt = 'string';
+                        tag_type = 'string';
                     }else{
-                        tag_vt = "float";
+                        tag_type = "float";
                     }
-                }
-                if(tag_name==null){
-                    tag_name = data.name;
-                    $("#table_no_tag").addClass("hide");
-                    hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + data.name +"&vt=" + tag_vt +"&time_condition=" + time_condition;
-                    creat_histable(hisdata_url);
+                }else{
+                    tag_type = "float";
                 }
 
-                hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + data.name +"&vt=" + tag_vt +"&time_condition=" + time_condition;
+                if(tag_name==null){
+                    tag_name = data.name;
+                    $(".selected-tag").val(tag_name);
+                    $("#table_no_tag").addClass("hide");
+                    time_condition = 'time > now() - '+ time_span;
+                    hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + data.name +"&vt=" + tag_type +"&time_condition=" + time_condition +"&value_method=" + value_method +"&group_time_span=" + group_time_span;
+                    creat_histable(hisdata_url);
+                }
+                tag_name = data.name;
+                $(".selected-tag").val(tag_name);
+                time_condition = 'time > now() - '+ time_span;
+                hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + data.name +"&vt=" + tag_type +"&time_condition=" + time_condition +"&value_method=" + value_method +"&group_time_span=" + group_time_span;
                 table_hisdata.ajax.url(hisdata_url).load(null,false);
-                $(".selected-tag").html(tag_name);
+                $(".selected-tag").val(tag_name);
             }
 
         } );
@@ -235,10 +265,32 @@ table_inputs = $('#table_inputs').DataTable({
 });
 
 $(".hisdata-refresh").click(function(){
+    console.log($("select[name='method_select']").val());
+    time_condition = 'time > now() - '+ time_span;
+    console.log("tag_type:",tag_type)
+    hisdata_url="/apis/api/method/iot_ui.iot_api.taghisdata?sn="+ gate_sn + "&vsn=" + device_sn +"&tag=" + tag_name +"&vt=" + tag_type +"&time_condition=" + time_condition +"&value_method=" + value_method +"&group_time_span=" + group_time_span;
+    console.log(hisdata_url);
     if(tag_name){
         table_hisdata.ajax.url(hisdata_url).load(null,false);
     }
 
+});
+
+$("select[name='method_select']").on("select2:select", function (event) {
+    value_method = event.params.data.id;
+    if(event.params.data.id=="raw"){
+        $("select[name='span_select']").attr("disabled", true);
+    }else{
+        $("select[name='span_select']").attr("disabled", false);
+    }
+});
+
+$("select[name='span_select']").on("select2:select", function (event) {
+    group_time_span = event.params.data.id;
+});
+
+$("select[name='time_select']").on("select2:select", function (event) {
+    time_span = $("select[name='time_select']").val()
 });
 
 $(".rtdata-refresh").click(function(){

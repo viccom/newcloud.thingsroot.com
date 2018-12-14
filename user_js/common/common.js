@@ -41,9 +41,23 @@ $(function() {
 	delete Object.prototype.toJSONString;
 });
 
+/**
+ *	检测IP地址是否合法
+ **/
 
-
-
+function checkIP(value){
+    str = value.match(/(\d+)\.(\d+)\.(\d+)\.(\d+)/g);
+    if (str == null){
+        // alert("你输入的IP地址格式不正确");
+        return false;
+    }else if (RegExp.$1>224 || RegExp.$2>255 || RegExp.$3>255 || RegExp.$4>255){
+        // alert("你输入的IP地址无效");
+        return false;
+    }else{
+        // alert("你输入的IP地址有效");
+        return true;
+    }
+}
 
 /**
  *	UTF8编码
@@ -169,6 +183,24 @@ function setCookie(name,value){
 function delCookie(name,value){
 	return $.cookie('T&R_'+name, '', { expires: -1, path: "/"}); // 删除
 }
+
+/**
+ *	删除cookie
+ **/
+function ttips(name ,value){
+    name.poshytip({
+        className: 'tip-darkgray',
+        content: value,
+        showOn: 'none',
+        alignTo: 'target',
+        alignX: 'inner-left',
+        offsetX: 0,
+        offsetY: 5
+    });
+    name.poshytip('show');
+    name.poshytip('hideDelayed', 2000);
+}
+
 // 跳转
 function redirect(url){
 	window.location.href=url;

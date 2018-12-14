@@ -31,13 +31,24 @@ function update_gates_list(tableobj, filter) {
 }
 
 
+$.ajaxSetup({
+    headers: { // 默认添加请求头
+        "X-Frappe-CSRF-Token": auth_token
+    }
+});
+
 $(function () {
     var filter = "online";
     var table_obj = new Object();
 
-
-
-
+var    attach = "2";
+    if(getCookie("isAdmin")){
+        $("button.attach_select").attr("disabled",false);
+        $("select.group_select").attr("disabled",false);
+    }else{
+        $("button.attach_select").attr("disabled",true);
+        $("select.group_select").attr("disabled",true);
+    }
 var    gates_url="/apis/api/method/iot_ui.iot_api.devices_list?filter=" + filter;
 var    table_gates = $('#table_gates').DataTable({
         // "dom":"<lf<t>ip>",
@@ -188,7 +199,8 @@ var    table_gates = $('#table_gates').DataTable({
                         +     '<li><a href="My_Gates_detail.html?sn='
                         + data.device_sn
                         + '">网关信息</a></li>'
-                        +     '<li><a href="#"  data-toggle="modal" data-target="#modal-default" data-sn="'+ data.device_sn +  '">更改名称</a></li>'
+                        +     '<li><a href="#" class="gate_rename" data-toggle="modal" data-target="#modal-update-gate" data-sn="'+ data.device_sn +  '">更改名称</a></li>'
+                        +       '<li><a href="#" class="gate_remove" data-toggle="modal" data-target="#modal-remove-gate" data-sn="'+ data.device_sn +  '">移除网关</a></li>'
                         + '</ul>'
                         + '</div>'
                     $("[data-toggle='tooltip']").popover();
@@ -202,6 +214,31 @@ var    table_gates = $('#table_gates').DataTable({
                 // console.log($(this).data("sn"));
                 redirect("My_Gates_apps.html?sn=" + $(this).data("sn"));
             });
+            $("body").on("click", "a.gate_rename", function() {
+                var rowdata=table_gates.row($(this).parents('tr')).data();
+                $("#device-sn").val(rowdata.device_sn);
+                $("#device-name").val(rowdata.device_name);
+                $("#device-desc").val(rowdata.device_desc);
+                var cuser = getCookie("usr");
+                if(cuser==rowdata.device_company){
+                    $("select.group_select").attr("disabled",true);
+                    $("button.select_personal").addClass("btn-primary");
+                    $("button.select_company").removeClass("btn-primary");
+                    attach = "1";
+                }else{
+                    $("select.group_select").attr("disabled",false);
+                    $("button.select_personal").removeClass("btn-primary");
+                    $("button.select_company").addClass("btn-primary");
+                    attach = "2";
+                }
+            });
+            $("body").on("click", "a.gate_remove", function() {
+                var rowdata=table_gates.row($(this).parents('tr')).data();
+                $("#remove-device-sn").val(rowdata.device_sn);
+                $("#remove-device-name").val(rowdata.device_name);
+                $("#remove-device-desc").val(rowdata.device_desc);
+            });
+
 
         }
     });
@@ -210,6 +247,91 @@ var    table_gates = $('#table_gates').DataTable({
     //     $("[data-toggle='popover']").popover();
     // },1 * 1000);
 
+
+    /**
+     *	更新网关信息
+     */
+    function update_gate(postdata) {
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.update_gate',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'post',
+            data: JSON.stringify(postdata),
+            contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success:function(req){
+                // console.log(req);
+                if(req.message){
+                    $.notify({
+                        title: "<strong>更新网关提示</strong><br><br> ",
+                        message: "更新网关信息成功"
+                    },{
+                        newest_on_top: false,
+                        type: "success"
+                    });
+                    table_gates.ajax.url(gates_url).load(null,false);
+                }
+            },
+            error:function(req){
+                console.log(req);
+                $.notify({
+                    title: "<strong>更新网关提示</strong><br><br> ",
+                    message: "更新网关信息失败"
+                },{
+                    newest_on_top: false,
+                    type: "warning"
+                });
+            }
+        });
+
+    }
+
+    /**
+     *	从当前账户下移除网关
+     */
+    function remove_gate(postdata) {
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.remove_gate',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'post',
+            data: JSON.stringify(postdata),
+            contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success:function(req){
+                console.log(req);
+                if(req.message){
+                    $.notify({
+                        title: "<strong>移除网关提示</strong><br><br> ",
+                        message: "移除网关成功"
+                    },{
+                        newest_on_top: false,
+                        type: "success"
+                    });
+                    table_gates.ajax.url(gates_url).load(null,false);
+                }
+            },
+            error:function(req){
+                console.log(req);
+                $.notify({
+                    title: "<strong>移除网关提示</strong><br><br> ",
+                    message: "移除网关失败"
+                },{
+                    newest_on_top: false,
+                    type: "warning"
+                });
+            }
+        });
+
+    }
+
+
+    get_company_groups();
 
     var g_ret = setInterval(function(){
         $('.popover-destroy').popover('destroy');
@@ -220,7 +342,7 @@ var    table_gates = $('#table_gates').DataTable({
         var t_ret = setTimeout(function(){
             $("[data-toggle='popover']").popover();
         },1 * 1000);
-    },10 * 1000);
+    },10 * 2000);
 
     // 绑定网关过滤按钮
     $(".gate-filter").click(function(){
@@ -234,6 +356,21 @@ var    table_gates = $('#table_gates').DataTable({
 
     });
 
+    // 网关归属选择按钮
+    $("button.attach_select").click(function(){
+        $(this).removeClass("btn-default");
+        $(this).addClass("btn-primary");
+        $(this).siblings().removeClass("btn-primary");
+        $(this).siblings().addClass("btn-default");
+        attach = $(this).data("attach");
+        console.log(attach)
+        if(attach=="1"){
+            $("select.group_select").attr("disabled",true);
+        }else{
+            $("select.group_select").attr("disabled",false);
+        }
+    });
+
     // 绑定刷新按钮
     $(".gate-filter-refresh").click(function(){
         $('.popover-destroy').popover('destroy');
@@ -243,5 +380,98 @@ var    table_gates = $('#table_gates').DataTable({
     });
 
 
+    // 网关改名确认
+    $("button.rename_confirm").click(function(){
+        var userid = getCookie('usr');
+        var device_sn = $("#device-sn").val();
+        var device_name = $("#device-name").val();
+        if(device_name==""){
+            $('.popover-warning').popover('show');
+            setTimeout(function () {
+                $('.popover-warning').popover('destroy');
+            },2000);
+            return false;
+        }
+        var device_desc = $("#device-desc").val();
+        var group_name = $("select.group_select").val();
+        if(attach=="1"){
+            group_name = userid
+        }
+        var owner_type = {
+            "1": "User",
+            "2": "Cloud Company Group"
+        };
+        var data = {
+            sn:device_sn,
+            name:device_name,
+            desc:device_desc,
+            owner_id: group_name,
+            owner_type: owner_type[attach]
+        }
+        console.log(data);
+        update_gate(data);
+        $("#modal-update-gate").modal('hide');
+
+    });
+
+    // 网关移除确认
+    $("button.remove_confirm").click(function(){
+        remove_gate({"sn":[$("#remove-device-sn").val()]});
+        $("#modal-remove-gate").modal('hide');
+    });
+
+
+    // 添加ThingsLink到当前账户
+    $("button.add_thingslink_confirm").click(function(){
+        var userid = getCookie('usr');
+        var device_sn = $("#thingslink-sn").val();
+        if(device_sn==""){
+            $('.popover-warning1').popover('show');
+            setTimeout(function () {
+                $('.popover-warning1').popover('destroy');
+            },2000);
+            return false;
+        }
+        var device_name = $("#thingslink-name").val();
+        if(device_name==""){
+            $('.popover-warning2').popover('show');
+            setTimeout(function () {
+                $('.popover-warning2').popover('destroy');
+            },2000);
+            return false;
+        }
+        var device_desc = $("#thingslink-desc").val();
+        var group_name = $("select.group_select").val();
+        if(group_name==null){
+            $('.popover-warning3').popover('show');
+            setTimeout(function () {
+                $('.popover-warning3').popover('destroy');
+            },2000);
+            return false;
+        }
+        if(attach=="1"){
+            group_name = userid
+        }
+        var owner_type = {
+            "1": "User",
+            "2": "Cloud Company Group"
+        };
+        var data = {
+            sn:device_sn,
+            name:device_name,
+            desc:device_desc,
+            owner_id: group_name,
+            owner_type: owner_type[attach]
+        }
+        console.log(data);
+
+    });
+
+
+    // 向个人名字增加虚拟测试网关
+    $("button.add_new_gate").click(function(){
+        redirect("My_Virtual_Gates.html")
+    });
+    // console.log($("select.group_select").select2("data"))
 
 })

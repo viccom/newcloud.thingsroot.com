@@ -764,6 +764,16 @@
             },
             error:function(req){
                 console.log(req);
+                if(req.responseJSON){
+                    $.notify({
+                        title: "<strong>添加虚拟网关失败</strong><br><br> ",
+                        message: JSON.parse(JSON.parse(req.responseJSON._server_messages)[0])['message']
+                    },{
+                        newest_on_top: false,
+                        type: "warning"
+                    });
+
+                }
 
             }
         });

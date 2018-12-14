@@ -1,0 +1,85 @@
+
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- bootstrap-notify -->
+<script src="bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+<!-- load common js-->
+<script src="user_js/common/jQuery.cookie.js"></script>
+<script src="user_js/common/common.js"></script>
+<!--<script src="user_js/common/add_back_task.js"></script>-->
+<script src="user_js/common/user.js"></script>
+
+<script>
+    var pagenum  = "1";
+    if(getParam('page')){
+        pagenum  = getParam('page');
+    }
+    console.log(pagenum);
+    console.log(typeof pagenum);
+    $(function(){
+
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.appslist_bypage?page=' + pagenum,
+            type: 'GET',
+            // data: userName,
+            success:function (req) {
+                var data = req.message;
+                console.log(data);
+                // for(var i=0;i<data.length;i++){
+                //     console.log(data[i].app_name);
+                //     $("body").append(data[i].app_name+ '<br>');
+                // }
+
+                // if(data.length>0){
+                //     if(data.length<8){
+                //         for(var i=0;i<data.length; i++){
+                //             var html = '<div class="item">' +
+                //                 '<span class="mailbox-attachment-icon"><a href="My_apps_detail.html?appid='+ data[i].name+'"><i class="fa fa-archive"></i></a></span>'+
+                //                 '<div class="mailbox-attachment-info">' +
+                //                 '<a href="#" class="mailbox-attachment-name">'+ data[i].app_name +'</a>' +
+                //                 '<span class="mailbox-attachment-size">☆☆☆☆☆<a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a></span>' +
+                //                 '</div>' +
+                //                 '</div>'
+                //
+                //             document.write(html);
+                //
+                //
+                //
+                //
+                //         }
+                //     }
+                //     else if(data.length>(pagenum+1)*8){
+                //         for(var i=0 + (pagenum-1)*8;i<pagenum*8; i++){
+                //             var html = '<div class="item">' +
+                //                 '<span class="mailbox-attachment-icon"><a href="My_apps_detail.html?appid='+ data[i].name+'"><i class="fa fa-archive"></i></a></span>'+
+                //                 '<div class="mailbox-attachment-info">' +
+                //                 '<a href="#" class="mailbox-attachment-name">'+ data[i].app_name +'</a>' +
+                //                 '<span class="mailbox-attachment-size">☆☆☆☆☆<a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a></span>' +
+                //                 '</div>' +
+                //                 '</div>'
+                //             document.write(html);
+                //         }
+                //
+                //
+                //     }
+                //     else if((pagenum+1)*8 > data.length >pagenum*8){
+                //         for(var i=0 + (pagenum-1)*8;i<data.length; i++){
+                //             var html = '<div class="item">' +
+                //                 '<span class="mailbox-attachment-icon"><a href="My_apps_detail.html?appid='+ data[i].name+'"><i class="fa fa-archive"></i></a></span>'+
+                //                 '<div class="mailbox-attachment-info">' +
+                //                 '<a href="#" class="mailbox-attachment-name">'+ data[i].app_name +'</a>' +
+                //                 '<span class="mailbox-attachment-size">☆☆☆☆☆<a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a></span>' +
+                //                 '</div>' +
+                //                 '</div>'
+                //             document.write(html);
+                //         }
+                //     }
+                // }
+
+            }
+        })
+
+
+    });
+
+</script>

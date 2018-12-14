@@ -240,3 +240,56 @@ function user_company() {
         }
     });
 }
+
+/**
+ *	获取公司组列表
+ */
+function get_company_groups() {
+    var userid = getCookie('usr');
+    var companies = null;
+    if(getCookie('isAdmin')){
+        companies = getCookie('companies');
+    }
+    if(companies){
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.get_company_groups?company=' + companies,
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'get',
+            contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success:function(req){
+                console.log(req);
+                var data= [];
+                var t = {};
+                for (var i = 0; i < req.message.length; i++) {
+                    console.log(i, req.message[i].group_name, req.message[i].name);
+
+                    if(req.message[i].group_name=="root"){
+                        t={ id: req.message[i].name, text: req.message[i].group_name, "selected": true };
+                    }else{
+                        t={ id: req.message[i].name, text: req.message[i].group_name };
+                    }
+
+                    data.push(t)
+                }
+
+                // data = [{ id: 0, text: 'enhancement',"selected": true }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+                $("select.group_select").select2({
+                    data: data,
+                    placeholder:'请选择',
+                    allowClear:true
+                })
+
+            },
+            error:function(req){
+                console.log(req);
+
+            }
+        });
+    }
+
+}
+

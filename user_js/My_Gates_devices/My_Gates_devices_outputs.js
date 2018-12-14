@@ -1,3 +1,9 @@
+$.ajaxSetup({
+    headers: { // 默认添加请求头
+        "X-Frappe-CSRF-Token": auth_token
+    }
+});
+
 var gate_sn  = getParam('sn');
 var device_sn =  getParam('vsn');
 var device_name  =  getParam('device_name');

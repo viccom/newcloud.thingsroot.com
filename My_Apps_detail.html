@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | 应用升级</title>
+    <title>冬笋云 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -16,6 +16,12 @@
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- DataTables-Responsive -->
     <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
+    <!-- Tooltip classes -->
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
@@ -23,10 +29,17 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!--markdown   css-->
+    <link rel="stylesheet" href="plugins/editor.md-master/css/editormd.min.css" />
+
+
 
     <!-- global style -->
     <link rel="stylesheet" href="user_css/global.css">
 
+    <!-- user style -->
+    <!--<link rel="stylesheet" href="user_css/star.css">-->
+    <link rel="stylesheet" href="user_css/apps_list.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,6 +49,34 @@
 
     <!-- Google Font -->
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+
+    <style type="text/css">
+        .mytable tr {
+            height: 25px;
+
+        }
+        .mytable td{word-break: keep-all;white-space:nowrap;}
+
+
+        .img-box{
+            min-width: 120px;
+            max-width: 130px;
+            max-height: 130px;
+            height: 100%;
+            width: 100%;
+            padding-bottom:100%;
+        }
+        .img-box img{
+            position:relative;
+            top:10px;
+            bottom:30px;
+            left:20px;
+            right:20px;
+            width:100%;
+            margin:auto;
+        }
+
+    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -315,13 +356,13 @@
                 <li><a href="Index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li class="active treeview"><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
-                <li><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
+                <li class="active treeview"><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
                 <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
-                <li><a href="MyMessages/Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
-                <li><a href="MyMessages/Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
 
 
             </ul>
@@ -335,61 +376,196 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <!--<a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>-->
-                应用升级
-                <small><span class="gate_name"></span></small>
-                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+                我的应用
+                <small>应用详情</small>
+                <div class="pull-right"><a href="javascript:redirect('/My_Apps_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
             </h1>
             <!--<ol class="breadcrumb">-->
-                <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
-                <!--<li class="active">Dashboard</li>-->
+            <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+            <!--<li class="active">Dashboard</li>-->
             <!--</ol>-->
         </section>
 
-
-
-
         <!-- Main content -->
         <section class="content">
-            <!-- Info boxes -->
-            <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
-                        <div class="info-box-content">
-                            <span class="info-box-number app-inst" data-appid="" data-iotbeta=""></span>
-                            <span class="app-gatever"></span><span class="app-cloudver"></span><br/>
-                            <div class="progress">
-                                <div class="progress-bar"></div>
+
+            <div class="box box-body my-apps-detail">
+
+                <!--应用编辑start-->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2 class="page-header">
+                            <i class="fa fa-th"></i>&nbsp;&nbsp;<span class="app_name"></span>
+                            <small class="pull-right">创建时间: 2/10/2014</small>
+                        </h2>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <div class="row invoice-info" style="max-height: 150px">
+                    <div class="col-sm-2 invoice-col" style="max-height: 140px">
+                        <div class="img-box col-sm-12" style="max-height: 140px">
+                            <div class="form-group">
+                                <img class="img-responsive app_img" src="/assets/app_center/img/logo.png" alt="User Image">
                             </div>
-                            <span class="progress-description update_tip">
-                                ------
-                            </span>
                         </div>
 
-                        <!-- /.info-box-content -->
+
                     </div>
 
-                    <button type="button" class="btn btn-block btn-primary btn-flat update_check">检查更新</button>
-                    <!-- /.info-box -->
+                    <div class="col-sm-3 invoice-col">
+                        &nbsp;&nbsp;
+                        <address>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;发布者：<span class="app_owner"></span></p>
+                            <p>通讯协议：<span class="app_protocol"></span></p>
+                            <p>适配型号：<span class="device_serial"></span></p>
+
+                        </address>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 invoice-col">
+                        &nbsp;&nbsp;
+                        <address>
+                            <p>应用分类：<span class="app_category"></span></p>
+                            <p>设备厂家：<span class="device_supplier"></span></p>
+                            <p>应用价格：<span class="license_type"></span></p>
+
+                        </address>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-1 invoice-col">
+                        &nbsp;&nbsp;
+                        <address>
+
+                            <p>
+                                <a class="btn btn-app">
+                                    <i class="fa fa-edit"></i> 设置
+                                </a>
+                            </p>
+                        </address>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-1 invoice-col">
+                        &nbsp;&nbsp;
+                        <address>
+
+                            <p>
+                                <a class="btn btn-app">
+                                    <i class="fa  fa-file-text-o"></i> 代码编辑
+                                </a>
+                            </p>
+                        </address>
+                    </div>
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
-            <br />
-            <div class="row">
+                <!--应用编辑end-->
 
-                <div class="col-md-12 app-change-log">
-                    <!-- The time line -->
 
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activity" data-toggle="tab">描述</a></li>
+                        <li><a href="#timeline" data-toggle="tab">评论</a></li>
+                        <li><a href="#versions_list" data-toggle="tab">版本列表</a></li>
+                        <li><a href="#Templates_list" data-toggle="tab">模板列表</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+
+                            <div id="test-editormd" class="editormd-onlyread">
+                                <textarea style="display:none;"  name="test-editormd-markdown-doc">###我的描述</textarea>
+                            </div>
+
+
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="timeline">
+                            <!-- The timeline -->
+
+                            <!-- Post -->
+                            <div class="post clearfix">
+                                <div class="user-block">
+                                    <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
+                                    <span class="username">
+                                      <a href="#">Sarah Ross</a>
+                                      <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                                    </span>
+                                    <span class="description">Sent you a message - 3 days ago</span>
+                                </div>
+                                <!-- /.user-block -->
+                                <p>
+                                    Lorem ipsum represents a long-held tradition for designers,
+                                    typographers and the like. Some people hate it and argue for
+                                    its demise, but others ignore the hate as they create awesome
+                                    tools to help create filler text for everyone from bacon lovers
+                                    to Charlie Sheen fans.
+                                </p>
+
+                                <form class="form-horizontal">
+                                    <div class="form-group margin-bottom-none">
+                                        <div class="col-sm-9">
+                                            <input class="form-control input-sm" placeholder="Response">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">Send</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.post -->
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="versions_list">
+
+                            <!-- Post -->
+                            <div class="post clearfix">
+                                <div class="user-block">
+                                    <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
+                                    <span class="username">
+                                      <a href="#">Sarah Ross</a>
+                                      <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                                    </span>
+                                    <span class="description">Sent you a message - 3 days ago</span>
+                                </div>
+                                <!-- /.user-block -->
+                                <p>
+                                    Lorem ipsum represents a long-held tradition for designers,
+                                    typographers and the like. Some people hate it and argue for
+                                    its demise, but others ignore the hate as they create awesome
+                                    tools to help create filler text for everyone from bacon lovers
+                                    to Charlie Sheen fans.
+                                </p>
+
+                                <form class="form-horizontal">
+                                    <div class="form-group margin-bottom-none">
+                                        <div class="col-sm-9">
+                                            <input class="form-control input-sm" placeholder="Response">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">Send</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.post -->
+
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
                 </div>
 
+
             </div>
-            <!-- /.row -->
+
 
         </section>
         <!-- /.content -->
+
+
+
+
     </div>
     <!-- /.content-wrapper -->
 
@@ -551,6 +727,7 @@
 </div>
 <!-- ./wrapper -->
 
+
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -569,34 +746,44 @@
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<!-- Select2 -->
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- SlimScroll -->
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
+<!--markdown   js -->
+<script src="plugins/editor.md-master/editormd.min.js"></script>
+<script src="plugins/editor.md-master/lib/marked.min.js"></script>
+<script src="plugins/editor.md-master/lib/prettify.min.js"></script>
+<script src="plugins/editor.md-master/lib/raphael.min.js"></script>
+<script src="plugins/editor.md-master/lib/underscore.min.js"></script>
+<script src="plugins/editor.md-master/lib/sequence-diagram.min.js"></script>
+<script src="plugins/editor.md-master/lib/flowchart.min.js"></script>
+<script src="plugins/editor.md-master/lib/jquery.flowchart.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script src="user_js/common/skin.js"></script>
+<!-- jQuery and the Poshy Tip plugin files -->
+<script type="text/javascript" src="plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<script src="user_js/common/add_back_task.js"></script>
+<!--<script src="user_js/common/add_back_task.js"></script>-->
 <script src="user_js/common/user.js"></script>
 
 <!-- load user is -->
-<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>
-<script src="user_js/My_Gates_apps/My_Gates_apps_upgrade.js" type="text/javascript"></script>
+<script src="user_js/My_Apps/My_Apps_detail.js" type="text/javascript"></script>
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
 
 <script>
-    $(function () {
-        // $(".switch").bootstrapSwitch();
 
-
+    $(function(){
 
     });
 
-
 </script>
-
 </body>
 </html>

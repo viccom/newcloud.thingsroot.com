@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | 应用升级</title>
+    <title>冬笋云 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -16,6 +16,12 @@
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- DataTables-Responsive -->
     <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
+    <!-- Tooltip classes -->
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
@@ -23,10 +29,17 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!--markdown   css-->
+    <link rel="stylesheet" href="plugins/editor.md-master/css/editormd.min.css" />
+
+
 
     <!-- global style -->
     <link rel="stylesheet" href="user_css/global.css">
 
+    <!-- user style -->
+    <!--<link rel="stylesheet" href="user_css/star.css">-->
+    <link rel="stylesheet" href="user_css/apps_list.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,6 +49,29 @@
 
     <!-- Google Font -->
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+
+    <style type="text/css">
+        .mytable tr {
+            height: 25px;
+
+        }
+        .mytable td{word-break: keep-all;white-space:nowrap;}
+
+
+        .img-box{
+            padding-bottom:100%;
+        }
+        .img-box img{
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            width:100%;
+            margin:auto;
+        }
+
+    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -315,13 +351,13 @@
                 <li><a href="Index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li class="active treeview"><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
-                <li><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
+                <li class="active treeview"><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
                 <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
-                <li><a href="MyMessages/Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
-                <li><a href="MyMessages/Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
 
 
             </ul>
@@ -335,61 +371,142 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <!--<a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>-->
-                应用升级
-                <small><span class="gate_name"></span></small>
-                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+                我的应用
+                <small>创建新应用</small>
+                <div class="pull-right"><a href="javascript:redirect('/My_Apps_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
             </h1>
             <!--<ol class="breadcrumb">-->
-                <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
-                <!--<li class="active">Dashboard</li>-->
+            <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+            <!--<li class="active">Dashboard</li>-->
             <!--</ol>-->
         </section>
 
-
-
-
         <!-- Main content -->
         <section class="content">
-            <!-- Info boxes -->
-            <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
-                        <div class="info-box-content">
-                            <span class="info-box-number app-inst" data-appid="" data-iotbeta=""></span>
-                            <span class="app-gatever"></span><span class="app-cloudver"></span><br/>
-                            <div class="progress">
-                                <div class="progress-bar"></div>
+
+            <div class="box box-body my-apps-edit">
+
+                <!--应用编辑start-->
+                <!-- 表单 -->
+                <form class="form-horizontal" id="form">
+                    <div class="col-md-12">
+                        <div class="form-group col-md-1">
+
+                            <div class="form-group img-box">
+                                <img src="/assets/app_center/img/logo.png" alt="User Image">
                             </div>
-                            <span class="progress-description update_tip">
-                                ------
-                            </span>
+
+
+                            <!--<label for="icon_file" style="">-->
+
+                                <!--<input type="file" name="icon_file" id="icon_file" style="display: none;"/>-->
+                            <!--</label>-->
+                            <!--<input type="hidden" name="app" value="">-->
                         </div>
 
-                        <!-- /.info-box-content -->
+                        <div class="form-group col-md-4">
+
+
+                                <div class="form-group">
+                                    <label for="app-name" class="col-sm-4 control-label">应用名称 <i>*</i></label>
+
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control popover-warning" data-placement="top" data-content="名称不能为空" id="app-name" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="device-model" class="col-sm-4 control-label">设备型号 <i>*</i></label>
+
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="device-model" placeholder="">
+                                    </div>
+                                </div>
+
+
+                        </div>
+                        <div class="form-group col-md-4">
+
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label">授权类型 <i>*</i></label>
+
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2 license_select" style="width: 100%;">
+                                            <option selected="selected">免费</option>
+                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">协议 <i>*</i></label>
+
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2 protocol_select" style="width: 100%;">
+                                            <option selected="selected">Modbus</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                        </div>
+
+                        <div class="form-group col-md-4">
+
+                                <div class="form-group">
+                                    <label  class="col-sm-4 control-label">应用厂商 <i>*</i></label>
+
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2 license_select" style="width: 100%;">
+                                            <option selected="selected">免费</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">类别 <i>*</i></label>
+
+                                    <div class="col-sm-8">
+                                        <select class="form-control select2 protocol_select" style="width: 100%;">
+                                            <option selected="selected">Modbus</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                        <!--markdown 编辑器-->
+                        <div class="col-md-12">
+
+                                    <div class="myMarkdown">
+                                        <p>描述</p>
+                                        <div class="editormd" id="test-editormd">
+                                            <textarea id="mk" class="editormd-markdown-textarea" name="description"></textarea>
+                                            <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+                                            <textarea class="editormd-html-textarea"></textarea>
+                                        </div>
+                                    </div>
+                        </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-1 col-sm-11">
+                            <button type="submit" class="btn btn-danger">创建</button>
+                        </div>
                     </div>
 
-                    <button type="button" class="btn btn-block btn-primary btn-flat update_check">检查更新</button>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
-            <br />
-            <div class="row">
-
-                <div class="col-md-12 app-change-log">
-                    <!-- The time line -->
-
-                </div>
+                </form>
+                <!--<p><button class="app_edit_submit">提交</button><button class="app_add">创建</button></p>-->
+                <!--应用编辑end-->
 
             </div>
-            <!-- /.row -->
+
 
         </section>
         <!-- /.content -->
+
+
+
+
     </div>
     <!-- /.content-wrapper -->
 
@@ -551,6 +668,7 @@
 </div>
 <!-- ./wrapper -->
 
+
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -569,34 +687,48 @@
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<!-- Select2 -->
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- SlimScroll -->
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
+<!--markdown   js -->
+<script src="plugins/editor.md-master/editormd.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script src="user_js/common/skin.js"></script>
+<!-- jQuery and the Poshy Tip plugin files -->
+<script type="text/javascript" src="plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<script src="user_js/common/add_back_task.js"></script>
+<!--<script src="user_js/common/add_back_task.js"></script>-->
 <script src="user_js/common/user.js"></script>
 
 <!-- load user is -->
-<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>
-<script src="user_js/My_Gates_apps/My_Gates_apps_upgrade.js" type="text/javascript"></script>
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>-->
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
 
 <script>
-    $(function () {
-        // $(".switch").bootstrapSwitch();
 
-
-
+    $(function(){
+        $('.select2').select2();
+        editormd("test-editormd", {
+            width : "96%",
+            height : 520,
+            syncScrolling : "single",
+            //你的lib目录的路径，
+            path    : "plugins/editor.md-master/lib/",
+            //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
+            saveHTMLToTextarea : true,
+            imageUpload : true,
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/upload/image"
+        });
     });
 
-
 </script>
-
 </body>
 </html>

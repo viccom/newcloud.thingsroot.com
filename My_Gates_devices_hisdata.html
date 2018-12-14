@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="bower_components/datatables.net-bs/Select-1.2.6/css/select.dataTables.min.css">
     <!-- DataTables-Responsive -->
     <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
@@ -44,6 +46,7 @@
     </style>
 
 </head>
+<!--<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">-->
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -341,14 +344,15 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>
+                <!--<a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>-->
                 历史数据
                 <small><span class="gate_name"></span></small>
+                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
+            <!--<ol class="breadcrumb">-->
+                <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+                <!--<li class="active">Dashboard</li>-->
+            <!--</ol>-->
         </section>
 
         <!-- Main content -->
@@ -370,17 +374,22 @@
 
         <div class="col-md-5">
             <div class="box">
-                <div class="box-header">
-                    <label>选中变量:</label><span class="selected-tag">xxxxxx</span>
-                    <div class="pull-right">
-                        <div class="input-group input-group-sm" style="width: 33px;">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default btn-sm rtdata-refresh"><i class="fa fa-refresh "></i></button>
-                            </div>
+                <div class="box-header" style="vertical-align: center">
 
+                    <form class="form-inline" style="width: 95%;">
+                        <div class="form-group">
+                            <label>选中变量:</label>
+                            <input type="text" class="form-control selected-tag" placeholder="" readonly>
                         </div>
+                        <!-- /.form-group -->
+                        <div class="input-group-btn pull-right">
+                            <button type="button" class="btn btn-default btn-sm rtdata-refresh"><i class="fa fa-refresh "></i></button>
+                        </div>
+                    </form>
 
-                    </div>
+
+
+
                 </div>
                 <!-- /.box-header -->
 
@@ -406,41 +415,54 @@
             <div class="box">
                 <div class="box-header">
 
-                    <div class="btn-group">
 
-                        <!-- Date and time range -->
-                        <label>取值方式:</label>
-                        <select class="users-list">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                            <option>option 5</option>
-                        </select>
-                        <!-- Date and time range -->
+                    <form class="form-inline" style="width: 97%;">
+                        <div class="form-group">
+                            <label>取值方式：</label>
+                            <select name="method_select" class="form-control select2" data-placeholder="取值方式">
+                                <option selected="selected" value="raw">原始值</option>
+                                <option value="mean">平均值</option>
+                                <option value="max">最大值</option>
+                                <option value="min">最小值</option>
+                                <option value="sum">总和</option>
+                                <option value="count">个数</option>
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>统计时域：</label>
+                            <select  name="span_select" class="form-control select2" data-placeholder="统计时域" disabled>
+                                <option selected="selected"  value="5m">5m</option>
+                                <option value="10m">10m</option>
+                                <option value="1h">1h</option>
+                                <option value="2h">2h</option>
+                                <option value="6h">6h</option>
+                                <option value="1d">1d</option>
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label>时间范围：</label>
+                            <select  name="time_select" class="form-control select2" data-placeholder="时间范围">
+                                <option value="15m">15m</option>
+                                <option value="30m">30m</option>
+                                <option selected="selected" value="1h">1h</option>
+                                <option value="2h">2h</option>
+                                <option value="12h">12h</option>
+                                <option value="1d">1d</option>
+                                <option value="3d">3d</option>
+                                <option value="7d">7d</option>
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
 
-                        <!-- Date and time range -->
-                        <label>统计时域:</label>
-                        <select class="users-list">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                            <option>option 5</option>
-                        </select>
-                        <!-- Date and time range -->
-
-                        <!-- Date and time range -->
-                        <label>时间选择:</label>
-                        <select class="users-list">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                            <option>option 5</option>
-                        </select>
-                        <!-- Date and time range -->
-                    </div>
+                        <!--<div class="btn-group pull-right">-->
+                            <!--<button type="button" class="btn btn-primary tttest">测试</button>-->
+                        <!--</div>-->
+                        <div class="input-group-btn pull-right">
+                            <button type="button" class="btn btn-default btn-sm hisdata-refresh"><i class="fa fa-refresh "></i></button>
+                        </div>
+                    </form>
                     <!--<div class="btn-group">-->
                         <!--&lt;!&ndash; Date and time range &ndash;&gt;-->
                         <!--<label>时间范围:</label>-->
@@ -451,15 +473,15 @@
 
 
 
-                    <div class="pull-right">
-                        <div class="input-group input-group-sm" style="width: 33px;">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default btn-sm hisdata-refresh"><i class="fa fa-refresh "></i></button>
-                            </div>
+                    <!--<div class="pull-right">-->
+                        <!--<div class="input-group input-group-sm" style="width: 33px;">-->
+                            <!--<div class="input-group-btn">-->
+                                <!--<button type="button" class="btn btn-default btn-sm hisdata-refresh"><i class="fa fa-refresh "></i></button>-->
+                            <!--</div>-->
 
-                        </div>
+                        <!--</div>-->
 
-                    </div>
+                    <!--</div>-->
                 </div>
                 <!-- /.box-header -->
 
@@ -481,7 +503,7 @@
                             <thead>
                                 <tr>
                                 <th>序号</th>
-                                <th>名称</th>
+                                <th>类型</th>
                                 <th>数值</th>
                                 <th>时间</th>
                                 <th>质量戳</th>
@@ -709,10 +731,12 @@
 <script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
 <!-- SlimScroll -->
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Select2 -->
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- FastClick -->
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="dist/js/adminlte.js"></script>
 <script src="user_js/common/skin.js"></script>
 
 <!-- load common js-->
@@ -727,7 +751,7 @@
 
 <script>
     $(function () {
-
+        $('.select2').select2()
     })
 </script>
 </body>
