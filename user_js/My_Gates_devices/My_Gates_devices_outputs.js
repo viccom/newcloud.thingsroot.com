@@ -14,8 +14,10 @@ $(".device_sn").html(device_sn);
 $(".device_name").html(device_name);
 
 gate_info(gate_sn);
+// get_devices_outputs(gate_sn, device_sn);
+get_devices_rtdata(gate_sn, device_sn);
 
-
+rtdata_url="/apis/api/method/iot_ui.iot_api.gate_device_cfg?sn="+ gate_sn + "&vsn=" + device_sn;
 var table_outputs = $('#table_outputs').DataTable({
     // "dom":"<lf<t>ip>",
     "filter": true,
@@ -34,7 +36,32 @@ var table_outputs = $('#table_outputs').DataTable({
         "caseInsensitive": false,
         "smart": true
     },
+    "ajax": {
+        "url": rtdata_url,
+        "type": "GET",
+        "error": function (e) {
+            console.log(e)
+        },
+        "dataSrc":  function (d) {
+            console.log($.isEmptyObject(d))
+            if($.isEmptyObject(d)){
+                return []
+            }else{
+                return d.message.outputs
+            }
+
+        }
+    },
     "order": [[ 0, "asc" ]],
+    "columns": [
+        {"data": null},
+        {"data": "name"},
+        {"data": "desc"},
+        {"data": null},
+        {"data": "pv"},
+        {"data": "tm"},
+        {"data": null}
+    ],
     "language": {
         "sProcessing": "处理中...",
         "sLengthMenu": "显示 _MENU_ 项结果",
@@ -61,38 +88,139 @@ var table_outputs = $('#table_outputs').DataTable({
     },
     columnDefs: [
         {
-            //   指定第第1列
+            //   指定第1列
             targets:  0,
-            "width": "8%"
+            "width": "8%",
+            render: function(data, type, row, meta) {
+                // console.log(row);
+                var tag_type = "float";
+                if(row.hasOwnProperty("vt")){
+                    if(row.vt!==null){
+                        tag_type = row.vt
+                    }
+                }
+                return tag_type
+                // return data.split("+")[0].replace("T", " ");
+            }
+        },
+
+        {
+            //   指定第2列
+            targets: 1,
+            width: '15%'
+        },
+        {
+            //   指定第3列
+            targets: 2,
+            width: '20%'
+        },
+        {
+            //   指定第4列
+            targets: 3,
+            width: '8%',
+            searchable: true,
+            render: function(data, type, row, meta) {
+                // console.log(row);
+                var tag_unit = "--";
+                if(row.hasOwnProperty("unit")){
+                    if(row.unit!==null && row.unit!==""){
+                        tag_unit = row.unit
+                    }
+                }
+                return tag_unit;
+                // return data.split("+")[0].replace("T", " ");
+            }
+        },
+        {
+            //   指定第5列
+            targets:  4,
+            "width": "15%",
+            render: function(data, type, row, meta) {
+                // console.log(row);
+                var tag_pv = "--";
+                var device_pv = inputsrtdata_obj[device_sn];
+                for (i = 0; i < device_pv.length; i++) {
+                    // console.log(device_tags[i].name, row.name);
+                    if(device_pv[i].name==row.name){
+                        if(device_pv[i].pv!=null){
+                            tag_pv = device_pv[i].pv;
+                        }
+                        break;
+                    }
+                }
+                return tag_pv
+                // return data.split("+")[0].replace("T", " ");
+            }
+        },
+        {
+            //   指定第6列
+            targets:  5,
+            "width": "15%",
+            render: function(data, type, row, meta) {
+                // console.log(row);
+                var tag_tm = "--";
+                var device_pv = inputsrtdata_obj[device_sn];
+                for (i = 0; i < device_pv.length; i++) {
+                    // console.log(device_tags[i].name, row.name);
+                    if(device_pv[i].name==row.name){
+                        if(device_pv[i].tm!=null){
+                            tag_tm = device_pv[i].tm;
+                        }
+                        break;
+                    }
+                }
+                return tag_tm
+                // return data.split("+")[0].replace("T", " ");
+            }
         },
         {
             //   指定第最后一列
             targets: 6,
             searchable: false,
             orderable: false,
-            width: '10%'
+            width: '10%',
+            render: function(data, type, row, meta) {
+                // console.log(row);
+                var ops = '<button type="button" class="btn btn-default tag-output" data-toggle="modal" data-backdrop="static"  data-target="#modal-output" data-tagname="' + row.name + '">下置</button>';
+                return ops;
+                // return data.split("+")[0].replace("T", " ");
+            }
         }],
     "initComplete": function(settings, json) {
         console.log("over");
 
+        $("body").on("click", ".tag-output", function() {
+            var tag_name = $(this).data("tagname");
+            $("#tag_output_name").val(tag_name);
+            $("#tag_output_val").val("");
+            console.log(gate_sn, device_sn, tag_name, "开始下置数据");
+        });
     }
 });
 
 
-gate_devices_outputs(gate_sn, device_sn, table_outputs);
+// gate_devices_outputs(gate_sn, device_sn, table_outputs);
 /**
  *	周期检测是否下置成功并刷新
  */
 var output_ret= setInterval(function(){
     if($(".output_result").data("flag")=="1"){
-        gate_devices_outputs(gate_sn, device_sn, table_outputs);
+        get_devices_rtdata(gate_sn, device_sn);
+        setTimeout(function(){
+            table_outputs.ajax.url(rtdata_url).load(null,false);
+        },500);
     }
 },1000);
 
 
 
 $(".outputs-refresh").click(function(){
-    gate_devices_outputs(gate_sn, device_sn, table_outputs);
+    // gate_devices_outputs(gate_sn, device_sn, table_outputs);
+    get_devices_rtdata(gate_sn, device_sn);
+    setTimeout(function(){
+        table_outputs.ajax.url(rtdata_url).load(null,false);
+    },500);
+
 });
 
 $(".tag_output_ok").click(function(){

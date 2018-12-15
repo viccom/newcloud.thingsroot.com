@@ -104,9 +104,12 @@ function set_label(sn){
     var debug_off = '<span>关闭</span>';
     var datau_on = '<span class="text-green">开启</span>';
     var datau_off = '<span class="text-yellow">关闭</span>';
+    var statu_on = '<span class="text-green">开启</span>';
+    var statu_off = '<span class="text-yellow">关闭</span>';
 
     var gate_debug = [debug_off, debug_on];
-    var gate_upload = [datau_off, datau_on];
+    var data_upload = [datau_off, datau_on];
+    var stat_upload = [statu_off, statu_on];
 
     if(gateinfo){
         gateinfo = JSON.parse(gateinfo);
@@ -144,7 +147,8 @@ function set_label(sn){
         $(".gate_iot_version").html(gateinfo.config.iot_version);
         $(".gate_public_ip").html(gateinfo.config.public_ip);
         $(".gate_iot_beta").html(gate_debug[gateinfo.basic.iot_beta]);
-        $(".gate_data_upload").html(gate_upload[gateinfo.config.data_upload]);
+        $(".gate_data_upload").html(data_upload[gateinfo.config.data_upload]);
+        $(".gate_stat_upload").html(stat_upload[gateinfo.config.stat_upload]);
 
 
         if(gateinfo.hasOwnProperty("applist")){

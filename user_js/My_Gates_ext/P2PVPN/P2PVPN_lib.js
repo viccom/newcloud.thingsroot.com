@@ -178,7 +178,7 @@ function check_local_status() {
         error:function(data){
             $("#mes_table  tr:not(:first)").empty("");
             $("span#check_local_result").addClass('text-danger');
-            $("span#check_local_result").html("无法连接本地服务，请检查IOE隧道服务是否启动" + '<a href="/downloads/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
+            $("span#check_local_result").html("无法连接本地服务，请检查IOE隧道服务是否启动" + '<a href="http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
             $(".service_error").html("");
             $(".tunnel_config").attr("disabled",true);
             $("button#start_vpn").attr("disabled",true);

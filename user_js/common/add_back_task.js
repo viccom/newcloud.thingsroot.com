@@ -213,6 +213,7 @@ function sys_upgrade_result_response(result, inst, oldvalue){
 
     }else{
         console.log("升级失败");
+        $('.update_check').attr("disabled",false);
         gate_info(gate_sn);
     }
 }

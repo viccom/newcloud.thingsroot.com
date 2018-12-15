@@ -203,6 +203,64 @@ function get_devices_inputs(sn, vsn){
     });
 }
 
+/**
+ *	获取网关中某个设备的下置点表
+ */
+function get_devices_outputs(sn, vsn){
+
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.gate_device_cfg',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: {"sn": sn, "vsn":vsn},
+        dataType:'json',
+        async: false,
+        success:function(req){
+            // console.log(req);
+            if(req.message.outputs!==null){
+                localStorage.setItem("gate_devices_outputs/"+ vsn, JSON.stringify(req.message.outputs));
+                outputs_obj[vsn]=req.message.outputs;
+            }
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+
+
+/**
+ *	获取网关中某个设备的实时数据
+ */
+function get_devices_rtdata(sn, vsn){
+
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.gate_device_data_array',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: {"sn": sn, "vsn":vsn},
+        dataType:'json',
+        async: false,
+        success:function(req){
+            // console.log(req);
+            // localStorage.setItem("gate_devices_inputs_rtdata/"+ vsn, JSON.stringify(req.message));
+            inputsrtdata_obj[vsn]=req.message;
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+
+
 
 /**
  *	获取网关中某个设备的实时数据
@@ -393,7 +451,7 @@ function set_table_outputs(sn, vsn, tableobj){
                 tag_type, tag_name, tag_desc, tag_unit, tag_value, tag_time, ops
             );
             // console.log(arrayObj);
-            tableobj.row.add(arrayObj).draw();
+            tableobj.row.add(arrayObj).draw(false);
         }
         $(".tag-output").click(function(){
             var tag_name = $(this).data("tagname");

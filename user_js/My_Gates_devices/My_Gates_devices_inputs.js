@@ -4,6 +4,49 @@ $.ajaxSetup({
     }
 });
 
+/**
+ *	创建设备列表
+ */
+function creat_devs_list(sn){
+    var q = localStorage.getItem(pagename + '_Back_taskslist');
+
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.gate_devs_list',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: {"sn": sn},
+        dataType:'json',
+        success:function(req){
+            console.log(req);
+            if(req.message!=null){
+                localStorage.setItem("gate_devices/"+ sn, JSON.stringify(req.message));
+                var deviceinfo = req.message;
+                for (i = 0; i < deviceinfo.length; i++) {
+                    var device_name = deviceinfo[i].name;
+                    var device_desc = deviceinfo[i].description;
+                    var d_sn = deviceinfo[i].sn;
+                    var html = '<li class="iot" data-devicesn="'+d_sn+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
+                    if(d_sn==device_sn){
+                        html = '<li class="active iot" data-devicesn="'+d_sn+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
+                    }
+
+                    $("ul.devices_list").append(html);
+                }
+            }
+
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+
+
+}
+
+
 gate_sn  = getParam('sn');
 device_sn =  getParam('vsn');
 device_name  =  getParam('device_name');
@@ -15,7 +58,7 @@ $(".device_name").html(device_name);
 
 gate_info(gate_sn);
 get_devices_inputs(gate_sn, device_sn);
-
+creat_devs_list(gate_sn);
 
 var HtmlUtil = {
     /*1.用浏览器内部转换器实现html转码*/
@@ -192,7 +235,7 @@ table_inputs = $('#table_inputs').DataTable({
             }
         },
         {
-            //   指定第3列
+            //   指定第5列
             targets: 4,
             render: function(data, type, row, meta) {
 
@@ -211,6 +254,18 @@ table_inputs = $('#table_inputs').DataTable({
 
                 // return data.split("+")[0].replace("T", " ");
             }
+        },
+        {
+            //   指定第6列
+            targets: 5,
+            searchable: false,
+            width: '15%'
+        },
+        {
+            //   指定第7列
+            targets: 6,
+            searchable: false,
+            width: '9%'
         },
         {
             //   指定第最后一列
@@ -276,6 +331,25 @@ $(".rt-refresh").click(function(){
 
 });
 
+
+$("body").on("click", "li.iot", function() {
+    // console.log($(this).data("devicesn"));
+    $(this).addClass("active");
+    $(this).siblings().removeClass("active");
+    device_sn =  $(this).data("devicesn");
+    get_devices_inputs(gate_sn, device_sn);
+    rtdata_url="/apis/api/method/iot_ui.iot_api.gate_device_data_array?sn="+ gate_sn + "&vsn=" + device_sn;
+    var t_ret = setTimeout(function(){
+        table_inputs.ajax.url(rtdata_url).load();
+    },500);
+    $(".device_sn").html(device_sn);
+
+});
+
+$(".devslist-refresh").click(function(){
+     creat_devs_list(gate_sn);
+
+});
 // var table_inputs = $('#table_inputs').DataTable({
 //     // "dom":"<lf<t>ip>",
 //     "filter": true,

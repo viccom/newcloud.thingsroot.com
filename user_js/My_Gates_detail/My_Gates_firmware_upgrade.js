@@ -30,6 +30,7 @@ $(".update_check").click(function(){
     console.log(skynetflag, freeioeflag)
     if(skynetflag=="1" || freeioeflag=="1"){
         console.log("sys_upgrade");
+        $('.update_check').attr("disabled",true);
         var pdata = {"no_ack": 1};
         if(skynetflag=="1"){
             pdata = {"no_ack": 1,"skynet": { "version": cloudver }};
