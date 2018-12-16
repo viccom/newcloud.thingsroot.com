@@ -41,7 +41,7 @@ $(function () {
     var filter = "online";
     var table_obj = new Object();
 
-var    attach = "2";
+    attach = "2";
     if(getCookie("isAdmin")){
         $("button.attach_select").attr("disabled",false);
         $("select.group_select").attr("disabled",false);
@@ -377,7 +377,7 @@ var    table_gates = $('#table_gates').DataTable({
         $(this).siblings().removeClass("btn-primary");
         $(this).siblings().addClass("btn-default");
         attach = $(this).data("attach");
-        console.log(attach);
+
         if(attach=="1"){
             $("select.group_select").attr("disabled",true);
         }else{
@@ -434,7 +434,11 @@ var    table_gates = $('#table_gates').DataTable({
         $("#modal-remove-gate").modal('hide');
     });
 
-
+    // 添加ThingsLink按钮
+    $(".add_thingslink").click(function(){
+        ttips($(this),"暂不支持");
+        return false;
+    });
     // 添加ThingsLink到当前账户
     $("button.add_thingslink_confirm").click(function(){
         var userid = getCookie('usr');
@@ -456,7 +460,7 @@ var    table_gates = $('#table_gates').DataTable({
         }
         var device_desc = $("#thingslink-desc").val();
         var group_name = $("select.group_select").val();
-        if(group_name==null){
+        if(group_name==null && attach=="2"){
             $('.popover-warning3').popover('show');
             setTimeout(function () {
                 $('.popover-warning3').popover('destroy');
@@ -478,7 +482,7 @@ var    table_gates = $('#table_gates').DataTable({
             owner_type: owner_type[attach]
         }
         console.log(data);
-        ttips($(this),"暂不支持")
+
     });
 
 

@@ -603,26 +603,29 @@
             data: userName,
             success:function (req) {
                 var data = req.message;
-                console.log(data);
-                for(var i=0;i<data.length;i++){
-                    var star = new Array(6).join("☆");
-                    if(data[i].star){
-                        star = new Array(data[i].star +1 ).join("★");
+                // console.log(data);
+                if(data){
+                    for(var i=0;i<data.length;i++){
+                        var star = new Array(6).join("☆");
+                        if(data[i].star){
+                            star = new Array(data[i].star +1 ).join("★");
+                        }
+                        var li_html =
+                            '<li>'+
+                            '<span class="mailbox-attachment-icon"><a href="My_Apps_detail.html?appid='+data[i].name+ '"><i class="fa fa-archive"></i></a></span>' +
+                            '<div class="mailbox-attachment-info">' +
+                            '<a href="#" class="mailbox-attachment-name">' + data[i].app_name + '</a>' +
+
+                            '<span class="mailbox-attachment-size">' + star +
+                            '<a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>' +
+                            '</span>' +
+
+                            '</div>' +
+                            '</li>'
+                        $('.my-apps-list').append(li_html)
                     }
-                    var li_html =
-                    '<li>'+
-                    '<span class="mailbox-attachment-icon"><a href="My_Apps_detail.html?appid='+data[i].name+ '"><i class="fa fa-archive"></i></a></span>' +
-                    '<div class="mailbox-attachment-info">' +
-                        '<a href="#" class="mailbox-attachment-name">' + data[i].app_name + '</a>' +
-
-                    '<span class="mailbox-attachment-size">' + star +
-                    '<a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>' +
-                    '</span>' +
-
-                    '</div>' +
-                    '</li>'
-                    $('.my-apps-list').append(li_html)
                 }
+
             //     星星显示分数
             //     $(".show_number li p").each(function(index, element) {
             //         var num=$(this).attr("tip");

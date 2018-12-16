@@ -261,7 +261,7 @@ function get_company_groups() {
             contentType: "application/json; charset=utf-8",
             dataType:'json',
             success:function(req){
-                console.log(req);
+                console.log("gret:",req);
                 var data= [];
                 var t = {};
                 for (var i = 0; i < req.message.length; i++) {
@@ -289,6 +289,15 @@ function get_company_groups() {
 
             }
         });
+    }else{
+        $("select.group_select").attr("disabled",true);
+        $("button.select_personal").removeClass("btn-default");
+        $("button.select_personal").addClass("btn-primary");
+        $("button.select_company").removeClass("btn-primary");
+        $("button.select_company").addClass("btn-default");
+        $("button.select_personal").attr("disabled",true);
+        $("button.select_company").attr("disabled",true);
+        attach = "1";
     }
 
 }
