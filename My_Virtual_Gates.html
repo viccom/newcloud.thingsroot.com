@@ -727,9 +727,9 @@
                 orderable: false,
                 render: function(row, type, data, meta) {
                     // console.log(data.device_sn);
-                    var gen_html = '<a href="/My_Gates_apps.html?sn=' + data.device_sn + '">查看</a>'
+                    var gen_html = '<a href="/My_Gates_devices.html?sn=' + data.device_sn + '">设备</a>'
                                 + ' | '
-                                + '<a class="Delete_Virgate" href="#"  data-sn="'+ data.device_sn +  '">--</a>'
+                                + '<a href="/My_Gates_apps.html?sn=' + data.device_sn + '" data-sn="'+ data.device_sn +  '">应用</a>'
                     return gen_html;
                 }
             }],
