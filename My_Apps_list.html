@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | Dashboard</title>
+    <title>冬笋云 | 我的应用</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-    <!-- canvi -->
-    <link rel="stylesheet" href="plugins/canvi/canvi.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -358,9 +357,6 @@
                     <button type="button" class="btn btn-primary creat_app">创建新的应用</button>
                 </div>
 
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-primary js-canvi-open-button--right">侧边栏测试</button>
-                </div>
             </h1>
             <!--<ol class="breadcrumb">-->
                 <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
@@ -373,13 +369,11 @@
 
 
             <div class="box box-body ">
-
+                <!--应用列表start-->
                 <ul class="mailbox-attachments clearfix my-apps-list">
 
 
                 </ul>
-                <!--应用列表start-->
-
                 <!--应用列表end-->
 
             </div>
@@ -575,8 +569,6 @@
 <!-- SlimScroll -->
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 
-<!-- canvi -->
-<script src="plugins/canvi/canvi.js"></script>
 <!-- FastClick -->
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
@@ -617,38 +609,6 @@
                     if(data[i].star){
                         star = new Array(data[i].star +1 ).join("★");
                     }
-                    var op_html =
-                        '<div class="col-md-6 col-lg-6 col-xlg-4">' +
-                        '<div class="card card-body">' +
-                        '<div class="row">' +
-                        '<div class="col-md-4 col-lg-3 text-center">' +
-                        '<a href="My_apps_detail.html?appid='+data[i].name+ '"><img src="'+ data[i].icon_image +'" alt="user" class=" img-responsive"></a>' +
-                        '</div>' +
-                        '<div class="col-md-8 col-lg-9">' +
-                        '<a href="My_apps_detail.html?appid='+ data[i].name+'"><h3 class="box-title m-b-0">' + data[i].app_name + '</h3></a> <small>华为UPS200</small><br>' +
-                        '<address>' +
-                        '<table class="mytable" width="80%">' +
-                        '<tr>' +
-                        '<td colspan="4">' + star + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td> 应用分类：</td>' +
-                        '<td>' + data[i].category + '</td>' +
-                        '<td>发布日期：</td>' +
-                        '<td>' + data[i].creation.substr(0,11) + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td>通讯协议：</td>' +
-                        '<td>'+ data[i].protocol +'</td>' +
-                        '<td>设备厂商：</td>' +
-                        '<td>'+ data[i].device_supplier +'</td>' +
-                        '</tr>' +
-                        '</table>' +
-                        '</address>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>'
                     var li_html =
                     '<li>'+
                     '<span class="mailbox-attachment-icon"><a href="My_apps_detail.html?appid='+data[i].name+ '"><i class="fa fa-archive"></i></a></span>' +

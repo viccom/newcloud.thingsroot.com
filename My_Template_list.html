@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | Dashboard</title>
+    <title>冬笋云 | 我的模板</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -16,8 +16,13 @@
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- DataTables-Responsive -->
     <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- Tooltip classes -->
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
     <!-- Ionicons -->
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -27,6 +32,9 @@
     <!-- global style -->
     <link rel="stylesheet" href="user_css/global.css">
 
+    <!-- user style -->
+    <!--<link rel="stylesheet" href="user_css/star.css">-->
+    <link rel="stylesheet" href="user_css/apps_list.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -34,8 +42,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Google Font -->
-    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+    <style type="text/css">
+
+
+
+    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -260,7 +271,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs user-name">user</span>
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
                         </a>
                         <ul class="dropdown-menu">
 
@@ -268,20 +279,20 @@
                             <li class="user-panel">
 
                                 <div class="text-center">
-                                    <a href="#">基本资料</a>
+                                    <a href="User_Settings.html">基本资料</a>
                                 </div>
                             </li>
                             <li class="user-panel">
 
                                 <div class="text-center">
-                                    <a href="#">AccessKey</a>
+                                    <a href="My_AccessKey.html">AccessKey</a>
                                 </div>
 
                             </li>
 
                             <li class="user-panel">
                                 <div class="text-center">
-                                    <a href="#">虚拟网关</a>
+                                    <a href="My_Virtual_Gates.html">虚拟网关</a>
                                 </div>
                             </li>
                             <!-- Menu Footer-->
@@ -316,8 +327,8 @@
 
                 <li class="header">我的资源</li>
                 <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
-                <li><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
-                <li class="active treeview"><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
+                <li class="active treeview"><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
                 <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
@@ -335,22 +346,45 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Dashboard
-                <small>Control panel</small>
+                我的模板
+                <small>设备模板</small>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-primary creat_templ">创建新的模板</button>
+                </div>
+
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
+
         </section>
 
         <!-- Main content -->
         <section class="content">
 
+
+
+
+            <div class="box box-body " style="min-height: 625px">
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+
         </section>
         <!-- /.content -->
+
+
+
+
     </div>
     <!-- /.content-wrapper -->
+
 
 
     <!-- Control Sidebar start-->
@@ -509,6 +543,8 @@
 </div>
 <!-- ./wrapper -->
 
+
+
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -529,25 +565,32 @@
 <script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
 <!-- SlimScroll -->
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
 <!-- FastClick -->
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="dist/js/adminlte.js"></script>
 <script src="user_js/common/skin.js"></script>
+<!-- jQuery and the Poshy Tip plugin files -->
+<script type="text/javascript" src="plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<script src="user_js/common/add_back_task.js"></script>
+<!--<script src="user_js/common/add_back_task.js"></script>-->
 <script src="user_js/common/user.js"></script>
 
-<script>
-    $(function () {
-        pagename="Template_list";
+<!-- load user is -->
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>-->
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
 
+<script>
+
+    $(function(){
 
 
     });
+
 </script>
 </body>
 </html>
