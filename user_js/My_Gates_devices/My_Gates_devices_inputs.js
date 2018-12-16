@@ -59,6 +59,9 @@ $(".device_name").html(device_name);
 gate_info(gate_sn);
 get_devices_inputs(gate_sn, device_sn);
 creat_devs_list(gate_sn);
+if(gate_sn){
+    record_gate_op(gate_sn);
+}
 
 var HtmlUtil = {
     /*1.用浏览器内部转换器实现html转码*/
@@ -115,7 +118,7 @@ table_inputs = $('#table_inputs').DataTable({
     "filter": true,
     "info": true,
     "paging": true,
-    "iDisplayLength" : 20,
+    "iDisplayLength" : 10,
     "lengthMenu": [ 10, 20, 50, 75, 100 ],
     // "scrollY": true,
     // "scroller": {
@@ -334,6 +337,7 @@ $(".rt-refresh").click(function(){
 
 $("body").on("click", "li.iot", function() {
     // console.log($(this).data("devicesn"));
+    $('.popover-destroy').popover('destroy');
     $(this).addClass("active");
     $(this).siblings().removeClass("active");
     device_sn =  $(this).data("devicesn");
@@ -344,9 +348,14 @@ $("body").on("click", "li.iot", function() {
     },500);
     $(".device_sn").html(device_sn);
 
+    var t_ret = setTimeout(function(){
+        $("[data-toggle='popover']").popover();
+    },1 * 1500);
+
 });
 
 $(".devslist-refresh").click(function(){
+    $("ul.devices_list").empty();
      creat_devs_list(gate_sn);
 
 });

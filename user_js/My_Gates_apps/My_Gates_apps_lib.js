@@ -17,7 +17,10 @@ function gate_info(sn){
             var gateinfo = localStorage.getItem("gate_info/"+ sn);
             if(gateinfo!=null){
                 localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
-                set_label(sn);
+                setTimeout(function () {
+                    set_label(sn);
+                },200);
+
             }
         },
         error:function(req){
@@ -94,7 +97,9 @@ function gate_applist(sn, tableobj){
             // console.log(req);
             if(req.message!=null){
                 localStorage.setItem("gate_apps/"+ sn, JSON.stringify(req.message));
-                set_tabel(sn, tableobj);
+                setTimeout(function () {
+                    set_tabel(sn, tableobj);
+                },200);
             }
 
         },
@@ -287,12 +292,15 @@ function gate_app_detail(sn, inst, pagename){
                 localStorage.setItem("app_info/"+ sn +"/" + inst, JSON.stringify(req.message));
             }
             if(pagename=="Gates_apps_monitor"){
-                set_app_monitor_label(sn, inst);
+                setTimeout(function () {
+                    set_app_monitor_label(sn, inst);
+                },200);
             }
             if(pagename=="Gates_apps_upgrade"){
-                set_app_upgrade_label(sn, inst);
+                setTimeout(function () {
+                    set_app_upgrade_label(sn, inst);
+                },200);
             }
-
         },
         error:function(req){
             console.log(req);

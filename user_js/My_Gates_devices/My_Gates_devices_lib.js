@@ -15,9 +15,10 @@ function gate_info(sn){
         success:function(req){
             if(req.message!=null){
                 localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
-                set_label(sn);
+                setTimeout(function () {
+                    set_label(sn);
+                },200);
             }
-
         },
         error:function(req){
             console.log(req);
@@ -91,7 +92,9 @@ function gate_devs_list(sn, tableobj){
                 // console.log(req);
                 if(req.message!=null){
                     localStorage.setItem("gate_devices/"+ sn, JSON.stringify(req.message));
-                    set_table(sn, tableobj);
+                    setTimeout(function () {
+                        set_table(sn, tableobj);
+                    },200);
                 }
 
             },
@@ -308,7 +311,6 @@ function gate_devices_inputs_ex(sn, vsn, tableobj){
         }
     });
 }
-
 
 
 

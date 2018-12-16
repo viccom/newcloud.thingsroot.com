@@ -44,8 +44,8 @@
         .monitor-box {
             display: block;
             min-height: 90px;
-            background: #fff;
-            width: 290px;
+            background: #fff ;
+            width: 300px;
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
             border-radius: 2px;
             margin-bottom: 15px;
@@ -411,36 +411,40 @@
         <section class="content">
             <!-- Info boxes -->
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="monitor-box">
-                        <span class="monitor-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="col-md-12">
+                    <div style="width: 100%; background: white">
+                        <div class="monitor-box">
+                            <span class="monitor-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
-                        <div class="monitor-box-content">
-                            <span class="monitor-box-number app-inst"></span>
-                            <span class="monitor-box-text">当前版本：<span class="app-gatever">8</span> | 最新版本：<span class="app-cloudver">9</span></span>
-                            <div style="width: 180px">
-                                <button type="button" class="btn btn-info app-action">启动</button>
-                                <button type="button" class="btn btn-warning app-restart">重启</button>
-                                <!--更多 下拉按钮组 start-->
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                        更多<span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
+                            <div class="monitor-box-content">
+                                <span class="monitor-box-number app-inst"></span>
+                                <span class="monitor-box-text">当前版本：<span class="app-gatever">8</span> | 最新版本：<span class="app-cloudver">9</span></span>
+                                <div style="width: 180px">
+                                    <button type="button" class="btn btn-info app-action">启动</button>
+                                    <button type="button" class="btn btn-warning app-restart">重启</button>
+                                    <!--更多 下拉按钮组 start-->
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                            更多<span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
 
-                                        <li><a href="#"  class="go-app-upgrade">应用升级</a></li>
-                                        <li><a href="#"  data-toggle="modal" data-target="#modal-warning">应用卸载</a></li>
-                                        <li><a href="#"  data-toggle="modal" data-target="#modal-default">更改实例名</a></li>
+                                            <li><a href="#"  class="go-app-upgrade">应用升级</a></li>
+                                            <li><a href="#"  data-toggle="modal" data-target="#modal-warning">应用卸载</a></li>
+                                            <li><a href="#"  data-toggle="modal" data-target="#modal-default">更改实例名</a></li>
 
-                                    </ul>
+                                        </ul>
+                                    </div>
+                                    <!--更多 下拉按钮组 end-->
                                 </div>
-                                <!--更多 下拉按钮组 end-->
                             </div>
+                            <!-- /.info-box-content -->
+
                         </div>
-                        <!-- /.info-box-content -->
+                        <!-- /.info-box -->
                     </div>
-                    <!-- /.info-box -->
+
                 </div>
                 <!-- /.col -->
             </div>

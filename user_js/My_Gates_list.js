@@ -90,7 +90,8 @@ var    table_gates = $('#table_gates').DataTable({
             {"data": "device_status"},
             {"data": "device_apps_num"},
             {"data": "device_devs_num"},
-            {"data": null}
+            {"data": null},
+            {"data": "device_sn"}
         ],
         "language": {
             "sProcessing": "处理中...",
@@ -186,16 +187,17 @@ var    table_gates = $('#table_gates').DataTable({
                 width: '10%',
                 render: function(row, type, data, meta) {
                     // console.log(data.device_sn);
-                    var gen_html = '<button type="button" class="btn btn-default gate-appmanager" data-sn="'+ data.device_sn +  '">查看</button>'
+                    var gen_html = '<button type="button" class="btn btn-default gate-devsmanager" data-sn="'+ data.device_sn +  '">设备</button>'
+                        + '<button type="button" class="btn btn-default gate-appmanager" data-sn="'+ data.device_sn +  '">应用</button>'
                         + '<div class="btn-group">'
                         + '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">'
                         +     '更多<span class="caret"></span>'
                         +     '<span class="sr-only">Toggle Dropdown</span>'
                         + '</button>'
                         + '<ul class="dropdown-menu" role="menu">'
-                        +     '<li><a href="My_Gates_devices.html?sn='
-                        + data.device_sn
-                        + '">设备列表</a></li>'
+                        +     '<li><a href="My_Gates_devices_inputs.html?sn='
+                        + data.device_sn + '&vsn=' + data.device_sn
+                        + '">实时数据</a></li>'
                         +     '<li><a href="My_Gates_detail.html?sn='
                         + data.device_sn
                         + '">网关信息</a></li>'
@@ -205,11 +207,23 @@ var    table_gates = $('#table_gates').DataTable({
                         + '</div>'
                     $("[data-toggle='tooltip']").popover();
                     return gen_html;
-                }
+                },
+            },
+            {
+                //   指定第6列
+                targets: 7,
+                visible: false,
+                searchable: true,
+                orderable: false,
+                width: '0%'
             }],
         "initComplete": function(settings, json) {
             console.log("over");
             $("[data-toggle='popover']").popover();
+            $("body").on("click", ".on .gate-devsmanager", function() {
+                // console.log($(this).data("sn"));
+                redirect("My_Gates_devices.html?sn=" + $(this).data("sn"));
+            });
             $("body").on("click", ".on .gate-appmanager", function() {
                 // console.log($(this).data("sn"));
                 redirect("My_Gates_apps.html?sn=" + $(this).data("sn"));
@@ -363,7 +377,7 @@ var    table_gates = $('#table_gates').DataTable({
         $(this).siblings().removeClass("btn-primary");
         $(this).siblings().addClass("btn-default");
         attach = $(this).data("attach");
-        console.log(attach)
+        console.log(attach);
         if(attach=="1"){
             $("select.group_select").attr("disabled",true);
         }else{
@@ -407,7 +421,7 @@ var    table_gates = $('#table_gates').DataTable({
             desc:device_desc,
             owner_id: group_name,
             owner_type: owner_type[attach]
-        }
+        };
         console.log(data);
         update_gate(data);
         $("#modal-update-gate").modal('hide');

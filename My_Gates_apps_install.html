@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
     <!-- canvi -->
     <link rel="stylesheet" href="plugins/canvi/canvi.css">
+    <!--markdown   css-->
+    <link rel="stylesheet" href="plugins/editor.md-master/css/editormd.min.css" />
 
     <!-- waterfall -->
     <!--<link rel="stylesheet" href="plugins/bingdian-waterfall/demos/css/waterfall.css">-->
@@ -406,9 +408,14 @@
             <div class="row">
                 <!-- page left nav menu start -->
                 <div class="col-md-2">
-                    <span class="btn btn-success btn-block margin-bottom">网关列表</span>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <div><i class="fa fa fa-dot-circle-o"></i> <b>当前操作网关：</b></div>
+                        </div>
+                    </div>
 
-                    <div class="box box-solid">
+
+                    <div class="box">
                         <div class="box-header with-border">
                             <!--<h3 class="box-title">网关列表</h3>-->
                             <input style="width: 100%" id="search-highlight" name="search-highlight" placeholder="搜索" type="text" data-list=".highlight_list" autocomplete="off">
@@ -425,8 +432,8 @@
                 </div>
                 <!-- page left nav menu end -->
 
-                <div class="col-md-10">
-                    <div class="box box-primary">
+                <div class="col-md-10" style="padding-left: 0">
+                    <div class="box box-primary" >
                         <div class="box-header with-border">
 
                             <div class="col-md-3"><i class="fa fa fa-dot-circle-o"></i> 名称：<span class="gate_name"></span></div>
@@ -437,45 +444,224 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-xs-12">
+                            <div class="nav-tabs-custom hide">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#app_market_div" data-toggle="tab">应用市场</a></li>
+                                    <li><a href="#app_detail_div" data-toggle="tab">应用详情</a></li>
+                                    <li><a href="#app_config_div" data-toggle="tab">应用安装配置</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <!-- app_market_div start-->
+                                <div class="tab-pane active" id="app_market_div">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <form class="form-inline" style="width: 100%;">
+                                                <div class="form-group">
+                                                    <label>设备厂商：</label>
+                                                    <select name="suppliers_select" class="form-control select2" data-placeholder="设备厂商">
 
-                        <div class="box col-xs-12">
-                            <form class="form-inline" style="width: 100%;">
-                                <div class="form-group">
-                                    <label>设备厂商：</label>
-                                    <select name="suppliers_select" class="form-control select2" data-placeholder="设备厂商">
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <label>通讯协议：</label>
+                                                    <select  name="protocols_select" class="form-control select2" data-placeholder="通讯协议">
 
-                                    </select>
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <label>应用类型：</label>
+                                                    <select  name="types_select" class="form-control select2" data-placeholder="应用类型">
+
+                                                    </select>
+                                                </div>
+                                                <!-- /.form-group -->
+
+                                                <div class="btn-group pull-right">
+                                                    <!--<button type="button" class="btn btn-primary tttest">搜索</button>-->
+                                                    <!--<button type="button" class="btn app-detail"><i class="fa fa-calculator"></i></button>-->
+                                                    <!--<button type="button" class="btn app-config"><i class="fa fa-wrench"></i></button>-->
+                                                    <input type="text" name="table_search" class="form-control" placeholder="Search">
+                                                    <button type="submit" class="btn btn-default pull-right app-search"><i class="fa fa-search"></i></button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                        <div class="all-apps-list" id="container">
+
+                                            <!--应用列表start-->
+
+                                            <!--应用列表end-->
+
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- /.form-group -->
-                                <div class="form-group">
-                                    <label>通讯协议：</label>
-                                    <select  name="protocols_select" class="form-control select2" data-placeholder="通讯协议">
+                                <!-- app_market_div end -->
 
-                                    </select>
+                                <!-- app_detail_div start-->
+                                <div class="tab-pane" id="app_detail_div">
+
+                                    <div class="box box-body my-apps-detail">
+
+                                        <!--应用详情start-->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h2 class="page-header">
+                                                    <i class="fa fa-th"></i>&nbsp;&nbsp;<span class="app_name"></span>
+                                                    <div class="pull-right"><a href="javascript:void(0)" class="close-app-detail"><i class="fa fa-close"></i></a></div>
+
+                                                </h2>
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <div class="row invoice-info" style="max-height: 150px">
+                                            <div class="col-sm-2 invoice-col" style="max-height: 140px">
+                                                <div class="img-box col-sm-12" style="max-height: 140px">
+                                                    <div class="form-group">
+                                                        <img class="img-responsive app_img" src="/assets/app_center/img/logo.png" alt="User Image">
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col-sm-3 invoice-col">
+                                                &nbsp;&nbsp;
+                                                <address>
+                                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;发布者：<span class="app_owner"></span></p>
+                                                    <p>通讯协议：<span class="app_protocol"></span></p>
+                                                    <p>适配型号：<span class="device_serial"></span></p>
+
+                                                </address>
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="col-sm-3 invoice-col">
+                                                &nbsp;&nbsp;
+                                                <address>
+                                                    <p>应用分类：<span class="app_category"></span></p>
+                                                    <p>设备厂家：<span class="device_supplier"></span></p>
+                                                    <p>应用价格：<span class="license_type"></span></p>
+
+                                                </address>
+                                            </div>
+                                            <!-- /.col -->
+                                            <div class="col-sm-1 invoice-col">
+                                                &nbsp;&nbsp;
+                                                <address>
+
+                                                    <p>
+                                                        <a class="btn btn-app">
+                                                            <i class="fa fa-edit"></i> 安装到网关
+                                                        </a>
+                                                    </p>
+                                                </address>
+                                            </div>
+                                            <!-- /.col -->
+
+                                        </div>
+                                        <!--应用详情end-->
+                                        <div class="nav-tabs-custom">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#activity" data-toggle="tab">描述</a></li>
+                                                <li><a href="#timeline" data-toggle="tab">评论</a></li>
+                                                <!--<li><a href="#versions_list" data-toggle="tab">版本列表</a></li>-->
+                                                <!--<li><a href="#Templates_list" data-toggle="tab">模板列表</a></li>-->
+                                            </ul>
+                                            <div class="tab-content" style="padding: 0">
+
+                                                <div class="active tab-pane" id="activity">
+                                                    <div class="col-md-9" style="">
+                                                        <div id="test-editormd" class="editormd-onlyread">
+                                                            <textarea style="display:none;"  name="test-editormd-markdown-doc">###我的描述</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3" style="">
+                                                        Categories
+
+                                                    </div>
+
+
+                                                </div>
+                                                <!-- /.tab-pane -->
+
+                                                <div class="tab-pane" id="timeline">
+                                                    <!-- The timeline -->
+
+                                                    <!-- Post -->
+                                                    <div class="post clearfix">
+                                                        <div class="user-block">
+                                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">
+                                                            <span class="username">
+                                                              <a href="#">Sarah Ross</a>
+                                                              <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
+                                                            </span>
+                                                            <span class="description">Sent you a message - 3 days ago</span>
+                                                        </div>
+                                                        <!-- /.user-block -->
+                                                        <p>
+                                                            Lorem ipsum represents a long-held tradition for designers,
+                                                            typographers and the like. Some people hate it and argue for
+                                                            its demise, but others ignore the hate as they create awesome
+                                                            tools to help create filler text for everyone from bacon lovers
+                                                            to Charlie Sheen fans.
+                                                        </p>
+
+                                                        <form class="form-horizontal">
+                                                            <div class="form-group margin-bottom-none">
+                                                                <div class="col-sm-9">
+                                                                    <input class="form-control input-sm" placeholder="Response">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">Send</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.post -->
+
+                                                </div>
+                                                <!-- /.tab-pane -->
+
+                                            </div>
+                                            <!-- /.tab-content -->
+                                        </div>
+
+
+                                    </div>
+
+
                                 </div>
-                                <!-- /.form-group -->
-                                <div class="form-group">
-                                    <label>应用类型：</label>
-                                    <select  name="types_select" class="form-control select2" data-placeholder="应用类型">
+                                <!-- app_detail_div end -->
 
-                                    </select>
+
+                                <!-- app_config_div start-->
+                                <div class="tab-pane" id="app_config_div">
+                                    <div class="box box-body" style="min-height: 560px">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <h2 class="page-header">
+                                                    <i class="fa fa-th"></i>&nbsp;&nbsp;<span class="app_name_config"></span>
+                                                    <div class="pull-right"><a href="javascript:void(0)" class="close-app-config"><i class="fa fa-close"></i></a></div>
+
+                                                </h2>
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                    </div>
+
+
                                 </div>
-                                <!-- /.form-group -->
-
-                                <div class="btn-group pull-right">
-                                    <button type="button" class="btn btn-primary tttest">测试</button>
-                                </div>
-                            </form>
-
-                            <br>
-                            <div class="box box-body all-apps-list" id="container">
-
-                                <!--应用列表start-->
-
-                                <!--应用列表end-->
+                                <!-- app_config_div end -->
 
                             </div>
+
                         </div>
+
+
                     </div>
 
                 </div>
@@ -687,6 +873,15 @@
 <script type="text/javascript" src="plugins/HideSeek-master/jquery.hideseek.min.js"></script>
 <!-- Select2 -->
 <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+<!--markdown   js -->
+<script src="plugins/editor.md-master/editormd.min.js"></script>
+<script src="plugins/editor.md-master/lib/marked.min.js"></script>
+<script src="plugins/editor.md-master/lib/prettify.min.js"></script>
+<script src="plugins/editor.md-master/lib/raphael.min.js"></script>
+<script src="plugins/editor.md-master/lib/underscore.min.js"></script>
+<script src="plugins/editor.md-master/lib/sequence-diagram.min.js"></script>
+<script src="plugins/editor.md-master/lib/flowchart.min.js"></script>
+<script src="plugins/editor.md-master/lib/jquery.flowchart.min.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
@@ -696,7 +891,7 @@
 
 <!-- load user is -->
 <script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>
-<!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
+<script src="user_js/My_Gates_apps/My_Gates_apps_install.js" type="text/javascript"></script>
 
 
 <script id="waterfall-tpl" type="text/x-handlebars-template">
@@ -704,10 +899,10 @@
 
     {{#message.result}}
     <div class="item">
-        <span class="mailbox-attachment-icon"><a href="My_apps_detail.html?appid={{name}}"><i class="fa fa-archive"></i></a></span>
+        <span class="mailbox-attachment-icon app-detail" data-cloudappid="{{name}}"><a href="javascript:void(0)"><i class="fa fa-archive"></i></a></span>
         <div class="mailbox-attachment-info">
-            <a href="My_apps_detail.html?appid={{name}}" class="mailbox-attachment-name">{{app_name}}</a>
-            <span class="mailbox-attachment-size">☆☆☆☆☆<a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a></span>
+            <a class="mailbox-attachment-name app-detail"  data-cloudappid="{{name}}">{{app_name}}</a>
+            <span class="mailbox-attachment-size">☆☆☆☆☆<a class="btn btn-default btn-xs pull-right app-config" data-cloudappid="{{name}}" data-appname="{{app_name}}"><i class="fa fa-cloud-download"></i></a></span>
         </div>
     </div>
     {{/message.result}}
@@ -722,6 +917,7 @@
             "X-Frappe-CSRF-Token": auth_token
         }
     });
+
     $('.select2').select2()
 
     $(function(){
@@ -820,9 +1016,9 @@
                             resultNum = data.message.total;
 
                     if ( resultNum < count) {
-                        $('#container').data("pause","1");
+                        // $('#container').data("pause","1");
                         $('#container').waterfall('pause', function() {
-                            $('#waterfall-message').html('<p style="color:#666;">no more data...</p>')
+                            $('#waterfall-message').html('<p style="color:#666;">已全部加载...</p>')
                             //alert('no more data');
                         });
                     }
@@ -839,10 +1035,11 @@
             },
         });
 
-        $('.tttest').click(function() {
+        $('button.app-search').click(function() {
             $('#container').waterfall('resume', function() {
                 $('#waterfall-message').html('')
             });
+
             // $('#container').empty();
             // $('#container').waterfall('option', {}, function() {
             //     console.log('change curPage to 1');
@@ -979,26 +1176,64 @@
                 contentType: "application/json; charset=utf-8",
                 dataType:'json',
                 success:function(data){
-                    if(data.message && data.message.length>0){
+                    var user = getCookie('usr');
+                    var op_list = new Array();
+                    var tmpstr = localStorage.getItem("gate_op/"+ user);
+                    if(tmpstr!==null){
+                        var arr = JSON.parse(tmpstr);
+                        if(arr.length>0){
+                            op_list = arr
+                        }
+                    }
+                    for (i = 0; i < op_list.length; i++){
+                        var tmpstr = localStorage.getItem("gate_info/"+ op_list[i]);
+                        if(tmpstr!==null){
+                            var gateobj = JSON.parse(tmpstr);
+                            if(gateobj.hasOwnProperty("basic")){
+                                var gsn = op_list[i];
+                                var gate_desc = gateobj.basic.desc;
+                                var lenText = gateobj.basic.name;
+                                if(gateobj.basic.name.length>16){
+                                    lenText=gateobj.basic.name.substring(0,16)
+                                }
+                                var li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                if(gsn==gate_sn){
+                                    li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '" class="active"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                }
+                                $("ul.gates_list").append(li_html);
 
-                        for (i = 0; i < data.message.length; i++){
-                            // console.log(i, data.message[i].device_name);
+                            }
+                        }
+                    }
+                    if(data.message && data.message.length>0){
+                        var maxlen = data.message.length;
+                        if(data.message.length>12){
+                            maxlen = 12;
+                        }
+                        for (i = 0; i < maxlen; i++){
+                            console.log(i, data.message[i].device_name);
+                            console.log(op_list);
                             var arrayObj = new Array(data.message[i].device_name,
                                 data.message[i].device_desc, data.message[i].last_updated,
                                 data.message[i].device_status,data.message[i].device_apps_num,
                                 data.message[i].device_devs_num,"" ,data.message[i].device_sn,
                                 data.message[i].beta, data.message[i].iot_beta);
+                            console.log($.inArray(data.message[i].device_sn, op_list));
+                            if($.inArray(data.message[i].device_sn, op_list)==-1){
+                                console.log("ok");
+                                var lenText = data.message[i].device_name;
+                                if(data.message[i].device_name.length>16){
+                                    lenText=data.message[i].device_name.substring(0,16)
+                                }
 
-                            var lenText = data.message[i].device_name;
-                            if(data.message[i].device_name.length>16){
-                                lenText=data.message[i].device_name.substring(0,16)
+                                var li_html = '<li data-gatesn="' + data.message[i].device_sn + '"  data-gatename="'+ lenText +'"  data-gatedesc="'+ data.message[i].device_desc + '"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                // if(data.message[i].device_sn==gate_sn){
+                                //     li_html = '<li class="active"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                // }
+                                $("ul.gates_list").append(li_html);
                             }
 
-                            var li_html = '<li><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
-                            if(data.message[i].device_sn==gate_sn){
-                                li_html = '<li class="active"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
-                            }
-                            $("ul.gates_list").append(li_html);
+
 
                         }
                     }
@@ -1015,6 +1250,20 @@
         // $('#search-highlight').hideseek({
         //     highlight: true
         // });
+        $("body").on("click", "ul.gates_list>li", function() {
+            var gsn = $(this).data("gatesn");
+            gate_sn = gsn;
+            var gdesc = $(this).data("gatedesc");
+            var gname = $(this).data("gatename");
+            $(".gate_sn").text(gsn);
+            $(".gate_name").text(gname);
+            $(".gate_desc").text(gdesc);
+            $(this).addClass("active");
+            $(this).siblings().removeClass("active");
+
+        });
+
+
     });
 </script>
 

@@ -501,3 +501,34 @@ function delete_AccessKey(){
         }
     });
 }
+
+
+
+/**
+ *	删除当前用户AccessKey
+ */
+function record_gate_op(sn){
+    var op_list = new Array();
+    var user = getCookie('usr');
+
+    var tmpstr = localStorage.getItem("gate_op/"+ user);
+    if(tmpstr!==null){
+        var arr = JSON.parse(tmpstr);
+        if(arr.length>0){
+            op_list = arr
+        }
+    }
+    var sn_index = $.inArray(sn, op_list);
+    console.log(sn_index);
+    if(sn_index!=-1){
+        console.log("delete self");
+        op_list.splice(sn_index,1)
+    }
+    op_list.unshift(sn);
+    if(op_list.length>10){
+        console.log("delete last");
+        op_list.pop();
+    }
+    localStorage.setItem("gate_op/"+ user, JSON.stringify(op_list));
+
+}

@@ -3,7 +3,9 @@ console.log(gate_sn);
 pagename = "Gates_devices";
 
 gate_info(gate_sn);
-
+if(gate_sn){
+    record_gate_op(gate_sn);
+}
 
 var table_devices = $('#table_devices').DataTable({
     // "dom": '<if<t>>',
@@ -87,4 +89,12 @@ $(".devices-refresh").click(function(){
 $(".btn-box-tool").click(function(){
     var url = "My_Gates_setting.html?sn="+ gate_sn;
     redirect(url);
+});
+
+
+$("button.gate-install-app").click(function(){
+    // ttips($(this), '功能暂时未实现.')
+    var url = "My_Gates_apps_install.html?sn="+ gate_sn;
+    redirect(url);
+
 });
