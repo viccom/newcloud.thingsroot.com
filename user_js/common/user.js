@@ -255,7 +255,7 @@ function user_company() {
         dataType:'json',
         success:function(req){
             // console.log(req);
-            if(req.message.company){
+            if(req.message){
                 $("span.user_company").text(req.message.company);
 
             }
