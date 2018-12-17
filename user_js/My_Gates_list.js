@@ -202,12 +202,13 @@ var    table_gates = $('#table_gates').DataTable({
                         + data.device_sn
                         + '">网关信息</a></li>'
                         +     '<li><a href="#" class="gate_rename" data-toggle="modal" data-target="#modal-update-gate" data-sn="'+ data.device_sn +  '">更改名称</a></li>'
-                        +       '<li><a href="#" class="gate_remove" data-toggle="modal" data-target="#modal-remove-gate" data-sn="'+ data.device_sn +  '">移除网关</a></li>'
+                        +     '<li><a href="#" class="gate_remove" data-toggle="modal" data-target="#modal-remove-gate" data-sn="'+ data.device_sn +  '">移除网关</a></li>'
+                        +     '<li><a href="My_Gates_onlinelog.html?sn=' + data.device_sn + '">在线记录</a></li>'
                         + '</ul>'
                         + '</div>'
                     $("[data-toggle='tooltip']").popover();
                     return gen_html;
-                },
+                }
             },
             {
                 //   指定第6列
