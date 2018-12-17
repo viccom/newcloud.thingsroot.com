@@ -167,7 +167,12 @@
                             }, {
                                 type: 'success'
                             });
-
+                            var value = $.cookie('user_id');
+                            setCookie('usr',value);
+                            setCookie('full_name',req.full_name);
+                            isLogin();
+                            // 检测是否为管理员
+                            isAdmin();
                             setTimeout("redirect('/')", 2000);
 
                         }else{

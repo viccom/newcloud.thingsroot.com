@@ -159,7 +159,7 @@ function errorMsg(result,err_message){
  *	获取cookie
 **/
 function getCookie(name){
-	value = $.cookie('T&R_'+name);
+	var value = $.cookie('T&R_'+name);
 	if(value!=null) {
 		value = decodeURI(value, "utf-8");
 	}
