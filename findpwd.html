@@ -15,8 +15,7 @@
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,20 +43,13 @@
             </div>
 
             <div class="row">
-                <!--<div class="col-xs-8">-->
-                <!--<div class="checkbox icheck">-->
-                <!--<label>-->
-                <!--<input type="checkbox"> 我同意 <a href="#">条款</a>-->
-                <!--</label>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!-- /.col -->
                 <div class="col-xs-12">
                     <button name="findpwd" type="button" class="btn btn-primary btn-block btn-flat findpwd">确定</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
+
         <br>
         <div>
             <a href="login.html">返回登录</a>
@@ -73,8 +65,7 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="plugins/iCheck/icheck.min.js"></script>
+
 <!-- bootstrap-notify -->
 <script src="bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
 
@@ -85,17 +76,12 @@
 
 <script>
     $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
-        });
 
         // 重置按钮
         $(".findpwd:button[name='findpwd']").click(function(){
 
             var email = $(".findpwd:input[name='findpwd']").val();
-            if(email==''){
+            if(email=='' || email==null){
                 $(".findpwd:input[name='findpwd']").data("content", "用户ID不能为空");
                 $('.popover-email').popover('show');
                 setTimeout(function () {
@@ -103,7 +89,7 @@
                 },2000);
                 return false;
             }else{
-                console.log("22")
+
                 var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
                 if(mailReg.test(email)){
                     console.log("33")
@@ -111,7 +97,7 @@
                     findpwd(email);
                     return true;
                 }else{
-                    console.log("44")
+
                     $(".findpwd:input[name='findpwd']").data("content", "用户ID格式不合法");
                     $('.popover-email').popover('show');
                     setTimeout(function () {
@@ -123,7 +109,13 @@
 
         });
 
+        $(".findpwd:input").bind('keyup', function(event) {
+            if (event.keyCode == "13") {
+                //回车执行查询
 
+                $(".findpwd:button[name='findpwd']").click();
+            }
+        });
 
         /**
          *	用户重置密码

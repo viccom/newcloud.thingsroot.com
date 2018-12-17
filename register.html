@@ -15,8 +15,6 @@
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -72,25 +70,17 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="plugins/iCheck/icheck.min.js"></script>
+
 <!-- bootstrap-notify -->
 <script src="bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<script src="user_js/common/user.js"></script>
+<!--<script src="user_js/common/user.js"></script>-->
 
 <script>
   $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-
-
 
       // 登录按钮
       $(".register:button[name='submit']").click(function(){
@@ -124,10 +114,18 @@
               }
           }
 
-
-
       });
 
+
+
+
+      $(".register:input").bind('keyup', function(event) {
+          if (event.keyCode == "13") {
+              //回车执行查询
+              $(".register:button[name='submit']").click();
+          }
+
+      });
 
       function checkUsername(username) {
 
@@ -201,6 +199,52 @@
           return 0;
       }
 
+      /**
+       *	注册
+       */
+      function register(full_name, email){
+
+          $.ajax({
+              url: '/apis/?cmd=frappe.core.doctype.user.user.sign_up&email='+ email + '&full_name='+ full_name + '&redirect_to=',
+              headers: {
+                  Accept: "application/json; charset=utf-8"
+              },
+              type: 'get',
+              contentType: "application/x-www-form-urlencoded; charset=utf-8",
+              dataType:'json',
+              success:function(req){
+                  console.log('用户注册成功-----------------------------------------',req);
+                  $(".register:button[name='submit']").attr("disabled", false);
+                  if(req.message){
+                      if(req.message[0]==0){
+
+                          $.notify({
+                              title: "<strong>提示:</strong><br><br> ",
+                              message: '此用户' + req.message[1]
+                          },{
+                              type: 'warning'
+                          });
+
+                      }else if(req.message[0]==1){
+                          $.notify({
+                              title: "<strong>提示:</strong><br><br> ",
+                              message: '注册成功，' + req.message[1] + '<br>' + '登录邮箱'+ email + '完成注册'
+                          },{
+                              type: 'success'
+                          });
+                      }
+                  }
+
+                  delCookie('auth_token');
+                  // setTimeout("redirect('login.html')", 1500);
+              },
+              error:function(req){
+                  console.log('错误-----------------------------------------',req);
+                  $(".register:button[name='submit']").attr("disabled", false);
+              }
+          });
+
+      }
 
 
 

@@ -14,8 +14,6 @@
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,11 +37,11 @@
 
     <form>
       <div class="form-group has-feedback">
-        <input name="usr" type="email" class="form-control login" placeholder="用户ID">
+        <input name="usr" type="email" class="form-control login popover-name"  data-placement="top" data-content=""  placeholder="用户ID">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input name="pwd" type="password" class="form-control login" placeholder="密码">
+        <input name="pwd" type="password" class="form-control login  popover-pwd"  data-placement="top" data-content=""   placeholder="密码">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -77,8 +75,7 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="plugins/iCheck/icheck.min.js"></script>
+
 <!-- bootstrap-notify -->
 <script src="bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
 <!-- load common js-->
@@ -88,36 +85,47 @@
 
 <script>
   $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
 
       // 登录按钮
       $(".login:button[name='submit']").click(function(){
           var usr = $(".login:input[name='usr']").val();
           var pwd = $(".login:input[name='pwd']").val();
           if(usr==''){
-              $.notify({
-                  title: "<strong>提示:</strong><br><br> ",
-                  message: "用户名不能为空"
-                  },{
-                      type: 'warning'
-                  });
+                $(".login:input[name='usr']").data("content", "用户名不能为空");
+                $('.popover-name').popover('show');
+                setTimeout(function () {
+                    $('.popover-name').popover('destroy');
+                },2000);
                   return false;
               }
-          if(pwd==''){
 
-              $.notify({
-                  title: "<strong>提示:</strong><br><br> ",
-                  message: "密码不能为空"
-                  },{
-                      type: 'warning'
-                  });
-                  return false;
+          var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+          if(!mailReg.test(usr)){
+              $(".login:input[name='usr']").data("content", "用户格式不合法");
+              $('.popover-name').popover('show');
+              setTimeout(function () {
+                  $('.popover-name').popover('destroy');
+              },2000);
+              return false;
+          }
+          if(pwd==''){
+                $(".login:input[name='pwd']").data("content", "密码不能为空");
+                $('.popover-pwd').popover('show');
+                setTimeout(function () {
+                    $('.popover-pwd').popover('destroy');
+                },2000);
+                return false;
               }
           login(usr ,pwd);
+      });
+
+
+      $(".login:input").bind('keyup', function(event) {
+          if (event.keyCode == "13") {
+              //回车执行查询
+              $(".login:button[name='submit']").click();
+          }
+
       });
 
 
