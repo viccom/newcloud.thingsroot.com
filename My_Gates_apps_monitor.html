@@ -45,7 +45,7 @@
             display: block;
             min-height: 90px;
             background: #fff ;
-            width: 300px;
+            width: 100%;
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
             border-radius: 2px;
             margin-bottom: 15px;
@@ -415,6 +415,12 @@
                     <div style="width: 100%; background: white">
                         <div class="monitor-box">
                             <span class="monitor-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                            <div class="pull-right">
+                                <a class="btn btn-app view-rtdata" style="margin: 15px" disabled>
+                                    <i class="fa fa-play"></i> 查看数据
+                                </a>
+                            </div>
+
 
                             <div class="monitor-box-content">
                                 <span class="monitor-box-number app-inst"></span>
@@ -431,8 +437,8 @@
                                         <ul class="dropdown-menu" role="menu">
 
                                             <li><a href="#"  class="go-app-upgrade">应用升级</a></li>
-                                            <li><a href="#"  data-toggle="modal" data-target="#modal-warning">应用卸载</a></li>
-                                            <li><a href="#"  data-toggle="modal" data-target="#modal-default">更改实例名</a></li>
+                                            <!--<li><a href="#"  data-toggle="modal" data-target="#modal-warning">应用卸载</a></li>-->
+                                            <!--<li><a href="#"  data-toggle="modal" data-target="#modal-default">更改实例名</a></li>-->
 
                                         </ul>
                                     </div>
@@ -443,6 +449,8 @@
 
                         </div>
                         <!-- /.info-box -->
+
+
                     </div>
 
                 </div>

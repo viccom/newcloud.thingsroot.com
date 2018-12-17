@@ -28,9 +28,10 @@ function creat_devs_list(sn){
                     var device_name = deviceinfo[i].name;
                     var device_desc = deviceinfo[i].description;
                     var d_sn = deviceinfo[i].sn;
-                    var html = '<li class="iot" data-devicesn="'+d_sn+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
+                    var html = '<li class="iot" data-devicesn="'+d_sn+'" data-inst="'+deviceinfo[i].app+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
                     if(d_sn==device_sn){
-                        html = '<li class="active iot" data-devicesn="'+d_sn+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
+                        html = '<li class="active iot" data-devicesn="'+d_sn+'" data-inst="'+deviceinfo[i].app+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
+                        $("button.app-monitor").data("inst", deviceinfo[i].app);
                     }
 
                     $("ul.devices_list").append(html);
@@ -341,6 +342,8 @@ $("body").on("click", "li.iot", function() {
     $(this).addClass("active");
     $(this).siblings().removeClass("active");
     device_sn =  $(this).data("devicesn");
+    var dev_inst = $(this).data("inst");
+    $("button.app-monitor").data("inst", dev_inst);
     get_devices_inputs(gate_sn, device_sn);
     rtdata_url="/apis/api/method/iot_ui.iot_api.gate_device_data_array?sn="+ gate_sn + "&vsn=" + device_sn;
     var t_ret = setTimeout(function(){
@@ -359,6 +362,20 @@ $(".devslist-refresh").click(function(){
      creat_devs_list(gate_sn);
 
 });
+
+$("button.app-monitor").click(function(){
+    var dev_inst = $(this).data("inst");
+    var arr= ["ioe","ioe_frpc"];
+    // console.log(dev_inst,arr)
+    // console.log($.inArray(dev_inst, arr))
+    if($.inArray(dev_inst, arr)!=-1){
+        ttips($(this),"不支持监视<br>"+dev_inst);
+        return false;
+    }
+    redirect('/My_Gates_apps_monitor.html?sn='+ gate_sn + '&inst='+ dev_inst);
+
+});
+
 // var table_inputs = $('#table_inputs').DataTable({
 //     // "dom":"<lf<t>ip>",
 //     "filter": true,

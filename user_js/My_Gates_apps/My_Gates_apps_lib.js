@@ -369,6 +369,37 @@ function set_app_upgrade_label(sn, inst){
 
 }
 
+/**
+ *	获取应用各版本描述
+ */
+function gate_app_dev_tree(sn,inst){
+
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.gate_app_dev_tree',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: {"sn": sn},
+        dataType:'json',
+        success:function(req){
+            // console.log(req.message);
+            if(req.message!=null){
+                // console.log(req.message[inst][0].sn);
+                $("a.view-rtdata").data("inst", req.message[inst][0].sn);
+                $("a.view-rtdata").attr("disabled", false);
+            }
+
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+
+
+}
+
 
 /**
  *	获取应用各版本描述

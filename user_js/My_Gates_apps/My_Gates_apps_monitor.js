@@ -10,6 +10,7 @@ gate_info(gate_sn);
 gate_app_detail(gate_sn, inst, pagename);
 
 setTimeout(function () {
+    gate_app_dev_tree(gate_sn, inst);
     connect();
 },1000);
 
@@ -230,6 +231,14 @@ var mqtt_upload_ret= setInterval(function(){
     }
 
 },30000);
+
+
+$("a.view-rtdata").click(function(){
+    var dst_dev = $(this).data("inst");
+    // console.log(dst_dev)
+    redirect("/My_Gates_devices_inputs.html?sn="+ gate_sn +"&vsn=" + dst_dev);
+
+});
 
 
 /**

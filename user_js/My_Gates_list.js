@@ -101,7 +101,7 @@ var    table_gates = $('#table_gates').DataTable({
             "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
             "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
             "sInfoPostFix": "",
-            "sSearch": "搜索:",
+            "sSearch": "(支持名称、描述、序号)搜索:",
             "sUrl": "",
             "sEmptyTable": "未找到网关",
             "sLoadingRecords": "载入中...",
