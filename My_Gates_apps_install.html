@@ -369,8 +369,8 @@
                 <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
-                <li class="active"><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
+                <li class="active"><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
                 <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
@@ -457,7 +457,7 @@
                                 <div class="tab-pane active" id="app_market_div">
                                     <div class="box">
                                         <div class="box-body">
-                                            <form class="form-inline" style="width: 100%;">
+                                            <form class="form-inline" style="width: 100%;" method="post" onsubmit="return false;">
                                                 <div class="form-group">
                                                     <label>设备厂商：</label>
                                                     <select name="suppliers_select" class="form-control select2" data-placeholder="设备厂商">
@@ -481,11 +481,13 @@
                                                 <!-- /.form-group -->
 
                                                 <div class="btn-group pull-right">
+
                                                     <!--<button type="button" class="btn btn-primary tttest">搜索</button>-->
                                                     <!--<button type="button" class="btn app-detail"><i class="fa fa-calculator"></i></button>-->
                                                     <!--<button type="button" class="btn app-config"><i class="fa fa-wrench"></i></button>-->
-                                                    <input type="text" name="table_search" class="form-control" placeholder="Search">
-                                                    <button type="submit" class="btn btn-default pull-right app-search"><i class="fa fa-search"></i></button>
+                                                    <input type="text" name="app-search" class="form-control app-search" placeholder="Search">
+                                                    <input id='hiddeninput' type="hidden" style="display:none">
+                                                    <button type="button" class="btn btn-default pull-right app-search"><i class="fa fa-search"></i></button>
                                                 </div>
 
                                             </form>
@@ -1065,6 +1067,8 @@
         });
 
         $('button.app-search').click(function() {
+
+
             $('#container').waterfall('resume', function() {
                 $('#waterfall-message').html('')
             });
@@ -1132,6 +1136,7 @@
 
             }else{
                 console.log("2",data);
+                // return false;
                 $('#container').empty();
                 $('#container').waterfall('option', {
                     state: {
@@ -1184,13 +1189,21 @@
 
         });
 
-        $(".form-control:input[name='table_search']").bind('keyup', function(event) {
-            if (event.keyCode == "13") {
-                //回车执行查询
-                // $(".register:button[name='submit']").click();
+        $(".app-search").keypress(function (e) {
+            if (e.which == 13) {
+                console.log("!!!!!!!!!")
+                $('button.app-search').click();
             }
-
         });
+        //
+        // $(".form-control:input[name='app-search']").bind('keyup', function(event) {
+        //     if (event.keyCode == "13") {
+        //         //回车执行查询
+        //         console.log("!!!!!!!!!")
+        //         // $('button.app-search').click();
+        //     }
+        //
+        // });
 
     });
 
@@ -1254,7 +1267,9 @@
                                 data.message[i].device_status,data.message[i].device_apps_num,
                                 data.message[i].device_devs_num,"" ,data.message[i].device_sn,
                                 data.message[i].beta, data.message[i].iot_beta);
-                            console.log($.inArray(data.message[i].device_sn, op_list));
+
+
+                            // console.log($.inArray(data.message[i].device_sn, op_list));
                             if($.inArray(data.message[i].device_sn, op_list)==-1){
                                 console.log("ok");
                                 var lenText = data.message[i].device_name;

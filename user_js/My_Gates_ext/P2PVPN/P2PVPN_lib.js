@@ -245,7 +245,7 @@ function check_local_env() {
 
             }
             else if(install_local_env){
-                var html_env = '<span class="text-danger">运行环境未安装 </span><a href="/downloads/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>';
+                var html_env = '<span class="text-danger">运行环境未安装 </span><a href="http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>';
             }
             else{
                 if(data.tap_nic){
@@ -536,7 +536,7 @@ function start_local_vpn(postinfo) {
         error:function(data){
             $("#mes_table  tr:not(:first)").empty("");
             $("span#check_local_result").addClass('text-danger');
-            $("span#check_local_result").html("无法连接本地服务，请检查freeioe_vpn_Service服务是否启动或者运行环境是否安装，如未安装，" + '<a href="/downloads/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
+            $("span#check_local_result").html("无法连接本地服务，请检查freeioe_vpn_Service服务是否启动或者运行环境是否安装，如未安装，" + '<a href="http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
         }
     });
 
@@ -621,7 +621,7 @@ function check_gate_isbusy(sn, url, code) {
         error:function(data){
             $("#mes_table  tr:not(:first)").empty("");
             $("span#check_local_result").addClass('text-danger');
-            $("span#check_local_result").html("无法连接本地服务，请检查freeioe_vpn_Service服务是否启动或者运行环境是否安装，如未安装，" + '<a href="/downloads/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
+            $("span#check_local_result").html("无法连接本地服务，请检查freeioe_vpn_Service服务是否启动或者运行环境是否安装，如未安装，" + '<a href="http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
         }
     });
 
@@ -668,7 +668,7 @@ function check_gate_alive(sn, url, code) {
         error:function(data){
             $("#mes_table  tr:not(:first)").empty("");
             $("span#check_local_result").addClass('text-danger');
-            $("span#check_local_result").html("无法连接本地服务，请检查freeioe_vpn_Service服务是否启动或者运行环境是否安装，如未安装，" + '<a href="/downloads/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
+            $("span#check_local_result").html("无法连接本地服务，请检查freeioe_vpn_Service服务是否启动或者运行环境是否安装，如未安装，" + '<a href="http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
         }
     });
 
@@ -764,7 +764,7 @@ function one_key_repair() {
         error:function(data){
             $("#mes_table  tr:not(:first)").empty("");
             $("span#check_local_result").addClass('text-danger');
-            $("span#check_local_result").html("无法连接本地服务，请检查freeioe_vpn_Service服务是否启动或者运行环境是否安装，如未安装，" + '<a href="/downloads/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
+            $("span#check_local_result").html("无法连接本地服务，请检查freeioe_vpn_Service服务是否启动或者运行环境是否安装，如未安装，" + '<a href="http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_vpn_green.rar"  class="navbar-link">点击下载</a>');
         }
     });
 }
