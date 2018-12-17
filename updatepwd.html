@@ -159,13 +159,29 @@
                     console.log('密码重置-----------------------------------------',req);
                     $(".update:button[name='update']").attr("disabled", false);
                     if(req.message) {
+                        if(req.home_page=="/desk" && req.message=="/desk") {
 
-                        $.notify({
-                            title: "<strong>提示:</strong><br><br> ",
-                            message: req.message
-                        }, {
-                            type: 'warning'
-                        });
+                            $.notify({
+                                title: "<strong>提示:</strong><br><br> ",
+                                message: req.full_name + "重置密码成功 <br>" + "2秒后返回控制台"
+                            }, {
+                                type: 'success'
+                            });
+
+                            setTimeout("redirect('/')", 2000);
+
+                        }else{
+                            $.notify({
+                                title: "<strong>提示:</strong><br><br> ",
+                                message: req.message + "<br>" + "5秒后返回控制台"
+                            }, {
+                                type: 'warning'
+                            });
+
+                            setTimeout("redirect('login.html')", 5000);
+                        }
+
+
 
 
                         // if (req.message == "无法更新：不正确的/过期的链接。") {
@@ -179,29 +195,13 @@
                         //
                         // }
                     }
-                    if(req._server_messages){
-                        var ret = JSON.parse(req._server_messages)[0];
-                        if(ret!=""){
-                            ret = JSON.parse(ret);
-                        }
-                        if(ret.message){
-                            $.notify({
-                                title: "<strong>提示:</strong><br><br> ",
-                                message: '申请重置成功，' + ret.message + '<br>' + '登录邮箱'+ email + '完成密码重置'
-                            },{
-                                type: 'success'
-                            });
-                        }
-                    }
 
-
-
-                    delCookie('auth_token');
                     // setTimeout("redirect('login.html')", 1500);
                 },
                 error:function(req){
                     console.log('错误-----------------------------------------',req);
                     $(".update:button[name='update']").attr("disabled", false);
+                    setTimeout("redirect('login.html')", 9000);
                 }
             });
 
