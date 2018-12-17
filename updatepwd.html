@@ -211,6 +211,56 @@
             });
 
         }
+
+
+        /**
+         *	判断是否登录
+         */
+        function isLogin(){
+            var noLoginArr = ['login','register','find','find2']; // 排除无需登陆的页面板块
+            get_NewToken();
+            auth_token = getCookie('auth_token');
+            if(auth_token!=null){
+                if(getCookie('full_name').split(" ").length > 0 ){
+                    $('.user-name').text(getCookie('full_name').split(" ")[0]);
+                }else{
+                    $('.user-name').text("");
+                }
+            }
+
+
+            // console.log("token:::",auth_token);
+        }
+
+        /**
+         *	判断是否登录
+         */
+        function isAdmin(){
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.company_admin',
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'get',
+                dataType:'json',
+                success:function(req){
+                    console.log(req);
+                    setCookie('isAdmin',req.message.admin);
+                    if(req.message.admin==true){
+                        setCookie('companies',req.message.companies[0]);
+                    }else{
+                        setCookie('companies',"");
+                    }
+                },
+                error:function(req){
+                    console.log(req);
+                }
+            });
+
+        }
+
+
     });
 </script>
 </body>
