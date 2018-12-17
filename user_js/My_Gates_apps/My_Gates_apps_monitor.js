@@ -9,6 +9,10 @@ var comm_subscribed = false;
 gate_info(gate_sn);
 gate_app_detail(gate_sn, inst, pagename);
 
+setTimeout(function () {
+    connect();
+},1000);
+
 $(function () {
     /**
      *	初始化日志表格
@@ -122,7 +126,7 @@ $(function () {
                 //   指定第第1列
                 targets:  0,
                 searchable: false,
-                orderable: false,
+                orderable: true,
                 "width": '14%'
             },
             {

@@ -316,7 +316,7 @@ $(".rt-autoupdate").click(function(){
             var t_ret = setTimeout(function(){
                 $("[data-toggle='popover']").popover();
             },1 * 1000);
-        },5000);
+        },2 * 1000);
         data_autoupdate=true;
         $(".rt-autoupdate").children("i").eq(0).removeClass("fa-play");
         $(".rt-autoupdate").children("i").eq(0).addClass("fa-pause");
