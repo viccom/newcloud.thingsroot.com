@@ -146,9 +146,9 @@
         /**
          *	用户更新密码
          */
-        function updatepwd(update_key, old_password, new_password){
+        function updatepwd(update_key, new_password){
             $.ajax({
-                url: '/apis/api/method/frappe.core.doctype.user.user.update_password?key='+ update_key  + '&new_password='+ new_password + '&old_password=',
+                url: '/apis/api/method/frappe.core.doctype.user.user.update_password?key='+ update_key  + '&new_password='+ new_password,
                 headers: {
                     Accept: "application/json; charset=utf-8"
                 },
