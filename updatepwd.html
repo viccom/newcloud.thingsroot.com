@@ -140,36 +140,6 @@
 
             return false;
 
-            if(checkUsername(full_name)){
-                var email = $(".register:input[name='email']").val();
-                if(email==''){
-                    $(".register:input[name='email']").data("content", "邮箱不能为空");
-                    $('.popover-email').popover('show');
-                    setTimeout(function () {
-                        $('.popover-email').popover('destroy');
-                    },2000);
-                    return false;
-                }else{
-                    console.log("22")
-                    var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-                    if(mailReg.test(email)){
-                        console.log("33")
-
-                        register(full_name, email);
-                        return true;
-                    }else{
-                        console.log("44")
-                        $(".register:input[name='email']").data("content", "邮箱格式不合法");
-                        $('.popover-email').popover('show');
-                        setTimeout(function () {
-                            $('.popover-email').popover('destroy');
-                        },2000);
-                        return false;
-                    }
-                }
-            }
-
-
 
         });
 
@@ -178,7 +148,7 @@
          */
         function updatepwd(update_key, old_password, new_password){
             $.ajax({
-                url: '/apis/api/method/frappe.core.doctype.user.user.update_password?key='+ update_key  + '&new_password='+ new_password + '&old_password=' + old_password,
+                url: '/apis/api/method/frappe.core.doctype.user.user.update_password?key='+ update_key  + '&new_password='+ new_password + '&old_password=',
                 headers: {
                     Accept: "application/json; charset=utf-8"
                 },
