@@ -629,12 +629,13 @@
         User_info();
 
         var isAdmin = getCookie('isAdmin');
-        if(isAdmin){
+        if(isAdmin==true){
             var company = getCookie('companies');
             $("span.user_company").text(company);
             $("span.user_role").text("管理员");
         }else{
-            user_company()
+            user_company();
+            $("span.user_role").text("管理员");
         }
 
     });
