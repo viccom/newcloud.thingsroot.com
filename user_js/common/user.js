@@ -121,24 +121,48 @@ function logout(){
 /**
  *	注册
  */
-function register(){
-    var email = $(".logoin input[name='email']").val();
-    var full_name = $(".logoin input[name='full_name']").val();
-    Ajax.call('/', {cmd:"frappe.core.doctype.user.user.sign_up",email:email,full_name:full_name,redirect_to:''}, registerFun, 'POST', 'JSON', 'FORM');
-    //var index = loading();
-    function registerFun(req){
-        if(req.message[0]==0){
-            alt(req.message[1],5);
-            layer.closeAll(index);
-            $('.layui-layer-loading').remove();
-            return false;
-        }else if(req.message[0]==1){
-            alt(req.message[1],1);
-            layer.close(index);
-            setTimeout("redirect('login.html');", 2000);
-            return false;
+function register(full_name, email){
+
+    $.ajax({
+        url: '/apis/?cmd=frappe.core.doctype.user.user.sign_up&email='+ email + '&full_name='+ full_name + '&redirect_to=',
+        headers: {
+            Accept: "application/json; charset=utf-8"
+        },
+        type: 'get',
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType:'json',
+        success:function(req){
+            console.log('用户注册成功-----------------------------------------',req);
+            $(".register:button[name='submit']").attr("disabled", false);
+            if(req.message){
+                if(req.message[0]==0){
+
+                    $.notify({
+                        title: "<strong>提示:</strong><br><br> ",
+                        message: '此用户' + req.message[1]
+                    },{
+                        type: 'warning'
+                    });
+
+                }else if(req.message[0]==1){
+                    $.notify({
+                        title: "<strong>提示:</strong><br><br> ",
+                        message: '注册成功，' + req.message[1] + '<br>' + '登录邮箱'+ email + '完成注册'
+                    },{
+                        type: 'success'
+                    });
+                }
+            }
+
+            delCookie('auth_token');
+            // setTimeout("redirect('login.html')", 1500);
+        },
+        error:function(req){
+            console.log('错误-----------------------------------------',req);
+            $(".register:button[name='submit']").attr("disabled", false);
         }
-    }
+    });
+
 }
 
 /**
@@ -172,7 +196,7 @@ function get_NewToken() {
             if(req.responseJSON._server_messages){
                 var err = JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]);
                 console.log(err.message)
-                if(page_name.search("login") == -1){
+                if(page_name.search("login") == -1  && page_name.search("register") == -1){
                     $.notify({
                         title: "<strong>错误提示:</strong><br><br> ",
                         message: err.message

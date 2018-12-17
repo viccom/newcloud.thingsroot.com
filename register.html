@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
@@ -30,37 +31,37 @@
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>冬笋</b>云</a>
+    <a href="/index.html"><b>冬笋</b>云</a>
   </div>
 
   <div class="register-box-body">
     <p class="login-box-msg">注册新用户</p>
 
-    <form action="../../index.html" method="post">
+    <form>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Full name">
+        <input name="full_name" type="text" class="form-control register popover-name"  data-placement="top" data-content=""  placeholder="用户全名">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input name="email" type="email" class="form-control register  popover-email"  data-placement="top" data-content=""  placeholder="用户邮箱">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> 我同意 <a href="#">条款</a>
-            </label>
-          </div>
-        </div>
+        <!--<div class="col-xs-8">-->
+          <!--<div class="checkbox icheck">-->
+            <!--<label>-->
+              <!--<input type="checkbox"> 我同意 <a href="#">条款</a>-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</div>-->
         <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+        <div class="col-xs-12">
+          <button name="submit" type="button" class="btn btn-primary btn-block btn-flat register">注册</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
-
+    <br>
     <a href="login.html" class="text-center">我已经注册了账户</a>
   </div>
   <!-- /.form-box -->
@@ -73,6 +74,14 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="plugins/iCheck/icheck.min.js"></script>
+<!-- bootstrap-notify -->
+<script src="bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+
+<!-- load common js-->
+<script src="user_js/common/jQuery.cookie.js"></script>
+<script src="user_js/common/common.js"></script>
+<script src="user_js/common/user.js"></script>
+
 <script>
   $(function () {
     $('input').iCheck({
@@ -80,6 +89,121 @@
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' /* optional */
     });
+
+
+
+      // 登录按钮
+      $(".register:button[name='submit']").click(function(){
+          var full_name = $(".register:input[name='full_name']").val();
+          if(checkUsername(full_name)){
+              var email = $(".register:input[name='email']").val();
+              if(email==''){
+                  $(".register:input[name='email']").data("content", "邮箱不能为空");
+                  $('.popover-email').popover('show');
+                  setTimeout(function () {
+                      $('.popover-email').popover('destroy');
+                  },2000);
+                  return false;
+              }else{
+                  console.log("22")
+                  var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+                  if(mailReg.test(email)){
+                      console.log("33")
+                      $(".register:button[name='submit']").attr("disabled", true);
+                      register(full_name, email);
+                      return true;
+                  }else{
+                      console.log("44")
+                      $(".register:input[name='email']").data("content", "邮箱格式不合法");
+                      $('.popover-email').popover('show');
+                      setTimeout(function () {
+                          $('.popover-email').popover('destroy');
+                      },2000);
+                      return false;
+                  }
+              }
+          }
+
+
+
+      });
+
+
+      function checkUsername(username) {
+
+          if (username == "" || username == null) {
+
+              $(".register:input[name='full_name']").data("content", "用户名不能为空");
+              $('.popover-name').popover('show');
+              setTimeout(function () {
+                  $('.popover-name').popover('destroy');
+              },2000);
+              return false;
+          }
+          console.log(username, isUsername(username));
+          switch (isUsername(username)) {
+              case 0:
+                  break;
+              case 1:
+              {
+                  $(".register:input[name='full_name']").data("content", "用户名不能以数字开头");
+                  $('.popover-name').popover('show');
+                  setTimeout(function () {
+                      $('.popover-name').popover('destroy');
+                  },2000);
+                  return false;
+              }
+              case 2:
+              {
+                  $(".register:input[name='full_name']").data("content", "用户名合法长度为3-10个字符");
+                  $('.popover-name').popover('show');
+                  setTimeout(function () {
+                      $('.popover-name').popover('destroy');
+                  },2000);
+                  return false;
+              }
+              case 3:
+              {
+                  $(".register:input[name='full_name']").data("content", "用户名只能包含_,英文字母，数字, 中文字符");
+                  $('.popover-name').popover('show');
+                  setTimeout(function () {
+                      $('.popover-name').popover('destroy');
+                  },2000);
+                  return false;
+              }
+              // case 4:
+              // {
+              //     $(".register:input[name='full_name']").data("content", "用户名只能包含_,英文字母，数字");
+              //     $('.popover-name').popover('show');
+              //     setTimeout(function () {
+              //         $('.popover-name').popover('destroy');
+              //     },2000);
+              //     return false;
+              // }
+          }
+          return true;
+      }
+
+      function isUsername(username) {
+          // console.log(typeof username);
+          if (/^\d.*$/.test(username)) {
+              return 1;
+          }
+          if (!/^.{3,10}$/.test(username)) {
+              return 2;
+          }
+          // if (!/^[\w_]*$/.test(username)) {
+          //     return 3;
+          // }
+          if (!/^\w+|[\u4E00-\u9FA5]$/.test(username)) {
+              return 3;
+          }
+          return 0;
+      }
+
+
+
+
   });
 </script>
 </body>
