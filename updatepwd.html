@@ -260,6 +260,52 @@
 
         }
 
+        /**
+         *	更新 获取token
+         */
+        function get_NewToken() {
+            var page_name = document.URL.split("/")[document.URL.split("/").length - 1];
+            console.log(page_name);
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.get_token?' + Date.parse(new Date()),
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                },
+                type: 'get',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    var new_token  =  req.message;
+                    // console.log("new token:::",new_token);
+                    setCookie('auth_token',req.message);
+                    apply_AccessKey();
+                    if(page_name.search("login") != -1){
+                        redirect('/');
+                    }
+                    else{
+                        // $('.J_nickname').text(getCookie('full_name'));
+                    }
+                },
+                error:function(req){
+                    // console.log(req);
+                    if(req.responseJSON._server_messages){
+                        var err = JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]);
+                        console.log(err.message)
+                        if(page_name.search("login") == -1  && page_name.search("register") == -1){
+                            $.notify({
+                                title: "<strong>错误提示:</strong><br><br> ",
+                                message: err.message
+                            },{
+                                type: 'warning'
+                            });
+                            redirect('login.html');
+                        }
+                    }
+
+                }
+            });
+        }
+
 
     });
 </script>
