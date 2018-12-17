@@ -255,8 +255,11 @@ function user_company() {
         dataType:'json',
         success:function(req){
             // console.log(req);
-            $("span.user_company").text(req.message.company);
-            $("span.user_role").text("普通用户");
+            if(req.message){
+                $("span.user_company").text(req.message.company);
+                $("span.user_role").text("普通用户");
+            }
+
         },
         error:function(req){
             console.log(req);
