@@ -133,7 +133,7 @@
                 return false;
             }else{
                 last_pwd = re_new_pwd;
-
+                $(".update:button[name='update']").attr("disabled", true);
                 updatepwd(update_key, "", last_pwd)
 
             }
