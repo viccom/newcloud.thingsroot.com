@@ -5,7 +5,7 @@ $.ajaxSetup({
     }
 });
 gate_sn = getParam('sn');
-$(".selected-gate").text(gate_sn);
+$(".selected-gate-sn").text(gate_sn);
 
 var    gates_list="/apis/api/method/iot_ui.iot_api.devices_list?filter=online";
 var    table_gates_list = $('#table_gates_list').DataTable({
@@ -105,11 +105,12 @@ var    table_gates_list = $('#table_gates_list').DataTable({
         $("[data-toggle='popover']").popover();
         $('#table_gates_list tbody').on('click', 'tr', function () {
             var data = table_gates_list.row(this).data();
-            console.log(data);
+            $("[data-toggle='popover']").popover();
             if(data){
 
                 gate_sn = data.device_sn;
                 $(".selected-gate").text(data.device_name);
+                $(".selected-gate-sn").text(data.device_sn);
                 gate_url = "/apis/api/method/iot_ui.trace_api.gate_wanip_his?sn=" + gate_sn;
                 table_gates_log1.ajax.url(gate_url).load(null,false);
                 table_gates_log2.ajax.url(gate_url).load(null,false);
