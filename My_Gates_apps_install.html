@@ -1090,6 +1090,8 @@
             var protocol = $("select[name='protocols_select']").val();
             var category = $("select[name='types_select']").val();
             console.log("设备供应商：",device_supplier);
+            console.log("通讯协议：",protocol);
+            console.log("应用分类：",category);
             if(device_supplier){
                 data.device_supplier = device_supplier;
             }else{
@@ -1195,6 +1197,29 @@
                 $('button.app-search').click();
             }
         });
+
+
+
+
+
+        $("select[name='suppliers_select']").on("change", function (event) {
+            console.log("1111111")
+            $('button.app-search').click();
+        });
+
+        $("select[name='protocols_select']").on("change", function (event) {
+            console.log("2222222222")
+            $('button.app-search').click();
+        });
+
+        $("select[name='types_select']").on("change", function (event) {
+            console.log("333333333333")
+            $('button.app-search').click();
+        });
+
+
+
+
         //
         // $(".form-control:input[name='app-search']").bind('keyup', function(event) {
         //     if (event.keyCode == "13") {

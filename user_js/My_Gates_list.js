@@ -436,15 +436,17 @@ var    table_gates = $('#table_gates').DataTable({
     });
 
     // 添加ThingsLink按钮
-    $(".add_thingslink").click(function(){
-        ttips($(this),"暂不支持");
-        return false;
-    });
+    // $(".add_thingslink").click(function(){
+    //     ttips($(this),"暂不支持");
+    //     return false;
+    // });
     // 添加ThingsLink到当前账户
     $("button.add_thingslink_confirm").click(function(){
         var userid = getCookie('usr');
         var device_sn = $("#thingslink-sn").val();
+
         if(device_sn==""){
+            $("#thingslink-sn:input").data("content", "序列号不能为空");
             $('.popover-warning1').popover('show');
             setTimeout(function () {
                 $('.popover-warning1').popover('destroy');
@@ -475,6 +477,29 @@ var    table_gates = $('#table_gates').DataTable({
             "1": "User",
             "2": "Cloud Company Group"
         };
+        var arr= ["2-30002"];
+        // console.log(device_sn,arr)
+        // console.log($.inArray(device_sn.substr(0, 7), arr))
+        if($.inArray(device_sn.substr(0, 7), arr)==-1){
+
+            $("#thingslink-sn:input").data("content", "不支持的网关序列号");
+            $('.popover-warning1').popover('show');
+            setTimeout(function () {
+                $('.popover-warning1').popover('destroy');
+            },2000);
+            // ttips($(this),"不支持的网关序列号<br>"+dev_sn);
+            return false;
+        }
+        if(device_sn.length!==20){
+
+            $("#thingslink-sn:input").data("content", "网关序列号不完整");
+            $('.popover-warning1').popover('show');
+            setTimeout(function () {
+                $('.popover-warning1').popover('destroy');
+            },2000);
+            // ttips($(this),"不支持的网关序列号<br>"+dev_sn);
+            return false;
+        }
         var data = {
             sn:device_sn,
             name:device_name,
@@ -483,7 +508,8 @@ var    table_gates = $('#table_gates').DataTable({
             owner_type: owner_type[attach]
         }
         console.log(data);
-
+        add_new_gate(data);
+        $("button.add_thingslink_confirm").attr("disabled", true)
     });
 
 
@@ -492,5 +518,48 @@ var    table_gates = $('#table_gates').DataTable({
         redirect("My_Virtual_Gates.html")
     });
     // console.log($("select.group_select").select2("data"))
+
+
+
+
+
+    /**
+     *	添加新网关到当前用户
+     */
+    function add_new_gate(data){
+
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.add_new_gate',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'post',
+            data: data,
+            // contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success:function(req){
+                if(req.message){
+                    $("button.add_thingslink_confirm").attr("disabled", false);
+                    $("#modal-add-thingslink").modal('hide');
+                    var t_ret = setTimeout(function(){
+                        table_gates.ajax.url(gates_url).load(null,false);
+                    },500);
+
+                }
+
+            },
+            error:function(req){
+                console.log(req);
+            }
+        });
+
+    }
+
+
+
+
+
+
 
 })
