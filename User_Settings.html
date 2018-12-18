@@ -629,8 +629,11 @@
         User_info();
 
         var isAdmin = getCookie('isAdmin');
-        if(isAdmin==true){
+        console.log(isAdmin)
+        if(isAdmin=="true"){
+
             var company = getCookie('companies');
+            console.log(company)
             $("span.user_company").text(company);
             $("span.user_role").text("管理员");
         }else{

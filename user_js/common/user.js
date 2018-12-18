@@ -258,11 +258,14 @@ function user_company() {
             if(req.message){
                 $("span.user_company").text(req.message.company);
 
+            }else{
+                $("span.user_company").text("--");
             }
-            $("span.user_role").text("普通用户");
+
         },
         error:function(req){
             console.log(req);
+            $("span.user_company").text("--");
 
         }
     });
