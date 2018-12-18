@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/datatables.net-bs/Select-1.2.6/css/select.dataTables.min.css">
     <!-- DataTables-Responsive -->
     <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
     <!-- Tooltip classes -->
@@ -380,7 +381,7 @@
             <h1>
                 我的网关
                 <small>网关在线记录</small>
-                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+                <div class="pull-right"><a href="/My_Gates_list.html"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
             </h1>
             <!--<ol class="breadcrumb">-->
             <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
@@ -392,11 +393,36 @@
         <section class="content">
 
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-3" style="padding-right: 0;">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#gates-list" data-toggle="tab">当前网关：<span class="selected-gate"></span></a></li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div class="tab-pane active" id="gates-list">
+                                <table id="table_gates_list" class="table table-bordered table-striped " cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>序号</th>
+
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-xs-9">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#gate-wanip" data-toggle="tab">联网IP记录</a></li>
-                            <li><a href="#gate-fault" data-toggle="tab">网关重启记录</a></li>
+                            <li><a href="#gate-fault" data-toggle="tab">网关重连记录</a></li>
                             <li><a href="#gate-ipchange" data-toggle="tab">IP变化记录</a></li>
 
                         </ul>
@@ -405,7 +431,7 @@
                             <div class="tab-pane active" id="gate-wanip">
 
 
-                                <table id="table_gates_log1" class="table table-bordered table-striped  nowrap" cellspacing="0" width="100%">
+                                <table id="table_gates_log1" class="table table-bordered table-striped " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>时间</th>
@@ -422,7 +448,7 @@
                             <div class="tab-pane" id="gate-fault">
 
 
-                                <table id="table_gates_log2" class="table table-bordered table-striped  nowrap" cellspacing="0" width="100%">
+                                <table id="table_gates_log2" class="table table-bordered table-striped " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>时间</th>
@@ -441,7 +467,7 @@
                             <div class="tab-pane" id="gate-ipchange">
 
 
-                                <table id="table_gates_log3" class="table table-bordered table-striped  nowrap" cellspacing="0" width="100%">
+                                <table id="table_gates_log3" class="table table-bordered table-striped " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>时间</th>
@@ -648,6 +674,7 @@
 <!-- DataTables -->
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="bower_components/datatables.net-bs/Select-1.2.6/js/dataTables.select.min.js"></script>
 <script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
 
 <!-- Select2 -->
