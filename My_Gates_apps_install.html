@@ -88,7 +88,21 @@
             -webkit-box-shadow: 0 1px 5px rgba(34, 25, 25, .8);
             filter: progid:DXImageTransform.Microsoft.Shadow(color = #979797, direction = 135, strength = 3);
         }
+        .flex{
+            /*flex 布局*/
+            display: flex;
+            /*实现垂直居中*/
+            align-items: center;
+            /*实现水平居中*/
+            justify-content: center;
 
+            text-align: justify;
+            width:100%;
+            min-height:330px;
+            /*background: #000;*/
+            margin:0 auto;
+            /*color:#fff;*/
+        }
     </style>
 </head>
 
@@ -449,7 +463,7 @@
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#app_market_div" data-toggle="tab">应用市场</a></li>
                                     <li><a href="#app_detail_div" data-toggle="tab">应用详情</a></li>
-                                    <li><a href="#app_config_div" data-toggle="tab">应用安装配置</a></li>
+
                                 </ul>
                             </div>
                             <div class="tab-content">
@@ -514,179 +528,204 @@
                                             <div class="col-xs-12">
                                                 <h2 class="page-header">
                                                     <i class="fa fa-th"></i>&nbsp;&nbsp;<span class="app_name"></span>
-                                                    <div class="pull-right"><a href="javascript:void(0)" class="close-app-detail"><i class="fa fa-close"></i></a></div>
+
+
+                                                    <div class="pull-right" style="padding-left: 30px"><a href="javascript:void(0)" class="close-app-detail"><i class="fa fa-close"></i></a></div>
+
+                                                    <div class="pull-right"><button  class="btn btn-primary btn-sm install-switch" data-install="1">安装到网关</button></div>
 
                                                 </h2>
+
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <div class="row invoice-info" style="max-height: 150px">
-                                            <div class="col-sm-2 invoice-col" style="max-height: 140px">
-                                                <div class="img-box col-sm-12" style="max-height: 140px">
-                                                    <div class="form-group">
-                                                        <img class="img-responsive app_img" src="/assets/app_center/img/logo.png" alt="User Image">
-                                                    </div>
-                                                </div>
 
-
-                                            </div>
-
-                                            <div class="col-sm-3 invoice-col">
-                                                &nbsp;&nbsp;
-                                                <address>
-                                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;发布者：<span class="app_owner"></span></p>
-                                                    <p>通讯协议：<span class="app_protocol"></span></p>
-                                                    <p>适配型号：<span class="device_serial"></span></p>
-
-                                                </address>
-                                            </div>
-                                            <!-- /.col -->
-                                            <div class="col-sm-3 invoice-col">
-                                                &nbsp;&nbsp;
-                                                <address>
-                                                    <p>应用分类：<span class="app_category"></span></p>
-                                                    <p>设备厂家：<span class="device_supplier"></span></p>
-                                                    <p>应用价格：<span class="license_type"></span></p>
-
-                                                </address>
-                                            </div>
-                                            <!-- /.col -->
-                                            <div class="col-sm-1 invoice-col">
-                                                &nbsp;&nbsp;
-                                                <address>
-
-                                                    <p>
-                                                        <a class="btn btn-app">
-                                                            <i class="fa fa-edit"></i> 安装到网关
-                                                        </a>
-                                                    </p>
-                                                </address>
-                                            </div>
-                                            <!-- /.col -->
-
-                                        </div>
-
-                                        <div class="nav-tabs-custom">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#activity" data-toggle="tab">描述</a></li>
-                                                <li><a href="#timeline" data-toggle="tab">评论</a></li>
-                                                <!--<li><a href="#versions_list" data-toggle="tab">版本列表</a></li>-->
-                                                <!--<li><a href="#Templates_list" data-toggle="tab">模板列表</a></li>-->
-                                            </ul>
-                                            <div class="tab-content" style="padding: 0">
-
-                                                <div class="active tab-pane" id="activity">
-                                                    <div class="col-md-9" style="">
-                                                        <div id="test-editormd" class="editormd-onlyread">
-                                                            <textarea style="display:none;"  name="test-editormd-markdown-doc">###我的描述</textarea>
+                                        <div class="row app-detail">
+                                            <div class="col-xs-12">
+                                                <div class="row invoice-info" style="max-height: 85px">
+                                                    <div class="col-sm-1 invoice-col" style="max-height: 80px">
+                                                        <div class="img-box col-sm-12" style="max-height: 80px;padding: 0">
+                                                            <div class="form-group" style="padding: 0">
+                                                                <img class="img-responsive app_img" src="/assets/app_center/img/logo.png" alt="User Image" style="max-width: 80px;max-height: 80px">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-3" style="">
-                                                        Categories
+
 
                                                     </div>
 
+                                                    <div class="col-sm-3 invoice-col">
+                                                        <address>
+                                                            <p>&nbsp;&nbsp;&nbsp;&nbsp;发布者：<span class="app_owner"></span></p>
+                                                            <p>通讯协议：<span class="app_protocol"></span></p>
+                                                            <p>适配型号：<span class="device_serial"></span></p>
 
+                                                        </address>
+                                                    </div>
+                                                    <!-- /.col -->
+                                                    <div class="col-sm-3 invoice-col">
+                                                        <address>
+                                                            <p>应用分类：<span class="app_category"></span></p>
+                                                            <p>设备厂家：<span class="device_supplier"></span></p>
+                                                            <p>应用价格：<span class="license_type"></span></p>
+
+                                                        </address>
+                                                    </div>
+                                                    <!-- /.col -->
                                                 </div>
-                                                <!-- /.tab-pane -->
+                                            </div>
+                                            <div class="col-xs-12" style="padding-top:0px">
+                                                <div class="nav-tabs-custom" style="padding-top:0px">
+                                                    <ul class="nav nav-tabs">
+                                                        <li class="active"><a href="#app-description" data-toggle="tab">描述</a></li>
+                                                        <li><a href="#app-comment" data-toggle="tab">评论</a></li>
+                                                        <!--<li><a href="#app-install" data-toggle="tab">安装到网关</a></li>-->
+                                                        <!--<li><a href="#versions_list" data-toggle="tab">版本列表</a></li>-->
+                                                        <!--<li><a href="#Templates_list" data-toggle="tab">模板列表</a></li>-->
+                                                    </ul>
+                                                    <div class="tab-content" style="padding: 0">
 
-                                                <div class="tab-pane" id="timeline">
-                                                    <!-- The timeline -->
-                                                    无评论
-                                                    <!-- Post -->
-                                                    <!--<div class="post clearfix">-->
-                                                        <!--<div class="user-block">-->
+                                                        <div class="active tab-pane" id="app-description">
+                                                            <div class="col-md-9" style="">
+                                                                <div id="test-editormd" class="editormd-onlyread">
+                                                                    <textarea style="display:none;"  name="test-editormd-markdown-doc">###我的描述</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3" style="">
+                                                                Categories
+
+                                                            </div>
+
+
+                                                        </div>
+                                                        <!-- /.tab-pane -->
+
+                                                        <div class="tab-pane" id="app-comment">
+                                                            <!-- The timeline -->
+                                                            <div class="flex">
+                                                                无评论
+                                                            </div>
+
+                                                            <!-- Post -->
+                                                            <!--<div class="post clearfix">-->
+                                                            <!--<div class="user-block">-->
                                                             <!--<img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image">-->
                                                             <!--<span class="username">-->
-                                                              <!--<a href="#">Sarah Ross</a>-->
-                                                              <!--<a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>-->
+                                                            <!--<a href="#">Sarah Ross</a>-->
+                                                            <!--<a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>-->
                                                             <!--</span>-->
                                                             <!--<span class="description">Sent you a message - 3 days ago</span>-->
-                                                        <!--</div>-->
-                                                        <!--&lt;!&ndash; /.user-block &ndash;&gt;-->
-                                                        <!--<p>-->
+                                                            <!--</div>-->
+                                                            <!--&lt;!&ndash; /.user-block &ndash;&gt;-->
+                                                            <!--<p>-->
                                                             <!--Lorem ipsum represents a long-held tradition for designers,-->
                                                             <!--typographers and the like. Some people hate it and argue for-->
                                                             <!--its demise, but others ignore the hate as they create awesome-->
                                                             <!--tools to help create filler text for everyone from bacon lovers-->
                                                             <!--to Charlie Sheen fans.-->
-                                                        <!--</p>-->
+                                                            <!--</p>-->
 
-                                                        <!--<form class="form-horizontal">-->
+                                                            <!--<form class="form-horizontal">-->
                                                             <!--<div class="form-group margin-bottom-none">-->
-                                                                <!--<div class="col-sm-9">-->
-                                                                    <!--<input class="form-control input-sm" placeholder="Response">-->
-                                                                <!--</div>-->
-                                                                <!--<div class="col-sm-3">-->
-                                                                    <!--<button type="submit" class="btn btn-danger pull-right btn-block btn-sm">Send</button>-->
-                                                                <!--</div>-->
+                                                            <!--<div class="col-sm-9">-->
+                                                            <!--<input class="form-control input-sm" placeholder="Response">-->
                                                             <!--</div>-->
-                                                        <!--</form>-->
-                                                    <!--</div>-->
-                                                    <!-- /.post -->
+                                                            <!--<div class="col-sm-3">-->
+                                                            <!--<button type="submit" class="btn btn-danger pull-right btn-block btn-sm">Send</button>-->
+                                                            <!--</div>-->
+                                                            <!--</div>-->
+                                                            <!--</form>-->
+                                                            <!--</div>-->
+                                                            <!-- /.post -->
 
+                                                        </div>
+                                                        <!-- /.tab-pane -->
+
+                                                    </div>
+                                                    <!-- /.tab-content -->
                                                 </div>
-                                                <!-- /.tab-pane -->
+                                            </div>
 
                                             </div>
-                                            <!-- /.tab-content -->
+
+                                        <div class="row app-install hide">
+
+                                            <div class="col-lg-12">
+
+                                                <div class="nav-tabs-custom" style="padding-top:0px">
+                                                    <ul class="nav nav-tabs">
+                                                        <li class="active"><a href="#confi_panel_div" data-toggle="tab">配置面板</a></li>
+                                                        <li><a href="#config_json_div" data-toggle="tab">JSON源码</a></li>
+
+                                                        <!--<li class="pull-right"><button type="button" class="btn btn-primary app-install-to-gate">安装</button></li>-->
+
+                                                    </ul>
+                                                    <div class="tab-content">
+
+                                                        <form class="form-horizontal"  method="post" onsubmit="return false;">
+                                                            <div class="form-group" style="padding-left: 5px">
+                                                                <label for="gate_inst_1" class="col-sm-1 control-label" style="padding-left: 0">实例名：</label>
+
+                                                                <div class="col-sm-5" style="padding-right: 0">
+                                                                    <input type="text" class="form-control" id="gate_inst_1" placeholder="" >
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+
+
+                                                        <!-- confi_panel_div -->
+                                                        <div class="tab-pane active box box-body" id="confi_panel_div">
+
+
+                                                            <div class="flex has_panel_cfg c_content">
+
+
+
+                                                            </div>
+                                                            <!-- /无配置参数时显示 -->
+                                                            <div class="flex no_panel_cfg hide">
+                                                                不支持配置
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /#confi_panel_div -->
+
+                                                        <!-- config_json_div-->
+                                                        <div class="tab-pane box box-body" id="config_json_div">
+
+                                                            <div id="json_editor"  style="min-height:450px; border: 0px solid #e1e1e1;">
+                                                            </div>
+
+                                                            <script>
+
+                                                                //console.log('-------------------session1',session.getValue());
+                                                            </script>
+
+                                                        </div>
+                                                        <!-- /#config_json_div -->
+
+                                                        <form class="form-horizontal"  method="post" onsubmit="return false;">
+                                                            <div class="form-group" style="padding-left: 15px">
+                                                                <button type="button" class="btn btn-primary app-install-to-gate">安装</button>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                    <!-- /.tab-content -->
+                                                </div>
+                                                <!-- /.nav-tabs-custom -->
+
+                                            </div>
+
                                         </div>
 
-
                                     </div>
+
                                     <!--应用详情end-->
 
                                 </div>
                                 <!-- app_detail_div end -->
 
-
-                                <!-- app_config_div start-->
-                                <div class="tab-pane" id="app_config_div">
-                                    <div class="box box-body" style="min-height: 630px">
-
-                                            <div class="col-xs-12">
-                                                <h2 class="page-header">
-                                                    <i class="fa fa-th"></i>&nbsp;&nbsp;<span class="app_name_config"></span><span>--应用安装</span>
-                                                    <div class="pull-right"><a href="javascript:void(0)" class="close-app-config"><i class="fa fa-close"></i></a></div>
-
-                                                </h2>
-                                            </div>
-                                            <!-- /.col -->
-
-
-
-                                            <div class="nav-tabs-custom">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#has_templ" data-toggle="tab">配置面板</a></li>
-                                                    <li><a href="#no_templ" data-toggle="tab">配置源码</a></li>
-
-                                                </ul>
-                                                <div class="tab-content" style="padding: 0">
-
-                                                    <div class="active tab-pane" id="has_templ">
-
-
-
-                                                    </div>
-                                                    <!-- /.tab-pane -->
-
-                                                    <div class="tab-pane" id="no_templ">
-
-
-
-                                                    </div>
-                                                    <!-- /.tab-pane -->
-
-                                                </div>
-                                                <!-- /.tab-content -->
-                                            </div>
-
-
-                                    </div>
-
-
-                                </div>
-                                <!-- app_config_div end -->
 
                             </div>
 
@@ -891,6 +930,8 @@
 <script src="plugins/bingdian-waterfall/demos/js/waterfall.js"></script>
 <script src="plugins/bingdian-waterfall/demos/js/libs/handlebars/handlebars.js"></script>
 
+
+
 <!-- canvi -->
 <script src="plugins/canvi/canvi.js"></script>
 <!-- FastClick -->
@@ -913,6 +954,11 @@
 <script src="plugins/editor.md-master/lib/sequence-diagram.min.js"></script>
 <script src="plugins/editor.md-master/lib/flowchart.min.js"></script>
 <script src="plugins/editor.md-master/lib/jquery.flowchart.min.js"></script>
+
+
+<!-- ace editor -->
+<script src="plugins/ace/ace.js" charset="utf-8" type="text/javascript"></script>
+<script src="plugins/ace/ext-language_tools.js" type="text/javascript"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>

@@ -539,12 +539,20 @@ var    table_gates = $('#table_gates').DataTable({
             // contentType: "application/json; charset=utf-8",
             dataType:'json',
             success:function(req){
-                if(req.message){
+                if(req.message==true){
                     $("button.add_thingslink_confirm").attr("disabled", false);
                     $("#modal-add-thingslink").modal('hide');
                     var t_ret = setTimeout(function(){
                         table_gates.ajax.url(gates_url).load(null,false);
                     },500);
+                    $.notify({
+                        title: "<strong>添加网关提示</strong><br><br> ",
+                        message: data.sn + "添加成功<br>" + "如网关不在线，请在全部网关中查找。"
+                    },{
+                        newest_on_top: false,
+                        delay: 15000,
+                        type: "success"
+                    });
 
                 }
 

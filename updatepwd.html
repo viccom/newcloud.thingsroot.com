@@ -146,68 +146,79 @@
          *	用户更新密码
          */
         function updatepwd(update_key, new_password){
-            $.ajax({
-                url: '/apis/api/method/frappe.core.doctype.user.user.update_password?key='+ update_key  + '&new_password='+ new_password,
-                headers: {
-                    Accept: "application/json; charset=utf-8"
-                },
-                type: 'post',
-                contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                dataType:'json',
-                success:function(req){
-                    console.log('密码重置-----------------------------------------',req);
-                    $(".update:button[name='update']").attr("disabled", false);
-                    if(req.message) {
-                        if(req.home_page=="/desk" && req.message=="/desk") {
+            if(new_password.length>5){
+                $.ajax({
+                    url: '/apis/api/method/frappe.core.doctype.user.user.update_password?key='+ update_key  + '&new_password='+ new_password,
+                    headers: {
+                        Accept: "application/json; charset=utf-8"
+                    },
+                    type: 'post',
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    dataType:'json',
+                    success:function(req){
+                        console.log('密码重置-----------------------------------------',req);
+                        $(".update:button[name='update']").attr("disabled", false);
+                        if(req.message) {
+                            if(req.home_page=="/desk" && req.message=="/desk") {
 
-                            $.notify({
-                                title: "<strong>提示:</strong><br><br> ",
-                                message: req.full_name + "重置密码成功 <br>" + "2秒后返回控制台"
-                            }, {
-                                type: 'success'
-                            });
-                            var value = $.cookie('user_id');
-                            setCookie('usr',value);
-                            setCookie('full_name',req.full_name);
-                            isLogin();
-                            // 检测是否为管理员
-                            isAdmin();
-                            setTimeout("redirect('/')", 2000);
+                                $.notify({
+                                    title: "<strong>提示:</strong><br><br> ",
+                                    message: req.full_name + "重置密码成功 <br>" + "2秒后返回控制台"
+                                }, {
+                                    type: 'success'
+                                });
+                                var value = $.cookie('user_id');
+                                setCookie('usr',value);
+                                setCookie('full_name',req.full_name);
+                                isLogin();
+                                // 检测是否为管理员
+                                isAdmin();
+                                setTimeout("redirect('/')", 2000);
 
-                        }else{
-                            $.notify({
-                                title: "<strong>提示:</strong><br><br> ",
-                                message: req.message + "<br>" + "5秒后返回登录页"
-                            }, {
-                                type: 'warning'
-                            });
+                            }else{
+                                $.notify({
+                                    title: "<strong>提示:</strong><br><br> ",
+                                    message: req.message + "<br>" + "5秒后返回登录页"
+                                }, {
+                                    type: 'warning'
+                                });
 
-                            setTimeout("redirect('login.html')", 5000);
+                                setTimeout("redirect('login.html')", 5000);
+                            }
+
+
+
+
+                            // if (req.message == "无法更新：不正确的/过期的链接。") {
+                            //
+                            //     $.notify({
+                            //         title: "<strong>提示:</strong><br><br> ",
+                            //         message: '用户不存在'
+                            //     }, {
+                            //         type: 'warning'
+                            //     });
+                            //
+                            // }
                         }
 
-
-
-
-                        // if (req.message == "无法更新：不正确的/过期的链接。") {
-                        //
-                        //     $.notify({
-                        //         title: "<strong>提示:</strong><br><br> ",
-                        //         message: '用户不存在'
-                        //     }, {
-                        //         type: 'warning'
-                        //     });
-                        //
-                        // }
+                        // setTimeout("redirect('login.html')", 1500);
+                    },
+                    error:function(req){
+                        console.log('错误-----------------------------------------',req);
+                        $(".update:button[name='update']").attr("disabled", false);
+                        setTimeout("redirect('login.html')", 9000);
                     }
+                });
 
-                    // setTimeout("redirect('login.html')", 1500);
-                },
-                error:function(req){
-                    console.log('错误-----------------------------------------',req);
-                    $(".update:button[name='update']").attr("disabled", false);
-                    setTimeout("redirect('login.html')", 9000);
-                }
-            });
+            }else{
+                $.notify({
+                    title: "<strong>提示:</strong><br><br> ",
+                    message: "密码长度小于6"
+                }, {
+                    type: 'warning'
+                });
+
+            }
 
         }
 
