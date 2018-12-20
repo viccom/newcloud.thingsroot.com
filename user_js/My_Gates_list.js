@@ -168,14 +168,14 @@ var    table_gates = $('#table_gates').DataTable({
                 //   指定第5列
                 targets: 4,
                 searchable: false,
-                orderable: false,
+                orderable: true,
                 width: '8%'
             },
             {
                 //   指定第6列
                 targets: 5,
                 searchable: false,
-                orderable: false,
+                orderable: true,
                 width: '8%'
             },
 

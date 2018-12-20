@@ -54,6 +54,12 @@
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
 
     <style type="text/css">
+
+        .config-label {
+            text-align: left!important;
+            max-width: 150px!important;
+        }
+
         .mytable tr {
             height: 25px;
 
@@ -532,7 +538,7 @@
 
                                                     <div class="pull-right" style="padding-left: 30px"><a href="javascript:void(0)" class="close-app-detail"><i class="fa fa-close"></i></a></div>
 
-                                                    <div class="pull-right"><button  class="btn btn-primary btn-sm install-switch" data-install="1">安装到网关</button></div>
+                                                    <div class="pull-right"><button  class="btn btn-info btn-sm install-switch" data-install="1">安装到网关</button></div>
 
                                                 </h2>
 
@@ -553,7 +559,7 @@
 
                                                     </div>
 
-                                                    <div class="col-sm-3 invoice-col">
+                                                    <div class="col-sm-4 invoice-col" style="padding-left: 20px">
                                                         <address>
                                                             <p>&nbsp;&nbsp;&nbsp;&nbsp;发布者：<span class="app_owner"></span></p>
                                                             <p>通讯协议：<span class="app_protocol"></span></p>
@@ -562,7 +568,7 @@
                                                         </address>
                                                     </div>
                                                     <!-- /.col -->
-                                                    <div class="col-sm-3 invoice-col">
+                                                    <div class="col-sm-4 invoice-col">
                                                         <address>
                                                             <p>应用分类：<span class="app_category"></span></p>
                                                             <p>设备厂家：<span class="device_supplier"></span></p>
@@ -662,11 +668,11 @@
                                                     <div class="tab-content">
 
                                                         <form class="form-horizontal"  method="post" onsubmit="return false;">
-                                                            <div class="form-group" style="padding-left: 5px">
-                                                                <label for="gate_inst_1" class="col-sm-1 control-label" style="padding-left: 0">实例名：</label>
+                                                            <div class="form-group">
+                                                                <label for="gate_inst_1" class="col-sm-2 control-label config-label">实例名：</label>
 
-                                                                <div class="col-sm-5" style="padding-right: 0">
-                                                                    <input type="text" class="form-control" id="gate_inst_1" placeholder="" >
+                                                                <div class="col-sm-5">
+                                                                    <input type="text" class="form-control  popover-name"  data-placement="top" data-content="" id="gate_inst_1" placeholder="应用实例名" >
                                                                 </div>
                                                             </div>
 
@@ -674,10 +680,11 @@
 
 
                                                         <!-- confi_panel_div -->
-                                                        <div class="tab-pane active box box-body" id="confi_panel_div">
+                                                        <div class="tab-pane active" id="confi_panel_div" style="padding: 0">
 
 
-                                                            <div class="flex has_panel_cfg c_content">
+                                                            <div class="has_panel_cfg c_content" style="width: 100%">
+
 
 
 
@@ -691,7 +698,7 @@
                                                         <!-- /#confi_panel_div -->
 
                                                         <!-- config_json_div-->
-                                                        <div class="tab-pane box box-body" id="config_json_div">
+                                                        <div class="tab-pane " id="config_json_div" style="padding: 0">
 
                                                             <div id="json_editor"  style="min-height:450px; border: 0px solid #e1e1e1;">
                                                             </div>
@@ -706,10 +713,11 @@
 
                                                         <form class="form-horizontal"  method="post" onsubmit="return false;">
                                                             <div class="form-group" style="padding-left: 15px">
-                                                                <button type="button" class="btn btn-primary app-install-to-gate">安装</button>
+                                                                <button type="button" class="btn btn-primary btn-lg app-install-to-gate" style="width: 150px">安装</button>
                                                             </div>
-
                                                         </form>
+
+
                                                     </div>
                                                     <!-- /.tab-content -->
                                                 </div>
@@ -901,6 +909,44 @@
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
+
+
+    <!-- /.modal remove start-->
+    <div class="modal fade" id="modal-add-templ" data-backdrop="static" style="padding-top: 100px">
+        <div class="modal-dialog" style="width: 800px; ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加模板</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive" style="padding-bottom: 20px">
+                        <table class="table table-bordered nowrap" id="select_templ_list">
+                            <tr>
+                                <th style="width: 25%">名称</th>
+                                <th style="width: 35%">描述</th>
+                                <th style="width: 25%">模板ID</th>
+                                <th style="width: 15%">操作</th>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <!--<div><button type="button" class="btn btn-primary creat_templ templates">创建新模板</button></div>-->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary creat_templ templates  pull-left">创建新模板</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal end-->
+
+
 </div>
 <!-- ./wrapper -->
 
