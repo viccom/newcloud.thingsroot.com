@@ -51,6 +51,57 @@
 
         }
         .mytable td{word-break: keep-all;white-space:nowrap;}
+        .app_list_li{
+            width: 100%;
+            margin: 7px 0;
+            border: 1px solid #E5E9EE;
+            height: 150px;
+            position: relative;
+        }
+        .app_image{
+            width: 150px;
+            height: 100%;
+            position: absolute;
+            left: 0;
+        }
+        .app_image>img{
+            width: 120px;
+            height: 120px;
+            margin: 15px;
+        }
+        .app_info{
+            padding: 10px 0 0 40px;
+            height: 100%;
+            position: absolute;
+            left: 150px;
+        }
+        .app_info>div{
+            line-height: 40px;
+        }
+        .app_info>div>p{
+            line-height: 40px;
+            display: inline-block;
+            min-width: 250px;
+            padding:0 15px;
+            font-size: 14px;
+        }
+        .app_info>div:nth-child(1)>p:nth-child(1){
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .app_info>div:nth-child(2)>p>span:nth-child(1){
+            color: #999999;
+            font-size: 14px;
+        }
+        .app_info>div:nth-child(2)>p>span:nth-child(2){
+            color: #666666;
+            font-size: 14px;
+        }
+        .app_info>div>div{
+            display: inline-block;
+            padding:0 15px;
+        }
+
     </style>
 </head>
 
@@ -370,7 +421,7 @@
 
             <div class="box box-body " style="min-height: 625px">
                 <!--应用列表start-->
-                <ul class="mailbox-attachments clearfix my-apps-list">
+                <ul class=" clearfix my-apps-list" style="list-style: none;padding-left:0;">
 
 
                 </ul>
@@ -550,7 +601,7 @@
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
+<!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -605,64 +656,72 @@
                 var data = req.message;
                 // console.log(data);
                 if(data){
+                    var data = req.message;
+                    console.log(data);
                     for(var i=0;i<data.length;i++){
-                        var star = new Array(6).join("☆");
-                        if(data[i].star){
-                            star = new Array(data[i].star +1 ).join("★");
-                        }
-                        var li_html =
-                            '<li>'+
-                            '<span class="mailbox-attachment-icon"><a href="My_Apps_detail.html?appid='+data[i].name+ '"><i class="fa fa-archive"></i></a></span>' +
-                            '<div class="mailbox-attachment-info">' +
-                            '<a href="#" class="mailbox-attachment-name">' + data[i].app_name + '</a>' +
-
-                            '<span class="mailbox-attachment-size">' + star +
-                            '<a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>' +
-                            '</span>' +
-
+                        $('.my-apps-list').append(
+                            '<li class="app_list_li">' +
+                            '<div class="app_image cursor">' +
+                            '<img src="'+ data[i].icon_image +'" alt="">'+
                             '</div>' +
+                            '<div class="app_info">' +
+                            '<div>' +
+                            '<p class="app_name cursor">'+ data[i].app_name +'</p>' +
+                            '<p><span>生产日期：</span><span>'+ data[i].creation.substr(0,11) +'</span></p>' +
+                            '<div>' +
+                            '<ul class="show_number clearfix">' +
+                            '<li>' +
+                            '<div class="atar_Show">' +
+                            '<p tip="'+ data[i].star +'"></p>' +
+                            '</div>' +
+                            '</li>' +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div>' +
+                            '<p><span>应用分类：</span><span>'+ data[i].category +'</span></p>' +
+                            '<p><span>通讯协议：</span><span>'+ data[i].protocol +'</span></p>' +
+                            '<p><span>设备厂商：</span><span>'+ data[i].device_supplier +'</span></p>' +
+                            '</div>' +
+                            '</div>' +
+                            '<input type="hidden" value="'+ data[i].name +'">' +
                             '</li>'
-                        $('.my-apps-list').append(li_html)
+                        )
+                    }
+                    //星星显示分数
+                    $(".show_number li p").each(function(index, element) {
+                        var num=$(this).attr("tip");
+                        var www=num*16;
+                        $(this).css("width",www);
+                        $(this).parent(".atar_Show").siblings("span").text(num+"分");
+                    });
+                }else{
+                    $('.none').removeClass('hd');
+                    $('.app_list').css({'position':'absolute','top':'65px','right':0,'bottom':'30px','left':0});
+                    $('.list_search').css('display','none');
+                    $('.copyright').addClass('pos');
+                }
+            }, error:function () {
+                console.log('error')
+            }, complete: function () {
+                //点击名称进入详情
+                var name = $('.app_name');
+                for(var i=0;i<name.length;i++){
+                    name[i].index = i;
+                    name[i].onclick = function () {
+                        var appId = $(this).parent().parent().parent().find('input').val();
+                        location.href = 'My_Apps_details.html?appId=' + appId;
                     }
                 }
-
-            //     星星显示分数
-            //     $(".show_number li p").each(function(index, element) {
-            //         var num=$(this).attr("tip");
-            //         var www=num*16;
-            //         $(this).css("width",www);
-            //         $(this).parent(".atar_Show").siblings("span").text(num+"分");
-            //     });
-            // }, error:function () {
-            //     console.log('error')
-            // }, complete: function () {
-            //     var aLi = $('.app_list>ul>li');
-            //     console.log(aLi.length);
-            //     //判断应用列表是否为空
-            //     if(aLi.length == 0){
-            //         $('.none').removeClass('hd');
-            //         $('.app_list').css({'position':'absolute','top':'65px','right':0,'bottom':'30px','left':0});
-            //         $('.list_search').css('display','none');
-            //         $('.copyright').addClass('pos');
-            //     }
-            //     //点击名称进入详情
-            //     var name = $('.app_name');
-            //     for(var i=0;i<name.length;i++){
-            //         name[i].index = i;
-            //         name[i].onclick = function () {
-            //             var appId = $(this).parent().parent().parent().find('input').val();
-            //             location.href = 'application_details.html?appId=' + appId;
-            //         }
-            //     }
-            //     //点击图片进入详情
-            //     var app_img = $('.app_image');
-            //     for(var j=0;j<app_img.length;j++){
-            //         app_img[j].index = j;
-            //         app_img[j].onclick = function () {
-            //             var appId1 = $(this).parent().find('input').val();
-            //             location.href = 'application_details.html?appId=' + appId1;
-            //         }
-            //     }
+                //点击图片进入详情
+                var app_img = $('.app_image');
+                for(var j=0;j<app_img.length;j++){
+                    app_img[j].index = j;
+                    app_img[j].onclick = function () {
+                        var appId1 = $(this).parent().find('input').val();
+                        location.href = 'My_Apps_details.html?appId=' + appId1;
+                    }
+                }
             }
         })
 

@@ -51,13 +51,20 @@
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
 
     <style type="text/css">
+        .app_edit_submit,.app_add{
+            width: 80px;
+            height: 30px;
+            margin-left: 40px;
+            line-height: 30px;
+            background-color: #364F78;
+            color: #FFFFFF;
+            border: 0;
+            border-radius: 4px;
+        }
         .mytable tr {
             height: 25px;
-
         }
         .mytable td{word-break: keep-all;white-space:nowrap;}
-
-
         .img-box{
             padding-bottom:100%;
         }
@@ -406,8 +413,6 @@
                         </div>
 
                         <div class="form-group col-md-4">
-
-
                                 <div class="form-group">
                                     <label for="app-name" class="col-sm-4 control-label">应用名称 <i>*</i></label>
 
@@ -432,7 +437,7 @@
                                     <label  class="col-sm-4 control-label">授权类型 <i>*</i></label>
 
                                     <div class="col-sm-8">
-                                        <select class="form-control select2 license_select" style="width: 100%;">
+                                        <select name="license_type" class="form-control select2 license_select" style="width: 100%;">
                                             <option selected="selected">免费</option>
                                          </select>
                                     </div>
@@ -441,7 +446,7 @@
                                     <label class="col-sm-4 control-label">协议 <i>*</i></label>
 
                                     <div class="col-sm-8">
-                                        <select class="form-control select2 protocol_select" style="width: 100%;">
+                                        <select name="protocol" id="shouquan" class="form-control select2 protocol_select" style="width: 100%;">
                                             <option selected="selected">Modbus</option>
                                         </select>
                                     </div>
@@ -457,8 +462,8 @@
                                     <label  class="col-sm-4 control-label">应用厂商 <i>*</i></label>
 
                                     <div class="col-sm-8">
-                                        <select class="form-control select2 license_select" style="width: 100%;">
-                                            <option selected="selected">免费</option>
+                                        <select name="device_supplier" id="changshang" class="form-control select2 license_select" style="width: 100%;">
+
                                         </select>
                                     </div>
                                 </div>
@@ -466,8 +471,8 @@
                                     <label class="col-sm-4 control-label">类别 <i>*</i></label>
 
                                     <div class="col-sm-8">
-                                        <select class="form-control select2 protocol_select" style="width: 100%;">
-                                            <option selected="selected">Modbus</option>
+                                        <select name="category" id="leibie" class="form-control select2 protocol_select" style="width: 100%;">
+
 
                                         </select>
                                     </div>
@@ -488,14 +493,10 @@
                                     </div>
                         </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-1 col-sm-11">
-                            <button type="submit" class="btn btn-danger">创建</button>
-                        </div>
-                    </div>
+
 
                 </form>
-                <!--<p><button class="app_edit_submit">提交</button><button class="app_add">创建</button></p>-->
+                <p><button class="app_edit_submit">提交</button><button class="app_add">创建</button></p>
                 <!--应用编辑end-->
 
             </div>
@@ -505,6 +506,12 @@
         <!-- /.content -->
 
 
+        <div class="alert success" role="alert" style="z-index: 9999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+            <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
+        </div>
+        <div class="alert danger" role="alert" style="z-index: 9999;text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
+            <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
+        </div>
 
 
     </div>
@@ -671,7 +678,7 @@
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
+<!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -714,6 +721,43 @@
 <script>
 
     $(function(){
+        if(!window.location.href.split("=")[1]){
+            document.title = "创建新应用";
+            $('small').text('创建新应用');
+            $('.app_add').show();
+            $('.app_edit_submit').hide();
+        }else{
+            document.title = "修改应用详情";
+            $('small').text('修改应用详情');
+            $('.app_add').hide();
+            $('.app_edit_submit').show();
+            //获取应用详情信息
+            var appId = {'app':decodeURI(window.location.href.split("=")[1])};
+            $.ajax({
+                url: "/apis/api/method/app_center.api.app_detail",
+                type: "GET",
+                data: appId,
+                success: function (data) {
+                    // console.log(datas.protocol);
+                    var datas = data.message;
+                    console.log(datas)
+                    $('#app-name').val(datas.app_name);   //应用名称
+                    $('#device-model').val(datas.device_serial);   //设备型号
+                    $('#select2-changshang-container').text(datas.device_supplier);   //设备厂商
+                    $('#select2-shouquan-container').text(datas.protocol);   //协议
+                    $('#select2-leibie-container').text(datas.category);   //应用分类
+                    $('input[name=category]').val(datas.category)
+                    $('#mk').text(datas.description);   //markdown
+                    if(datas.category == 'Open'){
+                        $('#select2-tlbz-container').text("免费");   //授权类型  ---免费
+                    }
+                }, error: function () {
+                    console.log('no');
+                }
+            });
+        }
+
+
         $('.select2').select2();
         editormd("test-editormd", {
             width : "96%",
@@ -727,7 +771,203 @@
             imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL : "/upload/image"
         });
+
+
+        //点击切换图片
+        $("#icon_file").change(function(event){
+            var name=$(this).attr("name");
+            var val = $(this).val();
+            tmppath = URL.createObjectURL(event.target.files[0]);
+            $('#icon_img1').attr('src', tmppath);
+        });
+
+        //获取设备厂商
+        var data1 = {'name':'冬笋科技'};
+        $.ajax({
+            url: "/apis/api/method/app_center.api.app_suppliers",
+            type: "GET",
+            data: data1,
+            success: function (req) {
+                var data = req.message;
+                for(var i=0;i<data.length;i++){
+                    // console.log(data[i]);
+                    $('#changshang').append(
+                        '<option>'+ data[i].name +'</option>'
+                    )
+                }
+            }, error: function () {
+                console.log('error');
+            }, complete: function () {
+                $('.search_filter2 li').on('click', function() {
+                    $('.search_keyword2').text($(this).text());
+                    $('input[name=device_supplier]').val($(this).text())
+                });
+            }
+        });
+
+        //获取协议
+        var data2 = {'name':'Redis'};
+        $.ajax({
+            url: "/apis/api/method/app_center.api.app_protocols",
+            type: "GET",
+            data: data2,
+            success: function (req) {
+                // console.log(req);
+                var data = req.message;
+                for(var i=0;i<data.length;i++){
+                    $('#shouquan').append(
+                        '<option>'+ data[i].name +'</option>'
+                    )
+                }
+            }, error: function () {
+                console.log('error')
+            }, complete: function () {
+                $('.search_filter3 li').on('click', function() {
+                    $('.search_keyword3').text($(this).text());
+                    $('input[name=protocol]').val($(this).text())
+                });
+            }
+        });
+
+        //获取应用分类
+        var name = {'name':'General'};
+        $.ajax({
+            url:"/apis/api/method/app_center.api.app_categories",
+            type:"GET",
+            data: name,
+            success: function(req){
+                var data = req.message;
+                for(var i=0;i<data.length;i++){
+                    $('#leibie').append(
+                        '<option>'+ data[i].name +'</option>'
+                    )
+                }
+            }, error: function () {
+                console.log('error')
+            }, complete: function () {
+                $('.search_filter1 li').on('click', function() {
+                    $('.search_keyword1').text($(this).text());
+                    $('input[name=category]').val($(this).text())
+                });
+            }
+        });
+
+        //提交修改
+        $('.app_edit_submit').click(function () {
+            if(!$('#app-name').val()){
+                var text = '请输入应用名称';
+                errorAlert(text)
+            } else if(!$('#select2-changshang-container').text()){
+                var text = '请输入应用厂商';
+                errorAlert(text)
+            } else if(!$('#device-model').val()){
+                var text = '请输入设备型号';
+                errorAlert(text);
+            } else if(!$('#select2-shouquan-container').text()){
+                var text = '请输入协议';
+                errorAlert(text);
+            } else if(!$('#select2-leibie-container').text()){
+                var text = '请输入类别';
+                errorAlert(text)
+            } else {
+                var form1 = new FormData(document.getElementById("form"));
+                console.log(form1);
+                $.ajax({
+                    url: "/apis/api/method/app_center.appmgr.modify",
+                    headers: {
+                        Accept: "application/json; charset=utf-8",
+                        "X-Frappe-CSRF-Token": auth_token
+                    },
+                    type: "POST",
+                    data: form1,
+                    processData:false,
+                    contentType:false,
+                    success:function (req) {
+                        console.log('============')
+                        console.log(req);
+                        var text = '修改成功';
+                        successAlert(text);
+                        setTimeout(function () {
+                            window.location = "My_Apps_list.html";
+                        },1000)
+                    },
+                    error: function () {
+                        var text = '修改失败';
+                        errorAlert(text)
+                    }
+                })
+            }//
+        });
+
+        //创建新应用
+        $('.app_add').click(function () {
+            if(!$('#app-name').val()){
+                var text = '请输入应用名称';
+                errorAlert(text)
+            } else if(!$('#select2-changshang-container').text()){
+                var text = '请输入应用厂商';
+                errorAlert(text)
+            } else if(!$('#device-model').val()){
+                var text = '请输入设备型号';
+                errorAlert(text);
+            } else if(!$('#select2-shouquan-container').text()){
+                var text = '请输入协议';
+                errorAlert(text);
+            } else if(!$('#select2-leibie-container').text()){
+                var text = '请输入类别';
+                errorAlert(text)
+            } else {
+                var form2 = new FormData(document.getElementById("form"));
+                console.log(form2);
+                $.ajax({
+                    url: "/apis/api/method/app_center.appmgr.new",
+                    headers: {
+                        Accept: "application/json; charset=utf-8",
+                        "X-Frappe-CSRF-Token": auth_token
+                    },
+                    type: "POST",
+                    data: form2,
+                    processData:false,
+                    contentType:false,
+                    success:function (req) {
+                        $('#app_name').val("");
+                        $('.search_keyword1').text("类别");
+                        $('.search_keyword2').text("应用厂商");
+                        $('.search_keyword3').text("协议");
+                        $('.search_keyword4').text("免费");
+                        $('#shebeihao').val("");
+                        // $('.editormd-markdown-textarea').val("");
+                        var text = '创建成功';
+                        successAlert(text);
+                        setTimeout(function () {
+                            window.location = "application_list.html";
+                        },1000)
+                    },
+                    error: function () {
+                        var text = '创建失败';
+                        errorAlert(text);
+                    }
+                })
+            }
+        })
+
     });
+    function successAlert(text){
+        $('.success').show();
+
+        $('.success>a').text(text);
+        setTimeout(function () {
+            $('.success').hide();
+        },2000)
+    }
+    function errorAlert(text){
+        $('.danger').show();
+
+        $('.danger>a').text(text);
+        setTimeout(function () {
+            $('.danger').hide();
+        },2000)
+    }
 
 </script>
 </body>

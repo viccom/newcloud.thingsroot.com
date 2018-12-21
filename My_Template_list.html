@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <title>冬笋云 | 我的模板</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -38,13 +39,187 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- DataTables-Responsive -->
+    <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+
+
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <style type="text/css">
+        p{margin: 0!important;}
+        input:focus{
+            outline: none;
+        }
+        .hide_column{
+            display: none;
+        }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+            padding: 11px!important;
+            line-height: 30px;
+        }
+        .temp_btn{
+            display: inline-block;
+            padding: 0 10px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #354E77;
+            background-color: #FFFFFF;
+            margin: 0 4px;
+            color: #354E77;
+            line-height: 25px;
+        }
 
-
+        #newTemplate{
+            display: none;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 99;
+        }
+        .newBox{
+            width: 600px;
+            max-height: 540px;
+            padding: 10px 15px;
+            background-color: #ffffff;
+            margin-top: -250px;
+            margin-left: -300px;
+            position: absolute;
+            left: 45%;
+            top: 50%;
+        }
+        .template_select{
+            padding: 10px;
+        }
+        .version_title{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 10px;
+            color: #364F78;
+            border-bottom: 1px solid #E5E9EE;
+        }
+        .version_title>span{
+            cursor: pointer;
+            float: right;
+            font-size: 20px;
+        }
+        .version_file{
+            width: 100%;
+            padding: 10px;
+            position: relative;
+        }
+        .version_file>input[type=text]{
+            display: inline-block;
+            width: 200px;
+            height: 30px;
+            border: 1px solid #E5E9EE;
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+        .version_file>input[type=file]{
+            display: inline-block;
+        }
+        .version_desc>p:nth-child(1){
+            line-height: 35px;
+        }
+        .version_file>textarea{
+            margin-left: 60px;
+            padding: 4px 10px;
+        }
+        .v_upload,.v_cancel{
+            width: 60px;
+            height: 25px;
+            margin: 10px;
+            border: 0;
+            border-radius: 3px;
+        }
+        .v_upload{
+            background-color: #364F78;
+            color: #FFFFFF;
+        }
+        label{
+            margin-right: 20px;
+        }
+        .radio{
+            display: inline-block;
+            margin: 0 ;
+            padding: 0;
+            font-weight: 500;
+        }
+        .main_content .radio{
+            padding-left: 20px;
+            display: inline;
+        }
+        .checkbox input {
+            opacity: 0;
+            /*padding-left: .7rem;*/
+        }
+        input.box{
+            display: none;
+        }
+        .checkbox em {
+            display: block;
+            position: absolute;
+            top: 2px;
+            left: 0;
+            width: 15px;
+            height: 15px;
+            outline: 0;
+            background: url(img/checkbox_default.png) no-repeat center;
+            background-size: 100%;
+        }
+        .radio em{
+            display: block;
+            position: absolute;
+            top: -12px;
+            left: 0;
+            width: 15px;
+            height: 15px;
+            outline: 0;
+            background: url(img/rb_default.png) no-repeat center;
+            background-size: 100%;
+        }
+        .radio_name{
+            margin: 0 20px;
+        }
+        .left_name{
+            position: absolute;
+            top: 14px;
+            left: 10px;
+        }
+        .checkbox input:checked+em {
+            background: url(img/checkbox_selected.png) no-repeat center;
+            background-size: 100%;
+        }
+        .radio input:checked+em {
+            background: url(img/rb_selected.png) no-repeat center;
+            background-size: 100%;
+        }
+        .btn-default,.open>.dropdown-toggle.btn-default ,.open>.dropdown-toggle.btn-default:hover{
+            background-color: #fff;
+            color: #cccccc;
+            text-align: left;
+        }
+        .btn-group.open .dropdown-toggle {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        #newTemplate .caret{
+            position: absolute;
+            right: 10px;
+            top: 16px;
+        }
+        #yingyong li span{
+            position: absolute;
+            right: 10px;
+        }
 
     </style>
 </head>
@@ -344,48 +519,150 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                我的模板
-                <small>设备模板</small>
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-primary creat_templ">创建新的模板</button>
+        <section class="content-header" >
+            <div style="display: flex;align-items: center;justify-content: space-between">
+                <h3 style="margin: 0;">我的模板
+                    <span style="font-size: 16px;margin: 8px 0 0 10px;color: #777;">设备模板</span>
+                </h3>
+                <div style="display: flex">
+                    <div class="input-group" style="width: 300px;">
+                        <div class="input-group-btn search_filter">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="search_keyword" data-search_keyword="1">模板名称</span>
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">模板名称</a></li>
+                                <li><a href="#">关联应用</a></li>
+                                <li><a href="#">修改时间</a></li>
+                            </ul>
+                        </div><!-- /btn-group -->
+                        <input type="text" class="form-control J_keyword" aria-label="请输入关键词">
+                        <span class="input-group-addon" id="searchBtn"><i class="glyphicon glyphicon-search
+"></i></span>
+                    </div><!-- /input-group -->
+                    <i class="glyphicon glyphicon-refresh" id="refreshHtml" style="margin: 0 30px;line-height: 34px;font-size: 20px"></i>
+                    <div class="btn-group pull-right">
+                        <button type="button" id="createTemplate" class="btn btn-primary creat_templ">创建新的模板</button>
+                    </div>
                 </div>
-
-            </h1>
-
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-
-
-
-
-            <div class="box box-body " style="min-height: 625px">
-
-
-
 
 
             </div>
 
 
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="box box-body " style="min-height: 625px">
+
+                <!-- 表格 -->
+                <div style="margin: 0 15px;">
+                    <table id="myTemplate" class="table dataTable no-footer " style="background-color:#FFFFFF;width: 100%;">
+                        <thead>
+                        <tr>
+                            <th>模板名称</th>
+                            <th>描述</th>
+                            <th>关联应用</th>
+                            <th>访问权限</th>
+                            <th>修改时间</th>
+                            <th>操作</th>
+                            <th>ID</th>
+                            <th>APPID</th>
+                            <th>版本</th>
+                        </tr>
+                        </thead>
+                        <!--<tbody>-->
+                        <!--<tr>-->
+                        <!--<td>11111111111111</td>-->
+                        <!--<td>1.0</td>-->
+                        <!--<td>app1</td>-->
+                        <!--<td>仅自己</td>-->
+                        <!--<td>2018.08.08</td>-->
+                        <!--<td>-->
+                        <!--<span class="temp_btn">查看</span>-->
+                        <!--<span class="temp_btn">复制</span>-->
+                        <!--<span class="temp_btn">删除</span>-->
+                        <!--</td>-->
+                        <!--<td>1234123874610</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    </table>
+                </div>
 
 
 
-
-
+            </div>
         </section>
         <!-- /.content -->
 
-
+        <!--创建新模板-->
+        <div id="newTemplate">
+            <div class="newBox">
+                <p class="version_title" style="border-bottom: 1px solid #CCCCCC;">创建新的模板 <span>×</span></p>
+                <p class="version_file">名&nbsp;&nbsp;&nbsp;&nbsp;称：
+                    <input type="text" id="template_name" name="template_name" style="width: 88%;">
+                </p>
+                <div class="template_select">
+                    <span>应&nbsp;&nbsp;&nbsp;&nbsp;用：</span>
+                    <div class="btn-group search_filter1" role="group">
+                        <button name="app" style="width: 488px;" type="button" class="select_width btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="search_keyword1 select_text" data-search_keyword="">请选择应用...</span>
+                            <input type="hidden" value="" id="appId">
+                            <span class="caret select_arrow"></span>
+                        </button>
+                        <ul class="dropdown-menu select_menu over" style="width: 488px;height: 360px;overflow-y: auto" id="yingyong">
+                            <!--<li data-name=""><a style="cursor:pointer">免费</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="template_select text1 hd">
+                    <span>源模板：</span>
+                    <div class="btn-group search_filter2" role="group">
+                        <button  name="temp" style="width: 214px;" type="button" class="select_width btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="search_keyword2 select_text" data-search_keyword="1">请选择模板...</span>
+                            <input type="hidden" value="" id="tempId1">
+                            <span class="caret select_arrow"></span>
+                        </button>
+                        <ul class="dropdown-menu select_menu over" style="width: 214px;" id="muban">
+                            <!--<li data-name=""><a style="cursor:pointer">免费</a></li>-->
+                        </ul>
+                    </div>
+                    <span class="text2" style="padding-left: 10px;">版&nbsp;&nbsp;&nbsp;&nbsp;本：</span>
+                    <div class="btn-group search_filter3" role="group">
+                        <button name="ver" style="width: 200px;" type="button" class="select_width btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="search_keyword3 select_text" data-search_keyword="1">请选择版本...</span>
+                            <input type="hidden" value="" id="version">
+                            <span class="caret select_arrow"></span>
+                        </button>
+                        <ul class="dropdown-menu select_menu over" style="width: 200px;" id="banben">
+                            <!--<li data-name=""><a style="cursor:pointer">免费</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+                <p class="version_file"><span class="left_name">描&nbsp;&nbsp;&nbsp;&nbsp;述：</span>
+                    <textarea id="miaoshu" name="miaoshu" cols="62" rows="6"></textarea>
+                </p>
+                <p class="version_file">权&nbsp;&nbsp;&nbsp;&nbsp;限：
+                    <label class="radio ib1"><input id="one" checked name="belong" value="User" type="radio" class="box"><em></em></label><span class="radio_name">个人</span>
+                    <label class="radio ib"><input id="two" name="belong" value="Cloud Company Group" type="radio" class="box"><em></em></label><span class="radio_name">公司</span>
+                    <input type="hidden" value="" id="owner_type">
+                </p>
+                <p class="version_file">是否公开：
+                    <label class="radio ib1"><input id="two1" name="isOpen" value="1" type="radio" class="box"><em></em></label><span class="radio_name">公开</span>
+                    <label class="radio ib"><input id="one1" checked name="isOpen" value="0" type="radio" class="box"><em></em></label><span class="radio_name">不公开</span>
+                    <input type="hidden" value="" id="checkNum">
+                </p>
+                <p style="padding: 10px 0;text-align: right">
+                    <button class="v_upload">确定</button>
+                    <button class="v_cancel">取消</button>
+                </p>
+            </div>
+        </div>
 
 
     </div>
     <!-- /.content-wrapper -->
-
-
 
     <!-- Control Sidebar start-->
     <!-- Control Sidebar -->
@@ -536,6 +813,12 @@
     <!-- /.control-sidebar -->
     <!-- /.control-sidebar end-->
 
+    <div class="alert success" role="alert" style="z-index: 9999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+        <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
+    </div>
+    <div class="alert danger" role="alert" style="z-index: 9999;text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
+        <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
+    </div>
 
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
@@ -547,7 +830,7 @@
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
+<!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -579,17 +862,525 @@
 <script src="user_js/common/common.js"></script>
 <!--<script src="user_js/common/add_back_task.js"></script>-->
 <script src="user_js/common/user.js"></script>
+<!--<script src="user_js/common/transport.js"></script>-->
+<!-- DataTables -->
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
 
 <!-- load user is -->
 <!--<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>-->
 <!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
 
+
 <script>
 
     $(function(){
 
+        var token = $.cookie('DS_auth_token');
+        $.ajaxSetup({
+            headers: { // 默认添加请求头
+                "X-Frappe-CSRF-Token": token
+            }
+        });
+
+        //获取用户信息
+        var user = getCookie('usr');
+
+        //请求模板列表
+        var dataSet = [];
+        var data = {
+            start: 0,
+            limit: 100
+        };
+        myajax();
+        function myajax() {
+            $.ajax({
+                url: "/apis/api/method/conf_center.api.list_private_conf",
+                type: "GET",
+                data:data,
+                async:false,
+                success: function (data) {
+                    var a = data.message.company;
+                    var b = data.message.private;
+                    dataSet = a.concat(b);
+                }
+            });
+        }
+
+        //datatables配置
+        var table = $('#myTemplate').DataTable({
+            dom: 'rt<"#table_footer"Bp>',
+            buttons: [],
+            "bStateSave":true,
+            "stateSave": true,
+            "bFilter": true,   //是否启动过滤，搜索功能
+            "sPaginationType": "full_numbers",
+            "iDisplayLength": 10,
+            destroy:true,
+            data: dataSet,
+            "dataSrc":  function (d) {
+                if($.isEmptyObject(d)){
+                    return []
+                }else{
+                    return d.message
+                }
+            },
+            "columns": [
+                {"data": "conf_name"},
+                {"data": "description"},
+                {"data": "app_name"},
+                {"data": "owner_type"},
+                {"data": "latest_version_creation"},
+                {"data": null},
+                {"data": "name"},
+                {"data": "app"},
+                {"data": "latest_version"}
+            ],
+            "language": {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            rowCallback: function (row, data, dataIndex) {
+                //时间截取----- 毫秒
+                var timeText = $(row).children('td').eq(4).text();
+                $(row).children('td').eq(4).text(timeText.substring(0,19));
+                //访问权限
+                var string = $(row).children('td').eq(3).text();
+                if(string == "User"){
+                    $(row).children('td').eq(3).text('个人');
+                }else if(string == "Cloud Company Group"){
+                    $(row).children('td').eq(3).text('公司');
+                }
+            },
+            columnDefs: [
+                {
+                    //   指定第第一列
+                    targets: [0],
+                    width: '20%'
+                },
+                {
+                    //   指定第第2列
+                    targets: [1],
+                    width: '25%',
+                    "render": function (data, type, row) {
+                        if(data.length >30){
+                            return data.substring(0,30)+'...'
+                        }else{
+                            return data
+                        }
+                    }
+                },
+                {
+                    //   指定第第3列
+                    targets: [2],
+                    width: '10%'
+                },
+                {
+                    //   指定第第4列
+                    targets: [3],
+                    width: '10%'
+                },
+                {
+                    //   指定第第5列
+                    targets: [4],
+                    width: '15%'
+                },
+                {
+                    //   指定第第6列
+                    targets: [5],
+                    width: '20%',
+                    render: function (data, type, row, meta) {
+                        var btn = '<button class="temp_btn look">查看</button><button class="temp_btn copy">复制</button><button disabled="disabled" class="temp_btn" style="color: #CCCCCC; border-color: #CCCCCC;">删除</button>';
+                        return btn;
+                    }
+                },
+                {
+                    targets: [6],
+                    className:"hide_column"
+                },
+                {
+                    targets: [7],
+                    className:"hide_column"
+                },
+                {
+                    targets: [8],
+                    className:"hide_column"
+                }
+            ],
+            'order' : [6,'desc']
+        });
+
+
+
+
+
+        //下拉框--- 搜索类型
+        $('.search_filter li').on('click', function(){
+            console.log($(this))
+            $('.search_keyword').text($(this).text());
+            console.log($('.search_keyword').text())
+        });
+
+        //下拉框--- 分类搜索
+        $('#searchBtn').on( 'click', function () {  //点击搜索框
+            var key = $('input.J_keyword').val();    //搜索框内容
+            table.settings()[0].ajax = myajax;
+            table.ajax.reload(null,false);
+            if($('.search_keyword').text()=="模板名称"){
+                console.log($('.search_keyword').text())
+                console.log(key)
+                table
+                    .columns(0)
+                    .search(key)
+                    .draw();
+            }
+            if($('.search_keyword').text()=="关联应用"){
+                console.log(key)
+                table
+                    .columns(2)
+                    .search(key)
+                    .draw();            }
+            if($('.search_keyword').text()=="修改时间"){
+                table
+                    .columns(4)
+                    .search(key)
+                    .draw();
+            }
+        } );
+        //刷新页面
+        $('#refreshHtml').click(function(){
+            table.settings()[0].ajax = myajax;
+            table.ajax.reload(null,false);
+        });
+        //点击行进入详情
+        $('#myTemplate tbody').on('click','.look',function() {
+            var name = $(this).parent('td').parent('tr').find('td:nth-child(1)').text();
+            var tempId = $(this).parent('td').parent('tr').find('td:nth-child(7)').text();
+            var appId = $(this).parent('td').parent('tr').find('td:nth-child(8)').text();
+            var version = "";
+            $.ajax({
+                url: "/apis/api/method/conf_center.api.get_latest_version",
+                type: "GET",
+                async: false,
+                data: {conf:tempId},
+                success: function (req) {
+                    version = req.message;
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+            location.href = 'My_Template_detail.html?name='+ name +'&tempId='+tempId+'&appId='+appId+'&version='+version;
+        });
+
+        function initradio(rName,rValue){
+            var rObj = document.getElementsByName(rName);
+            for(var i = 0;i < rObj.length;i++){
+                if(rObj[i].value == rValue){
+                    rObj[i].checked =  'checked';
+                }
+            }
+        }
+
+        //点击复制
+        $('#myTemplate tbody').on('click','.copy',function() {
+            var _this = $(this).parent('td').parent('tr')
+            var temp_name = _this.find('td:nth-child(1)').text();
+            var miaoshu = _this.find('td:nth-child(2)').text();
+            var app = _this.find('td:nth-child(3)').text();
+            var appId1 = _this.find('td:nth-child(8)').text();
+            var tempId2 = _this.find('td:nth-child(7)').text();
+            var version = _this.find('td:nth-child(9)').text();
+            $('#newTemplate').show();
+            $('#template_name').val(temp_name+"-copy");
+            $('.search_keyword1').text(app);
+            $('#miaoshu').val(miaoshu);
+            $('#appId').val(appId1);
+            $('.search_keyword2 ').text(temp_name);
+            $('#tempId1').val(tempId2);
+            if(version == ""){
+                $('.text1').show();
+                $('.text2').hide();
+                $('button[name=ver]').hide();
+            }else{
+                $('.search_keyword3 ').text(version);
+                $('#version').val(version);
+                $('.text1').show();
+            }
+            initradio('belong','User');
+            initradio('isOpen','0');
+            document.body.style.overflow='hidden';
+        });
 
     });
+
+    function successAlert(text){
+        $('.success').show();
+
+        $('.success>a').text(text);
+        setTimeout(function () {
+            $('.success').hide();
+        },2000)
+    }
+    function errorAlert(text){
+        $('.danger').show();
+
+        $('.danger>a').text(text);
+        setTimeout(function () {
+            $('.danger').hide();
+        },2000)
+    }
+
+    var newTemp;
+    //创建新模板--确定
+    $('.v_upload').click(function() {
+        if(!$('#template_name').val()){
+            var text= '模板名称不能为空'
+            errorAlert(text)
+        }else{
+            var data2 = {
+                app: $('#appId').val(),
+                conf_name: $('#template_name').val(),
+                description: $('#miaoshu').val(),
+                owner_type: $("input[name='belong']:checked").val(),
+                public: $("input[name='isOpen']:checked").val()
+            };
+            console.log(data2);
+            //创建新模板
+            $.ajax({
+                url: "/apis/api/method/conf_center.api.create_app_conf",
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: "POST",
+                data: data2,
+                success: function (req) {
+                    document.body.style.overflow='hidden';
+                    var text = "创建模板成功";
+                    successAlert(text)
+                    newTemp = req.message;
+                    //判断源模板和版本是否为空
+                    var data3 = {
+                        app: data2.app,
+                        conf: $('#tempId1').val(),
+                        version: parseInt($('.search_keyword3').text())
+                    };
+                    if(data3.conf == "" || data3.version == "NaN"){
+                    } else{
+                        //获取所选模板版本的数据
+                        $.ajax({
+                            url: "/apis/api/method/conf_center.api.app_conf_data",
+                            type: "GET",
+                            data: data3,
+                            success: function (data) {
+                                var csvData = data.message.data;
+                                var data4 = {
+                                    app: $('#appId').val(),
+                                    conf: newTemp,
+                                    version: "1",
+                                    data: csvData
+                                };
+                                $.ajax({
+                                    url: "/apis/api/method/conf_center.api.upload_conf_version",
+                                    headers: {
+                                        Accept: "application/json; charset=utf-8",
+                                        "X-Frappe-CSRF-Token": auth_token
+                                    },
+                                    type: "POST",
+                                    data: data4,
+                                    success: function (req) {
+
+                                    }, error: function () {
+                                        console.log('error');
+                                    }
+                                });
+                            },
+                            error: function (error) {
+                                console.log(error)
+                            },
+                            complete:function () {
+                                var text = '创建成功'
+                                successAlert(text)
+                                setTimeout(function () {
+                                    window.location.reload();
+                                },2000)
+                            }
+                        })
+                    }
+                },
+                error: function (error) {
+                    if(error.responseJSON. _server_messages == '["{\\"message\\": \\"name must be unique\\"}"]'){
+                        var text = '模板名称不能重复';
+                        errorAlert(text)
+                    }
+                }
+            });
+        }
+
+
+
+    });  //确定结尾
+
+    // 获取所有的应用
+    var data1 = {
+        "category": "",
+        "protocol": "",
+        "user"    : "",
+        "name"    : ""
+    };
+
+    $.ajax({
+        url :"/apis/api/method/iot_ui.iot_api.appstore_applist",
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type:"POST",
+        data: JSON.stringify(data1),
+        contentType : 'JSON',
+        dataType : 'JSON',
+        async: false,
+        success: function (data) {
+            var arr = data.message;
+            for(var i=0;i<arr.length;i++){
+                $('#yingyong').append('<li data-name=""><a style="cursor:pointer">'+ arr[i].app_name +'<span>'+arr[i].device_supplier+'</span></a><input type="hidden" value="'+ arr[i].name +'"></li>')
+            }
+        },error:function (e) {
+            console.log(e)
+            console.log('error')
+        },complete: function () {
+
+        }
+    });
+
+    $('.search_filter1 li').on("click",function(){
+        $('.search_keyword1').text($(this).text());
+        $('.search_keyword2').text("请选择模板...");
+        $('#appId').val($(this).find($('input')).val());
+        var appId1 = $('#appId').val();
+        formTemp(appId1);
+    });
+    //应用下的源模板
+    function formTemp(app){
+        $.ajax({
+            url: "/apis/api/method/conf_center.api.list_app_conf",
+            type: "GET",
+            data: {app: app,start:0,limit:100},
+            success: function (req) {
+                if(JSON.stringify(req) == "{}"){
+                    $('.text1').hide();
+                }else{
+                    $('button[name=temp]').show();
+                    $('button[name=ver]').hide();
+                    $('.text1').show();
+                    $('.text2').hide();
+                    $('#muban').html("");
+                    for(var i=0;i<req.message.length;i++){
+                        $('#muban').append('<li data-name=""><a style="cursor:pointer">'+ req.message[i].conf_name +'</a><input type="hidden" value="'+ req.message[i].name +'"></li>')
+                    }
+                }
+            }, error: function () {
+                console.log('error')
+            },
+            complete: function () {
+                $('.search_filter2 li').on('click', function() {
+                    $('.search_keyword2').text($(this).text());
+                    $('.search_keyword3').text("请选择版本...");
+                    $('#tempId1').val($(this).find($('input')).val());
+                    var tempId1 = $('#tempId1').val();
+                    getVerList(tempId1);
+                });
+            }
+        })
+    }
+
+    //得到当前源模板的所有版本
+    function getVerList(temp){
+        $.ajax({
+            url: "/apis/api/method/conf_center.api.get_versions",
+            type: "GET",
+            data: {conf: temp},
+            success: function (req) {
+                if(JSON.stringify(req) == "{}"){
+                    $('button[name=ver]').hide();
+                    $('.text2').hide();
+                }else{
+                    $('button[name=ver]').show();
+                    $('.text2').show();
+                    $('#banben').html("");
+                    for (var i=0;i<req.message.length;i++){
+                        $('#banben').append('<li data-name=""><a style="cursor:pointer">'+ req.message[i].version +'</a></li>')
+                    }
+                }
+            }, error: function () {
+                console.log('error');
+            },
+            complete: function () {
+                //切换版本  --数据
+                $('.search_filter3 li').on('click', function() {
+                    $('.search_keyword3').text($(this).text());
+                });
+            }
+        });
+    }
+
+    function initradio(rName,rValue){
+        var rObj = document.getElementsByName(rName);
+        for(var i = 0;i < rObj.length;i++){
+            if(rObj[i].value == rValue){
+                rObj[i].checked =  'checked';
+            }
+        }
+    }
+
+    //创建新模板--打开
+    $('#createTemplate').click(function () {
+        $('#newTemplate').show();
+        initradio('belong','User');
+        initradio('isOpen','0');
+        document.body.style.overflow='hidden';
+        $('#appId').val(""),
+            $('#template_name').val(""),
+            $('#miaoshu').val(""),
+            $("input[name='belong']:checked").val(""),
+            $('#checkNum').val("")
+    });
+
+    //创建新模板--关闭
+    $('.version_title>span').click(function () {
+        $('#newTemplate').hide();
+        document.body.style.overflow='auto';
+    })
+
+    //创建新模板--取消
+    $('.v_cancel').click(function () {
+        $('#newTemplate').hide()
+        document.body.style.overflow='auto';
+    })
+
+
 
 </script>
 </body>
