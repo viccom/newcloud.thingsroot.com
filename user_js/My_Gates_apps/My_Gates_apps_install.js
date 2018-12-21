@@ -15,6 +15,10 @@ function app_detail(appid) {
             // $('.app_img').attr("src",data.message.icon_image);
             if(data.message.has_conf_template) {
                 templ_conf = $.parseJSON(data.message.conf_template);
+
+            }else{
+                templ_conf = null;
+                app_default = {};
             }
             if(data.message){
                 $('#formAppId').val(data.message.name);
@@ -61,7 +65,7 @@ function app_detail(appid) {
 
 var testEditor;
 templ_list = null;
-templ_list_obj = null;
+app_default = {};
 templ_conf = null;
 
 $("body").on("click", "span.app-detail", function() {
@@ -87,7 +91,17 @@ $("body").on("click", "span.app-detail", function() {
     $('button.install-switch').data("install","1");
     $('button.install-switch').text("安装到网关");
 
-
+    if(templ_conf){
+        create_appconfig_panel(templ_conf);
+        $("div.has_panel_cfg").removeClass("hide");
+        $("div.no_panel_cfg").addClass("hide");
+    }else{
+        $("div.has_panel_cfg").addClass("hide");
+        $("div.no_panel_cfg").removeClass("hide");
+        var session = json_editor.getSession();
+        app_default ={};
+        session.setValue(JSON.stringify(app_default, null, 4));
+    }
 });
 
 //初始化对象
@@ -98,10 +112,10 @@ json_editor.setTheme("ace/theme/clouds");
 json_editor.getSession().setMode("ace/mode/javascript");
 
 //字体大小
-json_editor.setFontSize(18);
+json_editor.setFontSize(16);
 
 //设置只读（true时只读，用于展示代码）
-json_editor.setReadOnly(false);
+json_editor.setReadOnly(true);
 
 //自动换行,设置为off关闭
 json_editor.setOption("wrap", "free")
@@ -117,7 +131,7 @@ json_editor.setOptions({
 
 // console.log("config:::", appconfigs[$(".shade .J_oneAppInfo").attr('data-inst')]);
 // json_editor.setValue(JSON.stringify(appconfigs[$(".shade .J_oneAppInfo").attr('data-inst')], null, 4));
-json_editor.setValue('{}');
+json_editor.setValue(JSON.stringify(app_default));
 var session = json_editor.getSession();
 
 $("body").on("click", "a.app-config", function() {
@@ -131,6 +145,7 @@ $("body").on("click", "a.app-config", function() {
     list_app_conf(appid);
     app_detail(appid);
     $('a[href="#app_detail_div"]').tab('show');
+    $('a[href="#confi_panel_div"]').tab('show');
 
     $('div.app-detail').addClass("hide");
     $('div.app-install').removeClass("hide");
@@ -138,7 +153,15 @@ $("body").on("click", "a.app-config", function() {
     $('button.install-switch').text("查看应用描述");
 
     if(templ_conf){
-        create_appconfig_panel(templ_conf)
+        create_appconfig_panel(templ_conf);
+        $("div.has_panel_cfg").removeClass("hide");
+        $("div.no_panel_cfg").addClass("hide");
+    }else{
+        $("div.has_panel_cfg").addClass("hide");
+        $("div.no_panel_cfg").removeClass("hide");
+        var session = json_editor.getSession();
+        app_default = {};
+        session.setValue(JSON.stringify(app_default, null, 4));
     }
 
     // list_app_conf(appid);
@@ -176,9 +199,15 @@ $('button.app-install-to-gate').click(function() {
     var appname = $(this).data("appname");
     var inst = $('#gate_inst_1').val();
 
+    if(templ_conf){
+        get_panel_data(templ_conf);
+    }
+
+
     if(checkinst(inst)){
-        var appcfg = JSON.parse(json_editor.getValue());
-        console.log(typeof appcfg);
+        // var appcfg = JSON.parse(json_editor.getValue());
+        var appcfg = app_default;
+        // console.log(typeof appcfg);
         var id = 'app_install/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
         var act_post = {
             "device": gate_sn,
@@ -201,6 +230,46 @@ $('button.app-install-to-gate').click(function() {
 
 });
 
+$('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
+    // console.log($(this).text())
+    // console.log(e.target)
+    // console.log(e.relatedTarget)
+
+    var nowtext = $(this).text()
+    if(nowtext=="JSON源码"){
+        //通过配置面板生成json
+        if(templ_conf){
+            get_panel_data(templ_conf);
+        }
+
+
+
+        var session = json_editor.getSession();
+        session.setValue(JSON.stringify(app_default, null, 4));
+    }
+    if(nowtext=="配置面板"){
+        var session = json_editor.getSession();
+        app_default = JSON.parse(session.getValue());
+
+        if(templ_conf){
+            //通过json设置配置面板
+            // set_panel_data(templ_conf, app_default);
+        }
+
+
+
+    }
+
+
+} );
+
+
+// json_editor.setValue(app_default);
+
+$('#modal-add-templ').on('show.bs.modal', function () {
+    create_templ_select();
+
+});
 
 
 
@@ -278,9 +347,6 @@ function checkinst(inst) {
 
 
 
-
-
-
 /**
  *	获取应用模板配置信息
  */
@@ -321,14 +387,19 @@ function list_app_conf(app) {
 
 
 
-
-
 /**
  *	创建应用配置面板
  */
 function create_appconfig_panel(data) {
     $('.c_content').empty();
     for (var i=0;i<data.length;i++){
+        if(data[i].type=="defaults"){
+
+            app_default = data[i].value
+
+        }
+
+
         if(data[i].type=="dropdown"){
             var val_list = data[i].value;
             var val_html = '<option selected>'+ val_list[0] + '</option>';
@@ -340,8 +411,8 @@ function create_appconfig_panel(data) {
                 '<form class="form-horizontal" onsubmit="return false;">' +
                 '<div class="form-group">' +
                 '<label class="col-sm-2 control-label config-label">'+ data[i].desc + '：</label>' +
-                '<div class="col-sm-3">' +
-                '<select id="'+ data[i].name +'" data-depends=\'{"Modbus TCP":"tcp_section","Modbus RTU":"serial_section"}\' class="form-control config_panel">' +
+                '<div class="col-sm-4">' +
+                '<select name="'+ data[i].name +'" data-depends=\'{"socket":"tcp_section","serial":"serial_section"}\' class="form-control config_panel">' +
                 val_html +
                 '</select>' +
                 '</div>' +
@@ -369,7 +440,7 @@ function create_appconfig_panel(data) {
                             + '<div class="form-group">'
                             + '<label class="col-sm-4 control-label config-label">'+ child[j].desc +'：</label>'
                             + '<div class="col-sm-8">'
-                            + '<select id="'+ child[j].name +'" class="form-control config_panel">'
+                            + '<select name="'+ child[j].name +'" class="form-control config_panel">'
                             + val_html
                             + '</select>'
                             + '</div>'
@@ -418,7 +489,7 @@ function create_appconfig_panel(data) {
                             + '<div class="form-group">'
                             + '<label class="col-sm-4 control-label config-label">'+ child[j].desc +'：</label>'
                             + '<div class="col-sm-8">'
-                            + '<div class="checkbox"><label><input id="'+ child[j].name +'" type="checkbox"></label></div>'
+                            + '<div class="checkbox"><label><input name="'+ child[j].name +'" type="checkbox"></label></div>'
                             + '</div>'
                             + '</div>'
                             + '</form>'
@@ -479,7 +550,7 @@ function create_appconfig_panel(data) {
                             + '<div class="form-group">'
                             + '<label class="col-sm-4 control-label config-label">'+ child[j].desc +'：</label>'
                             + '<div class="col-sm-8">'
-                            + '<div class="checkbox"><label><input id="'+ child[j].name +'" type="checkbox"></label></div>'
+                            + '<div class="checkbox"><label><input name="'+ child[j].name +'" type="checkbox"></label></div>'
                             + '</div>'
                             + '</div>'
                             + '</form>'
@@ -503,9 +574,10 @@ function create_appconfig_panel(data) {
                         '<div class="table-responsive" style="padding-bottom: 20px">' +
                         '<table class="table table-bordered nowrap ' + data[i].name  + '_' + child.type +  '">' +
                         '<tr>' +
-                        '<th  data-class="disabled bg-gray-light" style="width: 25%">名称</th>' +
-                        '<th  data-class="disabled bg-gray-light" style="width: 35%">描述</th>' +
+                        '<th  data-class="disabled bg-gray-light" style="width: 20%">名称</th>' +
+                        '<th  data-class="disabled bg-gray-light" style="width: 25%">描述</th>' +
                         '<th  data-class="disabled bg-gray-light" style="width: 25%">模板ID</th>' +
+                        '<th  data-class="disabled bg-gray-light" style="width: 15%">版本</th>' +
                         '<th  style="width: 15%">操作</th>' +
                         '</tr>' +
                         // '<tr>' +
@@ -522,6 +594,15 @@ function create_appconfig_panel(data) {
 
                 }
 
+            }
+
+            if(data[i].name=="device_section"){
+
+                var child = data[i].child[0];
+                // console.log(data[i].desc);
+                // console.log(child);
+
+
                 if(child.type=="table"){
                     var child = data[i].child[0];
                     var val_html = '';
@@ -535,7 +616,7 @@ function create_appconfig_panel(data) {
 
                     var head_html = '<div id="' + data[i].name +'_'+ child.name + '" class="col-md-12" style="padding: 0"><p><span>| '+ data[i].desc +' </span></p>' +
                         '<div class="table-responsive" style="padding-bottom: 20px">' +
-                        '<table class="table table-bordered nowrap ' + data[i].name  + '_' + child.type + '">' +
+                        '<table class="table table-bordered nowrap ' + data[i].name  + '_' + child.name + '">' +
                         '<tr>' +
                         val_html +
                         '</tr>' +
@@ -737,12 +818,177 @@ function create_appconfig_panel(data) {
 
 
 
+/**
+ *	获取配置面板数据生成JSON
+ */
+function get_panel_data(data){
+    var app_config = new Object();
+    for (var i=0;i<data.length;i++){
+        if(data[i].type=="dropdown"){
+            app_config[data[i].name] = $("select[name="+ data[i].name + "]").val()
+        }
+        if(data[i].type=="section" && data[i].name=="tcp_section") {
+            var child = data[i].child;
+            app_config.socket = {};
+            for (var j = 0; j < child.length; j++) {
+                if (child[j].type == "text") {
+                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
+                }
+                if (child[j].type == "number") {
+                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
+                }
+                if (child[j].type == "dropdown") {
+                    app_config.socket[child[j].name] = $("select[name=" + child[i].name + "]").val()
+                }
+                if (child[j].type == "boolean") {
+                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").prop('checked')
+                }
+            }
+        }
+
+        if(data[i].type=="section" && data[i].name=="template_section") {
+            var child = data[i].child;
+
+            for (var j = 0; j < child.length; j++) {
+                if(child[j].type=="templates"){
+                    console.log(data[i].name +'_'+ child[j].name)
+                    app_config.templates = [];
+                    var templ_data = get_table_data(data[i].name +'_'+ child[j].name);
+
+                    var templs = [];
+                    for (var n = 0; n < templ_data.length; n++) {
+                        templs.push({"name":templ_data[n][0],"id":templ_data[n][2],"ver":templ_data[n][3]})
+                    }
+                    app_config.templates = templs;
+                }
+            }
+        }
 
 
-$('#modal-add-templ').on('show.bs.modal', function () {
-    create_templ_select();
+        if(data[i].type=="section" && data[i].name=="device_section") {
 
-});
+            var child = data[i].child;
+
+            for (var j = 0; j < child.length; j++) {
+                if(child[j].type=="table"){
+                    app_config[child[j].name] = [];
+                    console.log(data[i].name +'_'+ child[j].name)
+                    var t_data = get_table_data(data[i].name +'_'+ child[j].name)
+
+                    var tdevs = [];
+
+                    var cols = child[j].cols;
+                    for (var n = 0; n < t_data.length; n++) {
+
+                        var dev_obj = new Object();
+                        for (var m = 0; m < cols.length; m++) {
+                            if(cols[m].type=="number"){
+                                dev_obj[cols[m].name]=Number(t_data[n][m])
+                            }else if(cols[m].type=="boolean"){
+                                dev_obj[cols[m].name]=t_data[n][m]
+                            }else{
+                                dev_obj[cols[m].name]=t_data[n][m]
+                            }
+                        }
+                        tdevs.push(dev_obj)
+                    }
+                    app_config[child[j].name] = tdevs;
+                }
+            }
+        }
+    }
+
+    console.log("app_config:::", app_config)
+    app_default = app_config
+
+}
+
+
+/**
+ *	根据JSON生成配置面板
+ */
+function set_panel_data(data, json_data){
+
+    var app_config = new Object();
+    for (var i=0;i<data.length;i++){
+        if(data[i].type=="dropdown"){
+            app_config[data[i].name] = $("select[name="+ data[i].name + "]").val()
+        }
+
+        if(data[i].type=="section" && data[i].name=="tcp_section") {
+            var child = data[i].child;
+            app_config.socket = {};
+            for (var j = 0; j < child.length; j++) {
+                if (child[j].type == "text") {
+                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
+                }
+                if (child[j].type == "number") {
+                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
+                }
+                if (child[j].type == "dropdown") {
+                    app_config.socket[child[j].name] = $("select[name=" + child[i].name + "]").val()
+                }
+                if (child[j].type == "boolean") {
+                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").prop('checked')
+                }
+            }
+        }
+
+        if(data[i].type=="section" && data[i].name=="template_section") {
+            var child = data[i].child;
+
+            for (var j = 0; j < child.length; j++) {
+                if(child[j].type=="templates"){
+                    console.log(data[i].name +'_'+ child[j].name)
+                    app_config.templates = [];
+                    var templ_data = get_table_data(data[i].name +'_'+ child[j].name);
+
+                    var templs = [];
+                    for (var n = 0; n < templ_data.length; n++) {
+                        templs.push({"name":templ_data[n][0],"id":templ_data[n][2],"version":templ_data[n][3]})
+                    }
+                    app_config.templates = templs;
+                }
+            }
+        }
+
+
+        if(data[i].type=="section" && data[i].name=="device_section") {
+
+            var child = data[i].child;
+
+            for (var j = 0; j < child.length; j++) {
+                if(child[j].type=="table"){
+                    app_config[child[j].name] = [];
+                    console.log(data[i].name +'_'+ child[j].name)
+                    var t_data = get_table_data(data[i].name +'_'+ child[j].name)
+
+                    var tdevs = [];
+
+                    var cols = child[j].cols;
+                    for (var n = 0; n < t_data.length; n++) {
+
+                        var dev_obj = new Object();
+                        for (var m = 0; m < cols.length; m++) {
+                            if(cols[m].type=="number"){
+                                dev_obj[cols[m].name]=Number(t_data[n][m])
+                            }else if(cols[m].type=="boolean"){
+                                dev_obj[cols[m].name]=t_data[n][m]
+                            }else{
+                                dev_obj[cols[m].name]=t_data[n][m]
+                            }
+                        }
+                        tdevs.push(dev_obj)
+                    }
+                    app_config[child[j].name] = tdevs;
+                }
+            }
+        }
+    }
+
+
+
+}
 
 
 
@@ -768,8 +1014,8 @@ function get_table_row1(id){
 /**
  *	获取表格第2列数据
  */
-function get_table_row2(){
-    var trlist = $(".template_section_table.table>tbody>tr").find("td:eq(1)");
+function get_table_row2(id){
+    var trlist = $(id +".table>tbody>tr").find("td:eq(1)");
     console.log(trlist);
     // console.log(typeof trlist);
     var row1data = new Array();
@@ -790,7 +1036,7 @@ function get_table_row2(){
  */
 function get_table_data(id){
     var table_set = [];
-    $("."+ id + '.table tr').each(function() {
+    $('.' + id + '.table tr').each(function() {
         var row = [];
         $(this).find('td').each(function() {
             var v = $(this).text();
@@ -820,6 +1066,7 @@ function create_templ_select(){
         html += '<td>' + templ_list[n].conf_name + '</td>';
         html += '<td>' + templ_list[n].description + '</td>';
         html += '<td>' + templ_list[n].name + '</td>';
+        html += '<td>' + templ_list[n].latest_version + '</td>';
         console.log(templ_list[n].conf_name, templates_row1)
         if($.inArray(templ_list[n].conf_name, templates_row1)==-1){
             html += '<td><button class="add_templ_toapp">添加</button></td></tr>';
