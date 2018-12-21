@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>冬笋云 | 应用详情</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Bootstrap switch -->
+    <link rel="stylesheet" href="bower_components/bootstrap-switch/css/bootstrap-switch.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- DataTables-Responsive -->
+    <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
+    <!-- Tooltip classes -->
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!--markdown   css-->
+    <link rel="stylesheet" href="plugins/editor.md-master/css/editormd.min.css" />
+
+
+
+    <!-- global style -->
+    <link rel="stylesheet" href="user_css/global.css">
+
+    <!-- user style -->
+    <!--<link rel="stylesheet" href="user_css/star.css">-->
+    <link rel="stylesheet" href="user_css/apps_list.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <!-- Google Font -->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+
+    <style type="text/css">
+        p{
+            margin: 0!important;
+        }
+
+        .mytable tr {
+            height: 25px;
+
+        }
+        .mytable td{word-break: keep-all;white-space:nowrap;}
+        .img-box{
+            min-width: 120px;
+            max-width: 130px;
+            max-height: 130px;
+            height: 100%;
+            width: 100%;
+            padding-bottom:100%;
+        }
+        .img-box img{
+            position:relative;
+            top:10px;
+            bottom:30px;
+            left:20px;
+            right:20px;
+            width:100%;
+            margin:auto;
+        }
+        .app_comment_list{
+            width: 100%;
+            padding: 0;
+        }
+        .app_comment_list>li{
+            width: 100%;
+            padding: 20px 0 10px 70px;
+            border-bottom: 1px solid #E5E9EE;
+            position: relative;
+        }
+        .app_comment_list>li>p:nth-child(1) {
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .app_comment_list>li>p:nth-child(2){
+            width: 100%;
+            font-size: 16px;
+            padding-right: 20px;
+            min-height: 30px;
+            line-height: 25px;
+            word-wrap:break-word ;
+            margin: 0!important;
+        }
+        .app_comment_list>li>p:nth-child(3){
+            line-height: 30px;
+        }
+        .app_comment_list>li>div>span{
+            color: #999999;
+            line-height: 30px;
+            float: left;
+
+        }
+        .app_comment_list>li>div>span:nth-child(even){
+            padding-right: 20px;
+        }
+        .comment_more{
+            display: none;
+            width: 14px;
+            height: 14px;
+            margin: 0 6px;
+            position: relative;
+            top: -5px;
+        }
+        .app_comment_list>li>div>.delete_comment{
+            padding:0 20px;
+            margin: 0 20px;
+            line-height:30px;
+            color:rgba(53,78,119,0.7);
+            cursor: pointer;
+        }
+        .comment_images{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 0;
+        }
+        .myStar{
+            margin-bottom: 10px;
+        }
+        .myStar>span{
+            position: relative;
+            top: -2px;
+        }
+        .no_comment,.no_version,.no_template{
+            display: none;
+            width: 100%;
+            text-align: center;
+            color: #364F78;
+            font-size: 18px;
+            line-height: 300px;
+        }
+        .app_version,.temp_list{
+            margin: 0 20px;
+            padding: 20px 0;
+
+        }
+        .app_version>li,.temp_list>li{
+            width: 100%;
+            height: 110px;
+            padding: 10px 0;
+            border-bottom: 1px solid #E5E9EE;
+        }
+        .app_version>li>p,.temp_list>li>p{
+            line-height: 30px;
+            color: #999999;
+        }
+        .app_version>li>p>span:nth-child(1),.temp_list>li>p>span:nth-child(1){
+            color: #999999;
+            display: inline-block;
+            width: 100px;
+        }
+        .app_version>li>p>span:nth-child(2),.temp_list>li>p>span:nth-child(2){
+            color: #364F78;
+        }
+        .temp_list>li>p:nth-child(3){
+            position: relative;
+        }
+        .temp_btn1{
+            display: inline-block;
+            padding: 0 20px;
+            height: 25px;
+            border-radius: 4px;
+            background-color: #354E77;
+            margin: 0 4px;
+            color: #FFFFFF;
+            line-height: 25px;
+            position: absolute;
+            right: 10px;
+        }
+        .temp_list>li>p:nth-child(3)>span:nth-child(3){
+            position: absolute;
+            right: 180px;
+            cursor: pointer;
+        }
+        .temp_list>li>p:nth-child(3)>span:nth-child(4){
+            position: absolute;
+            right: 100px;
+            cursor: pointer;
+        }
+        .uploadNewVersion{
+            width: 140px;
+            height: 32px;
+            background-color: #364F78;
+            color: #FFFFFF;
+            border: 0;
+            border-radius: 4px;
+            margin: 20px 0 0 20px;
+        }
+        .uploadVersion{
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .uploadBox{
+            width: 900px;
+            height: 420px;
+            background-color: #FFFFFF;
+            margin-left: -450px;
+            margin-top: -190px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+        }
+        .version_title{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 10px;
+            color: #364F78;
+            border-bottom: 1px solid #E5E9EE;
+        }
+        .version_title>span{
+            cursor: pointer;
+            float: right;
+            font-size: 20px;
+        }
+        .version_file{
+            width: 100%;
+            padding: 10px;
+        }
+        .version_file>input[type=text]{
+            display: inline-block;
+            width: 200px;
+            height: 30px;
+            border: 1px solid #E5E9EE;
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+        .version_file>input[type=file]{
+            display: inline-block;
+        }
+        .version_desc{
+            width: 100%;
+            padding: 0 10px;
+        }
+        .version_desc>p:nth-child(1){
+            line-height: 35px;
+        }
+        .v_agree em{
+            position: relative;
+            top: 4px;
+            left: 2px;
+        }
+        .v_agree>span{
+            padding-left: 10px;
+            font-size: 12px;
+            line-height: 20px;
+        }
+        .v_upload,.v_cancel{
+            width: 60px;
+            height: 25px;
+            margin: 10px;
+            border: 0;
+            border-radius: 3px;
+        }
+        .v_upload{
+            background-color: #364F78;
+            color: #FFFFFF;
+        }
+        .app_right_button{
+            width: 400px;
+            position: absolute;
+            top: 100px;
+            right: 60px;
+        }
+        .app_right_button>button{
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #364F78;
+            border-radius: 4px;
+            padding: 0 10px;
+            margin: 4px;
+            background-color: #FFFFFF;
+        }
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <!-- top Nav menu start. -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>冬</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>冬笋云</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 4 messages</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Support Team
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <!-- end message -->
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                AdminLTE Design Team
+                                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Developers
+                                                <small><i class="fa fa-clock-o"></i> Today</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Sales Department
+                                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Reviewers
+                                                <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li>
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 10 notifications</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                                            page and may cause design problems
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-red"></i> 5 new members joined
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-red"></i> You changed your username
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <!-- Tasks: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-flag-o"></i>
+                            <span class="label label-danger">9</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 9 tasks</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Design some buttons
+                                                <small class="pull-right">20%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">20% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Create a nice theme
+                                                <small class="pull-right">40%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">40% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Some task I need to do
+                                                <small class="pull-right">60%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">60% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Make beautiful transitions
+                                                <small class="pull-right">80%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">80% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">View all tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <!-- Menu Body -->
+                            <li class="user-panel">
+
+                                <div class="text-center">
+                                    <a href="User_Settings.html">基本资料</a>
+                                </div>
+                            </li>
+                            <li class="user-panel">
+
+                                <div class="text-center">
+                                    <a href="My_AccessKey.html">AccessKey</a>
+                                </div>
+
+                            </li>
+
+                            <li class="user-panel">
+                                <div class="text-center">
+                                    <a href="My_Virtual_Gates.html">虚拟网关</a>
+                                </div>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+
+                                <div class="text-center">
+                                    <a href="javascript:logout();"  class="btn btn-default btn-flat">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- top Nav menu end. -->
+
+    <!-- Left Nav menu start. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+
+                <li class="header">Dashboard</li>
+
+                <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
+                <li class="header">我的资源</li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
+                <li class="active"><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
+
+                <li class="header">消息中心</li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+
+
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Left Nav menu end. contains the logo and sidebar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                我的应用
+                <small>应用详情</small>
+                <div class="pull-right"><a href="javascript:redirect('/My_Apps_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+            </h1>
+            <!--<ol class="breadcrumb">-->
+            <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+            <!--<li class="active">Dashboard</li>-->
+            <!--</ol>-->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+
+            <div class="box box-body my-apps-detail">
+
+                <!--应用编辑start-->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2 class="page-header">
+                            <i class="fa fa-th"></i>&nbsp;&nbsp;<span class="app_name"></span>
+                            <small class="pull-right">创建时间: 2/10/2014</small>
+                        </h2>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <div class="row invoice-info" style="max-height: 150px">
+                    <div class="col-sm-2 invoice-col" style="max-height: 140px">
+                        <div class="img-box col-sm-12" style="max-height: 140px">
+                            <div class="form-group">
+                                <img class="img-responsive app_img" src="/assets/app_center/img/logo.png" alt="User Image">
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-sm-3 invoice-col">
+                        &nbsp;&nbsp;
+                        <address>
+                            <p style="padding-bottom: 10px">&nbsp;&nbsp;&nbsp;&nbsp;发布者：<span class="app_owner"></span></p>
+                            <p style="padding-bottom: 10px">通讯协议：<span class="app_protocol"></span></p>
+                            <p style="padding-bottom: 10px">适配型号：<span class="device_serial"></span></p>
+
+                        </address>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 invoice-col">
+                        &nbsp;&nbsp;
+                        <address>
+                            <p style="padding-bottom: 10px">应用分类：<span class="app_category"></span></p>
+                            <p style="padding-bottom: 10px">设备厂家：<span class="device_supplier"></span></p>
+                            <p style="padding-bottom: 10px">应用价格：<span class="license_type"></span></p>
+
+                        </address>
+                    </div>
+                    <div class="app_right_button">
+                        <button class="edit" value="">edit</button>
+                        <!--<button class="app_editor"> >_Omline editor </button>-->
+                        <button class="fork_from" value="" >主分支</button>
+                        <!--<button>删除</button>-->
+                    </div>
+
+                </div>
+                <!--应用编辑end-->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activity" data-toggle="tab">描述</a></li>
+                        <li><a href="#timeline" data-toggle="tab">评论</a></li>
+                        <li><a href="#versions_list" data-toggle="tab">版本列表</a></li>
+                        <li><a href="#Templates_list" data-toggle="tab">模板列表</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+
+                            <div id="test-editormd" class="editormd-onlyread">
+                                <textarea style="display:none;"  name="test-editormd-markdown-doc">###我的描述</textarea>
+                            </div>
+
+
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="timeline">
+                            <!-- The timeline -->
+                            <div class="app_comment">
+                                <!--<a class="comment_btn">我要评论</a>-->
+                                <ul class="app_comment_list">
+                                    <li>
+                                    <p class="comment_title">123r34tgergvsadfbsdfb</p>
+                                    <p class="comment_content"><span>132524363456734575</span><img class="comment_more" src="img/comment_more.png" alt="更多" title="更多内容"></p>
+                                    <div>
+                                    <span>用户名：</span>
+                                    <span>冬笋科技</span>
+                                    <span>评论时间：</span>
+                                    <span>2018-08-31</span>
+                                    <ul class="show_number clearfix">
+                                    <li>
+                                    <div class="atar_Show">
+                                    <p tip="2.5"></p>
+                                    </div>
+                                    </li>
+                                    </ul>
+                                    <span class="delete_comment" style="" id="">删除</span>
+                                    <a class="clearfix"></a>
+                                    </div>
+                                    <img class="comment_images" src="img/top_avatar.png" alt="">
+                                    </li>
+                                </ul>
+
+
+                            </div>
+                            <p class="no_comment">暂时还没有评论！</p>
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="versions_list">
+
+                            <div class="tab-pane " id="C">
+                                <button class="uploadNewVersion">上传新版本</button>
+                                <ul class="app_version">
+
+                                </ul>
+                                <p class="no_version">暂时还没有上传版本！</p>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane  模板列表 -->
+                        <div class="tab-pane" id="Templates_list">
+
+                            <ul class="temp_list">
+                                <!--<li>-->
+                                <!--<p><span>版本号：</span><span>1764</span></p>-->
+                                <!--<p><span>更新时间：</span><span>2018-09-09</span></p>-->
+                                <!--<p><span>更新日志：</span><span>去问问而为丰富大V上档次地方</span></p>-->
+                                <!--</li>-->
+                            </ul>
+                            <p class="no_template">暂时还没有上传模板！</p>
+
+                        </div>
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+
+
+            </div>
+
+
+        </section>
+        <!-- /.content -->
+
+        <div class="alert success" role="alert" style="text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
+            <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px">...</a>
+        </div>
+        <div class="alert danger" role="alert" style="text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+            <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px">...</a>
+        </div>
+
+
+    </div>
+    <!-- /.content-wrapper -->
+
+
+
+    <!-- Control Sidebar start-->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <!--<h3 class="control-sidebar-heading">Chat Settings</h3>-->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- /.control-sidebar end-->
+
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+
+
+    <!--上传新版本弹窗-->
+    <div class="uploadVersion">
+        <div class="uploadBox">
+            <p class="version_title">上传新版本</p>
+            <form id="myForm">
+                <p class="version_file">版本
+                    <span style="color:red; ">*</span>
+                    <input type="text" placeholder="Version" id="version" name="version">
+                    <input type="file" id="app_file" name="app_file">
+                    <input value="" id="formAppId" readonly="true" name="app" type="hidden">   <!--appid-->
+                </p>
+                <div class="version_desc">
+                    <p>更新日志</p>
+                    <textarea id="explain" cols="118" rows="8" style="padding: 5px;" name="comment"></textarea>
+                    <P class="v_agree">
+                        <label class="checkbox"><input type="checkbox" name="terms" class="box"><em></em></label>
+                        <span>我同意使用条款</span>
+                    </P>
+                    <div style="width:875px;height: 6px;margin: 15px 0;" class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                             aria-valuemax="100" style="width:1%;height:6px;"></div>
+                    </div>
+                </div>
+            </form>
+            <button class="v_upload" id="upload">提交</button><button class="v_cancel">取消</button>
+        </div>
+
+    </div>
+    <!--上传新版本弹窗 end-->
+</div>
+<!-- ./wrapper -->
+
+
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap switch -->
+<script src="bower_components/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- bootstrap-notify -->
+<script src="bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+<!-- DataTables -->
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<!-- Select2 -->
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- SlimScroll -->
+<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<!--markdown   js -->
+<script src="plugins/editor.md-master/editormd.min.js"></script>
+<script src="plugins/editor.md-master/lib/marked.min.js"></script>
+<script src="plugins/editor.md-master/lib/prettify.min.js"></script>
+<script src="plugins/editor.md-master/lib/raphael.min.js"></script>
+<script src="plugins/editor.md-master/lib/underscore.min.js"></script>
+<script src="plugins/editor.md-master/lib/sequence-diagram.min.js"></script>
+<script src="plugins/editor.md-master/lib/flowchart.min.js"></script>
+<script src="plugins/editor.md-master/lib/jquery.flowchart.min.js"></script>
+
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<script src="user_js/common/skin.js"></script>
+<!-- jQuery and the Poshy Tip plugin files -->
+<script type="text/javascript" src="plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
+
+<!-- load common js-->
+<script src="user_js/common/jQuery.cookie.js"></script>
+<script src="user_js/common/common.js"></script>
+<!--<script src="user_js/common/add_back_task.js"></script>-->
+<script src="user_js/common/user.js"></script>
+<!--星星-->
+<script src="plugins/starScore/starScore.js"></script>
+<!-- load user is -->
+<script src="user_js/My_Apps/My_Apps_detail.js" type="text/javascript"></script>
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
+
+<script>
+    //获取应用版本列表
+    var data1 = {
+        app: decodeURI(window.location.href.split("=")[1]),
+        beta: 1
+    };
+    $.ajax({
+        url: "/apis/api/method/app_center.api.get_versions",
+        type: "GET",
+        data: data1,
+        success: function (req) {
+            if(JSON.stringify(req) == "{}") {
+                $('.app_list').addClass('hd');
+                $('.no_version').css('display','block');
+            }else{
+                var data = req.message;
+                console.log(req.message)
+                for(var i=0;i<data.length;i++){
+                    var datas = data[i];
+                    // console.log(datas)
+                    $('.app_version').append(
+                        '<li>'+
+                        '<p><span>版本号：</span><span class="vs">'+ datas.version +'</span><span class="beta"></span></p>'+
+                        '<p><span>更新时间：</span><span>'+ datas.creation.substr(0,19) +'</span></p>'+
+                        '<p style="position:relative"><span>更新日志：</span><span>'+ datas.comment +'</span><span class="temp_btn1 upload_formal_btn">申请发布正式版</span></p>'+
+                        '<input type="hidden" value="'+ datas.version +'">'+
+                        '<input class="betadesc" type="hidden" value="'+ datas.beta +'">'+
+                        '</li>'
+                    )
+                }
+                var aLi = $('.app_version>li')
+                aLi.each(function (i) {
+                    if(aLi.eq(i).find($('.betadesc')).val() == 0){
+                        aLi.eq(i).find($('p> .beta')).text("(正式版)");
+                        aLi.eq(i).find($('p> .upload_formal_btn')).hide();
+                    }else if(aLi.eq(i).find($('.betadesc')).val() == 1){
+                        aLi.eq(i).find($('p> .beta')).text("(测试版)");
+                        aLi.eq(i).find($('p> .upload_formal_btn')).show();
+                    }
+                })
+            }
+        },
+        error: function (e) {
+            console.log('error')
+        },
+        complete: function () {
+            var btn = $('.upload_formal_btn');
+            for (var i=0;i<btn.length;i++){
+                btn[i].index = i;
+                btn.eq(i).click(function () {
+                    var data = {
+                        appid   : decodeURI(window.location.href.split("=")[1]),
+                        version : $(this).parent().parent().find($('input')).val()
+                    };
+                    $.ajax({
+                        url: "/apis/api/method/iot_ui.iot_api.apply_version_publish",
+                        type: "POST",
+                        data: data,
+                        success: function (req) {
+                            var text = "已发布为正式版本";
+                            successAlert(text);
+                        },error: function () {
+                            var text = "发布正式版本失败";
+                            errorAlert(text)
+                        }
+                    })
+                })
+            }
+        }
+    });
+
+    //请求模板列表
+    $.ajax({
+        url: "/apis/api/method/conf_center.api.list_app_conf",
+        type: "GET",
+        data: {app: decodeURI(window.location.href.split("=")[1]),start:0,limit:100},
+        success: function (req) {
+            // console.log(req);
+            if(JSON.stringify(req) == "{}"){
+                $('.app_list').addClass('hd');
+                $('.no_template').css('display','block');
+            }else{
+                for(var i=0;i<req.message.length;i++){
+                    $('.temp_list').append(
+                        '<li>'+
+                        '<p><span>模板名称text：</span><span class="t_name">'+ req.message[i].conf_name +'</span></p>'+
+                        '<p><span>模板描述：</span><span>'+ req.message[i].description +'</span></p>'+
+                        '<p><span>版本号：</span><span class="version">'+ req.message[i].latest_version +'</span><span class="temp_btn1 look_btn">查看</span>' +
+                        '       <span class="temp_btn1 copy_btn">复制</span></p>'+
+                        '<input type="hidden" name="tempId" value="'+req.message[i].name+'">' +
+                        '<input type="hidden" name="b+banben " value="'+ req.message[i].latest_version +'">'+
+                        '<input type="hidden" value="" id="txtarea">'+
+                        '</li>'
+                    );
+                }
+            }
+        },
+        error: function () {
+            console.log('error')
+        },
+        complete: function () {
+            var ver_list = $('.version');
+            for(var i=0;i<ver_list.length;i++){
+                if(ver_list.eq(i).text() == "null"){
+                    ver_list.eq(i).text("暂无版本");
+                    ver_list.eq(i).parent().find('.temp_btn1').hide();
+                }else{
+                    ver_list.eq(i).parent().find('.temp_btn1').show();
+                }
+                ver_list[i].index = i;
+                $('.look_btn').eq(i).click(function () {
+                    var name = $(this).parent().parent().find('>p:nth-child(1)>span:nth-child(2)').text();
+                    var tempId = $(this).parent().parent().find('input[name=tempId]').val();
+                    var appId =  decodeURI(window.location.href.split("=")[1]);
+                    var version = $(this).parent().find('.version').text();
+                    location.href = 'My_Template_Detail.html?name='+ name +'&tempId='+tempId+'&appId='+appId+'&version='+version;
+                })
+                $('.copy_btn').eq(i).click(function () {
+                    var tempId = $(this).parent().parent().find('input[name=tempId]').val();
+                    var appId =  decodeURI(window.location.href.split("=")[1]);
+                    var version = $(this).parent().find('.version').text();
+                    var dataTextarea = $(this).parent().parent().find('#txtarea');
+                    // console.log(dataTextarea);
+                    $.ajax({
+                        url:"/apis/api/method/conf_center.api.app_conf_data",
+                        type:"GET",
+                        data: {app:appId,conf:tempId,version:version},
+                        async: false,
+                        success: function(req){
+                            var data = req.message.data;
+                            // console.log(data);
+                            dataTextarea.val(data);
+                            dataTextarea.select(); // 选择对象
+                            document.execCommand("Copy"); // 执行浏览器复制命令
+                            var text = "已复制好，可贴粘";
+                            successAlert(text);
+                        },
+                        error: function () {
+                            console.log('error');
+                        }
+                    });
+                })
+            }
+        }
+    });
+
+    function successAlert(text){
+        $('.success').show();
+
+        $('.success>a').text(text);
+        setTimeout(function () {
+            $('.success').hide();
+        },2000)
+    }
+    function errorAlert(text){
+        $('.danger').show();
+
+        $('.danger>a').text(text);
+        setTimeout(function () {
+            $('.danger').hide();
+        },2000)
+    }
+    //上传新版本
+    $('.uploadNewVersion').click(function(){
+        $('.uploadVersion').css('display','block');
+        document.body.style.overflow='hidden';
+        $('#version').val("");
+        $('#explain').val("");
+        $('#app_file').val("");
+    });
+
+    //上传新版本-取消
+    $('.v_cancel').click(function () {
+        $('.uploadVersion').css('display','none');
+        document.body.style.overflow='auto';
+    });
+
+    //判断版本号是否大于旧版本号
+    $('#version').blur(function(){
+        var num1 = $('.app_version>li:last-child>p:nth-child(1)>span:nth-child(2)').text();
+        // console.log(num1);
+        if($(this).val() == ""){
+            var text = '版本号不能为空';
+            errorAlert(text);
+        }else if($(this).val() == num1){
+            var text = '此版本号已存在';
+            errorAlert(text);
+        }else if($(this).val() < num1){
+            var text = '版本号应大于之前版本';
+            errorAlert(text);
+        }else if($(this).val() > num1){
+            // console.log('ok');
+        }
+    });
+
+    //上传新版本-确定
+    $('#upload').click(function () {
+        var num = $('#version').val();
+        var desc = $('#explain').val();
+        //获取当前时间
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        if (month < 10) {month = "0" + month;}
+        if (day < 10) {day = "0" + day;}
+        var nowDate = year + "-" + month + "-" + day;
+        var form1 = new FormData(document.getElementById("myForm"));
+        console.log(form1);
+        if(!$('#version').val()){
+            var text = '请填写版本号';
+            errorAlert(text);
+        }else if(!$('#explain').val()){
+            var text = '请填写更新日志';
+            errorAlert(text);
+        }else if(!$('#app_file').val()){
+            var text = '请选择文件';
+            errorAlert(text);
+        }else if($("input[type='checkbox']").is(':checked') == false){
+            console.log($("input[type='checkbox']").is(':checked') == false)
+            var text = '请您同意使用条款';
+            errorAlert(text);
+        }else{
+            $.ajax({
+                url: "/apis/api/method/app_center.appmgr.upload",
+                type: "POST",
+                data: form1,
+                processData:false,
+                contentType:false,
+                xhr: function() { //ajax进度条
+                    var xhr = $.ajaxSettings.xhr();
+                    if (xhr.upload) {
+                        xhr.upload.addEventListener("progress", function (e) {
+                            var loaded = e.loaded; //已经上传大小情况
+                            var tot = e.total; //附件总大小
+                            var per = Math.floor(100 * loaded / tot); //已经上传的百分比
+                            // console.log(per)
+                            $('.progress-bar').css('width',per+'%');
+                            // $.fn.progressInit.draw(per + '%'); //绘制经度条
+                        }, false);
+                        return xhr;
+                    }
+                },
+                success: function () {
+                    var text = '新版本上传成功';
+                    successAlert(text);
+                    $('.app_version').prepend(
+                        '<li>'+
+                        '<p><span>版本号：</span><span>'+ num +'</span></p>'+
+                        '<p><span>更新时间：</span><span>'+ nowDate +'</span></p>'+
+                        '<p><span>更新日志：</span><span>'+ desc +'</span></p>'+
+                        '</li>'
+                    );
+                    $('.no_version').hide();
+                    $('.progress-bar').css('width','1%');
+                    $('#version').val("");
+                    $('#explain').val("");
+                    $('#app_file').val("");
+                    $('.uploadVersion').hide();
+                    document.body.style.overflow='auto';
+
+                },
+                error: function () {
+                    var text = '新版本上传失败';
+                    errorAlert(text);
+                }
+            })
+        }
+    });
+
+    //edit
+    $('.edit').click(function () {
+        location.href = 'My_Apps_edit.html?appId=' + decodeURI(window.location.href.split("=")[1]);
+    });
+
+    //Omline editor
+    $('.app_editor').click(function () {
+        // console.log(111);
+        location.href = 'debug1.html?app=' + decodeURI(window.location.href.split("=")[1]);
+    });
+
+    //主分页
+    $('.fork_from').click(function () {
+        location.href = 'My_Apps_detail.html?appId=' + $(this).val();
+    });
+
+</script>
+</body>
+</html>
