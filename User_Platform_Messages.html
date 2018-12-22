@@ -1014,8 +1014,9 @@
             console.log(eventId.length);
             checkBox.each(function (i) {
                 if(checkBox[i].checked == true){
-                    var ids = eventId.eq(i).text();
-                    if(ids != 'undefined'){
+                    var rowdata = table.row( $(checkBox[i]).parent().parent().parent() ).data();
+                    var ids = rowdata.name;
+                    if(ids != 'undefined' && ids != '' && rowdata.disposed == 0){
                         arr.push(ids);   //得到记录ID，放到arr数组中
                     }
                 }
@@ -1043,8 +1044,8 @@
                         checkBox.each(function (i) {
                             if(checkBox[i].checked == true){
                                 checkBox[i].checked = false;
-                                var a = title.eq(i);
-                                a.removeClass('disposed');
+                                var a = $(checkBox[i]).parent().parent().parent();
+                                a.removeClass('unread')
                             }
                             // if(dm>=10){
                             //     $(".disposed_message").text( dm - arr.length )
@@ -1061,6 +1062,10 @@
                 });
             }else{
                 var text = "请选择需要确认的信息";
+                if(checkBox.length>0){
+                    text = "你选择的信息已经确认";
+                }
+
                 errorAlert(text)
             }
         });

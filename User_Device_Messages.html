@@ -967,22 +967,27 @@
         //确认消息
         $('.confirmation').click(function () {
             var checkBox = $('input:checkbox[name=select_single]');
-            var eventId = $('#device_message tbody tr td:nth-child(7)');
-            var title = $('#device_message tbody tr td:nth-child(2)>i');
+            // var eventId = $('#device_message tbody tr td:nth-child(7)');
+            // var title = $('#device_message tbody tr td:nth-child(2)>i');
             var dm = $('.disposed_message').text();
-            console.log(dm)
+            // console.log(dm,title);
             var arr = [];
             console.log(checkBox.length);
-            console.log(eventId.length);
+            // console.log(eventId.length);
             checkBox.each(function (i) {
                 if(checkBox[i].checked == true){
-                    var ids = eventId.eq(i).text();
-                    if(ids != 'undefined' && ids != ''){
+                    // console.log($(checkBox[i]).parent().parent())
+
+                    var rowdata = table.row( $(checkBox[i]).parent().parent().parent() ).data();
+                    var ids = rowdata.name;
+                    // var ids = eventId.eq(i).text();
+                    if(ids != 'undefined' && ids != '' && rowdata.disposed == 0){
                         arr.push(ids);   //得到记录ID，放到arr数组中
                     }
                 }
             });
             console.log(arr);
+            // return false
             //确认消息
             var dataS = {
                 "disposed": 1,
@@ -1004,7 +1009,7 @@
                         checkBox.each(function (i) {
                             if(checkBox[i].checked == true){
                                 checkBox[i].checked = false;
-                                var a = title.eq(i);
+                                var a = $(checkBox[i]).parent().parent().parent();
                                 a.removeClass('unread')
                             }
                             $(".disposed_message").text( dm - arr.length )
@@ -1016,6 +1021,9 @@
                 });
             }else{
                 var text = "请选择需要确认的信息";
+                if(checkBox.length>0){
+                    text = "你选择的信息已经确认";
+                }
                 errorAlert(text)
             }
         });
