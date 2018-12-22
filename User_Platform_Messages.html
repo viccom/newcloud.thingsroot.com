@@ -562,11 +562,12 @@
                 }, {
                     //   指定第第2列
                     targets: [1],
-                    width: '20%',
+                    width: '35%',
                     render: function (row, type, data, meta) {
                         var str = data.message;
+                        // console.log(str);
                         var obj = eval("("+str+")");
-                        // console.log(obj)
+                        // console.log(obj);
                         //设备状态
                         if(obj.hasOwnProperty('device_status')){
                             // $(row).children('td').eq(8).text(obj.device_status);
@@ -675,16 +676,18 @@
                             else if(obj.channel == "command"){
                                 return '网关应用设备执行'+obj.data.cmd+'指令';
                             } //command
-                            else if(obj.channel == "putput"){
+                            else if(obj.channel == "output"){
                                 return '网关设备应用'+obj.data.output+'数据输出';
-                            }  //output
+                            }else{
+                                return row
+                            }
                         // return row;
                     }}
                 }, {
                     //   指定第第3列
                     targets: [2],
                     class:'subject',
-                    width: '30%'
+                    width: '20%'
                 }, {
                     //   指定第第4列
                     targets: [3],
