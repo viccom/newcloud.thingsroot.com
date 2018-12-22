@@ -43,7 +43,17 @@
     <![endif]-->
 
     <style type="text/css">
+        .table tr {
+            height: 50px!important;
+            cursor:pointer;
+        }
 
+        .table td {
+            vertical-align: middle!important;
+        }
+        .unread{
+            color: #0f74a8!important;
+        }
 
 
     </style>
@@ -70,203 +80,6 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <!-- end message -->
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                AdminLTE Design Team
-                                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Developers
-                                                <small><i class="fa fa-clock-o"></i> Today</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Sales Department
-                                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Reviewers
-                                                <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
-                    <!-- Notifications: style can be found in dropdown.less -->
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                                            page and may cause design problems
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-red"></i> 5 new members joined
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
-                    <!-- Tasks: style can be found in dropdown.less -->
-                    <li class="dropdown tasks-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-flag-o"></i>
-                            <span class="label label-danger">9</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 9 tasks</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- Task item -->
-                                        <a href="#">
-                                            <h3>
-                                                Design some buttons
-                                                <small class="pull-right">20%</small>
-                                            </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">20% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <!-- end task item -->
-                                    <li><!-- Task item -->
-                                        <a href="#">
-                                            <h3>
-                                                Create a nice theme
-                                                <small class="pull-right">40%</small>
-                                            </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">40% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <!-- end task item -->
-                                    <li><!-- Task item -->
-                                        <a href="#">
-                                            <h3>
-                                                Some task I need to do
-                                                <small class="pull-right">60%</small>
-                                            </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">60% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <!-- end task item -->
-                                    <li><!-- Task item -->
-                                        <a href="#">
-                                            <h3>
-                                                Make beautiful transitions
-                                                <small class="pull-right">80%</small>
-                                            </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">80% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <!-- end task item -->
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="#">View all tasks</a>
-                            </li>
-                        </ul>
-                    </li>
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -357,10 +170,25 @@
         <section class="content">
 
             <!-- 功能栏 -->
-            <div class="mes_search">
-                <button class="confirmation">确认消息</button>
-                <button class="confirmationAll">确认所有消息</button>
-                <div style="width: 650px;">
+            <!--<div class="mes_search">-->
+
+                <!--<div style="width: 650px;">-->
+
+
+                    <!--<i id="glyphicon-refresh" class="glyphicon glyphicon-repeat"></i>-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+
+            <div class="box box-primary box-body">
+                <div class="pull-left">
+
+                    <button type="button" class="btn btn-default event-refresh"><i class="fa fa-refresh "></i></button>
+
+                    <button class="btn btn-default btn-github confirmation">确认消息</button>
+                    <button class="btn btn-default btn-github confirmationAll">确认所有消息</button>
+
                     <div class="btn-group search_filter1" role="group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="search_keyword1" data-search_keyword="1">全部消息类型</span><input type="hidden" name="search_keyword1" value="">
@@ -399,6 +227,12 @@
                             <li data-name="device_time4"><a style="cursor:pointer">致命</a></li>
                         </ul>
                     </div>
+
+                </div>
+
+                <div class="pull-right">
+
+
                     <div class="bs-example J_mineSearchForm">
                         <div class="input-group"  style="width:300px;">
                             <div class="input-group-btn search_filter4">
@@ -413,21 +247,25 @@
                                 </ul>·
                             </div><!-- /btn-group -->
                             <input type="text" class="form-control J_keyword"  placeholder="输入关键词">
-                            <span class="input-group-addon search"></span>
+                            <span class="input-group-addon search"><i class="fa fa-search"></i></span>
                         </div><!-- /input-group -->
                     </div>
-                    <i id="glyphicon-refresh" class="glyphicon glyphicon-repeat"></i>
+                    <!--<i id="glyphicon-refresh" class="glyphicon glyphicon-repeat"></i>-->
+
                 </div>
+
             </div>
+
+
 
             <div class="box box-body " style="min-height: 625px">
 
                 <!-- 表格 -->
-                <div style="margin: 0 15px;border: 1px solid #E5E9EE;">
+                <div style="margin: 0px;border: 1px solid #E5E9EE;">
                     <table id="device_message" class="table dataTable no-footer " style="background-color:#FFFFFF;">
                         <thead>
                         <tr>
-                            <th><label class="checkbox"><input index="0" name="select_all" type="checkbox" class="box"><em></em></label></th>
+                            <th><label class="checkbox"><input index="0" name="select_all" type="checkbox"><em></em></label></th>
                             <th>标题</th>
                             <th>序列号</th>
                             <th>发生时间</th>
@@ -781,15 +619,17 @@
                 }
             },
             rowCallback: function (row, data, dataIndex) {
+                // console.log(data);
                 //时间截取----- 毫秒
-                var timeText = $(row).children('td').eq(3).text();
-                $(row).children('td').eq(3).text(timeText.substring(0,19));
+                // var timeText = $(row).children('td').eq(3).text();
+                // $(row).children('td').eq(3).text(timeText.substring(0,19));
                 //判断是否确认消息
-                if($(row).children('td').eq(7).text() == 0 ){
+                if(data.disposed == 0 ){
                     console.log('未确认');
-                    $(row).children('td').eq(1).children($("on")).addClass('disposed')
+                    $(row).addClass('unread')
                 }else{
                     console.log('已确认')
+                    $(row).removeClass('unread')
                 }
             },
             columnDefs: [
@@ -800,7 +640,7 @@
                     orderable: false,
                     width: '5%',
                     render: function (data, type, row, meta) {
-                        var gen_html = '<label class="checkbox"><input index="0" name="select_single" type="checkbox" class="box"><em></em></label>';
+                        var gen_html = '<label class="checkbox"><input index="0" name="select_single" type="checkbox"><em></em></label>';
                         return gen_html;
                     }
                 },
@@ -820,7 +660,10 @@
                 {
                     //   指定第第4列
                     targets: [3],
-                    width: '20%'
+                    width: '20%',
+                    render: function (row, type, data, meta) {
+                        return row.split(".")[0];
+                    }
                 },
                 {
                     //   指定第第5列
@@ -837,12 +680,20 @@
                 {
                     //   指定第第7列
                     className:"hide_column",
-                    targets: [6]
+                    targets: [6],
+                    visible: false,
                 },
                 {
                     //   指定第第8列
                     className:"hide_column",
-                    targets: [7]
+                    targets: [7],
+                    visible: false,
+                    render: function (row, type, data, meta) {
+                        if(data.disposed==0){
+
+                        }
+                        return "";
+                    }
                 }
 
             ],
@@ -870,10 +721,9 @@
                 .draw();
         }
         //点击行进入详情
-        $('#device_message tbody').on('click','tr td:nth-child(2)',function() {
-            console.log($(this));
-            var name = $(this).parent('tr').find('td:nth-child(7)').text();
-            location.href = 'User_device_detail.html?device_sn=' + name;
+        $('#device_message tbody').on('click','tr',function() {
+            var data = table.row( this ).data();
+            location.href = 'User_device_detail.html?device_sn=' + data.name;
         } );
 
         //点击查看所有未读消息
@@ -1131,7 +981,7 @@
             checkBox.each(function (i) {
                 if(checkBox[i].checked == true){
                     var ids = eventId.eq(i).text();
-                    if(ids != 'undefined'){
+                    if(ids != 'undefined' && ids != ''){
                         arr.push(ids);   //得到记录ID，放到arr数组中
                     }
                 }
@@ -1159,7 +1009,7 @@
                             if(checkBox[i].checked == true){
                                 checkBox[i].checked = false;
                                 var a = title.eq(i);
-                                a.removeClass('disposed')
+                                a.removeClass('unread')
                             }
                             $(".disposed_message").text( dm - arr.length )
                         })
@@ -1195,7 +1045,7 @@
                     for(var i=0;i<list.length;i++){
                         if(list[i].disposed == 0){
                             aList.push(list[i].name);
-                            title.eq(i).removeClass('disposed');
+                            title.eq(i).removeClass('unread');
                         }
                     }
                     //确认消息
@@ -1216,7 +1066,7 @@
                             dataType:'JSON',
                             success:function(data){
                                 title.each(function (i) {
-                                    title.eq(i).removeClass('disposed');
+                                    title.eq(i).removeClass('unread');
                                 });
                                 $("#platform_message").dataTable().fnDraw(true);
                                 // document.execCommand('Refresh')
@@ -1258,7 +1108,7 @@
         });
 
         //刷新数据
-        $('#glyphicon-refresh').click(function () {
+        $('button.event-refresh').click(function () {
             var is_look = $('input[name=isLook]').val();            //是否查看   isLook：0未查看
             var mess_type = $('input[name=search_keyword1]').val(); //消息类型   search_keyword1
             var sel_time = $('input[name=search_keyword2]').val();  //时间范围

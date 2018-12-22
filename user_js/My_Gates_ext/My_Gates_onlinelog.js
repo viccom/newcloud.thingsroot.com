@@ -175,7 +175,7 @@ var    table_gates_log1 = $('#table_gates_log1').DataTable({
         "sInfoPostFix": "",
         "sSearch": "搜索:",
         "sUrl": "",
-        "sEmptyTable": "未找到网关",
+        "sEmptyTable": "没有记录",
         "sLoadingRecords": "载入中...",
         "sInfoThousands": ",",
         "oPaginate": {
@@ -243,7 +243,12 @@ var    table_gates_log2 = $('#table_gates_log2').DataTable({
             if($.isEmptyObject(d)){
                 return []
             }else{
-                return d.message[2].gate_fault
+                if($.isEmptyObject(d.message[2])){
+                    return []
+                }else{
+                    return d.message[2].gate_fault
+                }
+
             }}
     },
     "columns": [
@@ -261,7 +266,7 @@ var    table_gates_log2 = $('#table_gates_log2').DataTable({
         "sInfoPostFix": "",
         "sSearch": "搜索:",
         "sUrl": "",
-        "sEmptyTable": "未找到网关",
+        "sEmptyTable": "没有记录",
         "sLoadingRecords": "载入中...",
         "sInfoThousands": ",",
         "oPaginate": {
@@ -329,7 +334,12 @@ var    table_gates_log3 = $('#table_gates_log3').DataTable({
             if($.isEmptyObject(d)){
                 return []
             }else{
-                return d.message[3].gate_ipchange
+                if($.isEmptyObject(d.message[3])){
+                    return []
+                }else{
+                    return d.message[3].gate_ipchange
+                }
+
             }}
     },
     "columns": [
@@ -347,7 +357,7 @@ var    table_gates_log3 = $('#table_gates_log3').DataTable({
         "sInfoPostFix": "",
         "sSearch": "搜索:",
         "sUrl": "",
-        "sEmptyTable": "未找到网关",
+        "sEmptyTable": "没有记录",
         "sLoadingRecords": "载入中...",
         "sInfoThousands": ",",
         "oPaginate": {
