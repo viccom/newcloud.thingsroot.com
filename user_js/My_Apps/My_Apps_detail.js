@@ -1,5 +1,5 @@
 //获取token
-var token = $.cookie('DS_auth_token');
+
 $.ajaxSetup({
     headers: { // 默认添加请求头
         "X-Frappe-CSRF-Token": auth_token

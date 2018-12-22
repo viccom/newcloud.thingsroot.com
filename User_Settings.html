@@ -381,7 +381,7 @@
                                     <td><span class="user_id"></span></td>
                                 </tr>
                                 <tr>
-                                    <th><button type="button" class="btn btn-primary Change_password">更改密码</button></th>
+                                    <th><button type="button" class="btn btn-primary Change_password"  data-toggle="modal" data-target="#modal-updatepwd" >更改密码</button></th>
                                     <td></td>
                                 </tr>
                             </table>
@@ -448,62 +448,7 @@
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                                <p>New phone +1(800)555-1234</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="label label-danger pull-right">70%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Update Resume
-                                <span class="label label-success pull-right">95%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                            </div>
-                        </a>
-                    </li>
-
-                </ul>
-                <!-- /.control-sidebar-menu -->
 
             </div>
             <!-- /.tab-pane -->
@@ -512,77 +457,62 @@
             <!-- /.tab-pane -->
             <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
 
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Some information
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Allow mail redirect
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            options are available
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Expose author name in posts
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Allow the user
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <!--<h3 class="control-sidebar-heading">Chat Settings</h3>-->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Show me as online
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Turn off notifications
-                            <input type="checkbox" class="pull-right">
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Delete chat history
-                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-                </form>
             </div>
             <!-- /.tab-pane -->
         </div>
     </aside>
     <!-- /.control-sidebar -->
     <!-- /.control-sidebar end-->
+
+    <!-- /.modal updatepwd start-->
+    <div class="modal fade" id="modal-updatepwd" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">更改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-pane active" id="settings">
+                        <form class="form-horizontal"  method="post" onsubmit="return false;">
+                            <div class="form-group">
+                                <label for="old-pwd" class="col-sm-2 control-label">旧密码：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control popover-old"  data-placement="top" data-content="" id="old-pwd" placeholder="验证旧密码">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-pwd" class="col-sm-2 control-label">新密码：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control popover-new"  data-placement="top" data-content="" id="new-pwd" placeholder="输入新密码">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="repeat-pwd" class="col-sm-2 control-label">再次输入：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control popover-reinput"  data-placement="top" data-content=""  id="repeat-pwd" placeholder="再次输入新密码">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                    <button type="button" name="updatepwd_confirm" class="btn btn-primary updatepwd_confirm">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal updatepwd end-->
 
 
     <!-- Add the sidebar's background. This div must be placed
@@ -623,6 +553,11 @@
 <!--<script src="user_js/common/add_back_task.js"></script>-->
 <script src="user_js/common/user.js"></script>
 <script>
+    $.ajaxSetup({
+        headers: { // 默认添加请求头
+            "X-Frappe-CSRF-Token": auth_token
+        }
+    });
     $(function () {
         pagename="User_Settings";
         User_info();
@@ -638,6 +573,187 @@
         }else{
             user_company();
             $("span.user_role").text("普通用户");
+        }
+
+        // 旧密码验证
+        $("#old-pwd:input").blur(function(){
+            var old_pwd = $("#old-pwd:input").val();
+            if (old_pwd == "" || old_pwd == null) {
+                $("#old-pwd:input").data("content", "旧密码不能为空");
+                $('.popover-old').popover('show');
+                setTimeout(function () {
+                    $('.popover-old').popover('destroy');
+                },2000);
+                return false;
+            }
+            verify_password(old_pwd);
+        });
+
+        // update按钮
+        $(".updatepwd_confirm:button[name='updatepwd_confirm']").click(function(){
+            var old_pwd = $("#old-pwd:input").val();
+            var new_pwd = $("#new-pwd:input").val();
+            var re_new_pwd = $("#repeat-pwd:input").val();
+            var last_pwd = "";
+            if (old_pwd == "" || old_pwd == null) {
+                $("#old-pwd:input").data("content", "旧密码不能为空");
+                $('.popover-old').popover('show');
+                setTimeout(function () {
+                    $('.popover-old').popover('destroy');
+                },2000);
+                return false;
+            }
+            if (new_pwd == "" || new_pwd == null) {
+                $("#new-pwd:input").data("content", "新密码不能为空");
+                $('.popover-new').popover('show');
+                setTimeout(function () {
+                    $('.popover-new').popover('destroy');
+                },2000);
+                return false;
+            }
+            if (!/^.{6,99}$/.test(new_pwd)) {
+                $("#new-pwd:input").data("content", "密码不能少于6个字符");
+                $('.popover-pwd').popover('show');
+                setTimeout(function () {
+                    $('.popover-pwd').popover('destroy');
+                },2000);
+                return false;
+            }
+            if (re_new_pwd == "" || re_new_pwd == null) {
+                $("#repeat-pwd:input").data("content", "密码不能为空");
+                $('.popover-reinput').popover('show');
+                setTimeout(function () {
+                    $('.popover-reinput').popover('destroy');
+                },2000);
+                return false;
+            }
+            if (re_new_pwd !== new_pwd ) {
+                $("#repeat-pwd:input").data("content", "两次输入密码不一致");
+                $('.popover-reinput').popover('show');
+                setTimeout(function () {
+                    $('.popover-reinput').popover('destroy');
+                },2000);
+                return false;
+            }else{
+                last_pwd = re_new_pwd;
+                $(".updatepwd_confirm:button[name='updatepwd_confirm']").attr("disabled", true);
+                updatepwd(old_pwd, last_pwd)
+
+            }
+
+        });
+
+
+        $("#repeat-pwd:input").bind('keyup', function(event) {
+            if (event.keyCode == "13") {
+                //回车执行查询
+                $(".updatepwd_confirm:button[name='updatepwd_confirm']").click();
+            }
+        });
+
+
+
+        /**
+         *	用户更新密码
+         */
+        function updatepwd(oldpwd, new_password){
+            if(new_password.length>5){
+                $.ajax({
+                    url: '/apis/api/method/frappe.core.doctype.user.user.update_password?old_password='+ oldpwd  + '&new_password='+ new_password,
+                    headers: {
+                        Accept: "application/json; charset=utf-8"
+                    },
+                    type: 'post',
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    dataType:'json',
+                    success:function(req){
+                        console.log('密码修改-----------------------------------------',req);
+                        $(".updatepwd_confirm:button[name='updatepwd_confirm']").attr("disabled", false);
+                        if(req.message) {
+                            if(req.home_page=="/desk" && req.message=="/desk") {
+
+                                $.notify({
+                                    title: "<strong>提示:</strong><br><br> ",
+                                    message: req.full_name + "修改密码成功 <br>" + "将退出验证新密码"
+                                }, {
+                                    type: 'success'
+                                });
+
+                                setTimeout("logout()", 100);
+                            }else{
+
+
+                            }
+
+                        }
+
+                        // setTimeout("redirect('login.html')", 1500);
+                    },
+                    error:function(req){
+                        console.log('错误-----------------------------------------',req);
+
+                    }
+                });
+
+            }else{
+                $.notify({
+                    title: "<strong>提示:</strong><br><br> ",
+                    message: "密码长度小于6"
+                }, {
+                    type: 'warning'
+                });
+
+            }
+
+        }
+
+
+        /**
+         *	验证密码
+         */
+        function verify_password(password){
+
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.verify_password?password='+ password,
+                headers: {
+                    Accept: "application/json; charset=utf-8"
+                },
+                type: 'post',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log('密码验证-----------------------------------------',req);
+
+
+
+                },
+                error:function(req){
+                    console.log('错误-----------------------------------------',req);
+                    if(req.responseJSON){
+                        if(req.responseJSON._server_messages){
+                            // var err = JSON.parse(req.responseJSON._server_messages)
+                            // var errtip = JSON.parse(err[0])
+                            $("#old-pwd:input").data("content", "旧密码错误");
+                            $('.popover-old').popover('show');
+                            setTimeout(function () {
+                                $('.popover-old').popover('destroy');
+                            },2000);
+                            $("#old-pwd:input").focus()
+                        }
+                    }
+
+                }
+            });
+
+
+                // $.notify({
+                //     title: "<strong>提示:</strong><br><br> ",
+                //     message: "密码长度小于6"
+                // }, {
+                //     type: 'warning'
+                // });
+
+
         }
 
     });
