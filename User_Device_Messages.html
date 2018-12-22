@@ -512,46 +512,57 @@
         //查看范围
         var date0 = timestampToTime(Date.parse(new Date()) - 24 * 90 * 60 * 60 * 1000);
 
+        all_count();
+        unread_count();
+
         //获取全部消息条数 ---- 设备
-        $.ajax({
-            url:"/apis/api/method/iot.user_api.count_device_event",
-            type:"GET",
-            success:function (req) {
-                console.log(req.message);
-                count = req.message;
-                $('.allMessage').text(req.message);
-                return false;
-            },
-            error:function (error) {
-                console.log('error');
-                console.log(error);
-            }
-        });
+        function all_count(){
+            $.ajax({
+                url:"/apis/api/method/iot.user_api.count_device_event",
+                type:"GET",
+                async:false,
+                success:function (req) {
+                    // console.log(req.message);
+                    count = req.message;
+                    $('.allMessage').text(req.message);
+                    return false;
+                },
+                error:function (error) {
+                    console.log('error');
+                    console.log(error);
+                }
+            });
+        }
+
 
         //获取未读信息条数
-        $.ajax({
-            url: "/apis/api/method/iot.user_api.device_event",
-            headers: {
-                Accept: "application/json; charset=utf-8",
-                "X-Frappe-CSRF-Token": auth_token
-            },
-            type: "POST",
-            data: {start:0,limit:500},
-            dataType: "json",
-            success: function (data) {
-                var a = 0;
-                var list = data.message;
-                for(var i=0;i<list.length;i++){
-                    if(list[i].disposed == 0){
-                        a++;
+        function unread_count(){
+            $.ajax({
+                url: "/apis/api/method/iot.user_api.device_event",
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: "POST",
+                data: {start:0,limit:500},
+                dataType: "json",
+                async:false,
+                success: function (data) {
+                    var a = 0;
+                    var list = data.message;
+                    for(var i=0;i<list.length;i++){
+                        if(list[i].disposed == 0){
+                            a++;
+                        }
                     }
+                    $('.disposed_message').text(a);
+                },
+                error: function (error) {
+                    console.log(error)
                 }
-                $('.disposed_message').text(a);
-            },
-            error: function (error) {
-                console.log(error)
-            }
-        });
+            });
+        }
+
 
         var myfilters = {
             start: 0,
@@ -626,10 +637,10 @@
                 // $(row).children('td').eq(3).text(timeText.substring(0,19));
                 //判断是否确认消息
                 if(data.disposed == 0 ){
-                    console.log('未确认');
+                    // console.log('未确认');
                     $(row).addClass('unread')
                 }else{
-                    console.log('已确认')
+                    // console.log('已确认')
                     $(row).removeClass('unread')
                 }
             },
@@ -707,7 +718,7 @@
         }
 
         var sn = decodeURI(window.location.href.split("=")[1]);
-        console.log(sn);
+        // console.log(sn);
         if(sn != "undefined"){
             $('input.J_keyword').val(sn);
             $('.search_keyword4').text("序列号");
@@ -794,7 +805,7 @@
                                 var text = '一小时之内暂时没有消息';
                                 errorAlert(text)
                             }else{
-                                console.log(data);
+                                // console.log(data);
                                 callback(data);
                             }
                         }
@@ -828,7 +839,7 @@
                             if(data == ''){
                                 console.log('kong')
                             }else{
-                                console.log(data);
+                                // console.log(data);
                                 callback(data);
                             }
                         }
@@ -862,7 +873,7 @@
                         data:JSON.stringify(param3),
                         success: function (data) {
                             callback(data);
-                            console.log(data)
+                            // console.log(data)
                         }
                     })
                 }
@@ -952,7 +963,7 @@
         //全选
         var $selectAll = $('input[name=select_all]');
         var $selectSingle = $('input[name=select_single]');
-        console.log($selectSingle);
+        // console.log($selectSingle);
         $selectAll.click(function () {
             console.log('全选');
             if ($selectAll.prop("checked") == true) {
@@ -972,7 +983,7 @@
             var dm = $('.disposed_message').text();
             // console.log(dm,title);
             var arr = [];
-            console.log(checkBox.length);
+            // console.log(checkBox.length);
             // console.log(eventId.length);
             checkBox.each(function (i) {
                 if(checkBox[i].checked == true){
@@ -993,7 +1004,7 @@
                 "disposed": 1,
                 "events": arr
             };
-            console.log(dataS);
+            // console.log(dataS);
             if(arr.length != 0){
                 $.ajax({
                     url:"/apis/api/method/iot.user_api.dispose_device_events",
@@ -1113,6 +1124,8 @@
 
         //刷新数据
         $('button.event-refresh').click(function () {
+            all_count();
+            unread_count();
             var is_look = $('input[name=isLook]').val();            //是否查看   isLook：0未查看
             var mess_type = $('input[name=search_keyword1]').val(); //消息类型   search_keyword1
             var sel_time = $('input[name=search_keyword2]').val();  //时间范围
@@ -1145,7 +1158,7 @@
                             var text = '暂时没有最新消息';
                             errorAlert(text)
                         }else{
-                            console.log(data);
+                            // console.log(data);
                             callback(data);
                         }
                     }

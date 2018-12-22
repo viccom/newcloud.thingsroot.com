@@ -484,7 +484,7 @@
                 data:JSON.stringify(myfilters),
                 success: function (data) {
                     callback(data);
-                    console.log(data);
+                    // console.log(data);
                 }
             })
         };
@@ -541,10 +541,10 @@
                 // console.log(data);
                 //判断是否确认消息
                 if(data.disposed == 0 ){
-                    console.log('未确认');
+                    // console.log('未确认');
                     $(row).addClass('unread')
                 }else{
-                    console.log('已确认')
+                    // console.log('已确认')
                     $(row).removeClass('unread')
                 }
             },
@@ -739,45 +739,57 @@
             },2000)
         }
 
+        all_count();
+        unread_count();
+
         // 获取全部消息条数 ---- 平台
-        $.ajax({
-            url:"/apis/api/method/iot.user_api.count_device_activity",
-            type:"GET",
-            success:function (req) {
-                $('.allMessage').text(req.message);
-            }, error:function (error) {
-                console.log('error');
-            }
-        });
+        function all_count(){
+            $.ajax({
+                url:"/apis/api/method/iot.user_api.count_device_activity",
+                type:"GET",
+                async:false,
+                success:function (req) {
+                    $('.allMessage').text(req.message);
+                }, error:function (error) {
+                    console.log('error');
+                }
+            });
+        }
+
         //获取未读信息条数
-        $.ajax({
-            url: "/apis/api/method/iot.user_api.device_activity",
-            headers: {
-                Accept: "application/json; charset=utf-8",
-                "X-Frappe-CSRF-Token": auth_token
-            },
-            type: "POST",
-            dataType: "json",
-            success: function (data) {
-                var a = 0;
-                var list = data.message;
-                for(var i=0;i<list.length;i++){
-                    if(list[i].disposed == 0){
-                        a++;
+        function unread_count(){
+            $.ajax({
+                url: "/apis/api/method/iot.user_api.device_activity",
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: "POST",
+                dataType: "json",
+                async:false,
+                success: function (data) {
+                    var a = 0;
+                    var list = data.message;
+                    for(var i=0;i<list.length;i++){
+                        if(list[i].disposed == 0){
+                            a++;
+                        }
                     }
+                    $('.disposed_message').text(a);
+                    if(a == 0){
+                        $('.confirmation').addClass('disabled');
+                        $('.confirmationAll').addClass('disabled')
+                        $('.confirmation').attr('disabled',true);
+                        $('.confirmationAll').attr('disabled',true);
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
                 }
-                $('.disposed_message').text(a);
-                if(a == 0){
-                    $('.confirmation').addClass('disabled');
-                    $('.confirmationAll').addClass('disabled')
-                    $('.confirmation').attr('disabled',true);
-                    $('.confirmationAll').attr('disabled',true);
-                }
-            },
-            error: function (error) {
-                console.log(error)
-            }
-        });
+            });
+        }
+
+
         //点击查看所有未读消息
         $('.isLook').click(function () {
             if($(this).text() == "查看未确认"){
@@ -848,13 +860,13 @@
                         contentType: "application/json",
                         data:JSON.stringify(param1),
                         success: function (data) {
-                            console.log(data);
+                            // console.log(data);
                             oneData = data;
                             if(JSON.stringify(data) == "{}"){
                                 var text = '一小时之内暂时没有消息';
                                 errorAlert(text);
                             }else if(JSON.stringify(data) != "{}"){
-                                console.log(data);
+                                // console.log(data);
                                 callback(data);
                             }
                         }
@@ -892,7 +904,7 @@
                                 var text = '24小时之内暂时没有消息';
                                 errorAlert(text);
                             }else{
-                                console.log(data);
+                                // console.log(data);
                                 callback(data);
                             }
                         }
@@ -929,7 +941,7 @@
                                 var text = '三天之内暂时没有消息';
                                 errorAlert(text);
                             }else{
-                                console.log(data);
+                                // console.log(data);
                                 callback(data);
                             }
                         }
@@ -1013,8 +1025,8 @@
             var title = $('#platform_message tbody tr td:nth-child(2)>i');
             // var dm = $('.disposed_message').text();
             var arr = [];
-            console.log(checkBox.length);
-            console.log(eventId.length);
+            // console.log(checkBox.length);
+            // console.log(eventId.length);
             checkBox.each(function (i) {
                 if(checkBox[i].checked == true){
                     var rowdata = table.row( $(checkBox[i]).parent().parent().parent() ).data();
@@ -1024,13 +1036,13 @@
                     }
                 }
             })
-            console.log(arr);
+            // console.log(arr);
             //确认消息
             var dataS = {
                 "disposed":1,
                 "activities": arr
             };
-            console.log(dataS);
+            // console.log(dataS);
             if( arr != 0 ){
                 $.ajax({
                     url:"/apis/api/method/iot.user_api.dispose_device_activities",
@@ -1138,7 +1150,7 @@
                                             data:JSON.stringify(myfilters),
                                             success: function (data) {
                                                 callback(data);
-                                                console.log(data);
+                                                // console.log(data);
                                             }
                                         })
                                     };
@@ -1170,6 +1182,9 @@
 
         //刷新数据
         $('button.event-refresh').click(function () {
+            all_count();
+            unread_count();
+
             var is_look = $('input[name=isLook]').val();            //是否查看   isLook：0未查看
             var mess_type = $('input[name=search_keyword1]').val(); //消息类型   search_keyword1
             var sel_time = $('input[name=search_keyword2]').val();  //时间范围
@@ -1218,7 +1233,7 @@
                             var text = '一小时之内暂时没有消息';
                             errorAlert(text)
                         }else{
-                            console.log(data);
+                            // console.log(data);
                             callback(data);
                         }
                     }
