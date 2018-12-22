@@ -53,6 +53,7 @@
         }
         .unread{
             color: #0f74a8!important;
+            font-weight:bold
         }
     </style>
 </head>
@@ -160,7 +161,7 @@
             <h1 style="display: inline-block;">
                 平台消息
                 <small>消息一览</small>
-            </h1><span>（全部消息<span class="allMessage"></span>条，其中未确认消息 <span class="disposed_message"></span>条，<a class="isLook">查看未确认</a><input
+            </h1><span>（全部消息<span class="allMessage"></span>条，其中未确认消息 <span class="disposed_message"></span>条，<a href="javascript:void(0)" class="isLook">查看未确认</a><input
                 type="hidden" name="isLook" value=""> ）</span>
 
 
@@ -233,7 +234,7 @@
             <div class="box box-body " style="min-height: 625px">
 
                 <!-- 表格 -->
-                <div style="margin: 0 15px;border: 1px solid #E5E9EE;">
+                <div style="margin: 0px;border: 1px solid #E5E9EE;">
                     <table id="platform_message" class="table dataTable no-footer " style="background-color:#FFFFFF;">
                         <thead>
                         <tr>
@@ -793,9 +794,9 @@
             }
         });
         //点击行进入详情
-        $('#platform_message tbody').on('click','tr',function() {
+        $('#platform_message tbody').on('click','tr td:nth-child(n+2)',function() {
 
-            var data = table.row( this ).data();
+            var data = table.row( $(this).parent() ).data();
             // console.log(data);
             location.href = 'User_platform_detail.html?name=' + data.name;
 

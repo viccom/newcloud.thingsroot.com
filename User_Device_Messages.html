@@ -53,6 +53,7 @@
         }
         .unread{
             color: #0f74a8!important;
+            font-weight:bold
         }
 
 
@@ -162,7 +163,7 @@
                 设备消息
                 <small>消息一览</small>
             </h1>
-            <span>（全部消息<span class="allMessage"></span>条，其中未确认消息 <span class="disposed_message"></span> 条，<a class="isLook">查看未确认</a><input
+            <span>（全部消息<span class="allMessage"></span>条，其中未确认消息 <span class="disposed_message"></span> 条，<a href="javascript:void(0)" class="isLook">查看未确认</a><input
                     type="hidden" name="isLook" value="">）</span>
         </section>
 
@@ -667,33 +668,28 @@
                 },
                 {
                     //   指定第第5列
-                    // className:"hide_column",
                     targets: [4],
                     width: '10%'
                 },
                 {
                     //   指定第第6列
-                    // className:"hide_column",
                     targets: [5],
                     width: '10%'
                 },
                 {
                     //   指定第第7列
-                    className:"hide_column",
                     targets: [6],
                     visible: false,
                 },
                 {
                     //   指定第第8列
-                    className:"hide_column",
                     targets: [7],
                     visible: false,
-                    render: function (row, type, data, meta) {
-                        if(data.disposed==0){
-
-                        }
-                        return "";
-                    }
+                    // render: function (row, type, data, meta) {
+                    //     if(data.disposed==0){
+                    //         return "";
+                    //     }
+                    // }
                 }
 
             ],
@@ -721,8 +717,8 @@
                 .draw();
         }
         //点击行进入详情
-        $('#device_message tbody').on('click','tr',function() {
-            var data = table.row( this ).data();
+        $('#device_message tbody').on('click','tr td:nth-child(n+2)',function() {
+            var data = table.row( $(this).parent() ).data();
             location.href = 'User_device_detail.html?device_sn=' + data.name;
         } );
 
