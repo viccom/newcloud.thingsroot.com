@@ -558,6 +558,12 @@
                         }
                     }
                     $('.disposed_message').text(a);
+                    if(a == 0){
+                        $('.confirmation').addClass('disabled');
+                        $('.confirmationAll').addClass('disabled')
+                        $('.confirmation').attr('disabled',true);
+                        $('.confirmationAll').attr('disabled',true);
+                    }
                 },
                 error: function (error) {
                     console.log(error)
@@ -1120,7 +1126,18 @@
                         var text = "暂时没有未读消息";
                         errorAlert(text)
                     }
-                }, error: function (error) {}
+                },
+                error: function (error) {
+                    console.log(error)
+                },
+                complete: function () {
+                    if($('.disposed_message').text() == 0){
+                        $('.confirmation').addClass('disabled');
+                        $('.confirmationAll').addClass('disabled')
+                        $('.confirmation').attr('disabled',true);
+                        $('.confirmationAll').attr('disabled',true);
+                    }
+                }
             });
         });
 

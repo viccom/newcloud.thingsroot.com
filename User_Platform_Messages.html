@@ -1025,7 +1025,7 @@
             var checkBox = $('input:checkbox[name=select_single]');
             var eventId = $('#platform_message tbody tr td:nth-child(7)');
             var title = $('#platform_message tbody tr td:nth-child(2)>i');
-            // var dm = $('.disposed_message').text();
+            var dm = $('.disposed_message').text();
             var arr = [];
             // console.log(checkBox.length);
             // console.log(eventId.length);
@@ -1064,11 +1064,11 @@
                                 var a = $(checkBox[i]).parent().parent().parent();
                                 a.removeClass('unread')
                             }
-                            // if(dm>=10){
-                            //     $(".disposed_message").text( dm - arr.length )
-                            // }else if(dm<=0){
-                            //     $(".disposed_message").text("0")
-                            // }
+                            if(dm>0){
+                                $(".disposed_message").text( dm - arr.length )
+                            }else if(dm<=0){
+                                $(".disposed_message").text("0")
+                            }
 
                         })
 
