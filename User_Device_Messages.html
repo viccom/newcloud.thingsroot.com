@@ -659,7 +659,7 @@
                     searchable: false,
                     orderable: false,
                     width: '5%',
-                    render: function (data, type, row, meta) {
+                    render: function (row, type, data, meta) {
                         var gen_html = '<label class="checkbox"><input index="0" name="select_single" type="checkbox"><em></em></label>';
                         return gen_html;
                     }
@@ -667,15 +667,13 @@
                 {
                     //   指定第第2列
                     targets: [1],
-                    width: '45%',
-                    render: function (data, type, row, meta) {
-                        return '<i class="on"></i>' + data;
+                    render: function (row, type, data, meta) {
+                        return '<i class="on"></i>' + row;
                     }
                 },
                 {
                     //   指定第第3列
-                    targets: [2],
-                    width: '15%'
+                    targets: [2]
                 },
                 {
                     //   指定第第4列

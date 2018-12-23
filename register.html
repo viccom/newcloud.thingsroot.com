@@ -36,13 +36,14 @@
     <p class="login-box-msg">注册新用户</p>
 
     <form>
-      <div class="form-group has-feedback">
-        <input name="full_name" type="text" class="form-control register popover-name"  data-placement="top" data-content=""  placeholder="用户全名">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
+
       <div class="form-group has-feedback">
         <input name="email" type="email" class="form-control register  popover-email"  data-placement="top" data-content=""  placeholder="用户邮箱">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input name="full_name" type="text" class="form-control register popover-name"  data-placement="top" data-content=""  placeholder="用户全名">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="row">
         <!--<div class="col-xs-8">-->
@@ -82,6 +83,44 @@
 <script>
   $(function () {
 
+      // 用户名是否合法
+      $(".register:input[name='full_name']").blur(function(){
+          var full_name = $(".register:input[name='full_name']").val();
+          if(!checkUsername(full_name)){
+              $(".register:input[name='full_name']").focus();
+          }
+      });
+
+
+      // 用户是否已注册
+      $(".register:input[name='email']").blur(function(){
+          var email = $(".register:input[name='email']").val();
+          if(email==''){
+              $(".register:input[name='email']").data("content", "邮箱不能为空");
+              $('.popover-email').popover('show');
+              setTimeout(function () {
+                  $('.popover-email').popover('destroy');
+              },2000);
+              $(".register:input[name='email']").focus();
+              return false;
+          }else{
+              var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+              if(!mailReg.test(email)){
+                  $(".register:input[name='email']").data("content", "邮箱格式不合法");
+                  $('.popover-email').popover('show');
+                  setTimeout(function () {
+                      $('.popover-email').popover('destroy');
+                  },2000);
+                  $(".register:input[name='email']").focus();
+                  return false;
+              }else{
+                  user_exists(email);
+              }
+          }
+
+
+      });
+
       // 登录按钮
       $(".register:button[name='submit']").click(function(){
           var full_name = $(".register:input[name='full_name']").val();
@@ -95,15 +134,16 @@
                   },2000);
                   return false;
               }else{
-                  console.log("22")
+
                   var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
                   if(mailReg.test(email)){
                       console.log("33")
                       $(".register:button[name='submit']").attr("disabled", true);
+                      user_exists(email);
                       register(full_name, email);
                       return true;
                   }else{
-                      console.log("44")
+
                       $(".register:input[name='email']").data("content", "邮箱格式不合法");
                       $('.popover-email').popover('show');
                       setTimeout(function () {
@@ -112,7 +152,10 @@
                       return false;
                   }
               }
+
           }
+
+
 
       });
 
@@ -187,13 +230,13 @@
           if (/^\d.*$/.test(username)) {
               return 1;
           }
-          if (!/^.{3,10}$/.test(username)) {
+          if (!/^.{2,10}$/.test(username)) {
               return 2;
           }
           // if (!/^[\w_]*$/.test(username)) {
           //     return 3;
           // }
-          if (!/^\w+|[\u4E00-\u9FA5]$/.test(username)) {
+          if (!/^[\u4e00-\u9fa5_a-zA-Z0-9]+$/.test(username)) {
               return 3;
           }
           return 0;
@@ -230,7 +273,8 @@
                               title: "<strong>提示:</strong><br><br> ",
                               message: '注册成功，' + req.message[1] + '<br>' + '登录邮箱'+ email + '完成注册'
                           },{
-                              type: 'success'
+                              type: 'success',
+                              delay: 30000
                           });
                       }
                   }
@@ -246,6 +290,42 @@
 
       }
 
+
+
+      /**
+       *	用户是否已经注册
+       */
+      function user_exists(email){
+
+          $.ajax({
+              url: '/apis/api/method/iot_ui.iot_api.user_exists?userid='+ email,
+              headers: {
+                  Accept: "application/json; charset=utf-8"
+              },
+              type: 'post',
+              contentType: "application/x-www-form-urlencoded; charset=utf-8",
+              dataType:'json',
+              async: false,
+              success:function(req){
+                  console.log('用户是否存在-----------------------------------------',req);
+                  if(req.message==true){
+                      $(".register:input[name='email']").data("content", "用户已经存在");
+                      $('.popover-email').popover('show');
+                      setTimeout(function () {
+                          $('.popover-email').popover('destroy');
+                      },2000);
+                      $(".register:input[name='email']").focus();
+                      return false;
+                  }
+
+              },
+              error:function(req){
+                  console.log('错误-----------------------------------------',req);
+
+              }
+          });
+
+      }
 
 
   });

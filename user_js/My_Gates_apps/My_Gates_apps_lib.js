@@ -126,7 +126,7 @@ function set_tabel(sn, tableobj){
 
         for (i = 0; i < appsinfo.length; i++) {
             // console.log(i, appsinfo[i].info.auto);
-            var appico = "<span class=\"info-box-icon bg-green\"><i class=\"fa fa-flag-o\"></i></span>";
+            var appico = "<span class=\"info-box-icon bg-green\"><i class=\"fa fa-th\"></i></span>";
             var status = "";
             var runtime = "";
             if (appsinfo[i].info.running) {
@@ -387,8 +387,11 @@ function gate_app_dev_tree(sn,inst){
             // console.log(req.message);
             if(req.message!=null){
                 // console.log(req.message[inst][0].sn);
-                $("a.view-rtdata").data("inst", req.message[inst][0].sn);
-                $("a.view-rtdata").attr("disabled", false);
+                if(req.message[inst]){
+                    $("a.view-rtdata").data("inst", req.message[inst][0].sn);
+                    $("a.view-rtdata").attr("disabled", false);
+                }
+
             }
 
         },
