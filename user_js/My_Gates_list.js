@@ -401,12 +401,22 @@ var    table_gates = $('#table_gates').DataTable({
         var device_sn = $("#device-sn").val();
         var device_name = $("#device-name").val();
         if(device_name==""){
+            $("#device-name:input").data("content", "名称不能为空");
             $('.popover-warning').popover('show');
             setTimeout(function () {
                 $('.popover-warning').popover('destroy');
             },2000);
             return false;
         }
+        if(device_name.length>32){
+            $("#device-name:input").data("content", "名称不错超过32字符");
+            $('.popover-warning').popover('show');
+            setTimeout(function () {
+                $('.popover-warning').popover('destroy');
+            },2000);
+            return false;
+        }
+
         var device_desc = $("#device-desc").val();
         var group_name = $("select.group_select").val();
         if(attach=="1"){
@@ -440,6 +450,45 @@ var    table_gates = $('#table_gates').DataTable({
     //     ttips($(this),"暂不支持");
     //     return false;
     // });
+
+
+    // ThingsLink序列号是否合法
+    $("#thingslink-sn:input").blur(function(){
+        var arr= ["2-30002"];
+        var device_sn = $("#thingslink-sn:input").val();
+        if(device_sn==""){
+            $("#thingslink-sn:input").data("content", "序列号不能为空");
+            $('.popover-warning1').popover('show');
+            setTimeout(function () {
+                $('.popover-warning1').popover('destroy');
+            },2000);
+            $("#thingslink-sn:input").focus();
+            return false;
+        }else{
+            if($.inArray(device_sn.substr(0, 7), arr)==-1){
+
+                $("#thingslink-sn:input").data("content", "不支持的网关序列号");
+                $('.popover-warning1').popover('show');
+                setTimeout(function () {
+                    $('.popover-warning1').popover('destroy');
+                },2000);
+                $("#thingslink-sn:input").focus();
+                return false;
+            }
+            if(device_sn.length!==20){
+
+                $("#thingslink-sn:input").data("content", "网关序列号不完整");
+                $('.popover-warning1').popover('show');
+                setTimeout(function () {
+                    $('.popover-warning1').popover('destroy');
+                },2000);
+                $("#thingslink-sn:input").focus();
+                return false;
+            }
+        }
+
+    });
+
     // 添加ThingsLink到当前账户
     $("button.add_thingslink_confirm").click(function(){
         var userid = getCookie('usr');
@@ -451,14 +500,26 @@ var    table_gates = $('#table_gates').DataTable({
             setTimeout(function () {
                 $('.popover-warning1').popover('destroy');
             },2000);
+            $("#thingslink-sn:input").focus();
             return false;
         }
         var device_name = $("#thingslink-name").val();
         if(device_name==""){
+            $("#thingslink-name:input").data("content", "名称不能为空");
             $('.popover-warning2').popover('show');
             setTimeout(function () {
                 $('.popover-warning2').popover('destroy');
             },2000);
+            $("#thingslink-name:input").focus();
+            return false;
+        }
+        if(device_name.length>32){
+            $("#thingslink-name:input").data("content", "名称不能超过32字符");
+            $('.popover-warning2').popover('show');
+            setTimeout(function () {
+                $('.popover-warning2').popover('destroy');
+            },2000);
+            $("#thingslink-name:input").focus();
             return false;
         }
         var device_desc = $("#thingslink-desc").val();
@@ -487,6 +548,7 @@ var    table_gates = $('#table_gates').DataTable({
             setTimeout(function () {
                 $('.popover-warning1').popover('destroy');
             },2000);
+            $("#thingslink-sn:input").focus();
             // ttips($(this),"不支持的网关序列号<br>"+dev_sn);
             return false;
         }
@@ -497,6 +559,7 @@ var    table_gates = $('#table_gates').DataTable({
             setTimeout(function () {
                 $('.popover-warning1').popover('destroy');
             },2000);
+            $("#thingslink-sn:input").focus();
             // ttips($(this),"不支持的网关序列号<br>"+dev_sn);
             return false;
         }
@@ -507,7 +570,7 @@ var    table_gates = $('#table_gates').DataTable({
             owner_id: group_name,
             owner_type: owner_type[attach]
         }
-        console.log(data);
+        // console.log(data);
         add_new_gate(data);
         $("button.add_thingslink_confirm").attr("disabled", true)
     });

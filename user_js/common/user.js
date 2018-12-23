@@ -4,17 +4,30 @@ isLogin();
  *	判断是否登录
  */
 function isLogin(){
-    var noLoginArr = ['login','register','find','find2']; // 排除无需登陆的页面板块
-    get_NewToken();
-    auth_token = getCookie('auth_token');
-    if(auth_token!=null){
-        if(getCookie('full_name').split(" ").length > 0 ){
-            $('.user-name').text(getCookie('full_name').split(" ")[0]);
+    var noLoginArr = ['login.html','register.html','findpwd.html','updatepwd.html']; // 排除无需登陆的页面板块
+    var page_name = document.URL.split("/")[document.URL.split("/").length - 1];
+    // console.log(page_name);
+    // console.log($.inArray(page_name, noLoginArr))
+    var us = $.cookie("user_id");
+    if(us=="Guest"){
+        if($.inArray(page_name, noLoginArr)!=-1){
+            return false;
         }else{
-            $('.user-name').text("");
+            redirect('login.html');
+        }
+
+    }else{
+        console.log("已登录");
+        get_NewToken();
+        auth_token = getCookie('auth_token');
+        if(auth_token!=null){
+            if(getCookie('full_name').split(" ").length > 0 ){
+                $('.user-name').text(getCookie('full_name').split(" ")[0]);
+            }else{
+                $('.user-name').text("");
+            }
         }
     }
-
 
     // console.log("token:::",auth_token);
 }
@@ -32,7 +45,7 @@ function isAdmin(){
         type: 'get',
         dataType:'json',
         success:function(req){
-            console.log(req);
+            // console.log(req);
             setCookie('isAdmin',req.message.admin);
             if(req.message.admin==true){
                 setCookie('companies',req.message.companies[0]);
@@ -113,53 +126,6 @@ function logout(){
         },
         error:function(req){
 
-        }
-    });
-
-}
-
-/**
- *	注册
- */
-function register(full_name, email){
-
-    $.ajax({
-        url: '/apis/?cmd=frappe.core.doctype.user.user.sign_up&email='+ email + '&full_name='+ full_name + '&redirect_to=',
-        headers: {
-            Accept: "application/json; charset=utf-8"
-        },
-        type: 'get',
-        contentType: "application/x-www-form-urlencoded; charset=utf-8",
-        dataType:'json',
-        success:function(req){
-            console.log('用户注册成功-----------------------------------------',req);
-            $(".register:button[name='submit']").attr("disabled", false);
-            if(req.message){
-                if(req.message[0]==0){
-
-                    $.notify({
-                        title: "<strong>提示:</strong><br><br> ",
-                        message: '此用户' + req.message[1]
-                    },{
-                        type: 'warning'
-                    });
-
-                }else if(req.message[0]==1){
-                    $.notify({
-                        title: "<strong>提示:</strong><br><br> ",
-                        message: '注册成功，' + req.message[1] + '<br>' + '登录邮箱'+ email + '完成注册'
-                    },{
-                        type: 'success'
-                    });
-                }
-            }
-
-            delCookie('auth_token');
-            // setTimeout("redirect('login.html')", 1500);
-        },
-        error:function(req){
-            console.log('错误-----------------------------------------',req);
-            $(".register:button[name='submit']").attr("disabled", false);
         }
     });
 
