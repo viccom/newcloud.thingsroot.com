@@ -584,9 +584,38 @@
                 setTimeout(function () {
                     $('.popover-old').popover('destroy');
                 },2000);
+                $("#old-pwd:input").focus();
                 return false;
             }
             verify_password(old_pwd);
+        });
+
+        $("#new-pwd:input").blur(function(){
+            var new_pwd = $("#new-pwd:input").val();
+            if (new_pwd == "" || new_pwd == null) {
+                $("#new-pwd:input").data("content", "新密码不能为空");
+                $('.popover-new').popover('show');
+                setTimeout(function () {
+                    $('.popover-new').popover('destroy');
+                },2000);
+                // $("#new-pwd:input").focus();
+                return false;
+            }
+            if (!/^.{6,99}$/.test(new_pwd)) {
+                $("#new-pwd:input").data("content", "密码不能少于6个字符");
+                $('.popover-new').popover('show');
+                setTimeout(function () {
+                    $('.popover-new').popover('destroy');
+                },2000);
+                // $("#new-pwd:input").focus();
+                return false;
+            }
+        });
+
+        $("button.Change_password").click(function(){
+            $("#old-pwd:input").val("");
+            $("#new-pwd:input").val("");
+            $("#repeat-pwd:input").val("");
         });
 
         // update按钮
@@ -610,16 +639,16 @@
                 setTimeout(function () {
                     $('.popover-new').popover('destroy');
                 },2000);
-                $("#new-pwd:input").focus();
+                // $("#new-pwd:input").focus();
                 return false;
             }
             if (!/^.{6,99}$/.test(new_pwd)) {
                 $("#new-pwd:input").data("content", "密码不能少于6个字符");
-                $('.popover-pwd').popover('show');
+                $('.popover-new').popover('show');
                 setTimeout(function () {
-                    $('.popover-pwd').popover('destroy');
+                    $('.popover-new').popover('destroy');
                 },2000);
-                $("#new-pwd:input").focus();
+                // $("#new-pwd:input").focus();
                 return false;
             }
             if (re_new_pwd == "" || re_new_pwd == null) {
