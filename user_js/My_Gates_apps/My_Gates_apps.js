@@ -197,8 +197,27 @@ $("button.gate-install-app").click(function(){
 });
 
 
-$(".btn-box-tool").click(function(){
+$(".ex-gate").click(function(){
     var url = "My_Gates_setting.html?sn="+ gate_sn;
     redirect(url);
 });
 
+$("button.float-gate-list").click(function(){
+
+    if($(this).data("showlist")!="1"){
+        $(this).data("showlist","1");
+        $(".gate_nav").addClass("hide");
+        $(".hide-gate-list").removeClass("hide");
+        $(".float-gate-list>i").removeClass("fa-archive");
+        $(".float-gate-list>i").addClass("fa-bars");
+
+
+    }else if($(this).data("showlist")=="1"){
+        $(this).data("showlist","0");
+        $(".gate_nav").removeClass("hide");
+        $(".hide-gate-list").addClass("hide");
+        $(".float-gate-list>i").removeClass("fa-bars");
+        $(".float-gate-list>i").addClass("fa-archive");
+    }
+
+});

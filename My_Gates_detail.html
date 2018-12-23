@@ -355,9 +355,18 @@
         <section class="content">
             <div class="row">
                 <!-- page left nav menu start -->
-                <div class="col-md-2">
-                    <span class="btn btn-success btn-block margin-bottom gate_status">在线</span>
-                    <div class="box box-solid">
+                <div class="col-md-2" style="padding-right: 0">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <!--<span class="gate_status">在线</span>-->
+                            <!--<div class="bg-green color-palette"><span class="gate_status"></span></div>-->
+                            <div class="gate_status" style="width: 80%; text-align: center"></div>
+                            <div class="box-tools"> <button type="button" class="btn btn-box-tool float-gate-list"><i class="fa fa-archive"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box box-solid gate_nav">
                         <div class="box-header with-border">
                             <h3 class="box-title">基本功能</h3>
 
@@ -378,12 +387,12 @@
                         <!-- /.box-body -->
                     </div>
                     <!-- /. box -->
-                    <div class="box box-solid">
+                    <div class="box box-solid gate_nav">
                         <div class="box-header with-border">
                             <h3 class="box-title">扩展功能</h3>
 
                             <div class="box-tools">
-                                <button type="button" class="btn btn-box-tool"><i class="fa fa-cog"></i>
+                                <button type="button" class="btn btn-box-tool ex-gate"><i class="fa fa-cog"></i>
                                 </button>
                             </div>
                         </div>
@@ -396,6 +405,23 @@
                         <!-- /.box-body -->
                     </div>
                     <!-- /.box -->
+
+                    <!-- /hide gate-list  -->
+                    <div class="box hide-gate-list hide">
+                        <div class="box-header with-border">
+                            <!--<h3 class="box-title">网关列表</h3>-->
+                            <input style="width: 100%" id="search-highlight" name="search-highlight" placeholder="搜索" type="text" data-list=".highlight_list" autocomplete="off">
+                        </div>
+                        <div class="box-body no-padding">
+
+                            <ul class="nav nav-pills nav-stacked gates_list highlight_list">
+
+                            </ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /hide gate-list  -->
+
                 </div>
                 <!-- page left nav menu end -->
 
@@ -740,6 +766,8 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script src="user_js/common/skin.js"></script>
+<!-- jQuery hideseek -->
+<script type="text/javascript" src="plugins/HideSeek-master/jquery.hideseek.min.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
@@ -750,6 +778,120 @@
 <!-- load user is -->
 <script src="user_js/My_Gates_detail/My_Gates_detail_lib.js" type="text/javascript"></script>
 <script src="user_js/My_Gates_detail/My_Gates_detail.js" type="text/javascript"></script>
+
+
+<script>
+    $(function () {
+        // $(".switch").bootstrapSwitch();
+
+        update_gates_list();
+        function update_gates_list() {
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.devices_list?filter=all',
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'get',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(data){
+                    var user = getCookie('usr');
+                    var op_list = new Array();
+                    var tmpstr = localStorage.getItem("gate_op/"+ user);
+                    if(tmpstr!==null){
+                        var arr = JSON.parse(tmpstr);
+                        if(arr.length>0){
+                            op_list = arr
+                        }
+                    }
+                    for (i = 0; i < op_list.length; i++){
+                        var tmpstr = localStorage.getItem("gate_info/"+ op_list[i]);
+                        if(tmpstr!==null){
+                            var gateobj = JSON.parse(tmpstr);
+                            if(gateobj.hasOwnProperty("basic")){
+                                var gsn = op_list[i];
+                                var gate_desc = gateobj.basic.desc;
+                                var lenText = gateobj.basic.name;
+                                if(gateobj.basic.name.length>16){
+                                    lenText=gateobj.basic.name.substring(0,16)
+                                }
+                                var li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                if(gsn==gate_sn){
+                                    li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '" class="active"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                }
+                                $("ul.gates_list").append(li_html);
+
+                            }
+                        }
+                    }
+                    if(data.message && data.message.length>0){
+                        var maxlen = data.message.length;
+                        if(data.message.length>12){
+                            maxlen = 12;
+                        }
+                        for (i = 0; i < maxlen; i++){
+                            // console.log(i, data.message[i].device_name);
+                            // console.log(op_list);
+                            var arrayObj = new Array(data.message[i].device_name,
+                                data.message[i].device_desc, data.message[i].last_updated,
+                                data.message[i].device_status,data.message[i].device_apps_num,
+                                data.message[i].device_devs_num,"" ,data.message[i].device_sn,
+                                data.message[i].beta, data.message[i].iot_beta);
+
+
+                            // console.log($.inArray(data.message[i].device_sn, op_list));
+                            if($.inArray(data.message[i].device_sn, op_list)==-1){
+                                // console.log("ok");
+                                var lenText = data.message[i].device_name;
+                                if(data.message[i].device_name.length>16){
+                                    lenText=data.message[i].device_name.substring(0,16)
+                                }
+
+                                var li_html = '<li data-gatesn="' + data.message[i].device_sn + '"  data-gatename="'+ lenText +'"  data-gatedesc="'+ data.message[i].device_desc + '"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                // if(data.message[i].device_sn==gate_sn){
+                                //     li_html = '<li class="active"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                // }
+                                $("ul.gates_list").append(li_html);
+                            }
+
+
+
+                        }
+                    }
+
+                },
+                error:function(data){
+                    console.log(data);
+
+                }
+            });
+        }
+
+
+        $("body").on("click", "ul.gates_list>li", function() {
+            var gsn = $(this).data("gatesn");
+            gate_sn = gsn;
+            var gdesc = $(this).data("gatedesc");
+            var gname = $(this).data("gatename");
+            $(".gate_sn").text(gsn);
+            $(".gate_name").text(gname);
+            $(".gate_desc").text(gdesc);
+            $(this).addClass("active");
+            $(this).siblings().removeClass("active");
+            gate_info(gate_sn);
+
+
+        });
+
+        $('#search-highlight').hideseek({
+            highlight: true
+        });
+
+    });
+
+</script>
+
 
 <script>
     $(function () {
