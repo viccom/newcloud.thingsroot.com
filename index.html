@@ -727,7 +727,7 @@ $.ajax({
     type:"GET",
     success:function (data) {
         let localData = JSON.parse(localStorage.getItem('list_device_event_count_statistics_original'));
-        var data = localData || data.message;
+        var data =   data.message || localData;
         var html='';
         //创建新数组
         var arr1 = [];
@@ -780,7 +780,7 @@ $.ajax({
     type:"GET",
     success:function (data) {
         let localData = JSON.parse(localStorage.getItem('list_device_event_count_statistics_original'));
-        var data = localData || data.message;
+        var data =  data.message || localData;
         var html1='';
         //创建新数组
         var arr2 = [];
@@ -1037,8 +1037,8 @@ function device_event_type_statistics(chart_id, tag_name) {
 
 // 图表
 device_online_statistics('device_status_statistics', '');
-device_type_statistics('device_type_statistics', 'device_type_statistics');
-device_event_type_statistics('device_event_type_statistics', 'device_event_type_statistics');
+device_type_statistics('device_type_statistics', '');
+device_event_type_statistics('device_event_type_statistics', '');
 setInterval(function(){
     device_online_statistics('device_status_statistics', '');
     device_type_statistics('device_type_statistics', 'device_type_statistics');
