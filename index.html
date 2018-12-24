@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="/img/favicon.ico" />
     <title>冬笋云 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -23,7 +22,223 @@
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!-- global style -->
     <link rel="stylesheet" href="user_css/global.css">
-
+    <style>
+        #four table th:nth-child(2),#four table td:nth-child(2){
+	width:auto;
+}
+.product_main2 th:first-child,.product_main2 td:first-child{
+	width:80px;
+}
+.product_main2 th:nth-child(2),.product_main2 td:nth-child(2){
+	width:35%;
+}
+.product_main2 th:nth-child(3),.product_main2 td:nth-child(3){
+	width:100px;
+}
+.product_main2 th:nth-child(4),.product_main2 td:nth-child(4){
+	width:30%;
+}
+#one>p,#two>p{
+  display: none;
+  line-height: 350px;
+  font-size: 18px;
+  color: #354E77;
+  text-align: center;
+}
+.hd{
+  display: none;
+}
+.right-product {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: #FFF;
+  min-width: 1500px;
+  min-height: 100%;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  overflow-y: auto;
+}
+.my-index {
+  background-color: #F5F6FA;
+}
+.right-full {
+  left: 230px;
+}
+.sidebar-collapse .right-off {
+  left: 48px;
+}
+.product_top{
+background: #fff;
+margin: 60px 15px 15px 15px;
+padding: 10px;
+box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+}
+.product_top .tit{
+color: #566885;
+font-weight: 800;
+font-size: 16px;
+}
+.product_top .contents{
+margin-top: 10px;
+}
+.rightHeight{
+  height: 80%;
+}
+.close-i{
+width: 22px;
+height: 22px;
+float: right;
+background: url(../dist/img/button_settings.png) no-repeat center;
+background-size: 15px;
+cursor: pointer;
+}
+/*.close-i:hover{
+cursor: pointer;
+background: url(../img/icon_close_hover.png) no-repeat center;
+background-size: 15px;
+}*/
+.product_top .content{
+text-align: right;
+border:1px solid #e1e1e1;
+  display: inline-block;
+  position: relative;
+  min-width: 235px;
+  width: 20%;
+  height: 50px;
+  line-height: 50px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  padding: 0 10px;
+  color: #9C9BA5;
+  font-size: 12px;
+}
+.product_top .content span:first-child{
+float: left;
+font-size: 14px;
+color:#232326;
+}
+.product_top .content input{
+opacity: 0;
+position: fixed;
+}
+.product_top .content label{
+position: relative;
+width: 40px;
+margin: 0;
+}
+.slider:hover{
+cursor: pointer;
+}
+input:checked + .slider::before {
+background: #0D71BC;
+}
+.slider::before {
+  position: absolute;
+  content: '';
+  width: 36px;
+  height: 16px;
+  top: -12px;
+  left: 0;
+  border-radius: 0.75em;
+  transition: 250ms ease-in-out;
+  background: linear-gradient(rgba(0, 0, 0, 0.07), rgba(255, 255, 255, 0.1)), #d0d0d0;
+}
+input:checked + .slider::after {
+  left: 22px;
+}
+.slider::after {
+  position: absolute;
+  content: '';
+  width: 18px;
+  height: 18px;
+  top: -13px;
+  left: 0;
+  border-radius: 50%;
+  transition: 250ms ease-in-out;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+}
+.product_content{
+min-width: 1300px;
+padding: 0 15px;
+/*height: 80%;*/
+}
+.product_main {
+float: left;
+background: #fff;
+width: 49.5%;
+  height: 450px;
+  padding: 10px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  margin-bottom: 15px;
+  transition: all 0.25s;
+}
+.product_main:nth-child(2n){
+margin-left: 1%;
+}
+.product_main i{
+float: right;
+cursor: pointer;
+background: url(../dist/img/button_oversee.png) no-repeat left;
+background-size: 15px;
+padding-left: 20px;
+}
+.product_main .tit{
+color: #566885;
+font-weight: 800;
+}
+.product_main .tit i{
+color: #A7A9B1;
+}
+.product_main .main{
+margin-top: 10px;
+  height: 400px;
+}
+.product_main .main p{
+margin-bottom: 10px;
+}
+.product_main .main p span{
+color: #566885;
+}
+.main thead{
+display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.main tbody{
+display: block;
+  max-height: 270px;
+  overflow-y: scroll;
+} 
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+border-top: 4px solid #4B6186;
+color:#4B6186;
+}
+.copyright{
+color: #A7A9B1;
+text-align: center;
+position: relative;
+width: 100%;
+bottom: 0;
+margin: 15px 0;
+/*line-height: 20px;*/
+}
+.re_copy{
+position: relative;
+}
+.breadcrumb > li + li:before {
+  color: #CCCCCC;
+  content: ">";
+  padding: 0 5px;
+}
+.breadcrumb{
+background: initial;
+margin: 15px;
+padding: 0;
+}
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
@@ -57,8 +272,6 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-
-
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -157,8 +370,6 @@
 
                         </ul>
                     </li>
-
-
                     <!-- Control Sidebar Toggle Button -->
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -177,7 +388,6 @@
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li class="header">Dashboard</li>
-
                 <li class="active"><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
@@ -199,7 +409,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <!-- <section class="content-header">
             <h1>
                 Dashboard
                 <small>Control panel</small>
@@ -208,11 +418,120 @@
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">Dashboard</li>
             </ol>
-        </section>
+        </section> -->
 
         <!-- Main content -->
-        <section class="content">
+        <section id="content">
+            <div class="right-product my-index right-full">
+                <div class="rightHeight">
+                    <div class="product_top">
+                        <div class="tit">
+                            <span>首页</span>
+                            <i class="close-i"></i>
+                        </div>
+                        <div class="contents hd">
+                            <div class="content">
+                                <span>在线统计</span>
+                                <span>隐藏</span>
+                                <input type="checkbox" id="s1" checked=""/>
+                               <label class="slider slider1" for="s1" val="1"></label>
+                              <span>显示</span>
+                            </div>
+                            <div class="content">
+                                <span>故障统计</span>
+                                <span>隐藏</span>
+                                <input type="checkbox" id="s2" checked=""/>
+                               <label class="slider slider2" for="s2" val="2"></label>
+                              <span>显示</span>
+                            </div>
+                            <div class="content">
+                                <span>连接设备类型</span>
+                                <span>隐藏</span>
+                                <input type="checkbox" id="s3" checked=""/>
+                               <label class="slider slider3" for="s3" val="3"></label>
+                              <span>显示</span>
+                            </div>
+                            <div class="content">
+                                <span>故障类型统计</span>
+                                <span>隐藏</span>
+                                <input type="checkbox" id="s4" checked=""/>
+                               <label class="slider slider4" for="s4" val="4"></label>
+                              <span>显示</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product_content cf">
+                        <div class="animated product_main product_main1" val="1">
+                            <div class="tit"><span>在线统计</span><i>隐藏</i></div>
+                            <div class="main" id="device_status_statistics">
+                                
+                            </div>
+                        </div>
+                        <div class="animated product_main product_main2" val="2">
+                            <div class="tit"><span>故障统计</span><i>隐藏</i></div>
+                            <div class="main">
+                                <ul class="nav nav-tabs J_tabs">
+                                  <li class="active"><a href="#one" data-toggle="tab">前10的网关</a></li>
+                                  <li><a href="#two" data-toggle="tab">一周内故障最多</a></li>
+                              </ul>
+                              <div class="tab-content">
+                                  <div class="tab-pane fade in active" id="one">
+                                      <p>恭喜！今天没有发生故障</p>
+                                      <table class="table table1">
+                                          <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                              <th>名称</th>
+                                              <th>位置</th>
+                                              <th>最后上线时间</th>
+                                              <th>次数</th>
+                                              <th style="display: none;">设备号</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody id="J_error_today">
 
+                                          </tbody>
+                                      </table>
+                                  </div>
+                                  <div class="tab-pane fade" id="two">
+                                      <p>恭喜！本周没有发生故障</p>
+                                      <table class="table table2">
+                                          <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                              <th>名称</th>
+                                              <th>位置</th>
+                                              <th>最后上线时间</th>
+                                              <th>次数</th>
+                                              <th style="display: none;">设备号</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody id="J_error_total">
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="animated product_main product_main3" val="3">
+                            <div class="tit"><span>连接设备类型统计</span><i>隐藏</i></div>
+                            <div class="main" id="device_type_statistics">
+                                
+                            </div>
+                        </div>
+                        <div class="animated product_main product_main4" val="4">
+                            <div class="tit"><span>故障类型统计</span><i>隐藏</i></div>
+                            <div class="main">
+                              <div class="tab-content" style="height: 400px;">
+                                  <div class="main" id="device_event_type_statistics">
+
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- /.content -->
     </div>
@@ -231,7 +550,62 @@
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- /.control-sidebar-menu -->
 
             </div>
             <!-- /.tab-pane -->
@@ -240,7 +614,71 @@
             <!-- /.tab-pane -->
             <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
 
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <!--<h3 class="control-sidebar-heading">Chat Settings</h3>-->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
             </div>
             <!-- /.tab-pane -->
         </div>
@@ -257,6 +695,7 @@
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- <script src="/bower_components/jquery/dist/jquery-1.11.3.min.js"></script> -->
 <!-- oem -->
 <script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -277,12 +716,440 @@
 <script src="dist/js/adminlte.min.js"></script>
 <script src="user_js/common/skin.js"></script>
 
+<script type="text/javascript" src="assets/library/echarts.min.js"></script>
+	<script type="text/javascript" src="assets/library/theme/macarons.js"></script>
+
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
 <script src="user_js/common/user.js"></script>
 
+
 <script>
+    $(function(){
+        var flag = $('body').hasClass('sidebar-collapse')
+        //左侧导航展开收起
+        if(flag){
+            $('.my-index').removeClass('right-full').addClass('right-off');
+        }
+        $('.sidebar-toggle').on('click',function(){
+        $('.my-index').toggleClass('right-off').toggleClass('right-full')
+        })
+        //首页头部展开收起
+        $(".close-i").click(function(){
+        if($(".contents").css("display")=='none'){
+            $(".contents").slideDown(300);
+            $(this).css({"background":"url(dist/img/icon_close.png) no-repeat center","background-size":"15px"});
+        }else{
+            $(".contents").slideUp(300);
+            $(this).css({"background":""});
+        }
+        });
+        //首页内容显示隐藏	
+        if(getCookie('index_block_1')=='hidden'){
+        $(".product_main1").addClass('hidden');
+        $('#s1').attr("checked",false);
+        }
+        if(getCookie('index_block_2')=='hidden'){
+        $(".product_main2").addClass('hidden');
+        $('#s2').attr("checked",false);
+        }
+        if(getCookie('index_block_3')=='hidden'){
+        $(".product_main3").addClass('hidden');
+        $('#s3').attr("checked",false);
+        }
+        if(getCookie('index_block_4')=='hidden'){
+        $(".product_main4").addClass('hidden');
+        $('#s4').attr("checked",false);
+        }
+        resetMarginLeft();
+
+        $(".slider1,.slider2,.slider3,.slider4").click(function(){
+        var _this = $(this);
+        var index = _this.attr('val');
+        if($('#s'+index).is(':checked')){
+            $(".product_main"+index).hide().addClass('hidden bounceInLeft');
+            setCookie('index_block_'+index,'hidden');
+        }else{
+            $(".product_main"+index).show().removeClass('hidden');
+            setCookie('index_block_'+index,'display');
+        }
+        resetMarginLeft();
+        });
+        $('.product_main1 i,.product_main2 i,.product_main3 i,.product_main4 i').click(function(){
+        var index = $(this).parent().parent().attr('val');
+        setCookie('index_block_'+index,'hidden');
+        $('.product_main'+index).hide().addClass('hidden');
+        $(".slider"+index).click();
+        resetMarginLeft();
+        })	
+        function resetMarginLeft() {
+        $('.product_main').not('.hidden').each(function(index){
+            if (index%2 == 0) {
+            $(this).css('marginLeft', '0');
+            } else {
+            $(this).css('marginLeft', '1%');
+            }
+        });
+        }
+
+//获取当前时间
+function getBeforeDate(n){//n为你要传入的参数，当前为0，前一天为-1，后一天为1
+    var date = new Date() ;
+    var year,month,day ;
+    date.setDate(date.getDate()+n);
+    year = date.getFullYear();
+    month = date.getMonth()+1;
+    day = date.getDate() ;
+    s = year + '-' + ( month < 10 ? ( '0' + month ) : month ) + '-' + ( day < 10 ? ( '0' + day ) : day) ;
+    return s ;
+}
+var t = getBeforeDate(0);
+var t1 = getBeforeDate(-1);
+var t2 = getBeforeDate(-2);
+var t3 = getBeforeDate(-3);
+var t4 = getBeforeDate(-4);
+var t5 = getBeforeDate(-5);
+var t6 = getBeforeDate(-6);
+
+$(".right-product").css("height",$(document).height()-20);
+var pageSize = 7; // 每页条数
+
+// 故障统计里的 前十的网关/一周内故障最多
+
+function device_event_count_statistics(items){
+    // console.log('device_event_count_statistics',items);
+    localStorage.list_device_event_count_statistics_original = JSON.stringify(items.message);
+    localStorage.list_current = JSON.stringify(items.message);
+    $('#J_gateErrorTotal').html(items.message.length);
+}
+
+/**
+*	当天前10的网关
+*/
+$.ajax({
+    url:"/apis/api/method/iot_ui.iot_api.device_event_count_statistics",
+    type:"GET",
+    success:function (data) {
+        // var data = JSON.parse(localStorage.list_device_event_count_statistics_original);
+        console.log(data);
+        var data = data.message;
+        var html='';
+        //创建新数组
+        var arr1 = [];
+        for (let i = 0; i < data.length; i++) {
+            //判断次数与时间
+            if(data[i].today != '0' || data[i].last_updated.indexOf(t) !== -1){
+                arr1.push(data[i]);
+            }
+        }
+        //渲染表格
+        for(var j=0;j<arr1.length;j++){
+            html += `
+            <tr class="myTr" style="cursor: pointer">
+                <td>${j+1}</td>
+                <td>${arr1[j].name}</td>
+                <td>&nbsp;&nbsp;&nbsp;${arr1[j].position}</td>
+                <td>${arr1[j].last_updated}</td>
+                <td>${arr1[j].today}</td>
+                <td style="display: none;">${arr1[j].sn}</td>
+            </tr>`;
+        }
+
+        $('#J_error_today').html(html);
+        if($('#J_error_today').children().length == 0){
+            $('#one>table').hide();
+            $('#one>p').show();
+        }
+    },
+    complete:function () {
+        var tr_len = $('#J_error_today>tr');
+        for (var q=0;q<tr_len.length;q++){
+            (function(j){
+                tr_len[j].onclick = function () {
+                    location.href = 'User_Device_Messages.html?sn=' + $(this).find($('td:nth-child(6)')).text()
+                };
+            })(q)
+        }
+    }
+})
+
+/**
+ *	一周内故障最多
+ */
+$.ajax({
+    url:"/apis/api/method/iot_ui.iot_api.device_event_count_statistics",
+    type:"GET",
+    success:function (data) {
+        // var data = JSON.parse(localStorage.list_device_event_count_statistics_original);
+        console.log(data);
+        var data = data.message;
+        var html1='';
+        //创建新数组
+        var arr2 = [];
+        for (let i = 0; i < data.length; i++) {
+            //判断次数与时间
+            if( data[i].last_updated.indexOf(t) != -1
+                || data[i].last_updated.indexOf(t1) != -1
+                || data[i].last_updated.indexOf(t2) != -1
+                || data[i].last_updated.indexOf(t3) != -1
+                || data[i].last_updated.indexOf(t4) != -1
+                || data[i].last_updated.indexOf(t5) != -1
+                || data[i].last_updated.indexOf(t6) != -1){
+                if(data[i].total != '0'){
+                    arr2.push(data[i]);
+                }
+            }
+        }
+        //渲染表格
+        for(var j=0;j<arr2.length;j++){
+            html1 += `
+            <tr class="myTr" style="cursor: pointer">
+                <td>${j+1} <input type="hidden" value='${arr2[j].sn}'></td>
+                <td>${arr2[j].name}</td>
+                <td>&nbsp;&nbsp;&nbsp;${arr2[j].position}</td>
+                <td>${arr2[j].last_updated}</td>
+                <td>${arr2[j].total}</td>
+                <td style="display: none;">${arr2[j].sn}</td>
+            </tr>`;
+        }
+        $('#J_error_total').html(html1);
+        if($('#J_error_total').children().length == 0){
+            $('#two>table').hide();
+            $('#two>p').show();
+        }
+    },
+    complete:function () {
+        var tr_len = $('#J_error_total>tr');
+        for (var q=0;q<tr_len.length;q++){
+            (function(j){
+                tr_len[j].onclick = function () {
+                    location.href = 'User_Device_Messages.html?sn=' + $(this).find($('td:nth-child(6)')).text()
+                };
+            })(q)
+        }
+    }
+});
+
+
+
+
+function device_online_statistics(chart_id, tag_name) {
+    // console.log(chart_id);
+    var myChart = echarts.init(document.getElementById(chart_id), 'light');
+    //var url = 'http://iot.symgrid.com/api/method/iot_ui.iot_api.device_status_statistics';
+    var url = '/apis/api/method/iot_ui.iot_api.device_status_statistics';
+    //$.get('assets/'+chart_id+'.json', function (json_data) {
+    $.get(url, function (json_data) {
+        //json_data = JSON.parse(json_data);
+        if(!json_data.message || typeof json_data.message=='undinfed'){
+            $('#'+chart_id).text('暂无数据');
+            return false;
+        }
+        var data = json_data.message;
+        //console.log(data);
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+        myChart.setOption(option = {
+            title : {
+                //text: '设备在线统计',
+                subtext: tag_name,
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type:'time',
+                axisLabel: {
+                    rotate: 50,
+                    interval: 0
+                }
+            },
+            yAxis: {
+                type: 'value',
+                scale: true,
+                boundaryGap: ['20%', '20%']
+            },
+            toolbox: {
+                left: 'center',
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            series: [{
+                name: 'Online',
+                type: 'line',
+                smooth: true,
+                data: data.map(function (item) {
+                    return [new Date(item.time), item.online];
+                }),
+                lineStyle: {
+                    color: '#50a3ba'
+                }
+            },
+            {
+                name: 'Offline',
+                type: 'line',
+                smooth: true,
+                data: data.map(function (item) {
+                    return [new Date(item.time), item.offline];
+                }),
+                lineStyle: {
+                    color: '#eac736'
+                }
+            }]
+        });
+    });
+}
+
+function device_type_statistics(chart_id, tag_name) {
+    var myChart = echarts.init(document.getElementById(chart_id), 'light');
+    var url = 'http://iot.symgrid.com/api/method/iot_ui.iot_api.device_type_statistics';
+    var url = '/apis/api/method/iot_ui.iot_api.device_type_statistics';
+    //$.get('assets/' + chart_id + '.json', function (json_data) {
+    $.get(url, function (json_data) {
+        if(!json_data.message || typeof json_data.message=='undinfed'){
+            $('#'+chart_id).text('暂无数据');
+            return false;
+        }
+        //json_data = JSON.parse(json_data);
+        var data = json_data.message;
+        window.addEventListener("resize", function () {
+            myChart.resize();
+        });
+        myChart.setOption(option = {
+            title : {
+                //text: '设备类型统计',
+                subtext: tag_name,
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['Q102','其他']
+            },
+            series : [
+                {
+                    name: '设备类型',
+                    type: 'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:data['Q102'], name:'Q102'},
+                        {value:data['VBOX'], name:'其他'},
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        });
+    });
+}
+
+function device_event_type_statistics(chart_id, tag_name) {
+    var myChart = echarts.init(document.getElementById(chart_id), 'light');
+    var url = 'http://iot.symgrid.com/api/method/iot_ui.iot_api.device_event_type_statistics';
+    var url = '/apis/api/method/iot_ui.iot_api.device_event_type_statistics';
+    //$.get('assets/' + chart_id + '.json', function (json_data) {
+    $.get(url, function (json_data) {
+        if(!json_data.message || typeof json_data.message=='undinfed'){
+            $('#'+chart_id).text('暂无数据');
+            return false;
+        }
+        //json_data = JSON.parse(json_data);
+        var data = json_data.message;
+        myChart.setOption(option = {
+            title : {
+                //text: '事件类型统计'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            legend: {
+                data:["系统", "设备", "通讯", "数据", "应用"]
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category'
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'系统',
+                    type:'bar',
+                    data: data.map(function (item) {
+                        return [new Date(item.time).toDateString(), item['系统']];
+                    })
+                },
+                {
+                    name:'设备',
+                    type:'bar',
+                    data: data.map(function (item) {
+                        return [new Date(item.time).toDateString(), item['设备']];
+                    })
+                },
+                {
+                    name:'通讯',
+                    type:'bar',
+                    data: data.map(function (item) {
+                        return [new Date(item.time).toDateString(), item['通讯']];
+                    })
+                },
+                {
+                    name:'数据',
+                    type:'bar',
+                    data: data.map(function (item) {
+                        return [new Date(item.time).toDateString(), item['数据']];
+                    })
+                }
+            ]
+        });
+    });
+}
+
+// 图表
+device_online_statistics('device_status_statistics', '');
+device_type_statistics('device_type_statistics', 'device_type_statistics');
+device_event_type_statistics('device_event_type_statistics', 'device_event_type_statistics');
+setInterval(function(){
+    device_online_statistics('device_status_statistics', '');
+    device_type_statistics('device_type_statistics', 'device_type_statistics');
+    device_event_type_statistics('device_event_type_statistics', 'device_event_type_statistics');
+}, 120000);
+})
+    
+/* *
+ * 显示载入信息
+ */
+
     $(function () {
         isLogin();
         isAdmin();

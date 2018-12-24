@@ -271,6 +271,10 @@ $('#modal-add-templ').on('show.bs.modal', function () {
 
 });
 
+$('.creat_templ').click(function () {
+    var appid = $('button.app-install-to-gate').data("cloudappid");
+    window.open("/My_Template_list.html?action=newtempl&appid="+appid);
+});
 
 
 function isUsername(inst) {
@@ -1060,21 +1064,26 @@ function create_templ_select(){
     var templates_row1 = get_table_row1(".template_section_templates.table");
     var templ_select = $("#select_templ_list");
     $("#select_templ_list  tr:not(:first)").empty("");
-    for (var n=0;n<templ_list.length;n++){
-        var html = '<tr>';
+    if(templ_list){
+        for (var n=0;n<templ_list.length;n++){
+            var html = '<tr>';
 
-        html += '<td>' + templ_list[n].conf_name + '</td>';
-        html += '<td>' + templ_list[n].description + '</td>';
-        html += '<td>' + templ_list[n].name + '</td>';
-        html += '<td>' + templ_list[n].latest_version + '</td>';
-        console.log(templ_list[n].conf_name, templates_row1)
-        if($.inArray(templ_list[n].conf_name, templates_row1)==-1){
-            html += '<td><button class="add_templ_toapp">添加</button></td></tr>';
-        }else{
-            html += '<td>已添加</td></tr>';
+            html += '<td>' + templ_list[n].conf_name + '</td>';
+            html += '<td>' + templ_list[n].description + '</td>';
+            html += '<td>' + templ_list[n].name + '</td>';
+            html += '<td>' + templ_list[n].latest_version + '</td>';
+            console.log(templ_list[n].conf_name, templates_row1)
+            if($.inArray(templ_list[n].conf_name, templates_row1)==-1){
+                html += '<td><button class="add_templ_toapp">添加</button></td></tr>';
+            }else{
+                html += '<td>已添加</td></tr>';
+            }
+            templ_select.append(html);
         }
-        templ_select.append(html);
+    }else{
+        return false
     }
+
 
     //点击添加按钮
     $('.add_templ_toapp').click(function () {
@@ -1095,10 +1104,9 @@ function create_templ_select(){
 
         $(this).parent().html('已添加');
 
-        $('.delete_templates_col').click(function () {
-            $(this).parent().parent().remove()
-        })
-    })
+
+
+    });
 
 
 

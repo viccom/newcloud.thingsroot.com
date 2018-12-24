@@ -620,10 +620,11 @@
                     }
                     $('.disposed_message').text(a);
                     if(a == 0){
-                        $('.confirmation').addClass('disabled');
-                        $('.confirmationAll').addClass('disabled')
                         $('.confirmation').attr('disabled',true);
                         $('.confirmationAll').attr('disabled',true);
+                    }else{
+                        $('.confirmation').attr('disabled',false);
+                        $('.confirmationAll').attr('disabled',false);
                     }
                 },
                 error: function (error) {
@@ -1191,10 +1192,11 @@
                 },
                 complete: function () {
                     if($('.disposed_message').text() == 0){
-                        $('.confirmation').addClass('disabled');
-                        $('.confirmationAll').addClass('disabled')
                         $('.confirmation').attr('disabled',true);
                         $('.confirmationAll').attr('disabled',true);
+                    }else{
+                        $('.confirmation').attr('disabled',false);
+                        $('.confirmationAll').attr('disabled',false);
                     }
                 }
             });
