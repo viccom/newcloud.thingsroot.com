@@ -23,6 +23,15 @@
     <!-- global style -->
     <link rel="stylesheet" href="user_css/global.css">
     <style>
+        @media (max-width:768px){
+            #content>.right-full{
+                left:15px;
+            }
+            .product_content .product_main{
+                width:55%;
+            }
+        }
+        
         #four table th:nth-child(2),#four table td:nth-child(2){
 	width:auto;
 }
@@ -30,13 +39,14 @@
 	width:80px;
 }
 .product_main2 th:nth-child(2),.product_main2 td:nth-child(2){
-	width:35%;
+    width:35%;
+    min-width: 30%;
 }
 .product_main2 th:nth-child(3),.product_main2 td:nth-child(3){
 	width:100px;
 }
 .product_main2 th:nth-child(4),.product_main2 td:nth-child(4){
-	width:30%;
+	width:133px;
 }
 #one>p,#two>p{
   display: none;
@@ -54,7 +64,7 @@
   bottom: 0px;
   right: 0px;
   background: #FFF;
-  min-width: 1500px;
+  min-width: 949px;
   min-height: 100%;
   -webkit-transition: all 0.25s;
   transition: all 0.25s;
@@ -161,7 +171,7 @@ input:checked + .slider::after {
   border: 1px solid #e1e1e1;
 }
 .product_content{
-min-width: 1300px;
+min-width: 949px;
 padding: 0 15px;
 /*height: 80%;*/
 }
@@ -205,12 +215,14 @@ color: #566885;
 .main thead{
 display: table;
   width: 100%;
+  overflow: hidden;
   table-layout: fixed;
 }
 .main tbody{
-display: block;
+  display: block;
   max-height: 270px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
 } 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
 border-top: 4px solid #4B6186;
@@ -388,6 +400,7 @@ padding: 0;
             <ul class="sidebar-menu" data-widget="tree">
 
                 <li class="header">Dashboard</li>
+
                 <li class="active"><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
@@ -550,62 +563,7 @@ padding: 0;
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                                <p>New phone +1(800)555-1234</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="label label-danger pull-right">70%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Update Resume
-                                <span class="label label-success pull-right">95%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                            </div>
-                        </a>
-                    </li>
-
-                </ul>
-                <!-- /.control-sidebar-menu -->
 
             </div>
             <!-- /.tab-pane -->
@@ -614,71 +572,7 @@ padding: 0;
             <!-- /.tab-pane -->
             <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
 
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Some information
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Allow mail redirect
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            options are available
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Expose author name in posts
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Allow the user
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <!--<h3 class="control-sidebar-heading">Chat Settings</h3>-->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Show me as online
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Turn off notifications
-                            <input type="checkbox" class="pull-right">
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Delete chat history
-                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-                </form>
             </div>
             <!-- /.tab-pane -->
         </div>
@@ -695,7 +589,7 @@ padding: 0;
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- <script src="/bower_components/jquery/dist/jquery-1.11.3.min.js"></script> -->
+
 <!-- oem -->
 <script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -831,36 +725,39 @@ $.ajax({
     url:"/apis/api/method/iot_ui.iot_api.device_event_count_statistics",
     type:"GET",
     success:function (data) {
-        // var data = JSON.parse(localStorage.list_device_event_count_statistics_original);
-        console.log(data);
-        var data = data.message;
+        let localData = JSON.parse(localStorage.getItem('list_device_event_count_statistics_original'));
+        var data = localData || data.message;
         var html='';
         //创建新数组
         var arr1 = [];
-        for (let i = 0; i < data.length; i++) {
-            //判断次数与时间
-            if(data[i].today != '0' || data[i].last_updated.indexOf(t) !== -1){
-                arr1.push(data[i]);
+        if(data && data.length > 0){
+            for (let i = 0; i < data.length; i++) {
+                //判断次数与时间
+                if(data[i].today != '0' || data[i].last_updated.indexOf(t) !== -1){
+                    arr1.push(data[i]);
+                }
+            };
+                //渲染表格
+            for(var j=0;j<arr1.length;j++){
+                html += `
+                <tr class="myTr" style="cursor: pointer">
+                    <td>${j+1}</td>
+                    <td>${arr1[j].name}</td>
+                    <td>&nbsp;&nbsp;&nbsp;${arr1[j].position}</td>
+                    <td>${arr1[j].last_updated}</td>
+                    <td>&nbsp;&nbsp;&nbsp;${arr1[j].today}</td>
+                    <td style="display: none;">${arr1[j].sn}</td>
+                </tr>`;
             }
-        }
-        //渲染表格
-        for(var j=0;j<arr1.length;j++){
-            html += `
-            <tr class="myTr" style="cursor: pointer">
-                <td>${j+1}</td>
-                <td>${arr1[j].name}</td>
-                <td>&nbsp;&nbsp;&nbsp;${arr1[j].position}</td>
-                <td>${arr1[j].last_updated}</td>
-                <td>${arr1[j].today}</td>
-                <td style="display: none;">${arr1[j].sn}</td>
-            </tr>`;
-        }
 
-        $('#J_error_today').html(html);
-        if($('#J_error_today').children().length == 0){
-            $('#one>table').hide();
-            $('#one>p').show();
+            $('#J_error_today').html(html);
         }
+        if($('#J_error_today').children().length == 0){
+                $('#one>table').hide();
+                $('#one>p').show();
+        }
+        
+        
     },
     complete:function () {
         var tr_len = $('#J_error_today>tr');
@@ -881,13 +778,13 @@ $.ajax({
     url:"/apis/api/method/iot_ui.iot_api.device_event_count_statistics",
     type:"GET",
     success:function (data) {
-        // var data = JSON.parse(localStorage.list_device_event_count_statistics_original);
-        console.log(data);
-        var data = data.message;
+        let localData = JSON.parse(localStorage.getItem('list_device_event_count_statistics_original'));
+        var data = localData || data.message;
         var html1='';
         //创建新数组
         var arr2 = [];
-        for (let i = 0; i < data.length; i++) {
+        if(data && data.length > 0){
+            for (let i = 0; i < data.length; i++) {
             //判断次数与时间
             if( data[i].last_updated.indexOf(t) != -1
                 || data[i].last_updated.indexOf(t1) != -1
@@ -909,11 +806,13 @@ $.ajax({
                 <td>${arr2[j].name}</td>
                 <td>&nbsp;&nbsp;&nbsp;${arr2[j].position}</td>
                 <td>${arr2[j].last_updated}</td>
-                <td>${arr2[j].total}</td>
+                <td>&nbsp;&nbsp;&nbsp;${arr2[j].total}</td>
                 <td style="display: none;">${arr2[j].sn}</td>
             </tr>`;
         }
         $('#J_error_total').html(html1);
+        }
+        
         if($('#J_error_total').children().length == 0){
             $('#two>table').hide();
             $('#two>p').show();
