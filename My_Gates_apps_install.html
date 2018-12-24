@@ -816,7 +816,8 @@
                 var device_supplier = $("select[name='suppliers_select']").val();
                 var protocol = $("select[name='protocols_select']").val();
                 var category = $("select[name='types_select']").val();
-                console.log("设备供应商：",device_supplier);
+                var app_name = $("input[name='app-search']").val();
+                // console.log("设备供应商：",device_supplier);
                 if(device_supplier){
                     data.device_supplier = device_supplier;
                 }else{
@@ -832,6 +833,12 @@
                 }else{
                     delete data.category
                 }
+                if(app_name){
+                    data.app_name = app_name;
+                }else{
+                    delete data.app_name
+                }
+                console.log("@@@@@",data)
                 return data;
             },
             path: function(page) {
@@ -928,60 +935,7 @@
             //     $('#waterfall-message').html('')
             // });
 
-            var data = new Object();
-            var device_supplier = $("select[name='suppliers_select']").val();
-            var protocol = $("select[name='protocols_select']").val();
-            var category = $("select[name='types_select']").val();
-            console.log("设备供应商：",device_supplier);
-            console.log("通讯协议：",protocol);
-            console.log("应用分类：",category);
-            if(device_supplier){
-                data.device_supplier = device_supplier;
-            }else{
-                delete data.device_supplier
-            }
-            if(protocol){
-                data.protocol = protocol;
-            }else{
-                delete data.protocol
-            }
-            if(category){
-                data.category = category;
-            }else{
-                delete data.category
-            }
-            // console.log($.isEmptyObject(data));
-            // console.log(data);
-            // return
-            if($.isEmptyObject(data)!==true){
-                console.log("1",data);
-                $('#container').empty();
-                $('#container').waterfall('option', {
-                    state: {
-                        isDuringAjax: false,
-                        isProcessingData: false,
-                        isResizing: false,
-                        isPause: false,
-                        curPage: 1 // cur page
-                    },
-                    params: data,
-                    path: function(page) {
-                        return '/apis/api/method/iot_ui.iot_api.appslist_bypage?count=' + count + '&page=' + page;
-                    },
-                }, function() {
-                    console.log('change curPage to 1');
-                });
-                $('#container').waterfall('reLayout', function() {
-                    // alert('no more data');
-                });
 
-                $('#container').waterfall('resume', function() {
-                    $('#waterfall-message').html('')
-                });
-
-            }else{
-                console.log("2",data);
-                // return false;
                 $('#container').empty();
                 $('#container').waterfall('option', {
                     state: {
@@ -998,45 +952,20 @@
                 }, function() {
                     console.log('change curPage to 1');
                 });
-                $('#container').waterfall('resume', function() {
-                    $('#waterfall-message').html('')
-                });
                 $('#container').waterfall('reLayout', function() {
                     // alert('no more data');
                 });
-            }
-            // $('#container').data("pause","0");
-            // $('#container').data("resume","1");
-            // $('#container').empty();
 
-            // $('#container').waterfall('option', {
-            //     state: {
-            //         isDuringAjax: false,
-            //         isProcessingData: false,
-            //         isResizing: false,
-            //         isPause: false,
-            //         curPage: 1 // cur page
-            //     },
-            //     path: function(page) {
-            //         console.log(page);
-            //         return '/apis/api/method/iot_ui.iot_api.appslist_bypage?count=' + count + '&page=' + page +"&user=viccom.dong@symid.com";
-            //     },
-            // }, function() {
-            //     console.log('change curPage to 1');
-            // });
-            // $('#container').waterfall('reLayout', function() {
-            //     // alert('no more data');
-            // });
-            //
-            // $('#container').waterfall('resume', function() {
-            //     $('#waterfall-message').html('')
-            // });
+                $('#container').waterfall('resume', function() {
+                    $('#waterfall-message').html('')
+                });
+
+
 
         });
 
         $(".app-search").keypress(function (e) {
             if (e.which == 13) {
-                console.log("!!!!!!!!!")
                 $('button.app-search').click();
             }
         });
@@ -1046,17 +975,14 @@
 
 
         $("select[name='suppliers_select']").on("change", function (event) {
-            console.log("1111111")
             $('button.app-search').click();
         });
 
         $("select[name='protocols_select']").on("change", function (event) {
-            console.log("2222222222")
             $('button.app-search').click();
         });
 
         $("select[name='types_select']").on("change", function (event) {
-            console.log("333333333333")
             $('button.app-search').click();
         });
 

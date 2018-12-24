@@ -13,8 +13,8 @@ function gate_info(sn){
         dataType:'json',
         success:function(req){
             // console.log(req);
-            var gateinfo = localStorage.getItem("gate_info/"+ sn);
-            if(gateinfo!=null){
+
+            if(req.message!=null){
                 localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
                 set_label(sn);
             }
