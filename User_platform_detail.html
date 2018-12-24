@@ -440,9 +440,9 @@
                         if(obj.channel == "app"){
                             if(obj.action == "option"){   //开机自启动
                                 if(obj.data.value == 1){
-                                    text = '开启应用'+ obj.data.inst+'开机自启动'
+                                    text = '应用'+ obj.data.inst+'开启开机自启动'
                                 }else if(obj.data.value == 0){
-                                    text = '关闭应用'+ obj.data.inst+'开机自启动'
+                                    text = '应用'+ obj.data.inst+'关闭开机自启动'
                                 }
                             }
                             else if(obj.action == "restart"){
@@ -535,9 +535,11 @@
                         else if(obj.channel == "command"){
                             text = '网关应用设备执行'+obj.data.cmd+'指令';
                         } //command
-                        else if(obj.channel == "putput"){
-                            text = '网关设备应用'+obj.data.output+'数据输出';
-                        }  //output
+                        else if(obj.channel == "output"){
+                            text = '设备标签'+obj.data.output+'执行数据输出';
+                        }else{
+                            text = req.message.subject
+                        }
                     }
                     $(".mes_name_title").text(text);
                     $("#subject").text(text);
