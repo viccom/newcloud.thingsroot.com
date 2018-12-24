@@ -117,10 +117,10 @@ function set_table(sn, tableobj){
         var deviceinfo = JSON.parse(deviceinfo);
 
         for (i = 0; i < deviceinfo.length; i++) {
-            var device_name = deviceinfo[i].name;
+            var device_name = deviceinfo[i].inst;
             var device_desc = deviceinfo[i].description;
             var device_sn = deviceinfo[i].sn;
-            var device_inst = deviceinfo[i].inst;
+            var device_inst = deviceinfo[i].app;
 
             var inputs_len = 0;
                 if(deviceinfo[i].inputs){
