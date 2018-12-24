@@ -194,15 +194,13 @@
                 <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li class="active"><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
-                <li><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
-                <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
+                <li class="active"><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
-                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
-                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
-
-
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-commenting-o text-yellow"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-commenting-o text-light-blue"></i> <span>设备消息</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -232,7 +230,7 @@
 
             <div class="row">
                 <!-- page left nav menu start -->
-                <div class="col-md-2">
+                <div class="col-md-2"  style="padding-right: 0;">
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <div><i class="fa fa fa-dot-circle-o"></i> <b>当前操作网关：</b></div>
@@ -240,12 +238,12 @@
                     </div>
 
 
-                    <div class="box">
+                    <div class="box hide-gate-list">
                         <div class="box-header with-border">
                             <!--<h3 class="box-title">网关列表</h3>-->
                             <input style="width: 100%" id="search-highlight" name="search-highlight" placeholder="搜索" type="text" data-list=".highlight_list" autocomplete="off">
                         </div>
-                        <div class="box-body no-padding">
+                        <div class="box-body no-padding" style="height:550px;overflow:auto">
 
                             <ul class="nav nav-pills nav-stacked gates_list highlight_list">
 
@@ -257,7 +255,7 @@
                 </div>
                 <!-- page left nav menu end -->
 
-                <div class="col-md-10" style="padding-left: 0">
+                <div class="col-md-10">
                     <div class="box box-primary" >
                         <div class="box-header with-border">
 
@@ -268,7 +266,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="padding-top: 0;">
                         <div class="col-xs-12">
                             <div class="nav-tabs-custom hide">
                                 <ul class="nav nav-tabs">
@@ -318,13 +316,17 @@
                                             </form>
                                         </div>
 
-                                        <div class="all-apps-list" id="container">
 
-                                            <!--应用列表start-->
+                                        <!--<div class="box-body no-padding"  style="height:95%;overflow:auto;padding-top: 15px">-->
+                                            <div class="all-apps-list" id="container">
 
-                                            <!--应用列表end-->
+                                                <!--应用列表start-->
 
-                                        </div>
+                                                <!--应用列表end-->
+
+                                            </div>
+                                        <!--</div>-->
+
                                     </div>
                                 </div>
                                 <!-- app_market_div end -->
@@ -1020,7 +1022,7 @@
         update_gates_list();
         function update_gates_list() {
             $.ajax({
-                url: '/apis/api/method/iot_ui.iot_api.devices_list?filter=all',
+                url: '/apis/api/method/iot_ui.iot_api.devices_list?filter=online',
                 headers: {
                     Accept: "application/json; charset=utf-8",
                     "X-Frappe-CSRF-Token": auth_token
@@ -1060,9 +1062,9 @@
                     }
                     if(data.message && data.message.length>0){
                         var maxlen = data.message.length;
-                        if(data.message.length>12){
-                            maxlen = 12;
-                        }
+                        // if(data.message.length>12){
+                        //     maxlen = 12;
+                        // }
                         for (i = 0; i < maxlen; i++){
                             // console.log(i, data.message[i].device_name);
                             // console.log(op_list);

@@ -222,7 +222,7 @@
                             <!--<h3 class="box-title">网关列表</h3>-->
                             <input style="width: 100%" id="search-highlight" name="search-highlight" placeholder="搜索" type="text" data-list=".highlight_list" autocomplete="off">
                         </div>
-                        <div class="box-body no-padding">
+                        <div class="box-body no-padding" style="height:550px;overflow:auto">
 
                             <ul class="nav nav-pills nav-stacked gates_list highlight_list">
 
@@ -473,7 +473,7 @@
         update_gates_list();
         function update_gates_list() {
             $.ajax({
-                url: '/apis/api/method/iot_ui.iot_api.devices_list?filter=all',
+                url: '/apis/api/method/iot_ui.iot_api.devices_list?filter=online',
                 headers: {
                     Accept: "application/json; charset=utf-8",
                     "X-Frappe-CSRF-Token": auth_token
@@ -513,9 +513,9 @@
                     }
                     if(data.message && data.message.length>0){
                         var maxlen = data.message.length;
-                        if(data.message.length>12){
-                            maxlen = 12;
-                        }
+                        // if(data.message.length>12){
+                        //     maxlen = 12;
+                        // }
                         for (i = 0; i < maxlen; i++){
                             // console.log(i, data.message[i].device_name);
                             // console.log(op_list);

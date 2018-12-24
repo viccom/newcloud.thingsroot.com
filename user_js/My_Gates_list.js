@@ -523,6 +523,16 @@ var    table_gates = $('#table_gates').DataTable({
             return false;
         }
         var device_desc = $("#thingslink-desc").val();
+        if(device_desc.length>32){
+            $("#thingslink-desc:input").data("content", "描述不能超过64字符");
+            $('.popover-gatedesc').popover('show');
+            setTimeout(function () {
+                $('.popover-gatedesc').popover('destroy');
+            },2000);
+            $("#thingslink-desc:input").focus();
+            return false;
+        }
+
         var group_name = $("select.group_select").val();
         if(group_name==null && attach=="2"){
             $('.popover-warning3').popover('show');
