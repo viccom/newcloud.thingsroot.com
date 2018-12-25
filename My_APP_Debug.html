@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>冬笋云 | 信息详情</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Bootstrap switch -->
+    <link rel="stylesheet" href="bower_components/bootstrap-switch/css/bootstrap-switch.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- DataTables-Responsive -->
+    <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- Tooltip classes -->
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
+    <link rel="stylesheet" href="plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+
+    <link rel="stylesheet" type="text/css" href="plugins/jstree/themes/default/style.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="plugins/layui/css/layui.css"  media="all">
+
+    <!-- global style -->
+    <link rel="stylesheet" href="user_css/global.css">
+
+    <!-- user style -->
+    <!--<link rel="stylesheet" href="user_css/star.css">-->
+    <link rel="stylesheet" href="user_css/apps_list.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- DataTables-Responsive -->
+    <link rel="stylesheet" href="bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="plugins/jstree/jstree.min.js" type="text/javascript"></script>
+    <script src="plugins/ace/ace.js" charset="utf-8" type="text/javascript"></script>
+    <script src="plugins/ace/ext-language_tools.js" type="text/javascript"></script>
+    <script src="plugins/layui/layui.js" charset="utf-8"></script>
+
+
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .content-header>i{
+            position: absolute;
+            right: 30px;
+            top: 20px;
+            font-size: 22px;
+        }
+        .debug_top span img {
+            width: 20px;
+        }
+        #jstree_tree {
+            float: left;
+            min-width: 319px;
+            max-width: 319px;
+            border-right: none;
+            overflow: auto;
+            padding: 0 0;
+            border: 1px solid #e1e1e1;
+        }
+        .debug_left {
+            width: 320px;
+            height: 500px;
+            border-right: 1px solid #e1e1e1;
+            /* overflow-y: scroll; */
+        }
+        #editor_data #editor_code {
+            margin: 0;
+            padding: 0;
+            height: 500px;
+            width: 73%;
+            border: 0;
+            display: block;
+            line-height: 18px;
+            resize: none;
+            border: 1px solid #e1e1e1;
+        }
+
+        /*.add_content>p{*/
+            /*margin-top: 20px;*/
+            /*line-height: 40px;*/
+        /*}*/
+
+        /*遮罩层*/
+        .shade{
+            position:fixed;
+            width: 100%;
+            height:100%;
+            left: 0;
+            top: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        .shade .main,.debug_shade{
+            width:400px;
+            margin:0 auto;
+            background:#fff;
+            padding: 0 20px;
+            border-radius: 4px;
+        }
+        .shade .tit,.debug_shade .tit{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color:#354E77;
+            font-size: 16px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        .shade .tit span,.debug_shade .tit span{
+            padding-right:15px;
+        }
+        .shade .content_main .tit{
+            background: none;
+            padding: 0;
+            border: none;
+            color: #232323;
+        }
+        .shade .add_content select,.debug_shade .add_content select{
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            width: 100%;
+            padding: 5px;
+        }
+        .shade .add_content textarea,.debug_shade .add_content textarea{
+            resize: none;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            width: 100%;
+            padding: 5px;
+        }
+        .shade .add_content .bottom,.debug_shade .add_content .bottom{
+            text-align: center;
+            margin: 20px auto;
+        }
+        .shade .add_content,.debug_shade .add_content{
+            padding: 10px 0;
+            height: 120px;
+        }
+        .shade .add_content p,.debug_shade .add_content p{
+            color:#848689;
+            margin: 5px 0;
+        }
+        .shade .add_content input,.debug_shade .add_content input{
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            width:100%;
+            padding: 5px;
+        }
+        .debug_shade .checkbox{
+            margin:10px 0;
+        }
+        .shade .add_content .add{
+            margin:20px auto;
+            width:120px;
+            text-align: center;
+            background: #354E77;
+            color: #fff;
+            border-radius: 4px;
+            padding: 7px 0;
+            cursor: pointer;
+        }
+
+        .shade .add_content .bottom,.debug_shade .add_content .bottom{
+            text-align: center;
+            margin: 20px auto;
+        }
+        .shade .add_content button,.debug_shade .add_content button{
+            border:none;
+            margin:0 20px;
+            width: 120px;
+            text-align: center;
+            background: #354E77;
+            color: #fff;
+            border-radius: 4px;
+            padding: 7px 0;
+            cursor: pointer;
+        }
+        .debug_shade .add_content .off{
+            background:#ddd;
+            color:#232326;
+        }
+    </style>
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <!-- top Nav menu start. -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>冬</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>冬笋云</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 4 messages</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Support Team
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <!-- end message -->
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                AdminLTE Design Team
+                                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Developers
+                                                <small><i class="fa fa-clock-o"></i> Today</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Sales Department
+                                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Reviewers
+                                                <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li>
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 10 notifications</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                                            page and may cause design problems
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-red"></i> 5 new members joined
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-red"></i> You changed your username
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <!-- Tasks: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-flag-o"></i>
+                            <span class="label label-danger">9</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 9 tasks</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Design some buttons
+                                                <small class="pull-right">20%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">20% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Create a nice theme
+                                                <small class="pull-right">40%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">40% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Some task I need to do
+                                                <small class="pull-right">60%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">60% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Make beautiful transitions
+                                                <small class="pull-right">80%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
+                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only">80% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">View all tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <!-- Menu Body -->
+                            <li class="user-panel">
+
+                                <div class="text-center">
+                                    <a href="User_Settings.html">基本资料</a>
+                                </div>
+                            </li>
+                            <li class="user-panel">
+
+                                <div class="text-center">
+                                    <a href="My_AccessKey.html">AccessKey</a>
+                                </div>
+
+                            </li>
+
+                            <li class="user-panel">
+                                <div class="text-center">
+                                    <a href="My_Virtual_Gates.html">虚拟网关</a>
+                                </div>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+
+                                <div class="text-center">
+                                    <a href="javascript:logout();"  class="btn btn-default btn-flat">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- top Nav menu end. -->
+
+    <!-- Left Nav menu start. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="header">Dashboard</li>
+                <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                <li class="header">我的资源</li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
+                <li class="active"><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
+                <li class="header">消息中心</li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Left Nav menu end. contains the logo and sidebar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header" >
+                <h1>设备消息
+                    <span style="font-size: 16px;margin: 8px 0 0 10px;color: #777;">消息详情</span>
+                </h1>
+                <i class="glyphicon glyphicon-arrow-left" onclick="history.go(-1)"></i>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="box box-body " style="min-height: 625px">
+
+                <div class="debug_top">
+                    <div>
+                        <span class="tag"><img src="img/icon_d_02.png" areaname="tag" title="发布新版本"/></span>
+                        <span class="revert"><img src="img/icon_d_03.png" areaname="revert" title="重置工作区到指定版本"/></span>
+                        <span class="folder"><img src="img/icon_d_04.png" areaname="folder" title="新目录"/></span>
+                        <span class="file"><img src="img/icon_d_05.png" areaname="file" title="新文件"/></span>
+                        <span class="rename"><img src="img/icon_d_06.png" areaname="rename" title="重命名"/></span>
+                        <span class="delete"><img src="img/icon_d_07.png" areaname="delete" title="删除"/></span>
+                        <span class="save off"><img src="img/icon_d_08.png" areaname="save" title="保存文件"/></span>
+                        <span class="download"><img src="img/icon_d_09.png" areaname="download" title="获取文件"/></span>
+                        <span class="undo"><img src="img/icon_d_10.png" areaname="undo" title="撤销"/></span>
+                        <span class="redo"><img src="img/icon_d_11.png" areaname="redo" title="重置"/></span>
+                        <span class="zoom"><img src="img/icon_d_12.png" areaname="zoom" title="放大字体"/></span>
+                        <span class="zoom_out"><img src="img/icon_d_13.png" areaname="zoom_out" title="缩小字体"/></span>
+                        <span class="debug"><img src="img/icon_d_14.png"title="调试工具"/></span>
+                    </div>
+                    <p class="fr"></p>
+                </div>
+                <div class="debug_main">
+                    <div class="debug_content">
+                        <div class="debug_left fl" id="jstree_tree">
+                            <!--编辑器目录区-->
+                        </div>
+                        <div class="debug_right fl" id="editor_data">
+                            <div id="editor_code"><!--编辑器代码区--></div>
+                            <!--<div class="content folder" style="display:none;"></div>
+                            <div class="content image" style="display:none; position:relative;">
+                                <img src="" alt="" style="display:block; position:absolute; left:50%; top:50%; padding:0; max-height:90%; max-width:90%;" />
+                            </div>-->
+                            <!--<div class="content default" style="text-align:center;display:none;">请从文件树中选择要编辑的文件。</div>-->
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="shade J_apply">
+                    <div class="debug_shade">
+                        <div class="add_content">
+                            <!--<div class="tit">打包修改内容并安装到</div>-->
+                            <p>设备序列号</p>
+                            <input type="text" class="J_apply_device" readonly="true" value="value_device_sn" />
+                            <p>应用实例</p>
+                            <input type="text" class="J_apply_inst" readonly="true" value="value_inst" />
+                            <div class="checkbox"><label><input class="J_protocol" type="checkbox">我同意使用条款<em></em></label></div>
+                            <div class="bottom">
+                                <button id="J_apply_do">应用</button>
+                                <button class="off J_content_close">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shade J_tag">
+                    <div class="debug_shade">
+                        <div class="add_content">
+                            <!--<div class="tit">发布新版本</div>-->
+                            <p>填写版本</p>
+                            <input type="text" id="J_tag_version" value="" />
+                            <p>更新日志</p>
+                            <textarea rows="5" id="J_tag_comment"></textarea>
+                            <div class="checkbox"><label><input class="J_protocol" type="checkbox">我同意使用条款<em></em></label></div>
+                            <div class="bottom">
+                                <button id="J_tag_do">创建</button>
+                                <button class="off J_content_close">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shade J_revert">
+                    <div class="debug_shade">
+                        <div class="add_content">
+                            <p>选择版本</p>
+                            <select name="version" id="J_revert_version">
+                                version_list
+                            </select>
+                            <div class="bottom">
+                                <button id="J_revert_do">重置</button>
+                                <button class="off J_content_close">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+
+<!--提示框-->
+        <div class="alert success" role="alert" style="z-index: 99999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+            <a href="#" class="alert-link" style="z-index: 99999;color: #333;text-decoration: none;font-size: 16px">...</a>
+        </div>
+        <div class="alert danger" role="alert" style="text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
+            <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px">...</a>
+        </div>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+
+
+    <!-- Control Sidebar start-->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <!--<h3 class="control-sidebar-heading">Chat Settings</h3>-->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- /.control-sidebar end-->
+
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+
+
+<!-- jQuery 3 -->
+<!--<script src="bower_components/jquery/dist/jquery.min.js"></script>-->
+<!-- jQuery UI 1.11.4 -->
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap switch -->
+<script src="bower_components/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- bootstrap-notify -->
+<script src="bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+<!-- DataTables -->
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<!-- SlimScroll -->
+<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- FastClick -->
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<script src="user_js/common/skin.js"></script>
+<!-- jQuery and the Poshy Tip plugin files -->
+<script type="text/javascript" src="plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
+
+<!-- load common js-->
+<script src="user_js/common/jQuery.cookie.js"></script>
+<script src="user_js/common/common.js"></script>
+<!--<script src="user_js/common/add_back_task.js"></script>-->
+<script src="user_js/common/user.js"></script>
+
+<!--<script src="user_js/common/transport.js"></script>-->
+
+<!--&lt;!&ndash; DataTables &ndash;&gt;-->
+<!--<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+<!--<script src="bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>-->
+
+<!-- load user is -->
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>-->
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
+
+<script>
+    /**
+     * @file            debug1.js
+     * @description     应用调试。
+     **/
+    $(function(){
+        var API_HOST = "http://iot.symgrid.com";
+//var API_HOST = "http://ds.com/apis";
+        API_HOST = "/apis";
+        var pageSize = 4; // 每页条数
+        var device_sn = getParam('device_sn');// 以当前网关id身份进入应用中心
+        var app_inst = getParam('app_inst');
+        var version = getParam('version');
+        var cur_app = getParam('app');
+        var editor_worksapce_version; // 编辑区版本号
+        var get_latest_version; // 获取应用最新的版本号
+
+        var device_info = JSON.parse(localStorage.getItem('device_detail_'+device_sn));
+
+        // $(".J_gate_name a").text(decodeURI(device_info.basic.name));
+        // $(".J_current_inst").html(app_inst);
+        // $("#J_current_inst").val(app_inst);
+
+        var editorMode = {
+            'txt': 'text',
+            'csv': 'text',
+            'md': 'markdown',
+            'htaccess': 'text',
+            'log': 'text',
+            'js': 'javascript',
+            'py': 'python',
+            'c': 'c_cpp',
+            'cpp': 'c_cpp',
+            'cxx': 'c_cpp',
+            'h': 'c_cpp',
+            'hpp': 'c_cpp',
+        };
+        var code_editor = ace.edit("editor_code");
+        code_editor.setTheme("ace/theme/tomorrow");
+        code_editor.session.setMode("ace/mode/lua");
+        code_editor.setFontSize(16);
+        code_editor.setOptions({
+            enableBasicAutocompletion: true,
+            enableSnippets: true,
+            enableLiveAutocompletion: true
+        });
+        var local_storage_prefix = cur_app + "_saved_file:";
+        var doc_list = {};
+
+        var editor_codeIng = $('.debug_top p');
+
+        var editor_title_item = $('.debug_top p').on('click', function() {
+            $(this).removeClass('active');
+        });
+        code_editor.on("change", function(e) {
+            var session = code_editor.getSession();
+            session.changed = true;
+            editor_codeIng.html('<b>' + session.name + " ***" + '</b>');
+            editor_codeIng.removeClass('modified').addClass('modified');
+            $('.debug_top .upload').removeClass('off');
+            $('.debug_top .save').removeClass('off');
+        });
+        code_editor.on("blur", function() {
+            var session = code_editor.getSession();
+            if (session.changed) {
+                code_editor.execCommand('save', {});
+            }
+        });
+        code_editor.on("changeSession", function(e) {
+            var session = code_editor.getSession();
+            var title = session.name;
+            editor_codeIng.removeClass('modified');
+            if (session.changed) {
+                title = title + ' *';
+                editor_codeIng.addClass('modified');
+            }
+            editor_codeIng.html('<b>' + title + '</b>');
+            if (session.changed) {
+                $('.debug_top .upload').removeClass('off');
+                $('.debug_top .save').removeClass('off');
+            } else {
+                $('.debug_top .save').addClass('off');
+            }
+        });
+
+
+        /* 提示框 */
+        function successAlert(text){
+            $('.success').show();
+
+            $('.success>a').text(text);
+            setTimeout(function () {
+                $('.success').hide();
+            },2000)
+        }
+        function errorAlert(text){
+            $('.danger').show();
+
+            $('.danger>a').text(text);
+            setTimeout(function () {
+                $('.danger').hide();
+            },2000)
+        }
+
+
+
+        var commands = code_editor.commands;
+        commands.addCommand({
+            name: "save",
+            bindKey: {win: "Ctrl-S", mac: "Command-S"},
+            exec: function(arg) {
+                var session = code_editor.session;
+                var name = session.name;
+                localStorage.setItem(
+                    local_storage_prefix + name,
+                    session.getValue()
+                );
+                session.changed = true;
+                editor_codeIng.removeClass('modified').addClass('modified');
+                editor_codeIng.html('<b>' + session.name + " *" + '</b>');
+                $('.debug_top .save').addClass('off');
+                //code_editor.cmdLine.setValue("saved "+ name);
+            }
+        });
+        commands.addCommand({
+            name: "load",
+            bindKey: {win: "Ctrl-O", mac: "Command-O"},
+            exec: function(arg) {
+                var session = code_editor.session;
+                var name = session.name;
+                var value = localStorage.getItem(local_storage_prefix + name);
+                if (typeof value == "string") {
+                    session.setValue(value);
+                    //code_editor.cmdLine.setValue("loaded "+ name);
+                } else {
+                    //code_editor.cmdLine.setValue("no previuos value saved for "+ name);
+                }
+            }
+        });
+        var editor_switch_document = function(doc_name, data) {
+            var mode = editorMode[data.type];
+            if (!mode) {
+                mode = data.type;
+            }
+            var s = doc_list[doc_name];
+            if (!s) {
+                var name = doc_name;
+                var value = localStorage.getItem(local_storage_prefix + name);
+                if (typeof value == "string") {
+                    s = ace.createEditSession(value, "ace/mode/" + mode);
+                    s.changed = true;
+                    //code_editor.cmdLine.setValue("loaded "+ name);
+                } else {
+                    s = ace.createEditSession(data.content, "ace/mode/" + mode);
+                }
+                s.name = name;
+                doc_list[name] = s;
+            }
+            code_editor.setSession(s, 1);
+            code_editor.focus();
+        };
+        var editor_rename_document = function(doc_name, data) {
+            if (doc_name == data.id)
+                return;
+            var session = doc_list[doc_name];
+            if (session) {
+                session.name = data.id;
+                doc_list[data.id] = session;
+                doc_list[doc_name] = null;
+                //var type = selected_file.split('.').pop();
+                var mode = editorMode[data.type];
+                if (!mode) {
+                    mode = data.type;
+                }
+                session.setMode("ace/mode/" + mode);
+            }
+            var value = localStorage.getItem(local_storage_prefix + doc_name);
+            if (typeof value == 'string') {
+                localStorage.setItem(local_storage_prefix + data.id);
+                localStorage.removeItem(local_storage_prefix + doc_name);
+            }
+        };
+
+        var get_file_content = function(doc_name) {
+            var backend_url = '/apis/api/method/app_center.editor.editor?app=' + cur_app;
+            $.ajax({
+                url: backend_url+'&operation=get_content&id=' + doc_name,
+                type: "GET",
+                success:function (d) {
+                    console.log(d);
+                    if(d && typeof d.type !== 'undefined') {
+                        $('#editor_data .content').hide();
+                        switch(d.type) {
+                            case 'text':
+                            case 'txt':
+                            case 'csv':
+                            case 'md':
+                            case 'htaccess':
+                            case 'log':
+                            case 'sql':
+                            case 'php':
+                            case 'js':
+                            case 'json':
+                            case 'css':
+                            case 'html':
+                            case 'lua':
+                            case 'py':
+                            case 'c':
+                            case 'cpp':
+                            case 'cxx':
+                            case 'h':
+                            case 'hpp':
+                                $('#editor_data .code').show();
+                                editor_switch_document(doc_name, d);
+                                break;
+                            case 'png':
+                            case 'jpg':
+                            case 'jpeg':
+                            case 'bmp':
+                            case 'gif':
+                                $('#editor_data .image img')
+                                    .one('load', function () {
+                                        $(this).css({
+                                            'marginTop':'-' + $(this).height()/2 + 'px',
+                                            'marginLeft':'-' + $(this).width()/2 + 'px'
+                                        });
+                                    })
+                                    .attr('src',d.content)
+                                ;
+                                $('#editor_data .image').show();
+                                break;
+                            default:
+                                $('#editor_data .default').html(d.content).show();
+                                break;
+                        }
+                    }
+                }
+            });
+        };
+
+        var backend_url = API_HOST+'/apis/api/method/app_center.editor.editor?&app=' + cur_app;
+        $('#jstree_tree').jstree({
+            'core' : {
+                'data' : {
+                    'url' : backend_url,
+                    'data' : function (node) {
+                        return { 'operation': 'get_node', 'id' : node.id };
+                    }
+                },
+                'check_callback' : function(o, n, p, i, m) {
+                    if(m && m.dnd && m.pos !== 'i') { return false; }
+                    if(o === "move_node" || o === "copy_node") {
+                        if(this.get_node(n).parent === this.get_node(p).id) { return false; }
+                    }
+                    return true;
+                },
+                'themes' : {
+                    'responsive' : false,
+                    'variant' : 'small',
+                    'stripes' : true
+                }
+            },
+            'sort' : function(a, b) {
+                return this.get_type(a) === this.get_type(b) ? (this.get_text(a) > this.get_text(b) ? 1 : -1) : (this.get_type(a) >= this.get_type(b) ? 1 : -1);
+            },
+            'contextmenu' : {
+                'items' : function(node) {
+                    var tmp = $.jstree.defaults.contextmenu.items();
+                    delete tmp.create.action;
+                    tmp.create.label = "New";
+                    tmp.create.submenu = {
+                        "create_folder" : {
+                            "separator_after"	: true,
+                            "label"				: "Folder",
+                            "action"			: function (data) {
+                                var inst = $.jstree.reference(data.reference),
+                                    obj = inst.get_node(data.reference);
+                                inst.create_node(obj, { type : "default" }, "last", function (new_node) {
+                                    setTimeout(function () { inst.edit(new_node); },0);
+                                });
+                            }
+                        },
+                        "create_file" : {
+                            "label"				: "File",
+                            "action"			: function (data) {
+                                var inst = $.jstree.reference(data.reference),
+                                    obj = inst.get_node(data.reference);
+                                inst.create_node(obj, { type : "file" }, "last", function (new_node) {
+                                    setTimeout(function () { inst.edit(new_node); },0);
+                                });
+                            }
+                        }
+                    };
+                    if(this.get_type(node) === "file") {
+                        delete tmp.create;
+                    }
+                    //console.log(tmp);
+                    return tmp;
+                }
+            },
+            'types' : {
+                'default' : { 'icon' : 'folder' },
+                'file' : { 'valid_children' : [], 'icon' : 'file' }
+            },
+            'unique' : {
+                'duplicate' : function (name, counter) {
+                    return name + ' ' + counter;
+                }
+            },
+            'plugins' : ['state','dnd','sort','types','contextmenu','unique',"wholerow"]
+        })
+            .on('delete_node.jstree', function (e, data) {// 替换ok
+                $.ajax({
+                    url: backend_url+"&operation=delete_node&id="+data.node.id,
+                    type: 'GET',
+                    success: function (d) {
+                        if(d && typeof d.status == 'OK') {
+                            data.instance.refresh();
+                        }
+                    }
+                })
+            })
+            .on('create_node.jstree', function (e, data) {// 替换ok
+                $.ajax({
+                    url :'/apis/api/method/app_center.editor.editor?app=' + cur_app+"&operation=create_node&type="+data.node.type+"&id="+data.node.parent+"&text="+data.node.text,
+                    type: "GET",
+                    success: function (d) {
+                        if(d && typeof d.id !== 'undefined') {
+                            data.instance.set_id(data.node, d.id);
+                            if (d.icon) {
+                                data.instance.set_icon(data.node, d.icon);
+                            }
+                        }else{
+                            data.instance.refresh();
+                        }
+                    }
+                })
+            })
+            .on('rename_node.jstree', function (e, data) {// 替换ok
+                $.ajax({
+                    url: '/apis/api/method/app_center.editor.editor?app=' + cur_app+"&operation=rename_node&id="+data.node.id+"&text="+data.text,
+                    type: "GET",
+                    success: function(d){
+                        if(d && typeof d.id !== 'undefined') {
+                            var doc_name = data.node.id;
+                            data.instance.set_id(data.node, d.id);
+                            if (d.icon) {
+                                data.instance.set_icon(data.node, d.icon);
+                            }
+                            editor_rename_document(doc_name, d.id);
+                        }
+                    },error: function () {
+                        data.instance.refresh();
+                    }
+                })
+            })
+            .on('move_node.jstree', function (e, data) {// 替换ok
+                $.ajax({
+                    url: '/apis/api/method/app_center.editor.editor?app=' + cur_app+"&operation=move_node&id="+data.node.id+"&parent="+data.parent,
+                    type: 'GET',
+                    success: function (d) {
+                        data.instance.refresh();
+                    }
+                })
+            })
+            .on('copy_node.jstree', function (e, data) {// 替换ok
+                $.ajax({
+                    url: '/api/method/app_center.editor.editor?app=' + cur_app+"&operation=copy_node&id="+data.original.id+"&parent="+data.parent,
+                    type: 'GET',
+                    success: function (d) {
+                        data.instance.refresh();
+                    }
+                })
+
+            })
+            .on('changed.jstree', function (e, data) {
+                if(data && data.selected && data.selected.length) {
+                    if (data.node.type == 'default') {
+                        return;
+                    }
+                    var selected_file = data.selected.join(':');
+                    var session = doc_list[selected_file];
+                    if (session) {
+                        $('#editor_data .code').show();
+                        code_editor.setSession(session, 1);
+                        code_editor.focus();
+                    } else {
+                        var value = localStorage.getItem(local_storage_prefix + selected_file);
+                        if (typeof value == "string") {
+                            var type = selected_file.split('.').pop();
+                            editor_switch_document(selected_file, {"type": type, "content": value});
+                        } else {
+                            get_file_content(selected_file);
+                        }
+                    }
+                }
+                else {
+                    $('#editor_data .content').hide();
+                    $('#editor_data .default').html('Select a file from the tree.').show();
+                }
+            });
+
+        var jstree_create_file = function() {//==ok
+            var ref = $('#jstree_tree').jstree(true),
+                sel = ref.get_selected();
+            if(!sel.length) { return false; }
+            sel = sel[0];
+            sel = ref.create_node(sel, {"type":"file"});
+            if(sel) {
+                ref.edit(sel);
+            }else{
+                var text = '请选择目录后再添加文件';
+                errorAlert(text);
+            }
+        };
+        var jstree_create_folder = function() {//==ok
+            var ref = $('#jstree_tree').jstree(true),
+                sel = ref.get_selected();
+            if(!sel.length) {
+                var text = '请选择目录后再添加文件夹';
+                errorAlert(text);
+                return false;
+            }
+            sel = sel[0];
+            sel = ref.create_node(sel, {"type":"default"});
+            if(sel) {
+                ref.edit(sel);
+            }else{
+                var text = '请选择目录后再添加文件夹';
+                errorAlert(text);
+            }
+        };
+        var jstree_rename = function() {
+            var ref = $('#jstree_tree').jstree(true),
+                sel = ref.get_selected();
+            if(!sel.length) { return false; }
+            sel = sel[0];
+            ref.edit(sel);
+        };
+        var jstree_delete = function() {//==ok
+            var ref = $('#jstree_tree').jstree(true),
+                sel = ref.get_selected();
+            if(!sel.length) {
+                var text = '请选择文件或目录';
+                errorAlert(text);
+                return false;
+            }
+            layui.use(['laypage', 'layer'], function(){
+                var laypage = layui.laypage
+                    ,layer = layui.layer;
+                layer.confirm('确定要删除吗？', {
+                    btn: ['确认','取消']
+                }, function(){
+                    ref.delete_node(sel);
+                    var text = '删除成功';
+                    successAlert(text)
+                    layer.closeAll();
+                }, function(index){
+                    layer.close(index);
+                });
+            });
+
+        };
+
+
+//------------------- 编辑器菜单栏操作
+        //发布新版本 start
+        $('.debug_top .tag').click(function(){
+            var html = $('.J_tag').html();
+            layui.use('layer', function(){
+                layui.layer.open({
+                    title: '发布新版本',
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['460px', '380px'], //宽高
+                    content: '<div class="ly">'+html+'</div>'
+                });
+            });
+        });
+        $('body').on('click','.ly #J_tag_do',function(){
+            var backend_url = '/apis/api/method/app_center.editor.editor_release';
+            var args = {
+                'app': cur_app,
+                //'operation': 'set_content',
+                'version':$('.ly #J_tag_version').val(),
+                'comment':$('.ly #J_tag_comment').val(),
+            };
+            if($('.ly #J_tag_version').val()==''){
+                var text = '版本号不能为空';
+                errorAlert(text);
+                return false;
+            }
+            if($('.ly #J_tag_comment').val()==''){
+                var text = '评论内容不能空';
+                errorAlert(text);
+                return false;
+            }
+            if(!$('.ly .J_protocol').is(':checked')){
+                var text = '同意使用条款才能操作';
+                errorAlert(text);
+                return false;
+            }
+            $.ajax({
+                url: backend_url,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: "post",
+                data: args,
+                success: function (req) {
+                    if(req && typeof(req.message)!=='undefined'){
+                        layui.use('layer', function(){
+                            layer.closeAll();
+                        });
+                        var text = '发布成功';
+                        successAlert(text);
+                        setTimeout(function(){
+                            layui.use('layer', function(){
+                                window.location.reload();
+                            });
+                        },2000);
+                    }
+                },
+                error: function () {
+                    var text = '发布失败';
+                    errorAlert(text)
+                }
+            })
+
+        });
+        //发布新版本 end
+
+        //重置工作区到指定版本 start
+        $('.debug_top .revert').click(function(){
+            var html = $('.J_revert').html();
+            // 获取应用的版本列表
+            $.ajax({
+                url: '/apis/api/method/app_center.api.get_versions?app=' + cur_app + '&beta=1',
+                type: "GET",
+                success:function (req) {
+                    var version_list = '';
+                    console.log('get_versions',req);
+                    if(req && typeof req.message !== 'undefined') {
+                        var data = req.message;
+                        $.each(data,function(i,v){
+                            version_list += `<option value="${data[i].version}">${data[i].version}</option>`;
+                        })
+                        localStorage.setItem('version_list',version_list);
+                        html = html.replace(/version_list/,localStorage.getItem('version_list'));
+                        console.log(html);
+                        layui.use('layer', function(){
+                            layui.layer.open({
+                                title: '重置编辑器工作区内容到',
+                                type: 1,
+                                skin: 'layui-layer-rim', //加上边框
+                                area: ['460px', '240px'], //宽高
+                                content: '<div class="ly">'+html+'</div>'
+                            });
+                        });
+                    }
+                }
+            })
+
+        });
+        $('body').on('click','.ly #J_revert_do',function(){
+            var backend_url = '/apis//api/method/app_center.editor.editor_revert';
+            var args = {
+                'app': cur_app,
+                'operation': 'set_content',
+                'version' : $('.ly #J_revert_version').val(),
+            };
+            $.ajax({
+                url: backend_url,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: "POST",
+                data: args,
+                success: function (req) {
+                    if(req && typeof(req.message)!=='undefined'){
+                        layui.use('layer', function(){
+                            layer.closeAll();
+                        });
+                        var text = '工作区重置成功';
+                        successAlert(text);
+                        setTimeout(function(){
+                            layui.use('layer', function(){
+                                //layer.closeAll();
+                                window.location.reload();
+                            });
+                        },2000);
+                    }else{
+                        var text = '工作区重置失败';
+                        errorAlert(text)
+                    }
+                }
+            })
+
+        });
+        //重置工作区到指定版本 end
+
+        $('.debug_top .folder').click(jstree_create_folder); //新目录
+        $('.debug_top .file').click(jstree_create_file); //新文件
+        $('.debug_top .rename').click(jstree_rename); //重命名
+        $('.debug_top .delete').click(jstree_delete); //删除
+
+        $('.debug_top .save').click(function(){	//保存文件==ok
+            $('.debug_top .save').addClass('off');
+            var session = code_editor.getSession();
+            if (session.changed) {
+                upload_application_file(session.name, session.getValue());
+            }
+        });
+        $('.debug_top .download').click(function () { //获取文件==ok
+            layui.use(['laypage', 'layer'], function(){
+                var laypage = layui.laypage
+                    ,layer = layui.layer;
+                layer.confirm('从服务器重新获取文件，将会删除本地所有的改动，是否执行？', {
+                    btn: ['确认','取消']
+                }, function(){
+                    var session = code_editor.getSession();
+                    console.log('session',session);
+                    if (session.changed) {
+                        $('.debug_top .save').addClass('off');
+                        localStorage.removeItem(local_storage_prefix + session.name);
+                        doc_list[session.name] = null;
+                        get_file_content(session.name);
+                        var text = '执行成功';
+                        successAlert(text);
+                        setTimeout('layer.closeAll();',2000);
+                    }else{
+                        var text = '文件未修改，无须执行';
+                        errorAlert(text);
+                    }
+                }, function(index){
+                    layer.close(index);
+                });
+            });
+        });
+        //撤销==ok
+        $('.debug_top .undo').click(function () {
+            code_editor.undo();
+        });
+        //重置==ok
+        $('.debug_top .redo').click(function () {
+            code_editor.redo();
+        });
+        // 放大字号==ok
+        $('.debug_top .zoom').click(function () {
+            var font_size = code_editor.getFontSize() + 1;
+            code_editor.setFontSize(font_size);
+        });
+        // 缩小字号==ok
+        $('.debug_top .zoom_out').click(function () {
+            var font_size = code_editor.getFontSize() - 1;
+            code_editor.setFontSize(font_size);
+        });
+        $('.debug_top .align_justify').click(function () {
+            //code_editor.indent();
+        });
+        // ==ok
+        var upload_application_file = function(name, content) {
+            var backend_url = '/api/method/app_center.editor.editor';
+            var args = {
+                'app': cur_app,
+                'operation': 'set_content',
+                'id' : name,
+                'text' : content,
+            };
+            $.ajax({
+                url: backend_url,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: "POST",
+                data: args,
+                success: function (d) {
+                    if(d && typeof(d.status)!=='undefined'){
+                        var session = doc_list[name];
+                        session.changed = false;
+                        localStorage.removeItem(local_storage_prefix + name);
+                        if (code_editor.getSession() == session) {
+                            editor_codeIng.removeClass('modified');
+                            editor_codeIng.html('<b>' + session.name + '</b>');
+                        }
+                        var text = 'Upload Ok!';
+                        successAlert(text);
+                    }else{
+                        var session = doc_list[name];
+                        code_editor.setSession(session, 1);
+                        code_editor.focus();
+                        $('.debug_top .upload').removeClass('off');
+                        var text = 'Upload Failed!';
+                        errorAlert(text);
+                    }
+                }
+            })
+
+
+        };
+        var upload_application = function() {
+            $('.debug_top.upload').addClass('off');
+            for (var name in doc_list) {
+                var session = doc_list[name];
+                if (session.changed) {
+                    upload_application_file(session.name, session.getValue())
+                }
+            }
+        };
+        // 其他
+        $('body').on('click','.J_content_close',function(){
+            layui.use('layer', function(){
+                layer.closeAll();
+            });
+        });
+        // 获取当前编辑区的版本号和设备安装版本的对比
+
+
+        $.ajax({
+            url: '/apis/api/method/app_center.editor.editor_worksapce_version?app=' + cur_app,
+            type: "GET",
+            success: function (req) {
+                console.log(req);
+                $('.get_version').text("版本"+req.message);
+                // 如果有版本的话，提示现在的版本
+                if(req && typeof req.message !== 'undefined') {
+                    $.ajax({
+                        url:"/apis/api/method/app_center.api.get_latest_version",
+                        type: "GET",
+                        data: {app:decodeURI(window.location.href.split("=")[1]),beta:1},
+                        success:function(data){
+                            var version = data.message;
+                            if(req.message != version) {
+                                layui.use('layer', function () {
+                                    layui.layer.open({
+                                        title: '版本提示',
+                                        type: 1,
+                                        skin: 'layui-layer-rim', //加上边框
+                                        area: ['420px', '180px'], //宽高
+                                        content: '<div class="debug_shade"><div class="add_content"><p style="text-align: center">当前工作区是基于版本' + req.message + '，当前应用的最新版本为'+ version +'。</p><div class="bottom"><button class="J_content_close">我知道了</button></div></div></div>'
+                                    });
+                                });
+                            }else if(req.message == version){
+                                layui.use('layer', function () {
+                                    layui.layer.open({
+                                        title: '版本提示',
+                                        type: 1,
+                                        skin: 'layui-layer-rim', //加上边框
+                                        area: ['420px', '180px'], //宽高
+                                        content: '<div class="debug_shade"><div class="add_content"><p style="text-align: center">当前工作区是基于最新版本' + req.message +'。</p><div class="bottom"><button class="J_content_close">我知道了</button></div></div></div>'
+                                    });
+                                });
+                            }
+                        }
+                    })
+                } else{
+                    console.log('kong');
+                    //获取最新版本
+                    $.ajax({
+                        url: "/apis/api/method/app_center.api.get_latest_version",
+                        type: "GET",
+                        data: {app:decodeURI(window.location.href.split("=")[1]),beta:1},
+                        success:function (req) {
+                            console.log('num');
+                            console.log(req);
+                            var num = req.message;
+                            if(num === "undefined"){
+                                $('.get_version').hide();
+                            }else if(num !="undefined"){
+                                $('.get_version').text("版本"+num);
+                            }
+                            //判断有没有最新版本
+                            if(req && req.message  === "undefined"){
+                                var text = '暂时还没有版本，请先上传！';
+                                successAlert(text)
+                            }else if(typeof req.message == "number"){
+                                //初始化工作区到最新版本
+                                localStorage.getItem('version_list')
+                                var data = {
+                                    app:decodeURI(window.location.href.split("=")[1]),
+                                    version: num
+                                };
+                                console.log(data);
+                                $.ajax({
+                                    url: "/apis/api/method/app_center.editor.editor_init",
+                                    type: "GET",
+                                    data: data,
+                                    success: function (req) {
+                                        console.log('version');
+                                        console.log(req);
+                                        layui.use('layer', function(){
+                                            layui.layer.open({
+                                                title: '版本提示',
+                                                type: 1,
+                                                skin: 'layui-layer-rim', //加上边框
+                                                area: ['460px','210px'], //宽高
+                                                content: '<div class="debug_shade"><div class="add_content"><p>当前工作区是基于版本'+req.message+',请将设备中的应用升级到版本'+req.message+'，或者将工作区重置到之前版本。</p><div class="bottom"><button class="J_content_close">我知道了</button></div></div></div>'
+                                            });
+                                        });
+                                    },error:function(){}
+                                })
+                            }
+                        },
+                        error: function () {
+
+                        }
+                    })
+                }
+            }
+        });
+
+
+// 初始化工作区
+        $('.get_name>a').text(decodeURI(window.location.href.split("=")[1]));
+    });
+
+</script>
+
+</body>
+</html>

@@ -89,7 +89,13 @@ $(document).ready(function(){
             }
             var tap_netmask  = $("select#tap_netmask").val();
             var dev_ip = $("input#dev_ip").val();
-
+            if(dev_ip=="" || dev_ip==null){
+                $('.popover-warning-ip').popover('show');
+                setTimeout(function () {
+                    $('.popover-warning-ip').popover('destroy');
+                },2000);
+                return false;
+            }
             var vpn_frpc_cfg = {
                 "role": "visitor",
                 "type": "stcp",
@@ -283,4 +289,14 @@ $(document).ready(function(){
         closeWindows();
     });
 // 关闭页面按钮-----结束
+
+// 查询网关IP按钮-----开始
+    $("button.query_gateip").click(function(){
+        check_gate_isbusy(gate_sn_org, cloud_url, auth_code );
+    });
+// 查询网关IP按钮-----结束
+
+
 });
+
+

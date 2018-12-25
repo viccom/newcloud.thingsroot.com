@@ -33,21 +33,21 @@
         }
         
         #four table th:nth-child(2),#four table td:nth-child(2){
-	width:auto;
-}
-.product_main2 th:first-child,.product_main2 td:first-child{
-	width:80px;
-}
-.product_main2 th:nth-child(2),.product_main2 td:nth-child(2){
-    width:35%;
-    min-width: 30%;
-}
-.product_main2 th:nth-child(3),.product_main2 td:nth-child(3){
-	width:100px;
-}
-.product_main2 th:nth-child(4),.product_main2 td:nth-child(4){
-	width:133px;
-}
+            width:auto;
+        }
+        .product_main2 th:first-child,.product_main2 td:first-child{
+            width:80px;
+        }
+        .product_main2 th:nth-child(2),.product_main2 td:nth-child(2){
+            width:35%;
+            min-width: 30%;
+        }
+        .product_main2 th:nth-child(3),.product_main2 td:nth-child(3){
+            width:100px;
+        }
+        .product_main2 th:nth-child(4),.product_main2 td:nth-child(4){
+            width:133px;
+        }
 #one>p,#two>p{
   display: none;
   line-height: 350px;
@@ -100,7 +100,7 @@ margin-top: 10px;
 width: 22px;
 height: 22px;
 float: right;
-background: url(../dist/img/button_settings.png) no-repeat center;
+background: url(/dist/img/button_settings.png) no-repeat center;
 background-size: 15px;
 cursor: pointer;
 }
@@ -191,7 +191,7 @@ margin-left: 1%;
 .product_main i{
 float: right;
 cursor: pointer;
-background: url(../dist/img/button_oversee.png) no-repeat left;
+background: url(/dist/img/button_oversee.png) no-repeat left;
 background-size: 15px;
 padding-left: 20px;
 }
@@ -727,24 +727,34 @@ $.ajax({
     type:"GET",
     success:function (data) {
         var usr = getCookie("usr");
-        localStorage.setItem('list_device_event_count_statistics_original/'+ usr, JSON.stringify(data.message));
-        var localData = JSON.parse(localStorage.getItem('list_device_event_count_statistics_original/' + usr));
+        if(data.message){
+            localStorage.setItem('list_device_event_count_statistics_original/'+ usr, JSON.stringify(data.message));
+        }
+        var localData = localStorage.getItem('list_device_event_count_statistics_original/' + usr);
+        if(localData!="undefined"){
+            localData = JSON.parse(localData);
+        }else{
+            localData = null;
+        }
         var data =   data.message || localData;
         var html='';
         //创建新数组
         var arr1 = [];
         if(data && data.length > 0){
-            for (let i = 0; i < data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 //判断次数与时间
                 if(data[i].today != '0' || data[i].last_updated.indexOf(t) !== -1){
                     arr1.push(data[i]);
                 }
             };
+            arr1.sort(function(a,b){
+                return b.today - a.today;
+            });
                 //渲染表格
             var maxlen = 10;
-            // if(arr1.length<maxlen){
-            //     maxlen = arr1.length
-            // }
+            if(arr1.length>maxlen){
+                arr1.splice(maxlen);
+            }
             for(var j=0;j<arr1.length;j++){
                 html += `
                 <tr class="myTr" style="cursor: pointer">
@@ -786,14 +796,21 @@ $.ajax({
     type:"GET",
     success:function (data) {
         var usr = getCookie("usr");
-        localStorage.setItem('list_device_event_count_statistics_original/'+ usr, JSON.stringify(data.message));
-        var localData = JSON.parse(localStorage.getItem('list_device_event_count_statistics_original/' + usr));
+        if(data.message){
+            localStorage.setItem('list_device_event_count_statistics_original/'+ usr, JSON.stringify(data.message));
+        }
+        var localData = localStorage.getItem('list_device_event_count_statistics_original/' + usr);
+        if(localData!="undefined"){
+            localData = JSON.parse(localData);
+        }else{
+            localData = null;
+        }
         var data =  data.message || localData;
         var html1='';
         //创建新数组
         var arr2 = [];
         if(data && data.length > 0){
-            for (let i = 0; i < data.length; i++) {
+            for (var i = 0; i < data.length; i++) {
             //判断次数与时间
             if( data[i].last_updated.indexOf(t) != -1
                 || data[i].last_updated.indexOf(t1) != -1
@@ -807,11 +824,14 @@ $.ajax({
                 }
             }
         }
-        //渲染表格
-        //     var maxlen = 10;
-        //     if(arr2.length<maxlen){
-        //         maxlen = arr2.length
-        //     }
+        arr2.sort(function(a,b){
+            return b.total - a.total;
+        })
+                //渲染表格
+            var maxlen = 10;
+            if(arr2.length>maxlen){
+                arr2.splice(maxlen);
+            }
         for(var j=0;j<arr2.length;j++){
             html1 += `
             <tr class="myTr" style="cursor: pointer">

@@ -38,8 +38,9 @@
     <link rel="stylesheet" href="user_css/global.css">
 
     <!-- user style -->
-    <!--<link rel="stylesheet" href="user_css/star.css">-->
+
     <link rel="stylesheet" href="user_css/apps_list.css">
+    <link rel="stylesheet" href="user_css/star.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -124,8 +125,8 @@
             top: -5px;
         }
         .app_comment_list>li>div>.delete_comment{
-            padding:0 20px;
-            margin: 0 20px;
+
+            /*margin: 0 20px;*/
             line-height:30px;
             color:rgba(53,78,119,0.7);
             cursor: pointer;
@@ -301,6 +302,7 @@
             margin: 4px;
             background-color: #FFFFFF;
         }
+
     </style>
 </head>
 
@@ -325,42 +327,102 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-
                     <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
+                    <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <i class="fa  fa-user-md"></i>
                             <span class="hidden-xs user-name" data-accesskey="">user</span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
 
-                            <!-- Menu Body -->
-                            <li class="user-panel">
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="User_Settings.html">
+                                            <h3>
+                                                <i class="fa fa-user"></i>
+                                                基本资料
+                                            </h3>
+                                        </a>
+                                    </li>
 
-                                <div class="text-center">
-                                    <a href="User_Settings.html">基本资料</a>
-                                </div>
+                                    <li><!-- Task item -->
+                                        <a href="My_Virtual_Gates.html">
+                                            <h3>
+                                                <i class="fa fa-laptop"></i>
+                                                虚拟网关
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_AccessKey.html">
+
+                                            <h3>
+                                                <i class="fa fa-key"></i>
+                                                AccessKey
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </li>
-                            <li class="user-panel">
 
-                                <div class="text-center">
-                                    <a href="My_AccessKey.html">AccessKey</a>
-                                </div>
-
-                            </li>
-
-                            <li class="user-panel">
-                                <div class="text-center">
-                                    <a href="My_Virtual_Gates.html">虚拟网关</a>
-                                </div>
-                            </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
 
-                                <div class="text-center">
-                                    <a href="javascript:logout();"  class="btn btn-default btn-flat">退出</a>
+                                <div>
+                                    <a href="javascript:logout();"  class="btn btn-warning btn-block btn-flat">退出</a>
                                 </div>
                             </li>
+
+                        </ul>
+                    </li>
+                    <!-- Help can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-question-circle"></i>
+                            帮助
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                快速指南
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                应用开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                平台开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
@@ -385,13 +447,13 @@
                 <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
-                <li class="active"><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
-                <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
+                <li class="active"><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
-                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
-                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-commenting-o text-yellow"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-commenting-o text-light-blue"></i> <span>设备消息</span></a></li>
 
 
             </ul>
@@ -407,7 +469,7 @@
             <h1>
                 我的应用
                 <small>应用详情</small>
-                <div class="pull-right"><a href="javascript:redirect('/My_Apps_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
             </h1>
             <!--<ol class="breadcrumb">-->
             <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
@@ -416,7 +478,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="width:100%; padding: 15px;min-height: 250px;margin-right: auto;margin-left: auto;">
 
 
             <div class="box box-body my-apps-detail">
@@ -461,13 +523,40 @@
 
                         </address>
                     </div>
-                    <div class="app_right_button">
-                        <button class="edit" value="">edit</button>
-                        <!--<button class="app_editor"> >_Omline editor </button>-->
-                        <button class="fork_from" value="" >主分支</button>
-                        <!--<button>删除</button>-->
+                    <!-- /.col -->
+                    <div class="col-sm-1 invoice-col">
+                        &nbsp;&nbsp;
+                        <address>
+
+                            <p>
+                                <a class="btn btn-app edit">
+                                    <i class="fa fa-edit"></i> 设置
+                                </a>
+                            </p>
+                        </address>
                     </div>
 
+                    <!-- /.col -->
+                    <div class="col-sm-1 invoice-col">
+                        &nbsp;&nbsp;
+                        <address>
+
+                            <p>
+                                <a class="btn btn-app fork_from">
+                                    <i class="fa fa-edit "></i> 主分支
+                                </a>
+                            </p>
+                        </address>
+                    </div>
+
+
+
+                    <!--<div class="app_right_button">-->
+                        <!--<button class="edit" value="">edit</button>-->
+                        <!--&lt;!&ndash;<button class="app_editor"> >_Online editor </button>&ndash;&gt;-->
+                        <!--<button class="fork_from" value="" >主分支</button>-->
+                        <!--&lt;!&ndash;<button>删除</button>&ndash;&gt;-->
+                    <!--</div>-->
                 </div>
                 <!--应用编辑end-->
                 <div class="nav-tabs-custom">
@@ -492,26 +581,26 @@
                             <div class="app_comment">
                                 <!--<a class="comment_btn">我要评论</a>-->
                                 <ul class="app_comment_list">
-                                    <li>
-                                    <p class="comment_title">123r34tgergvsadfbsdfb</p>
-                                    <p class="comment_content"><span>132524363456734575</span><img class="comment_more" src="img/comment_more.png" alt="更多" title="更多内容"></p>
-                                    <div>
-                                    <span>用户名：</span>
-                                    <span>冬笋科技</span>
-                                    <span>评论时间：</span>
-                                    <span>2018-08-31</span>
-                                    <ul class="show_number clearfix">
-                                    <li>
-                                    <div class="atar_Show">
-                                    <p tip="2.5"></p>
-                                    </div>
-                                    </li>
-                                    </ul>
-                                    <span class="delete_comment" style="" id="">删除</span>
-                                    <a class="clearfix"></a>
-                                    </div>
-                                    <img class="comment_images" src="img/top_avatar.png" alt="">
-                                    </li>
+                                    <!--<li>-->
+                                    <!--<p class="comment_title">123r34tgergvsadfbsdfb</p>-->
+                                    <!--<p class="comment_content"><span>132524363456734575</span><img class="comment_more" src="img/comment_more.png" alt="更多" title="更多内容"></p>-->
+                                    <!--<div>-->
+                                    <!--<span>用户名：</span>-->
+                                    <!--<span>冬笋科技</span>-->
+                                    <!--<span>评论时间：</span>-->
+                                    <!--<span>2018-08-31</span>-->
+                                    <!--<ul class="show_number clearfix">-->
+                                    <!--<li>-->
+                                    <!--<div class="atar_Show" style="height: 15px;">-->
+                                    <!--<p tip="2.5"></p>-->
+                                    <!--</div>-->
+                                    <!--</li>-->
+                                    <!--</ul>-->
+                                    <!--<span class="delete_comment" style="" id="">删除</span>-->
+                                    <!--<a class="clearfix"></a>-->
+                                    <!--</div>-->
+                                    <!--<img class="comment_images" src="img/top_avatar.png" alt="">-->
+                                    <!--</li>-->
                                 </ul>
 
 
@@ -555,10 +644,10 @@
         </section>
         <!-- /.content -->
 
-        <div class="alert success" role="alert" style="text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
-            <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px">...</a>
+        <div class="alert success" role="alert" style="z-index: 99999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+            <a href="#" class="alert-link" style="z-index: 99999;color: #333;text-decoration: none;font-size: 16px">...</a>
         </div>
-        <div class="alert danger" role="alert" style="text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+        <div class="alert danger" role="alert" style="z-index: 999999;text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
             <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px">...</a>
         </div>
 
@@ -581,7 +670,6 @@
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab">
-
 
             </div>
             <!-- /.tab-pane -->
@@ -639,8 +727,6 @@
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- oem -->
-<script src="user_js/common/oem.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -867,6 +953,107 @@
         document.body.style.overflow='auto';
     });
 
+    //获取应用评论列表
+    var data2 = {
+        filters : '[["app","=","'+decodeURI(window.location.href.split("=")[1])+'"]]',
+        fields :'["app","title","content","owner","star","creation","name"]'
+    };
+    $.ajax({
+        url: "/apis/api/resource/IOT%20Application%20Review",
+        type: "GET",
+        data: data2,
+        success: function (req) {
+            console.log(req.data.length)
+            console.log(req.data)
+            if(req.data.length == 0) {
+                $('.app_comment').addClass('hd');
+                $('.no_comment').css('display', 'block');
+            }else{
+                var data = req.data;
+                for(var i=0;i<data.length;i++){
+                    var datas = data[i];
+                    //渲染列表
+                    $('.app_comment_list').append(
+                        '<li>'+
+                        '<p class="comment_title">'+ datas.title +'</p>'+
+                        '<p class="comment_content"><span>'+ datas.content +'</span><img class="comment_more" src="img/comment_more.png" alt="更多" title="更多内容"></p>'+
+                        '<div>'+
+                        '<span>用户名：</span>'+
+                        '<span>'+ datas.owner +'</span>'+
+                        '<span>评论时间：</span>'+
+                        '<span>'+ datas.creation.substr(0,10) +'</span>'+
+                        '<ul class="show_number clearfix">'+
+                        '<li>'+
+                        '<div class="atar_Show">'+
+                        '<p tip="'+ datas.star +'" style="height: 16px"></p>'+
+                        '</div>'+
+                        '</li>'+
+                        '</ul>'+
+                        '<span class="delete_comment">删除<input class="delete_name" type="hidden" value="'+ datas.name +'"></span>'+
+                        '<a class="clearfix"></a>'+
+                        '</div>'+
+                        '<img class="comment_images" src="img/top_avatar.png" alt="">'+
+                        '</li>'
+                    );
+                }
+                //星星展示分数
+                $(".show_number li p").each(function(index, element) {
+                    var num=$(this).attr("tip");
+                    var www=num*12;//
+                    $(this).css("width",www);
+                    $(this).parent(".atar_Show").siblings("span").text(num+"分");
+                });
+            }
+        },
+        error: function () {
+            console.log('error')
+        },
+        complete: function () {
+            //删除评论
+            var delete_comment = $('.delete_comment');
+            for(var j=0;j<delete_comment.length;j++){
+                delete_comment[j].index = j;
+                delete_comment[j].onclick = function () {
+                    var parent = $(this).parent().parent();
+                    var data = {'name' : $(this).find('input').val()};
+                    $.ajax({
+                        url: "/apis/api/method/app_center.appmgr.remove_review",
+                        type: "POST",
+                        data: data,
+                        success: function (req) {
+                            var text = '已删除此条评论';
+                            successAlert(text);
+                            parent.remove();
+                        },
+                        error: function () {
+                            console.log('error')
+                        }
+                    })
+                }
+            }
+            //评论内容超出部分显示省略号
+            var comment_li = $('.app_comment_list>li');
+            var li_content = $('.comment_content>span');
+            var li_more = $('.comment_content>img');
+            comment_li.each(function (i) {
+                var cContent = comment_li.eq(i).find(li_content).text();  //原始内容
+                if(cContent.length > 200){
+                    comment_li.eq(i).find(li_content).text(cContent.substr(0,200)+'...');  //内容收缩
+                    comment_li.eq(i).find(li_more).css('display','inline-block');   //更多显示
+                    //点击更多显示全部内容
+                    comment_li.eq(i).find(li_more).click(function(){   //点击更多
+                        comment_li.eq(i).find(li_content).text(cContent);
+                        comment_li.eq(i).find(li_more).hide();
+                    })
+                }else if(cContent.length < 200){
+                    comment_li.eq(i).find(li_more).hide();
+                    comment_li.eq(i).find(li_content).text(cContent);
+                }
+            });
+
+        }
+    });
+
     //判断版本号是否大于旧版本号
     $('#version').blur(function(){
         var num1 = $('.app_version>li:last-child>p:nth-child(1)>span:nth-child(2)').text();
@@ -889,6 +1076,7 @@
     $('#upload').click(function () {
         var num = $('#version').val();
         var desc = $('#explain').val();
+
         //获取当前时间
         var date = new Date();
         var year = date.getFullYear();
@@ -903,13 +1091,12 @@
             var text = '请填写版本号';
             errorAlert(text);
         }else if(!$('#explain').val()){
-            var text = '请填写更新日志';
+            var text = '请填写日志';
             errorAlert(text);
         }else if(!$('#app_file').val()){
             var text = '请选择文件';
             errorAlert(text);
         }else if($("input[type='checkbox']").is(':checked') == false){
-            console.log($("input[type='checkbox']").is(':checked') == false)
             var text = '请您同意使用条款';
             errorAlert(text);
         }else{
@@ -962,13 +1149,13 @@
 
     //edit
     $('.edit').click(function () {
-        location.href = 'My_Apps_edit.html?appId=' + decodeURI(window.location.href.split("=")[1]);
+        location.href = 'My_Apps_edit.html?appid=' + decodeURI(window.location.href.split("=")[1]);
     });
 
-    //Omline editor
+    //Online editor
     $('.app_editor').click(function () {
         // console.log(111);
-        location.href = 'debug1.html?app=' + decodeURI(window.location.href.split("=")[1]);
+        location.href = 'My_App_Debug.html?app=' + decodeURI(window.location.href.split("=")[1]);
     });
 
     //主分页

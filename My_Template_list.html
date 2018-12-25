@@ -245,42 +245,102 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-
                     <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
+                    <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <i class="fa  fa-user-md"></i>
                             <span class="hidden-xs user-name" data-accesskey="">user</span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
 
-                            <!-- Menu Body -->
-                            <li class="user-panel">
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="User_Settings.html">
+                                            <h3>
+                                                <i class="fa fa-user"></i>
+                                                基本资料
+                                            </h3>
+                                        </a>
+                                    </li>
 
-                                <div class="text-center">
-                                    <a href="User_Settings.html">基本资料</a>
-                                </div>
+                                    <li><!-- Task item -->
+                                        <a href="My_Virtual_Gates.html">
+                                            <h3>
+                                                <i class="fa fa-laptop"></i>
+                                                虚拟网关
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_AccessKey.html">
+
+                                            <h3>
+                                                <i class="fa fa-key"></i>
+                                                AccessKey
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </li>
-                            <li class="user-panel">
 
-                                <div class="text-center">
-                                    <a href="My_AccessKey.html">AccessKey</a>
-                                </div>
-
-                            </li>
-
-                            <li class="user-panel">
-                                <div class="text-center">
-                                    <a href="My_Virtual_Gates.html">虚拟网关</a>
-                                </div>
-                            </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
 
-                                <div class="text-center">
-                                    <a href="javascript:logout();"  class="btn btn-default btn-flat">退出</a>
+                                <div>
+                                    <a href="javascript:logout();"  class="btn btn-warning btn-block btn-flat">退出</a>
                                 </div>
                             </li>
+
+                        </ul>
+                    </li>
+                    <!-- Help can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-question-circle"></i>
+                            帮助
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                快速指南
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                应用开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                平台开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
@@ -514,8 +574,6 @@
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- oem -->
-<script src="user_js/common/oem.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -771,13 +829,18 @@
                 async: false,
                 data: {conf:tempId},
                 success: function (req) {
-                    version = req.message;
+                    if(!req.message){
+                        version = 0
+                    }else{
+                        version = req.message;
+                    }
                 },
                 error: function () {
                     console.log('error');
                 }
             });
-            location.href = 'My_Template_Detail.html?name='+ name +'&tempId='+tempId+'&appId='+appId+'&version='+version;
+
+            location.href = 'My_Template_detail.html?name='+ name +'&tempId='+tempId+'&appId='+appId+'&version='+version;
         });
 
         function initradio(rName,rValue){
@@ -842,7 +905,7 @@
     //创建新模板--确定
     $('.v_upload').click(function() {
         if(!$('#template_name').val()){
-            var text= '模板名称不能为空'
+            var text= '模板名称不能为空';
             errorAlert(text)
         }else{
             var data2 = {
@@ -994,6 +1057,7 @@
                 $('.search_filter2 li').on('click', function() {
                     $('.search_keyword2').text($(this).text());
                     $('.search_keyword3').text("请选择版本...");
+                    $('.search_filter3').show();
                     $('#tempId1').val($(this).find($('input')).val());
                     var tempId1 = $('#tempId1').val();
                     getVerList(tempId1);
@@ -1050,7 +1114,11 @@
         $('#appId').val(""),
             $('#template_name').val(""),
             $('#miaoshu').val(""),
-            $("input[name='belong']:checked").val(""),
+            $('.search_keyword1').text("请选择应用.."),
+            $('.text1').hide();
+            $('.text2').hide();
+            $('.search_filter3').hide();
+            // $("input[name='belong']:checked").val("");
             $('#checkNum').val("")
     });
 
@@ -1066,10 +1134,6 @@
         document.body.style.overflow='auto';
     })
 
-    var action = getParam("action")
-    if(action=="newtempl"){
-        $('#createTemplate').click()
-    }
 
 
 </script>
