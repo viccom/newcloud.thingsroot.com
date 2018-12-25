@@ -69,10 +69,6 @@ $(document).ready(function(){
             frpc_item = gate_sn + "_" + net_mode;
             auth_code = $("input#authcode").val();
             // console.log(gate_sn);
-            $("#mes_table  tr:not(:first)").empty("");
-            var html_wait = '<tr class="success"><td>正在加载数据</td><td></td><td></td></tr>';
-            $("#mes_table").append(html_wait);
-
 
             var tap_ip  = $("input#tap_ip").val();
             if(tap_ip=="" || tap_ip==null){
@@ -96,6 +92,10 @@ $(document).ready(function(){
                 },2000);
                 return false;
             }
+
+            $("#mes_table  tr:not(:first)").empty("");
+            var html_wait = '<tr class="success"><td>正在加载数据</td><td></td><td></td></tr>';
+            $("#mes_table").append(html_wait);
             var vpn_frpc_cfg = {
                 "role": "visitor",
                 "type": "stcp",
