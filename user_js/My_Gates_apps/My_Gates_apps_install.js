@@ -360,7 +360,7 @@ function checkinst(inst) {
 function list_app_conf(app) {
 
     $.ajax({
-        url: "/apis/api/method/conf_center.api.list_app_conf",
+        url: "/apis/api/method/conf_center.api.list_app_conf_pri",
         type: "GET",
         async: false,
         data: {app:app,limit:100},
@@ -640,7 +640,7 @@ function create_appconfig_panel(data) {
                     var val_html = '';
                     var td_html = '';
                     for (var m=0;m<child.cols.length;m++){
-                        val_html = val_html + '<th style="width: 20%"  data-name="' + child.cols[m].name +'" data-class="'+ child.cols[m].type + '" data-type="'+ child.cols[m].type + '">' + child.cols[m].desc + '</th>'
+                        val_html = val_html + '<th style="width: 15%"  data-name="' + child.cols[m].name +'" data-class="'+ child.cols[m].type + '" data-type="'+ child.cols[m].type + '">' + child.cols[m].desc + '</th>'
                         td_html = td_html+'<td>--</td>'
                     }
                     val_html += '<th>操作</th>'
