@@ -18,7 +18,6 @@ function app_detail(appid) {
 
             }else{
                 templ_conf = null;
-                app_default = {};
             }
             if(data.message){
                 $('#formAppId').val(data.message.name);
@@ -115,7 +114,7 @@ json_editor.getSession().setMode("ace/mode/javascript");
 json_editor.setFontSize(16);
 
 //设置只读（true时只读，用于展示代码）
-json_editor.setReadOnly(true);
+json_editor.setReadOnly(false);
 
 //自动换行,设置为off关闭
 json_editor.setOption("wrap", "free")
@@ -240,6 +239,9 @@ $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
         //通过配置面板生成json
         if(templ_conf){
             get_panel_data(templ_conf);
+            json_editor.setReadOnly(true);
+        }else{
+            json_editor.setReadOnly(false);
         }
 
 
@@ -250,9 +252,10 @@ $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
     if(nowtext=="配置面板"){
         var session = json_editor.getSession();
         app_default = JSON.parse(session.getValue());
-
+        console.log("配置面板",app_default);
         if(templ_conf){
             //通过json设置配置面板
+            // console.log("配置 from json");
             // set_panel_data(templ_conf, app_default);
         }
 
@@ -410,13 +413,17 @@ function create_appconfig_panel(data) {
             for (var n=1;n<val_list.length;n++){
                 val_html = val_html + '<option>' + val_list[n]  + '</option>';
             }
-
+            var dep = '<select name="'+ data[i].name +'" class="form-control config_panel">'
+            if(data[i].hasOwnProperty("depends")){
+                console.log(JSON.stringify(data[i].depends));
+                dep = '<select name="'+ data[i].name +'" data-depends=\''+ JSON.stringify(data[i].depends) + '\' class="form-control config_panel">'
+            }
             var head_html = '<div class="col-md-12" style="padding: 0">' +
                 '<form class="form-horizontal" onsubmit="return false;">' +
                 '<div class="form-group">' +
                 '<label class="col-sm-2 control-label config-label">'+ data[i].desc + '：</label>' +
                 '<div class="col-sm-4">' +
-                '<select name="'+ data[i].name +'" data-depends=\'{"socket":"tcp_section","serial":"serial_section"}\' class="form-control config_panel">' +
+                dep +
                 val_html +
                 '</select>' +
                 '</div>' +
@@ -454,6 +461,10 @@ function create_appconfig_panel(data) {
 
                         $('#'+data[i].name).append(_html);
 
+                        if(child[j].preset){
+                            $("select[name=" + child[j].name + "]").val(child[j].preset)
+                        }
+
                     }
 
                     if(child[j].type=="text"){
@@ -469,6 +480,9 @@ function create_appconfig_panel(data) {
                             + '</form>'
                             + '</div>'
                         $('#'+data[i].name).append(_html);
+                        if(child[j].preset){
+                            $("input[name=" + child[j].name + "]").val(child[j].preset)
+                        }
                     }
 
                     if(child[j].type=="number"){
@@ -484,6 +498,10 @@ function create_appconfig_panel(data) {
                             + '</form>'
                             + '</div>'
                         $('#'+data[i].name).append(_html);
+
+                        if(child[j].preset){
+                            $("input[name=" + child[j].name + "]").val(child[j].preset)
+                        }
                     }
 
                     if(child[j].type=="boolean"){
@@ -499,6 +517,10 @@ function create_appconfig_panel(data) {
                             + '</form>'
                             + '</div>'
                         $('#'+data[i].name).append(_html);
+
+                        if(child[j].preset){
+                            $("input[name=" + child[j].name + "]").prop('checked',child[j].preset)
+                        }
                     }
 
                 }
@@ -528,6 +550,9 @@ function create_appconfig_panel(data) {
                             + '</form>'
                             + '</div>'
                         $('#'+data[i].name).append(_html);
+                        if(child[j].preset){
+                            $("input[name=" + child[j].name + "]").val(child[j].preset)
+                        }
                     }
 
                     if(child[j].type=="number"){
@@ -544,6 +569,9 @@ function create_appconfig_panel(data) {
                             + '</form>'
                             + '</div>'
                         $('#'+data[i].name).append(_html);
+                        if(child[j].preset){
+                            $("input[name=" + child[j].name + "]").val(child[j].preset)
+                        }
                     }
 
                     if(child[j].type=="boolean"){
@@ -842,10 +870,30 @@ function get_panel_data(data){
                     app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
                 }
                 if (child[j].type == "dropdown") {
-                    app_config.socket[child[j].name] = $("select[name=" + child[i].name + "]").val()
+                    app_config.socket[child[j].name] = $("select[name=" + child[j].name + "]").val()
                 }
                 if (child[j].type == "boolean") {
                     app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").prop('checked')
+                }
+            }
+        }
+
+        if(data[i].type=="section" && data[i].name=="serial_section") {
+            var child = data[i].child;
+            app_config.serial = {};
+            for (var k = 0; k < child.length; k++) {
+                console.log()
+                if (child[k].type == "text") {
+                    app_config.serial[child[k].name] = $("input[name=" + child[k].name + "]").val()
+                }
+                if (child[k].type == "number") {
+                    app_config.serial[child[k].name] = $("input[name=" + child[k].name + "]").val()
+                }
+                if (child[k].type == "dropdown") {
+                    app_config.serial[child[k].name] = $("select[name=" + child[k].name + "]").val()
+                }
+                if (child[k].type == "boolean") {
+                    app_config.serial[child[k].name] = $("input[name=" + child[k].name + "]").prop('checked')
                 }
             }
         }
@@ -913,81 +961,26 @@ function get_panel_data(data){
  */
 function set_panel_data(data, json_data){
 
-    var app_config = new Object();
+    // var app_config = new Object();
     for (var i=0;i<data.length;i++){
         if(data[i].type=="dropdown"){
-            app_config[data[i].name] = $("select[name="+ data[i].name + "]").val()
-        }
+            console.log(data[i].name)
 
-        if(data[i].type=="section" && data[i].name=="tcp_section") {
-            var child = data[i].child;
-            app_config.socket = {};
-            for (var j = 0; j < child.length; j++) {
-                if (child[j].type == "text") {
-                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
-                }
-                if (child[j].type == "number") {
-                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
-                }
-                if (child[j].type == "dropdown") {
-                    app_config.socket[child[j].name] = $("select[name=" + child[i].name + "]").val()
-                }
-                if (child[j].type == "boolean") {
-                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").prop('checked')
+            if(json_data.hasOwnProperty(data[i].name)){
+                console.log(json_data[data[i].name]);
+                $("select[name="+ data[i].name + "]").val(json_data[data[i].name])
+
+                if($("select[name="+ data[i].name + "]").data("depends")){
+                    $("select[name="+ data[i].name + "]").change()
                 }
             }
-        }
 
-        if(data[i].type=="section" && data[i].name=="template_section") {
-            var child = data[i].child;
+            // $("select[name="+ data[i].name + "]").val()
 
-            for (var j = 0; j < child.length; j++) {
-                if(child[j].type=="templates"){
-                    console.log(data[i].name +'_'+ child[j].name)
-                    app_config.templates = [];
-                    var templ_data = get_table_data(data[i].name +'_'+ child[j].name);
 
-                    var templs = [];
-                    for (var n = 0; n < templ_data.length; n++) {
-                        templs.push({"name":templ_data[n][0],"id":templ_data[n][2],"version":templ_data[n][3]})
-                    }
-                    app_config.templates = templs;
-                }
-            }
         }
 
 
-        if(data[i].type=="section" && data[i].name=="device_section") {
-
-            var child = data[i].child;
-
-            for (var j = 0; j < child.length; j++) {
-                if(child[j].type=="table"){
-                    app_config[child[j].name] = [];
-                    console.log(data[i].name +'_'+ child[j].name)
-                    var t_data = get_table_data(data[i].name +'_'+ child[j].name)
-
-                    var tdevs = [];
-
-                    var cols = child[j].cols;
-                    for (var n = 0; n < t_data.length; n++) {
-
-                        var dev_obj = new Object();
-                        for (var m = 0; m < cols.length; m++) {
-                            if(cols[m].type=="number"){
-                                dev_obj[cols[m].name]=Number(t_data[n][m])
-                            }else if(cols[m].type=="boolean"){
-                                dev_obj[cols[m].name]=t_data[n][m]
-                            }else{
-                                dev_obj[cols[m].name]=t_data[n][m]
-                            }
-                        }
-                        tdevs.push(dev_obj)
-                    }
-                    app_config[child[j].name] = tdevs;
-                }
-            }
-        }
     }
 
 
