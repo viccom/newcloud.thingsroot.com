@@ -349,7 +349,7 @@ function isUsername(inst) {
     if (/^\d.*$/.test(inst)) {
         return 1;
     }
-    if (!/^.{3,10}$/.test(inst)) {
+    if (!/^.{3,20}$/.test(inst)) {
         return 2;
     }
     // if (!/^[\w_]*$/.test(username)) {
