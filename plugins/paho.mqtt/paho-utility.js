@@ -322,17 +322,21 @@ function onMessageArrived(message) {
         }
         var temparr = comm_message[0].toString().split("/");
         var device_id = temparr[0];
+
         var direction = temparr[1];
         // var device_comm = comm_message[2];
         var device_comm = CharToHex(base64decode(comm_message[2]));
-        var arrayObj = [
-            new Date(comm_message[1]*1000).toLocaleString('zh',{hour12:false})+'.'+millsec,
-            device_id,
-            direction,
-            device_comm
-        ]
-        // console.log(arrayObj)
-        table_comm.row.add(arrayObj).draw();
+        if($.inArray(device_id, app_devslist)!=-1){
+            var arrayObj = [
+                new Date(comm_message[1]*1000).toLocaleString('zh',{hour12:false})+'.'+millsec,
+                device_id,
+                direction,
+                device_comm
+            ]
+            // console.log(arrayObj)
+            table_comm.row.add(arrayObj).draw();
+        }
+
     }
 
 }

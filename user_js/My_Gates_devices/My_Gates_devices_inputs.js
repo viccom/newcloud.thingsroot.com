@@ -8,7 +8,6 @@ $.ajaxSetup({
  *	创建设备列表
  */
 function creat_devs_list(sn){
-    var q = localStorage.getItem(pagename + '_Back_taskslist');
 
     $.ajax({
         url: '/apis/api/method/iot_ui.iot_api.gate_devs_list',

@@ -75,34 +75,29 @@ function set_label(sn){
  *	获取网关已创建的设备列表
  */
 function gate_devs_list(sn, tableobj){
-    var q = localStorage.getItem(pagename + '_Back_taskslist');
-    if(q!==null && JSON.parse(q).length>0){
-        return false;
-    }else{
-        $.ajax({
-            url: '/apis/api/method/iot_ui.iot_api.gate_devs_list',
-            headers: {
-                Accept: "application/json; charset=utf-8",
-                "X-Frappe-CSRF-Token": auth_token
-            },
-            type: 'get',
-            data: {"sn": sn},
-            dataType:'json',
-            success:function(req){
-                // console.log(req);
-                if(req.message!=null){
-                    localStorage.setItem("gate_devices/"+ sn, JSON.stringify(req.message));
-                    setTimeout(function () {
-                        set_table(sn, tableobj);
-                    },200);
-                }
-
-            },
-            error:function(req){
-                console.log(req);
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.gate_devs_list',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: {"sn": sn},
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+            if(req.message!=null){
+                localStorage.setItem("gate_devices/"+ sn, JSON.stringify(req.message));
+                setTimeout(function () {
+                    set_table(sn, tableobj);
+                },200);
             }
-        });
-    }
+
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
 
 }
 

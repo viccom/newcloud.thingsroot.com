@@ -5,7 +5,7 @@ console.log(gate_sn, inst);
 var pagename = "Gates_apps_monitor";
 var log_subscribed = false;
 var comm_subscribed = false;
-
+var app_devslist = new Array();
 
 gate_info(gate_sn);
 gate_app_detail(gate_sn, inst, pagename);
@@ -233,7 +233,9 @@ var mqtt_upload_ret= setInterval(function(){
 
 },30000);
 
-
+/**
+ *	切换到数据浏览页面
+ */
 $("a.view-rtdata").click(function(){
     var dst_dev = $(this).data("vsn");
     if(dst_dev){

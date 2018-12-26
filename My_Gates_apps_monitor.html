@@ -600,8 +600,50 @@
         $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
             $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
         } );
-
+        get_devs_list(gate_sn);
     });
+
+    /**
+     *	获取网关已创建的设备列表
+     */
+    function get_devs_list(sn){
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.gate_devs_list',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'get',
+            data: {"sn": sn},
+            dataType:'json',
+            success:function(req){
+                // console.log(req);
+                if(req.message!=null){
+                    localStorage.setItem("gate_devices/"+ sn, JSON.stringify(req.message));
+                    var devslist = req.message;
+                    for (var i=0;i<devslist.length;i++){
+                        if(devslist.hasOwnProperty("app_inst")){
+                            if(devslist[i].app_inst==inst){
+                                app_devslist.push(devslist[i].sn)
+                            }
+                        }else{
+                            if(devslist[i].sn.indexOf(inst) != -1){
+                                app_devslist.push(devslist[i].sn)
+                            }
+                        }
+
+                    }
+
+                }
+
+            },
+            error:function(req){
+                console.log(req);
+            }
+        });
+
+    }
+
 
 </script>
 </body>
