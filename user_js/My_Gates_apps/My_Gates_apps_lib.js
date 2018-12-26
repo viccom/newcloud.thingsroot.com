@@ -150,7 +150,7 @@ function set_tabel(sn, tableobj){
             var ops = '';
             if($.inArray(appsinfo[i].info.inst, inst_arr)){
                 console.log(appsinfo[i].info.inst);
-                ops = '<button type="button" class="btn btn-default app-monitor" data-inst="' + appsinfo[i].info.inst + '">监视</button>'
+                ops = '<button type="button" class="btn btn-default app-monitor" data-inst="' + appsinfo[i].info.inst + '" data-appid="' + appsinfo[i].info.name + '">监视</button>'
                     + '<button type="button" class="btn btn-default">配置</button>'
                     + '<div class="btn-group">'
                     + '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">更多'
@@ -221,7 +221,8 @@ function set_tabel(sn, tableobj){
 
         $("body").on("click", ".app-monitor", function () {
             var inst = $(this).attr("data-inst");
-            redirect("My_Gates_apps_monitor.html?sn=" + gate_sn + "&inst=" + inst);
+            var appid = $(this).attr("data-appid");
+            redirect("My_Gates_apps_monitor.html?sn=" + gate_sn + "&inst=" + inst + "&appid=" + appid);
         });
 
 
@@ -371,7 +372,7 @@ function set_app_upgrade_label(sn, inst){
 /**
  *	获取应用各版本描述
  */
-function gate_app_dev_tree(sn,inst){
+function gate_app_dev_tree(sn,appid){
 
     $.ajax({
         url: '/apis/api/method/iot_ui.iot_api.gate_app_dev_tree',
@@ -385,9 +386,10 @@ function gate_app_dev_tree(sn,inst){
         success:function(req){
             // console.log(req.message);
             if(req.message!=null){
-                // console.log(req.message[inst][0].sn);
-                if(req.message[inst]){
-                    $("a.view-rtdata").data("inst", req.message[inst][0].sn);
+
+                if(req.message[appid]){
+                    // console.log(req.message[appid][0].sn);
+                    $("a.view-rtdata").data("vsn", req.message[appid][0].sn);
                     $("a.view-rtdata").attr("disabled", false);
                 }
 

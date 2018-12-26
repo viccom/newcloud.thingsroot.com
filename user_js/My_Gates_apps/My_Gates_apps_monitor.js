@@ -1,5 +1,6 @@
 var gate_sn  = getParam('sn');
 var inst = getParam('inst');
+var appid = getParam('appid');
 console.log(gate_sn, inst);
 var pagename = "Gates_apps_monitor";
 var log_subscribed = false;
@@ -10,7 +11,7 @@ gate_info(gate_sn);
 gate_app_detail(gate_sn, inst, pagename);
 
 setTimeout(function () {
-    gate_app_dev_tree(gate_sn, inst);
+    gate_app_dev_tree(gate_sn, appid);
     connect();
 },1000);
 
@@ -234,9 +235,14 @@ var mqtt_upload_ret= setInterval(function(){
 
 
 $("a.view-rtdata").click(function(){
-    var dst_dev = $(this).data("inst");
-    console.log(dst_dev)
-    // redirect("/My_Gates_devices_inputs.html?sn="+ gate_sn +"&vsn=" + dst_dev);
+    var dst_dev = $(this).data("vsn");
+    if(dst_dev){
+        redirect("/My_Gates_devices_inputs.html?sn="+ gate_sn +"&vsn=" + dst_dev);
+    }else{
+        var text = '此应用无设备对象或者应用未启动';
+        errorAlert(text)
+    }
+
 //
 });
 

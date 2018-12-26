@@ -532,3 +532,16 @@ function record_gate_op(sn){
     localStorage.setItem("gate_op/"+ user, JSON.stringify(op_list));
 
 }
+
+/**
+ *	提示对话框
+ */
+
+function errorAlert(text){
+    $('.danger').show();
+
+    $('.danger>a').text(text);
+    setTimeout(function () {
+        $('.danger').hide();
+    },4000)
+}

@@ -28,10 +28,12 @@ function creat_devs_list(sn){
                     var device_name = deviceinfo[i].name;
                     var device_desc = deviceinfo[i].description;
                     var d_sn = deviceinfo[i].sn;
-                    var html = '<li class="iot" data-devicesn="'+d_sn+'" data-inst="'+deviceinfo[i].app+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
+                    var html = '<li class="iot" data-devicesn="'+d_sn+'" data-inst="'+deviceinfo[i].app_inst+'"  data-appid="'+deviceinfo[i].app+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
                     if(d_sn==device_sn){
-                        html = '<li class="active iot" data-devicesn="'+d_sn+'" data-inst="'+deviceinfo[i].app+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
-                        $("button.app-monitor").data("inst", deviceinfo[i].app);
+                        html = '<li class="active iot" data-devicesn="'+d_sn+'" data-inst="'+deviceinfo[i].app_inst+'" data-appid="'+deviceinfo[i].app+'"><a href="javascript:void(0)" ><i class="fa fa-circle-o text-yellow"></i>'+ device_desc + '</a></li>';
+                        $("button.app-monitor").data("inst", deviceinfo[i].app_inst);
+                        $("button.app-monitor").data("appid", deviceinfo[i].app);
+
                     }
 
                     $("ul.devices_list").append(html);
@@ -343,7 +345,9 @@ $("body").on("click", "li.iot", function() {
     $(this).siblings().removeClass("active");
     device_sn =  $(this).data("devicesn");
     var dev_inst = $(this).data("inst");
+    var appid = $(this).data("appid");
     $("button.app-monitor").data("inst", dev_inst);
+    $("button.app-monitor").data("appid", appid);
     get_devices_inputs(gate_sn, device_sn);
     rtdata_url="/apis/api/method/iot_ui.iot_api.gate_device_data_array?sn="+ gate_sn + "&vsn=" + device_sn;
     var t_ret = setTimeout(function(){
@@ -365,6 +369,7 @@ $(".devslist-refresh").click(function(){
 
 $("button.app-monitor").click(function(){
     var dev_inst = $(this).data("inst");
+    var appid = $(this).data("appid");
     var arr= ["ioe","ioe_frpc"];
     // console.log(dev_inst,arr)
     // console.log($.inArray(dev_inst, arr))
@@ -372,7 +377,7 @@ $("button.app-monitor").click(function(){
         ttips($(this),"不支持监视<br>"+dev_inst);
         return false;
     }
-    redirect('/My_Gates_apps_monitor.html?sn='+ gate_sn + '&inst='+ dev_inst);
+    redirect('/My_Gates_apps_monitor.html?sn='+ gate_sn + '&inst='+ dev_inst +  '&appid='+ appid);
 
 });
 
