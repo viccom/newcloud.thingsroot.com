@@ -764,7 +764,7 @@
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<!--<script src="user_js/common/add_back_task.js"></script>-->
+<script src="user_js/common/add_back_task.js"></script>
 <script src="user_js/common/user.js"></script>
 
 <!-- load user is -->
@@ -790,13 +790,15 @@
 </script>
 
 <script>
+
+    pagename = "Gates_apps_install";
     $.ajaxSetup({
         headers: { // 默认添加请求头
             "X-Frappe-CSRF-Token": auth_token
         }
     });
 
-    $('.select2').select2()
+    $('.select2').select2();
 
     $(function(){
         gate_sn  = getParam('sn');
@@ -1104,11 +1106,12 @@
         $("body").on("click", "ul.gates_list>li", function() {
             var gsn = $(this).data("gatesn");
             gate_sn = gsn;
-            var gdesc = $(this).data("gatedesc");
-            var gname = $(this).data("gatename");
-            $(".gate_sn").text(gsn);
-            $(".gate_name").text(gname);
-            $(".gate_desc").text(gdesc);
+            gate_info(gate_sn);
+            // var gdesc = $(this).data("gatedesc");
+            // var gname = $(this).data("gatename");
+            // $(".gate_sn").text(gsn);
+            // $(".gate_name").text(gname);
+            // $(".gate_desc").text(gdesc);
             $(this).addClass("active");
             $(this).siblings().removeClass("active");
 

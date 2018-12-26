@@ -194,17 +194,47 @@ $('button.install-switch').click(function() {
 });
 
 $('button.app-install-to-gate').click(function() {
+    var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
+    if(gateinfo!=null && typeof(gateinfo) != "undefined"){
+        gateinfo = JSON.parse(gateinfo);
+        if(gateinfo.hasOwnProperty("applist")) {
+            var applist = gateinfo.applist
+        }
+    }
     var appid = $(this).data("cloudappid");
     var appname = $(this).data("appname");
     var inst = $('#gate_inst_1').val();
 
     if(templ_conf){
         get_panel_data(templ_conf);
-    }
 
+        if(checkinst(inst)){
+            // var appcfg = JSON.parse(json_editor.getValue());
+            var appcfg = app_default;
+            // console.log(typeof appcfg);
+            var id = 'app_install/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
+            var act_post = {
+                "device": gate_sn,
+                "id": id,
+                "data": {
+                    "inst": inst,
+                    "name": appid,
+                    "version":'latest',
+                    "conf": appcfg
+                }
+            };
+            var action = "app_install";
+            var task_desc = '应用配置'+ inst;
 
-    if(checkinst(inst)){
-        // var appcfg = JSON.parse(json_editor.getValue());
+            console.log(gate_sn, id, inst, appid, appcfg);
+
+            gate_exec_action(action, act_post, task_desc, inst, action ,"1")
+        }
+
+    }else{
+        var session = json_editor.getSession();
+        app_default = JSON.parse(session.getValue());
+
         var appcfg = app_default;
         // console.log(typeof appcfg);
         var id = 'app_install/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
@@ -221,11 +251,15 @@ $('button.app-install-to-gate').click(function() {
         var action = "app_install";
         var task_desc = '应用配置'+ inst;
 
+        console.log(gate_sn, id, inst, appid, appcfg);
 
+        gate_exec_action(action, act_post, task_desc, inst, action ,"1")
     }
 
 
-    // gate_exec_action(action, act_post, task_desc, inst, action_str ,"1")
+
+
+
 
 });
 
@@ -867,7 +901,7 @@ function get_panel_data(data){
                     app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
                 }
                 if (child[j].type == "number") {
-                    app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").val()
+                    app_config.socket[child[j].name] = Number($("input[name=" + child[j].name + "]").val())
                 }
                 if (child[j].type == "dropdown") {
                     app_config.socket[child[j].name] = $("select[name=" + child[j].name + "]").val()
@@ -887,7 +921,7 @@ function get_panel_data(data){
                     app_config.serial[child[k].name] = $("input[name=" + child[k].name + "]").val()
                 }
                 if (child[k].type == "number") {
-                    app_config.serial[child[k].name] = $("input[name=" + child[k].name + "]").val()
+                    app_config.serial[child[k].name] = Number($("input[name=" + child[k].name + "]").val())
                 }
                 if (child[k].type == "dropdown") {
                     app_config.serial[child[k].name] = $("select[name=" + child[k].name + "]").val()
@@ -904,14 +938,14 @@ function get_panel_data(data){
             for (var j = 0; j < child.length; j++) {
                 if(child[j].type=="templates"){
                     console.log(data[i].name +'_'+ child[j].name)
-                    app_config.templates = [];
+                    app_config.tpls = [];
                     var templ_data = get_table_data(data[i].name +'_'+ child[j].name);
 
                     var templs = [];
                     for (var n = 0; n < templ_data.length; n++) {
                         templs.push({"name":templ_data[n][0],"id":templ_data[n][2],"ver":templ_data[n][3]})
                     }
-                    app_config.templates = templs;
+                    app_config.tpls = templs;
                 }
             }
         }
