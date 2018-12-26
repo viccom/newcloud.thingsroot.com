@@ -195,16 +195,23 @@ $('button.install-switch').click(function() {
 
 $('button.app-install-to-gate').click(function() {
     var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
+    var installed_apps = new Array();
     if(gateinfo!=null && typeof(gateinfo) != "undefined"){
         gateinfo = JSON.parse(gateinfo);
         if(gateinfo.hasOwnProperty("applist")) {
-            var applist = gateinfo.applist
+            var applist = gateinfo.applist;
+            installed_apps = Object.keys(applist)
         }
     }
+
+
     var appid = $(this).data("cloudappid");
     var appname = $(this).data("appname");
     var inst = $('#gate_inst_1').val();
 
+    // if(inArray())
+
+    return false;
     if(templ_conf){
         get_panel_data(templ_conf);
 
