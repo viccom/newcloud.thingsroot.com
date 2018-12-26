@@ -19,6 +19,16 @@ function app_detail(appid) {
             }else{
                 templ_conf = null;
             }
+            if(data.message.pre_configuration) {
+
+                // console.log("1", app_default);
+                app_default = $.parseJSON(data.message.pre_configuration);
+                // console.log("2", app_default);
+
+            }else{
+                app_default = {};
+            }
+
             if(data.message){
                 $('#formAppId').val(data.message.name);
                 $('.app_name').text(data.message.app_name); //应用名称
@@ -71,7 +81,7 @@ $("body").on("click", "span.app-detail", function() {
 
     var appid = $(this).data("cloudappid");
     var appname = $(this).data("appname");
-
+    $('.templs-refresh').data("cloudappid",appid)
     $('button.app-install-to-gate').data("cloudappid",appid)
     $('button.app-install-to-gate').data("appname",appname)
 
@@ -98,7 +108,7 @@ $("body").on("click", "span.app-detail", function() {
         $("div.has_panel_cfg").addClass("hide");
         $("div.no_panel_cfg").removeClass("hide");
         var session = json_editor.getSession();
-        app_default ={};
+        // app_default ={};
         session.setValue(JSON.stringify(app_default, null, 4));
     }
 });
@@ -136,6 +146,7 @@ var session = json_editor.getSession();
 $("body").on("click", "a.app-config", function() {
     var appid = $(this).data("cloudappid");
     var appname = $(this).data("appname");
+    $('.templs-refresh').data("cloudappid",appid)
     $('button.app-install-to-gate').data("cloudappid",appid)
     $('button.app-install-to-gate').data("appname",appname)
     console.log(appid, appname);
@@ -159,7 +170,7 @@ $("body").on("click", "a.app-config", function() {
         $("div.has_panel_cfg").addClass("hide");
         $("div.no_panel_cfg").removeClass("hide");
         var session = json_editor.getSession();
-        app_default = {};
+        // app_default = {};
         session.setValue(JSON.stringify(app_default, null, 4));
     }
 
@@ -284,7 +295,6 @@ $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
     if(nowtext=="JSON源码"){
         //通过配置面板生成json
         if(templ_conf){
-
             get_panel_data(templ_conf);
             json_editor.setReadOnly(true);
             $("span.json_editor_status").text("不可编辑");
@@ -299,15 +309,14 @@ $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
         session.setValue(JSON.stringify(app_default, null, 4));
     }
     if(nowtext=="配置面板"){
-        var session = json_editor.getSession();
-        app_default = JSON.parse(session.getValue());
-        console.log("配置面板",app_default);
-        if(templ_conf){
+        // var session = json_editor.getSession();
+        // app_default = JSON.parse(session.getValue());
+        // console.log("配置面板",app_default);
+        // if(templ_conf){
             //通过json设置配置面板
             // console.log("配置 from json");
             // set_panel_data(templ_conf, app_default);
-        }
-
+        // }
 
 
     }
@@ -326,6 +335,12 @@ $('#modal-add-templ').on('show.bs.modal', function () {
 $('.creat_templ').click(function () {
     var appid = $('button.app-install-to-gate').data("cloudappid");
     window.open("/My_Template_list.html?action=newtempl&appid="+appid);
+});
+
+$('.templs-refresh').click(function () {
+    var appid = $(this).data("cloudappid");
+    list_app_conf(appid);
+    create_templ_select();
 });
 
 
@@ -408,36 +423,45 @@ function checkinst(inst) {
  */
 function list_app_conf(app) {
 
+
+    var templ_pub = new Array();
+    var templ_pri = new Array();
+
     $.ajax({
-        url: "/apis/api/method/conf_center.api.list_app_conf_pri",
+        url: "/apis/api/method/conf_center.api.list_app_conf",
         type: "GET",
         async: false,
         data: {app:app,limit:100},
         success: function (req) {
 
             if(req.message){
-                templ_list = req.message;
-                for (var n=0;n<templ_list.length;n++){
-
-                    console.log(templ_list[n].name, templ_list[n].conf_name)
-                    // templ_list_obj[templ_list[n].conf_name]=templ_list[n].name
-                }
+                templ_pub = req.message;
+                templ_list = templ_pub
 
             }
-
-            // console.log(req)
-            // if(list){
-            //     for(var i=0;i<list.length;i++){
-            //         var html = '<tr>';
-            //         html += '<td>'+list[i].conf_name+'</td><td>'+list[i].description+'</td><td>'+list[i].name+'</td><td><button class="add_single">添加</button></td></tr>'
-            //         $('#select_template table').append(html);
-            //     }
-            // }
         }, error: function (req) {
             console.log(req)
         }
-
     });
+
+
+    // $.ajax({
+    //     url: "/apis/api/method/conf_center.api.list_app_conf_pri",
+    //     type: "GET",
+    //     async: false,
+    //     data: {app:app,limit:100},
+    //     success: function (req) {
+    //         if(req.message){
+    //             templ_pri = req.message;
+    //         }
+    //         templ_list = templ_pub.concat(templ_pri);
+    //
+    //     }, error: function (req) {
+    //         console.log(req)
+    //     }
+    //
+    // });
+
 }
 
 
@@ -449,13 +473,6 @@ function list_app_conf(app) {
 function create_appconfig_panel(data) {
     $('.c_content').empty();
     for (var i=0;i<data.length;i++){
-        if(data[i].type=="defaults"){
-
-            app_default = data[i].value
-
-        }
-
-
         if(data[i].type=="dropdown"){
             var val_list = data[i].value;
             var val_html = '<option selected>'+ val_list[0] + '</option>';
