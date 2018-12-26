@@ -204,21 +204,23 @@ $('button.app-install-to-gate').click(function() {
         }
     }
 
-
     var appid = $(this).data("cloudappid");
     var appname = $(this).data("appname");
     var inst = $('#gate_inst_1').val();
 
-    // if(inArray())
+    if($.inArray(inst, installed_apps)!=-1){
+        $('#gate_inst_1').data("content", "网关在已经存在相同实例名");
+        $('.popover-name').popover('show');
+        setTimeout(function () {
+            $('.popover-name').popover('destroy');
+        },2000);
+        return false;
+    }
 
-    return false;
     if(templ_conf){
         get_panel_data(templ_conf);
-
+        var appcfg = app_default;
         if(checkinst(inst)){
-            // var appcfg = JSON.parse(json_editor.getValue());
-            var appcfg = app_default;
-            // console.log(typeof appcfg);
             var id = 'app_install/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
             var act_post = {
                 "device": gate_sn,
@@ -239,28 +241,31 @@ $('button.app-install-to-gate').click(function() {
         }
 
     }else{
+
         var session = json_editor.getSession();
         app_default = JSON.parse(session.getValue());
 
         var appcfg = app_default;
         // console.log(typeof appcfg);
-        var id = 'app_install/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
-        var act_post = {
-            "device": gate_sn,
-            "id": id,
-            "data": {
-                "inst": inst,
-                "name": appid,
-                "version":'latest',
-                "conf": appcfg
-            }
-        };
-        var action = "app_install";
-        var task_desc = '应用配置'+ inst;
+        if(checkinst(inst)) {
+            var id = 'app_install/' + gate_sn + '/' + inst + '/' + Date.parse(new Date());
+            var act_post = {
+                "device": gate_sn,
+                "id": id,
+                "data": {
+                    "inst": inst,
+                    "name": appid,
+                    "version": 'latest',
+                    "conf": appcfg
+                }
+            };
+            var action = "app_install";
+            var task_desc = '应用配置' + inst;
 
-        console.log(gate_sn, id, inst, appid, appcfg);
+            console.log(gate_sn, id, inst, appid, appcfg);
 
-        gate_exec_action(action, act_post, task_desc, inst, action ,"1")
+            gate_exec_action(action, act_post, task_desc, inst, action, "1")
+        }
     }
 
 
@@ -279,10 +284,13 @@ $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
     if(nowtext=="JSON源码"){
         //通过配置面板生成json
         if(templ_conf){
+
             get_panel_data(templ_conf);
             json_editor.setReadOnly(true);
+            $("span.json_editor_status").text("不可编辑");
         }else{
             json_editor.setReadOnly(false);
+            $("span.json_editor_status").text("可编辑");
         }
 
 
