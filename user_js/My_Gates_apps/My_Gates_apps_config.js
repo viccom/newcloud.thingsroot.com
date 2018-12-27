@@ -1,118 +1,19 @@
-$.ajaxSetup({
-    headers: { // 默认添加请求头
-        "X-Frappe-CSRF-Token": auth_token
-    }
-});
+gate_sn  = getParam('sn');
+inst = getParam('inst');
+appid = getParam('appid');
+pagename = "Gates_apps";
 
-function app_detail(appid) {
-
-    $.ajax({
-        url: "/apis/api/method/app_center.api.app_detail",
-        type: "GET",
-        data: {app:appid},
-        async:false,
-        success: function (data) {
-            // $('.app_img').attr("src",data.message.icon_image);
-            if(data.message.has_conf_template) {
-                templ_conf = $.parseJSON(data.message.conf_template);
-
-            }else{
-                templ_conf = null;
-            }
-            if(data.message.pre_configuration) {
-
-                // console.log("1", app_default);
-                app_default = $.parseJSON(data.message.pre_configuration);
-                set_panel_data();
-                // console.log("2", app_default);
-
-            }else{
-                app_default = {};
-            }
-
-            if(data.message){
-                $('#formAppId').val(data.message.name);
-                $('.app_name').text(data.message.app_name); //应用名称
-                $('.app_owner').text(data.message.owner);
-                if(data.message.fork_from == null){      //主分支，判断是否有主分支
-                    $('.fork_from').css('display','none');
-                }else{
-                    $('.fork_from').css('display','inline-block');
-                    $('.fork_from').val(data.message.fork_from);
-                }
-                $('.edit').val(data.message.name);   //name
-                $('.app_category').text(data.message.category);   //应用类别
-                $('.device_supplier').text(data.message.device_supplier);   //设备厂家
-                if(data.message.license_type == "Open"){
-                    $('.license_type').text("免费")
-                }
-                $('.app_protocol').text(data.message.protocol);   //通讯协议
-
-                $('.device_serial').text(data.message.device_serial);   //适配型号
-                $('.app_img').src = data.message.icon_image;    //app图片
-                // console.log(data.message.description);
-                // $('#test-editormd>textarea').val(data.message.description);  //Markdown内容
-                $('#test-editormd').html('<textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" style="display:;"></textarea>');
-                $('#my-editormd-markdown-doc').val(data.message.description);
-                testEditor = editormd.markdownToHTML("test-editormd", {
-                    htmlDecode: "style,script,iframe",  // you can filter tags decode
-                    emoji: true,
-                    taskList: true,
-                    tex: true,  // 默认不解析
-                    flowChart: true,  // 默认不解析
-                    sequenceDiagram: true  // 默认不解析
-                });
-            }
-
-        }, error: function () {
-            console.log('no')
-        }, complete: function () {
-            console.log("ss");
-
-        }
-    });
-}
-
-var testEditor;
+$("#gate_inst_1:input").val(inst);
+$("span.gate_name").text(gate_sn);
+$("span.inst_name").text(inst);
 templ_list = null;
 app_default = {};
 templ_conf = null;
 
-$("body").on("click", "span.app-detail", function() {
 
-    var appid = $(this).data("cloudappid");
-    var appname = $(this).data("appname");
-    $('.templs-refresh').data("cloudappid",appid)
-    $('button.app-install-to-gate').data("cloudappid",appid)
-    $('button.app-install-to-gate').data("appname",appname)
-
-
-    console.log(appid, appname);
-    $('#container').waterfall('pause', function() {
-
-    });
-    list_app_conf(appid);
-    app_detail(appid);
-
-    $('a[href="#app_detail_div"]').tab('show');
-    $('a[href="#app-description"]').tab('show');
-    $('div.app-detail').removeClass("hide");
-    $('div.app-install').addClass("hide");
-    $('button.install-switch').data("install","1");
-    $('button.install-switch').text("安装到网关");
-
-    if(templ_conf){
-        create_appconfig_panel(templ_conf);
-        $("div.has_panel_cfg").removeClass("hide");
-        $("div.no_panel_cfg").addClass("hide");
-    }else{
-        $("div.has_panel_cfg").addClass("hide");
-        $("div.no_panel_cfg").removeClass("hide");
-        var session = json_editor.getSession();
-        // app_default ={};
-        session.setValue(JSON.stringify(app_default, null, 4));
-    }
-});
+app_detail(appid);
+list_app_conf(appid);
+gate_applist(gate_sn);
 
 //初始化对象
 json_editor = ace.edit("json_editor");
@@ -144,205 +45,7 @@ json_editor.setOptions({
 json_editor.setValue(JSON.stringify(app_default));
 var session = json_editor.getSession();
 
-$("body").on("click", "a.app-config", function() {
-    var appid = $(this).data("cloudappid");
-    var appname = $(this).data("appname");
-    $('.templs-refresh').data("cloudappid",appid)
-    $('button.app-install-to-gate').data("cloudappid",appid)
-    $('button.app-install-to-gate').data("appname",appname)
-    console.log(appid, appname);
-    $('#container').waterfall('pause', function() {
-    });
-    list_app_conf(appid);
-    app_detail(appid);
-    $('a[href="#app_detail_div"]').tab('show');
-    $('a[href="#confi_panel_div"]').tab('show');
 
-    $('div.app-detail').addClass("hide");
-    $('div.app-install').removeClass("hide");
-    $('button.install-switch').data("install","0");
-    $('button.install-switch').text("查看应用描述");
-
-    if(templ_conf){
-        create_appconfig_panel(templ_conf);
-        $("div.has_panel_cfg").removeClass("hide");
-        $("div.no_panel_cfg").addClass("hide");
-    }else{
-        $("div.has_panel_cfg").addClass("hide");
-        $("div.no_panel_cfg").removeClass("hide");
-        var session = json_editor.getSession();
-        // app_default = {};
-        session.setValue(JSON.stringify(app_default, null, 4));
-    }
-
-    // list_app_conf(appid);
-    // get_app_detail(appid);
-
-
-});
-
-$('.close-app-detail').click(function() {
-
-
-    $('a[href="#app_market_div"]').tab('show');
-    $('#container').waterfall('resume', function() {
-
-    });
-
-});
-
-$('button.install-switch').click(function() {
-    if($(this).data("install")=="1"){
-        $('div.app-detail').addClass("hide");
-        $('div.app-install').removeClass("hide");
-        $(this).data("install","0");
-        $(this).text("查看应用描述");
-    }else{
-        $('div.app-detail').removeClass("hide");
-        $('div.app-install').addClass("hide");
-        $(this).data("install","1");
-        $(this).text("安装到网关");
-    }
-});
-
-$('button.app-install-to-gate').click(function() {
-    var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
-    var installed_apps = new Array();
-    if(gateinfo!=null && typeof(gateinfo) != "undefined"){
-        gateinfo = JSON.parse(gateinfo);
-        if(gateinfo.hasOwnProperty("applist")) {
-            var applist = gateinfo.applist;
-            installed_apps = Object.keys(applist)
-        }
-    }
-
-    var appid = $(this).data("cloudappid");
-    var appname = $(this).data("appname");
-    var inst = $('#gate_inst_1').val();
-
-    if($.inArray(inst, installed_apps)!=-1){
-        $('#gate_inst_1').data("content", "网关在已经存在相同实例名");
-        $('.popover-name').popover('show');
-        setTimeout(function () {
-            $('.popover-name').popover('destroy');
-        },2000);
-        return false;
-    }
-
-    if(templ_conf){
-        get_panel_data(templ_conf);
-        var appcfg = app_default;
-        if(checkinst(inst)){
-            var id = 'app_install/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
-            var act_post = {
-                "device": gate_sn,
-                "id": id,
-                "data": {
-                    "inst": inst,
-                    "name": appid,
-                    "version":'latest',
-                    "conf": appcfg
-                }
-            };
-            var action = "app_install";
-            var task_desc = '应用安装'+ inst;
-
-            console.log(gate_sn, id, inst, appid, appcfg);
-
-            gate_exec_action(action, act_post, task_desc, inst, action ,"1")
-        }
-
-    }else{
-
-        var session = json_editor.getSession();
-        app_default = JSON.parse(session.getValue());
-
-        var appcfg = app_default;
-        // console.log(typeof appcfg);
-        if(checkinst(inst)) {
-            var id = 'app_install/' + gate_sn + '/' + inst + '/' + Date.parse(new Date());
-            var act_post = {
-                "device": gate_sn,
-                "id": id,
-                "data": {
-                    "inst": inst,
-                    "name": appid,
-                    "version": 'latest',
-                    "conf": appcfg
-                }
-            };
-            var action = "app_install";
-            var task_desc = '应用安装' + inst;
-
-            console.log(gate_sn, id, inst, appid, appcfg);
-
-            gate_exec_action(action, act_post, task_desc, inst, action, "1")
-        }
-    }
-
-
-
-
-
-
-});
-
-$('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
-    // console.log($(this).text())
-    // console.log(e.target)
-    // console.log(e.relatedTarget)
-
-    var nowtext = $(this).text()
-    if(nowtext=="JSON源码"){
-        //通过配置面板生成json
-        if(templ_conf){
-            get_panel_data(templ_conf);
-            json_editor.setReadOnly(true);
-            $("span.json_editor_status").text("不可编辑");
-        }else{
-            json_editor.setReadOnly(false);
-            $("span.json_editor_status").text("可编辑");
-        }
-
-
-
-        var session = json_editor.getSession();
-        session.setValue(JSON.stringify(app_default, null, 4));
-    }
-    if(nowtext=="配置面板"){
-        // var session = json_editor.getSession();
-        // app_default = JSON.parse(session.getValue());
-        // console.log("配置面板",app_default);
-        // if(templ_conf){
-            //通过json设置配置面板
-            // console.log("配置 from json");
-            // set_panel_data(templ_conf, app_default);
-        // }
-
-
-    }
-
-
-} );
-
-
-// json_editor.setValue(app_default);
-
-$('#modal-add-templ').on('show.bs.modal', function () {
-    create_templ_select();
-
-});
-
-$('.creat_templ').click(function () {
-    var appid = $('button.app-install-to-gate').data("cloudappid");
-    window.open("/My_Template_list.html?action=newtempl&appid="+appid);
-});
-
-$('.templs-refresh').click(function () {
-    var appid = $(this).data("cloudappid");
-    list_app_conf(appid);
-    create_templ_select();
-});
 
 
 function isUsername(inst) {
@@ -418,13 +121,204 @@ function checkinst(inst) {
 }
 
 
+$('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
+    // console.log($(this).text())
+    // console.log(e.target)
+    // console.log(e.relatedTarget)
+
+    var nowtext = $(this).text()
+    if(nowtext=="JSON源码"){
+        //通过配置面板生成json
+        if(templ_conf){
+            get_panel_data(templ_conf);
+            json_editor.setReadOnly(true);
+            $("span.json_editor_status").text("不可编辑");
+        }else{
+            json_editor.setReadOnly(false);
+            $("span.json_editor_status").text("可编辑");
+        }
+
+
+
+        var session = json_editor.getSession();
+        session.setValue(JSON.stringify(app_default, null, 4));
+    }
+    if(nowtext=="配置面板"){
+        if(templ_conf){
+            $("div.has_panel_cfg").removeClass("hide");
+            $("div.no_panel_cfg").addClass("hide");
+        }else{
+            $("div.has_panel_cfg").addClass("hide");
+            $("div.no_panel_cfg").removeClass("hide");
+
+        }
+
+
+    }
+
+
+} );
+
+$('button.app-install-to-gate').click(function() {
+    var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
+    var installed_apps = new Array();
+    if(gateinfo!=null && typeof(gateinfo) != "undefined"){
+        gateinfo = JSON.parse(gateinfo);
+        if(gateinfo.hasOwnProperty("applist")) {
+            var applist = gateinfo.applist;
+            installed_apps = Object.keys(applist)
+        }
+    }
+
+    if(templ_conf){
+        get_panel_data(templ_conf);
+        var appcfg = app_default;
+        if(checkinst(inst)){
+            var id = 'app_conf/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
+            var act_post = {
+                "device": gate_sn,
+                "id": id,
+                "data": {
+                    "inst": inst,
+                    "conf": appcfg
+                }
+            };
+            var action = "app_conf";
+            var task_desc = '应用配置'+ inst;
+
+            console.log(gate_sn, id, inst, appid, appcfg);
+
+            gate_exec_action(action, act_post, task_desc, inst, action ,"1")
+        }
+
+    }else{
+
+        var session = json_editor.getSession();
+        app_default = JSON.parse(session.getValue());
+
+        var appcfg = app_default;
+        // console.log(typeof appcfg);
+        if(checkinst(inst)) {
+            var id = 'app_conf/' + gate_sn + '/' + inst + '/' + Date.parse(new Date());
+            var act_post = {
+                "device": gate_sn,
+                "id": id,
+                "data": {
+                    "inst": inst,
+                    "conf": appcfg
+                }
+            };
+            var action = "app_conf";
+            var task_desc = '应用配置' + inst;
+
+            console.log(gate_sn, id, inst, appid, appcfg);
+
+            gate_exec_action(action, act_post, task_desc, inst, action, "1")
+        }
+    }
+
+});
+
+
+$('#modal-add-templ').on('show.bs.modal', function () {
+    create_templ_select();
+
+});
+$('.creat_templ').click(function () {
+    window.open("/My_Template_list.html?action=newtempl&appid="+appid);
+});
+
+$('.templs-refresh').click(function () {
+    list_app_conf(appid);
+    create_templ_select();
+});
+
+
+
+
+/**
+ *	获取网关已安装应用列表
+ */
+function gate_applist(sn){
+
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.gate_applist',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: {"sn": sn},
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+            if(req.message!=null){
+                localStorage.setItem("gate_apps/"+ sn, JSON.stringify(req.message));
+                var alist = req.message;
+                for (var i=0;i<alist.length;i++){
+
+                    if(alist[i].hasOwnProperty("inst")){
+
+                        if(alist[i].inst==inst){
+                            app_default = alist[i].info.conf;
+                            set_panel_data();
+
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+
+}
+
+/**
+ *	获取应用信息
+ */
+function app_detail(id) {
+
+    $.ajax({
+        url: "/apis/api/method/app_center.api.app_detail",
+        type: "GET",
+        data: {app:id},
+        async:false,
+        success: function (data) {
+            // console.log(data);
+            if(data.message.has_conf_template) {
+                templ_conf = $.parseJSON(data.message.conf_template);
+
+                if(templ_conf){
+                    console.log("@@@@@@")
+                    create_appconfig_panel(templ_conf);
+                    $("div.has_panel_cfg").removeClass("hide");
+                    $("div.no_panel_cfg").addClass("hide");
+
+                }
+            }else{
+                templ_conf = null;
+                $("div.has_panel_cfg").addClass("hide");
+                $("div.no_panel_cfg").removeClass("hide");
+            }
+
+        }, error: function () {
+            console.log('no')
+        }, complete: function () {
+            console.log("ss");
+
+        }
+    });
+}
 
 /**
  *	获取应用模板配置信息
  */
 function list_app_conf(app) {
-
-
     var templ_pub = new Array();
     var templ_pri = new Array();
 
@@ -511,37 +405,37 @@ function create_appconfig_panel(data) {
                         "type": "dropdown",
                         "value": ["ttymcx0","ttymcx1"]
                     },
-                    {
-                        "name": "baudrate",
-                        "desc": "波特率",
-                        "type": "dropdown",
-                        "value": [ 4800,9600,19200,115200]
-                    },
-                    {
-                        "name": "stop_bits",
-                        "desc": "停止位",
-                        "type": "dropdown",
-                        "value": [1,2]
-                    },
-                    {
-                        "name": "data_bits",
-                        "desc": "数据位",
-                        "type": "dropdown",
-                        "value": [8,7]
-                    },
-                    {
-                        "name": "flow_control",
-                        "desc": "流控",
-                        "type": "boolean"
+                        {
+                            "name": "baudrate",
+                            "desc": "波特率",
+                            "type": "dropdown",
+                            "value": [ 4800,9600,19200,115200]
+                        },
+                        {
+                            "name": "stop_bits",
+                            "desc": "停止位",
+                            "type": "dropdown",
+                            "value": [1,2]
+                        },
+                        {
+                            "name": "data_bits",
+                            "desc": "数据位",
+                            "type": "dropdown",
+                            "value": [8,7]
+                        },
+                        {
+                            "name": "flow_control",
+                            "desc": "流控",
+                            "type": "boolean"
 
-                    },
-                    {
-                        "name": "parity",
-                        "desc": "校验",
-                        "type": "dropdown",
-                        "value": ["None", "Even", "Odd"]
-                    }
-                ]
+                        },
+                        {
+                            "name": "parity",
+                            "desc": "校验",
+                            "type": "dropdown",
+                            "value": ["None", "Even", "Odd"]
+                        }
+                    ]
                 for (var j=0;j<child.length;j++){
                     if(child[j].type=="dropdown"){
                         var val_html = '<option selected>' + child[j].value[0]  + '</option>';
@@ -1327,26 +1221,6 @@ function get_table_row1(id){
 }
 
 /**
- *	获取表格第2列数据
- */
-function get_table_row2(id){
-    var trlist = $(id +".table>tbody>tr").find("td:eq(1)");
-    console.log(trlist);
-    // console.log(typeof trlist);
-    var row1data = new Array();
-    if(trlist.length>0){
-        for(var i=0;i<trlist.length;i++){
-            row1data.push($(trlist[i]).find("select").select()[0].value)
-        }
-
-        return row1data;
-    }else{
-        return []
-    }
-}
-
-
-/**
  *	获取表格所有数据
  */
 function get_table_data(id){
@@ -1358,7 +1232,7 @@ function get_table_data(id){
             if($(this).hasClass('template')){
                 // console.log($(this).find("select").select()[0].value);
                 v = $(this).find("select").select()[0].value
-                }
+            }
             row.push(v);
         });
         row.pop();
@@ -1367,6 +1241,7 @@ function get_table_data(id){
     table_set.shift();
     return table_set
 }
+
 
 /**
  *	创建设备模板选择表单

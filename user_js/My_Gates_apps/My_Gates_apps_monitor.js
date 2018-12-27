@@ -173,13 +173,17 @@ var mqtt_status_ret= setInterval(function(){
     }
     if(log_subscribed){
         $(".btn-log-subscribe").text("取消订阅");
+        $(".btn-log-subscribe").addClass("btn-success");
     }else{
         $(".btn-log-subscribe").text("日志订阅");
+        $(".btn-log-subscribe").removeClass("btn-success");
     }
     if(comm_subscribed){
         $(".btn-comm-subscribe").text("取消订阅");
+        $(".btn-comm-subscribe").addClass("btn-success");
     }else{
         $(".btn-comm-subscribe").text("报文订阅");
+        $(".btn-comm-subscribe").removeClass("btn-success");
     }
 },1000);
 
@@ -384,12 +388,14 @@ $(".btn-log-subscribe").click(function(){
                 onFailure: unsubscribeFailure,
                 invocationContext: { topic: gate_sn + "/" + "log" }
             });
-            log_subscribed = false
+            log_subscribed = false;
+            $(".btn-log-subscribe").removeClass("btn-success");
         }else{
             try {
                 if(lens<1000){
                     mqtt_client.subscribe(gate_sn + "/" + "log", {qos: 0});
-                    log_subscribed = true
+                    log_subscribed = true;
+                    $(".btn-log-subscribe").addClass("btn-success");
                     var id = "sys_enable_log" + '/' + gate_sn + '/'+ Date.parse(new Date())
                     var _act = {
                         "device": gate_sn,
@@ -409,8 +415,8 @@ $(".btn-log-subscribe").click(function(){
             } catch (error) {
                 console.log(error);
                 mqttc_connected = false;
-                log_subscribed = false
-
+                log_subscribed = false;
+                $(".btn-log-subscribe").removeClass("btn-success");
             }
         }
 
@@ -427,10 +433,12 @@ $(".btn-comm-subscribe").click(function(){
                 invocationContext: { topic: gate_sn + "/" + "comm" }
             });
             comm_subscribed = false;
+            $(".btn-comm-subscribe").removeClass("btn-success");
         }else{
             if(lens<1000){
                 mqtt_client.subscribe(gate_sn + "/" + "comm", {qos: 0});
                 comm_subscribed = true;
+                $(".btn-comm-subscribe").addClass("btn-success");
                 var id = "app_upload_comm" + '/' + gate_sn + '/'+ Date.parse(new Date())
                 var _act = {
                     "device": gate_sn,
@@ -452,6 +460,7 @@ $(".btn-comm-subscribe").click(function(){
                 console.log(error);
                 mqttc_connected = false;
                 comm_subscribed = false;
+                $(".btn-comm-subscribe").removeClass("btn-success");
             }
         }
 

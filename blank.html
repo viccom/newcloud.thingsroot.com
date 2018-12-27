@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | 应用配置</title>
+    <title>冬笋云 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -24,25 +24,7 @@
     <!-- global style -->
     <link rel="stylesheet" href="user_css/global.css">
     <style>
-        .flex{
-            /*flex 布局*/
-            display: flex;
-            /*实现垂直居中*/
-            align-items: center;
-            /*实现水平居中*/
-            justify-content: center;
 
-            text-align: justify;
-            width:100%;
-            min-height:420px;
-            /*background: #000;*/
-            margin:0 auto;
-            /*color:#fff;*/
-        }
-        .config-label {
-            text-align: left!important;
-            max-width: 150px!important;
-        }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -194,10 +176,10 @@
 
                 <li class="header">Dashboard</li>
 
-                <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li class="active"><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
                 <li><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
                 <li><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
 
@@ -215,95 +197,19 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-         <section class="content-header">
-             <h1>
-                 我的网关
-                 <small><span class="gate_name"></span> > <span class="inst_name"></span>>应用配置</small>
-                 <div class="pull-right"><a href="javascript:close_self();"><button type="button" class="btn btn-default"><i class="fa fa-close"></i>关闭</button></a></div>
-             </h1>
-
-        </section>
+        <!-- <section class="content-header">
+            <h1>
+                Dashboard
+                <small>Control panel</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section> -->
 
         <!-- Main content -->
         <section id="content">
-
-
-
-            <div class="row app-install" style="padding: 15px">
-
-                <div class="col-lg-12">
-
-                    <div class="nav-tabs-custom" style="padding-top:0px">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#confi_panel_div" data-toggle="tab">配置面板</a></li>
-                            <li><a href="#config_json_div" data-toggle="tab">JSON源码</a></li>
-
-                            <!--<li class="pull-right"><button type="button" class="btn btn-primary app-install-to-gate">安装</button></li>-->
-
-                        </ul>
-                        <div class="tab-content">
-
-                            <form class="form-horizontal"  method="post" onsubmit="return false;">
-                                <div class="form-group">
-                                    <label for="gate_inst_1" class="col-sm-2 control-label config-label">实例名：</label>
-
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control  popover-name"  data-placement="top" data-content="" id="gate_inst_1" placeholder="" readonly>
-                                    </div>
-                                </div>
-
-                            </form>
-
-
-                            <!-- confi_panel_div -->
-                            <div class="tab-pane active" id="confi_panel_div" style="padding: 0">
-
-
-                                <div class="has_panel_cfg c_content" style="min-height:450px; border: 0px solid #e1e1e1;">
-
-
-
-
-                                </div>
-                                <!-- /无配置参数时显示 -->
-                                <div class="flex no_panel_cfg hide">
-                                    <h1>此应用不支持配置界面<br>请使用JSON格式配置</h1>
-                                </div>
-
-                            </div>
-                            <!-- /#confi_panel_div -->
-
-                            <!-- config_json_div-->
-                            <div class="tab-pane " id="config_json_div" style="padding-left: 0px; padding-top: 5px; padding-right: 0px;padding-bottom: 0px;border:1px solid #eaead1">
-
-
-                                <div>编辑器状态：<b><span class="json_editor_status text-light-blue"></span></b></div>
-                                <div id="json_editor"  style="min-height:405px; border: 0px solid #e1e1e1;">
-                                </div>
-
-                                <script>
-
-                                    //console.log('-------------------session1',session.getValue());
-                                </script>
-
-                            </div>
-                            <!-- /#config_json_div -->
-
-                            <form class="form-horizontal"  method="post" onsubmit="return false;">
-                                <div class="form-group" style="padding-left: 15px; padding-top: 15px">
-                                    <button type="button" class="btn btn-primary btn-lg app-install-to-gate" style="width: 150px">保存</button>
-                                </div>
-                            </form>
-
-
-                        </div>
-                        <!-- /.tab-content -->
-                    </div>
-                    <!-- /.nav-tabs-custom -->
-
-                </div>
-
-            </div>
 
         </section>
         <!-- /.content -->
@@ -344,54 +250,6 @@
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
-
-
-    <!-- /.modal templ start-->
-    <div class="modal fade" id="modal-add-templ" data-backdrop="static" style="padding-top: 100px">
-        <div class="modal-dialog" style="width: 800px; ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">添加模板
-                        <button type="button" class="btn btn-default btn-sm templs-refresh"><i class="fa fa-refresh"></i></button>
-
-                    </h4>
-
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive" style="padding-bottom: 20px">
-                        <table class="table table-bordered nowrap" id="select_templ_list">
-                            <tr>
-                                <th style="width: 25%">名称</th>
-                                <th style="width: 30%">描述</th>
-                                <th style="width: 25%">模板ID</th>
-                                <th style="width: 10%">版本</th>
-                                <th style="width: 10%">操作</th>
-                            </tr>
-
-                        </table>
-                    </div>
-                    <!--<div><button type="button" class="btn btn-primary creat_templ templates">创建新模板</button></div>-->
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary creat_templ templates  pull-left">创建新模板</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal end-->
-
-    <div class="alert danger" role="alert" style="text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
-        <a href="#" class="alert-link" style="color: #333;font-size: 16px;text-decoration: none">...</a>
-    </div>
-
-
-
 </div>
 <!-- ./wrapper -->
 
@@ -419,23 +277,13 @@
 <script src="dist/js/adminlte.min.js"></script>
 <script src="user_js/common/skin.js"></script>
 
-
-<!-- ace editor -->
-<script src="plugins/ace/ace.js" charset="utf-8" type="text/javascript"></script>
-<script src="plugins/ace/ext-language_tools.js" type="text/javascript"></script>
+<script type="text/javascript" src="plugins/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="plugins/echarts/theme/macarons.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
 <script src="user_js/common/user.js"></script>
-<script src="user_js/common/add_back_task.js"></script>
-
-<!-- load user js-->
-<!--<script src="user_js/My_Gates_apps/My_Gates_apps_config.js"></script>-->
-
-<script type="text/javascript">
-    document.write("<script type='text/javascript' src='user_js/My_Gates_apps/My_Gates_apps_config.js?v="+jsversion+"'></s"+"cript>");
-</script>
 
 
 <script>
@@ -444,8 +292,6 @@
 
 
     });
-
-
 </script>
 </body>
 </html>

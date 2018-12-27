@@ -42,6 +42,17 @@ $(function() {
 });
 
 /**
+ *	关闭自己
+ **/
+function close_self(){
+    window.opener=null;
+    window.open('','_self');
+    window.close();
+}
+
+
+
+/**
  *	检测IP地址是否合法
  **/
 

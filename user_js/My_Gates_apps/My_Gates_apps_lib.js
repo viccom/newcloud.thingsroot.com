@@ -151,7 +151,7 @@ function set_tabel(sn, tableobj){
             if($.inArray(appsinfo[i].info.inst, inst_arr)){
                 console.log(appsinfo[i].info.inst);
                 ops = '<button type="button" class="btn btn-default app-monitor" data-inst="' + appsinfo[i].info.inst + '" data-appid="' + appsinfo[i].info.name + '">监视</button>'
-                    + '<button type="button" class="btn btn-default">配置</button>'
+                    + '<button type="button" class="btn btn-default app-config"  data-inst="' + appsinfo[i].info.inst + '" data-appid="' + appsinfo[i].info.name + '">配置</button>'
                     + '<div class="btn-group">'
                     + '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">更多'
                     + '<span class="caret"></span>'
@@ -225,6 +225,11 @@ function set_tabel(sn, tableobj){
             redirect("My_Gates_apps_monitor.html?sn=" + gate_sn + "&inst=" + inst + "&appid=" + appid);
         });
 
+        $("body").on("click", ".app-config", function () {
+            var inst = $(this).attr("data-inst");
+            var appid = $(this).attr("data-appid");
+            window.open("My_Gates_apps_config.html?sn=" + gate_sn + "&inst=" + inst + "&appid=" + appid);
+        });
 
         $("body").on("click", ".app_uninstall_btn", function () {
             var inst = $(this).data("inst");

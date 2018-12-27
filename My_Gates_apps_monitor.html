@@ -366,10 +366,10 @@
                             </li>
                             <!--<li class="pull-right"><button type="button" class="btn btn-primary appinfo-query">查询</button></li>-->
                             <!--<li class="pull-right"><button type="button" class="btn btn-primary appinfo-stop">停止</button></li>-->
-                            <li class="pull-right"><button type="button" class="btn btn-primary appinfo-clear">清除</button></li>
+                            <li class="pull-right"><button type="button" class="btn appinfo-clear">清除</button></li>
 
-                            <li class="pull-right comm-subscribe hide"><button type="button" class="btn btn-primary btn-comm-subscribe">报文订阅</button></li>
-                            <li class="pull-right log-subscribe"><button type="button" class="btn btn-primary btn-log-subscribe">日志订阅</button></li>
+                            <li class="pull-right comm-subscribe hide"><button type="button" class="btn btn-comm-subscribe">报文订阅</button></li>
+                            <li class="pull-right log-subscribe"><button type="button" class="btn btn-log-subscribe">日志订阅</button></li>
                             <li class="pull-right"><button type="button" class="btn btn-primary appinfo-upload">连接</button></li>
                             <li class="pull-right"><a><span>日志：</span><span class="log_nums">0</span>&nbsp&nbsp|&nbsp&nbsp<span>报文：</span><span class="comm_nums">0</span></a></li>
                         </ul>
@@ -622,7 +622,7 @@
                     localStorage.setItem("gate_devices/"+ sn, JSON.stringify(req.message));
                     var devslist = req.message;
                     for (var i=0;i<devslist.length;i++){
-                        if(devslist.hasOwnProperty("app_inst")){
+                        if(devslist[i].hasOwnProperty("app_inst")){
                             if(devslist[i].app_inst==inst){
                                 app_devslist.push(devslist[i].sn)
                             }
