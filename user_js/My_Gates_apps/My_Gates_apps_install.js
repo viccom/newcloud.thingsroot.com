@@ -1415,7 +1415,9 @@ function create_templ_select(){
 
         $(this).parent().html('已添加');
 
-
+        $('.delete_templates_col').click(function () {
+            $(this).parent().parent().remove()
+        })
 
     });
 

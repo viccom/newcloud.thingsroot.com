@@ -1289,7 +1289,9 @@ function create_templ_select(){
         templates_table.append(html);
 
         $(this).parent().html('已添加');
-
+        $('.delete_templates_col').click(function () {
+            $(this).parent().parent().remove()
+        })
 
 
     });
