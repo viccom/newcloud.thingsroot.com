@@ -72,40 +72,101 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
+                    <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs user-name">user</span>
+                            <i class="fa  fa-user-md"></i>
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
 
-                            <!-- Menu Body -->
-                            <li class="user-panel">
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="User_Settings.html">
+                                            <h3>
+                                                <i class="fa fa-user"></i>
+                                                基本资料
+                                            </h3>
+                                        </a>
+                                    </li>
 
-                                <div class="text-center">
-                                    <a href="User_Settings.html">基本资料</a>
-                                </div>
+                                    <li><!-- Task item -->
+                                        <a href="My_Virtual_Gates.html">
+                                            <h3>
+                                                <i class="fa fa-laptop"></i>
+                                                虚拟网关
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_AccessKey.html">
+
+                                            <h3>
+                                                <i class="fa fa-key"></i>
+                                                AccessKey
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </li>
-                            <li class="user-panel">
 
-                                <div class="text-center">
-                                    <a href="My_AccessKey.html">AccessKey</a>
-                                </div>
-
-                            </li>
-
-                            <li class="user-panel">
-                                <div class="text-center">
-                                    <a href="javascript:void(0)">虚拟网关</a>
-                                </div>
-                            </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
 
-                                <div class="text-center">
-                                    <a href="javascript:logout();"  class="btn btn-default btn-flat">退出</a>
+                                <div>
+                                    <a href="javascript:logout();"  class="btn btn-warning btn-block btn-flat">退出</a>
                                 </div>
                             </li>
+
+                        </ul>
+                    </li>
+                    <!-- Help can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-question-circle"></i>
+                            帮助
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                快速指南
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                应用开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                平台开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
@@ -130,13 +191,13 @@
                 <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
                 <li class="header">我的资源</li>
-                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
-                <li><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
-                <li class="treeview"><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
-                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
-                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-commenting-o text-yellow"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-commenting-o text-light-blue"></i> <span>设备消息</span></a></li>
 
 
             </ul>

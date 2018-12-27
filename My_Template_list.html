@@ -387,8 +387,28 @@
             <div style="display: flex;align-items: center;justify-content: space-between">
                 <h3 style="margin: 0;">我的模板
                     <span style="font-size: 16px;margin: 8px 0 0 10px;color: #777;">设备模板</span>
+
                 </h3>
-                <div style="display: flex">
+                <div class="pull-right">
+                    <button type="button" id="createTemplate" class="btn btn-primary creat_templ">创建新的模板</button>
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="box box-body " style="min-height: 625px">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" id="refreshHtml"><i class="fa fa-refresh"></i></button>
+                </div>
+
+
+
+                <div class="pull-right">
                     <div class="input-group" style="width: 300px;">
                         <div class="input-group-btn search_filter">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -401,24 +421,9 @@
                             </ul>
                         </div><!-- /btn-group -->
                         <input type="text" class="form-control J_keyword" aria-label="请输入关键词">
-                        <span class="input-group-addon" id="searchBtn"><i class="glyphicon glyphicon-search"></i></span>
+                        <a href="javascript:void(0);" class="input-group-addon" id="searchBtn"><i class="fa fa-search"></i></a>
                     </div><!-- /input-group -->
-                    <i class="glyphicon glyphicon-refresh" id="refreshHtml" style="margin: 0 30px;line-height: 34px;font-size: 20px"></i>
-                    <div class="btn-group pull-right">
-                        <button type="button" id="createTemplate" class="btn btn-primary creat_templ">创建新的模板</button>
-                    </div>
                 </div>
-
-
-            </div>
-
-
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-            <div class="box box-body " style="min-height: 625px">
-
                 <!-- 表格 -->
                 <div style="margin: 0 15px;">
                     <table id="myTemplate" class="table dataTable no-footer " style="background-color:#FFFFFF;width: 100%;">
@@ -783,11 +788,17 @@
         $('.search_filter li').on('click', function(){
             console.log($(this))
             $('.search_keyword').text($(this).text());
-            console.log($('.search_keyword').text())
+            console.log($('.search_keyword').text());
+            $('input.J_keyword').val("");
+            table.columns( 0 ).search("").draw();
+            table.columns( 2 ).search("").draw();
+            table.columns( 4 ).search("").draw();
+            table.search("").draw();
         });
 
         //下拉框--- 分类搜索
-        $('#searchBtn').on( 'click', function () {  //点击搜索框
+        $('#searchBtn').on( 'keyup click', function () {  //点击搜索框
+
             var key = $('input.J_keyword').val();    //搜索框内容
             table.settings()[0].ajax = myajax;
             table.ajax.reload(null,false);
@@ -796,22 +807,58 @@
                 console.log(key)
                 table
                     .columns(0)
-                    .search(key)
+                    .search(key, false, true)
                     .draw();
             }
             if($('.search_keyword').text()=="关联应用"){
                 console.log(key)
                 table
                     .columns(2)
-                    .search(key)
+                    .search(key, false, true)
                     .draw();            }
             if($('.search_keyword').text()=="修改时间"){
                 table
                     .columns(4)
-                    .search(key)
+                    .search(key, false, true)
                     .draw();
             }
         } );
+
+
+
+        $("input.J_keyword").bind("input propertychange",function(event){
+
+            var key = $('input.J_keyword').val();    //搜索框内容
+            table.settings()[0].ajax = myajax;
+            table.ajax.reload(null,false);
+            if($('.search_keyword').text()=="模板名称"){
+                console.log($('.search_keyword').text())
+                console.log(key)
+                table
+                    .columns(0)
+                    .search(key, false, true)
+                    .draw();
+            }
+            if($('.search_keyword').text()=="关联应用"){
+                console.log(key)
+                table
+                    .columns(2)
+                    .search(key, false, true)
+                    .draw();            }
+            if($('.search_keyword').text()=="修改时间"){
+                table
+                    .columns(4)
+                    .search(key, false, true)
+                    .draw();
+            }
+        });
+
+
+
+
+
+
+
         //刷新页面
         $('#refreshHtml').click(function(){
             table.settings()[0].ajax = myajax;
