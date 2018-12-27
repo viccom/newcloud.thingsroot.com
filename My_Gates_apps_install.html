@@ -769,9 +769,9 @@
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
-<script src="user_js/common/common.js"></script>
-<script src="user_js/common/add_back_task.js"></script>
-<script src="user_js/common/user.js"></script>
+<!--<script src="user_js/common/common.js"></script>-->
+<!--<script src="user_js/common/add_back_task.js"></script>-->
+<!--<script src="user_js/common/user.js"></script>-->
 
 <!-- load user is -->
 <!--<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>-->
@@ -779,6 +779,9 @@
 
 
 <script type="text/javascript">
+    document.write("<script type='text/javascript' src='user_js/common/common.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/common/add_back_task.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/common/user.js?v="+jsversion+"'></s"+"cript>");
     document.write("<script type='text/javascript' src='user_js/My_Gates_apps/My_Gates_apps_lib.js?v="+jsversion+"'></s"+"cript>");
     document.write("<script type='text/javascript' src='user_js/My_Gates_apps/My_Gates_apps_install.js?v="+jsversion+"'></s"+"cript>");
 </script>
