@@ -306,8 +306,11 @@ $(document).ready(function(){
         var appsinfo = localStorage.getItem("gate_apps/"+ gate_sn);
         if(appsinfo!=null && typeof(appsinfo) != "undefined") {
             appsinfo = JSON.parse(appsinfo);
+
             for (i = 0; i < appsinfo.length; i++) {
+
                 if(appsinfo[i].inst=="ioe_frpc"){
+                    // console.log(appsinfo[i].inst);
                     if (appsinfo[i].info.running) {
                         console.log("应用ioe_frpc is running")
                     }else{
@@ -321,8 +324,9 @@ $(document).ready(function(){
                         };
                         gate_exec_action(app_action, _act, task_desc, "ioe_frpc", app_action, "0");
                     }
+                    break;
                 }
-                break;
+
             }
         }
     }
