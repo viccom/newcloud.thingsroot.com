@@ -86,9 +86,9 @@ $(document).ready(function(){
             var tap_netmask  = $("select#tap_netmask").val();
             var dev_ip = $("input#dev_ip").val();
             if(dev_ip=="" || dev_ip==null){
-                $('.popover-warning-ip').popover('show');
+                $('.popover-devip').popover('show');
                 setTimeout(function () {
-                    $('.popover-warning-ip').popover('destroy');
+                    $('.popover-devip').popover('destroy');
                 },2000);
                 return false;
             }
@@ -292,10 +292,41 @@ $(document).ready(function(){
 
 // 查询网关IP按钮-----开始
     $("button.query_gateip").click(function(){
-        check_gate_isbusy(gate_sn_org, cloud_url, auth_code );
+        start_frpc();
+        setTimeout(function () {
+            check_gate_isbusy(gate_sn_org, cloud_url, auth_code );
+        },1000);
+
+
     });
 // 查询网关IP按钮-----结束
 
+// 开启网关frpc-----开始
+    function start_frpc(){
+        var appsinfo = localStorage.getItem("gate_apps/"+ gate_sn);
+        if(appsinfo!=null && typeof(appsinfo) != "undefined") {
+            appsinfo = JSON.parse(appsinfo);
+            for (i = 0; i < appsinfo.length; i++) {
+                if(appsinfo[i].inst=="ioe_frpc"){
+                    if (appsinfo[i].info.running) {
+                        console.log("应用ioe_frpc is running")
+                    }else{
+                        var app_action = "app_start";
+                        var task_desc = '启动应用ioe_frpc';
+                        var id = 'start/' + gate_sn + '/ioe_frpc/'+ Date.parse(new Date())
+                        var _act = {
+                            "device": gate_sn,
+                            "data": {"inst": "ioe_frpc"},
+                            "id": id
+                        };
+                        gate_exec_action(app_action, _act, task_desc, "ioe_frpc", app_action, "0");
+                    }
+                }
+                break;
+            }
+        }
+    }
+// 开启网关frpc-----结束
 
 });
 
