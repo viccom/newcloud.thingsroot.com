@@ -115,7 +115,7 @@ function set_table(sn, tableobj){
             var device_name = deviceinfo[i].inst;
             var device_desc = deviceinfo[i].description;
             var device_sn = deviceinfo[i].sn;
-            var device_inst = deviceinfo[i].app;
+            var device_inst = deviceinfo[i].app_inst;
 
             var inputs_len = 0;
                 if(deviceinfo[i].inputs){
