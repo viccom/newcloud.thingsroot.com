@@ -429,7 +429,7 @@ function list_app_conf(app) {
     var templ_pri = new Array();
 
     $.ajax({
-        url: "/apis/api/method/conf_center.api.list_app_conf",
+        url: "/apis/api/method/conf_center.api.list_app_conf_pri",
         type: "GET",
         async: false,
         data: {app:app,limit:100},
