@@ -10,7 +10,7 @@ To install Canvi get the JS and the CSS file and insert into your project. You c
 
 ```html
 // To the head
-<link rel="stylesheet" href="dist/canvi.css">
+<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/canvi.css">
 // To the end of the body
 <script src="dist/canvi.js"></script>
 ```
