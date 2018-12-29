@@ -4,33 +4,34 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | Blank</title>
+    <title>冬笋云 | 成员管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Bootstrap switch -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/css/bootstrap-switch.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- DataTables -->
-    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
-    <!-- DataTables-Responsive -->
-    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">-->
     <!-- Ionicons -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/skins/_all-skins.min.css">
 
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!-- global style -->
     <link rel="stylesheet" href="user_css/global.css">
+    <style>
 
-
+          .table th, .table td {
+              vertical-align: middle!important;
+          }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -38,20 +39,6 @@
 
     <!-- Google Font -->
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
-
-    <style type="text/css">
-
-        .table tr {
-            height: 40px;
-
-        }
-        .table th, .table td {
-            /*text-align: center;*/
-            vertical-align: middle!important;
-        }
-
-
-    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -75,7 +62,6 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -214,58 +200,137 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+         <section class="content-header">
             <h1>
-                XXXXXXX
-                <small>YYYY</small>
-                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+                公司信息
+                <small><span class="company"></span>>成员管理</small>
             </h1>
-
             <!--<ol class="breadcrumb">-->
-            <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
-            <!--<li class="active">Dashboard</li>-->
+                <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+                <!--<li class="active">Dashboard</li>-->
             <!--</ol>-->
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section id="content">
+            <div class="col-md-12" style="padding-top: 10px">
+                <div class="box box-body " style="min-height: 625px">
+
+                    <div class="row">
+                        <!-- page left nav menu start -->
+                        <div class="col-md-3" style="padding-right: 0">
+                            <div class="box box-solid gate_nav">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title"><a href="javascript:void(0);" class="company">冬笋科技</a></h3>
+
+                                    <div class="box-tools">
+                                        <button type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="box-body no-padding">
+                                    <ul class="nav nav-pills nav-stacked">
+                                        <li><a href="javascript:void(0);"><i class="fa  fa-group"></i> 分组1
+                                            <span class="label label-default pull-right"><i class="fa fa-trash"></i></span></a></li>
+                                        <li class="active"><a href="javascript:void(0);"><i class="fa  fa-group"></i> 分组2
+                                            <span class="label label-default pull-right"><i class="fa fa-trash"></i></span></a>
+                                        </li>
+                                        <li><a href="javascript:void(0);"><i class="fa  fa-group"></i> 分组3
+                                            <span class="label label-default pull-right"><i class="fa fa-trash"></i></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /. box -->
 
 
-            <!--<div class="box-header">-->
-            <!--<div class="pull-right">-->
-            <!--<div class="btn-group">-->
-            <!--<button type="button" class="btn btn-primary apply_AccessKey">申请AccessKey</button>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
+                        </div>
+                        <!-- page left nav menu end -->
 
-            <div class="box box-body " style="min-height: 625px">
-                <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="box box-solid">
+                                        <div style="padding-top:5px; padding-left: 10px; padding-right: 10px">
+                                            <div class="btn-group">
+
+                                                <button type="button" class="btn btn-default applist-refresh"><i class="fa fa-refresh"></i></button>
+                                            </div>
+
+                                            <div class="pull-right">
+                                                <div class="input-group input-group" style="width: 33px;">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-primary gate-install-app">添加成员</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
 
 
-                    <div class="col-md-12">
-                        <table id="AccessKey" class="table display" style="width:100%">
-                            <thead>
-                            <tr>
-                                <th style="width:90%">AccessKey</th>
-                                <th style="width:10%; min-width:100px">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><span class="user_AccessKey"></span></td>
-                                <td><a class="renew_AccessKey" href="#">更新</a> </td>
-                                <!--<td><a class="renew_AccessKey" href="#">更新</a> | <a class="delete_AccessKey" href="#">删除</a> </td>-->
-                            </tr>
-                            </tbody>
-                        </table>
+                                        <!------------------------------->
+                                        <div class="box-body">
+                                            <table id="example1" class="table table-bordered row-border  nowrap" cellspacing="0" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <th width="5%"></th>
+                                                    <th>姓名</th>
+                                                    <th>手机</th>
+                                                    <th>角色</th>
+                                                    <th width="130px">操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <td><span><i class="fa fa-flag-o"></i></span></td>
+                                                    <td>张晓明</td>
+                                                    <td>13368541234</td>
+                                                    <td>操作员</td>
 
+                                                    <td>
+                                                        <button type="button" class="btn btn-default app-monitor">修改</button>
+                                                        <button type="button" class="btn btn-default">删除</button>
+                                                        <!--更多 下拉按钮组 start-->
+                                                        <!--<div class="btn-group">-->
+                                                            <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">更多-->
+                                                                <!--<span class="caret"></span>-->
+                                                                <!--<span class="sr-only">Toggle Dropdown</span>-->
+                                                            <!--</button>-->
+                                                            <!--<ul class="dropdown-menu" role="menu">-->
+                                                                <!--<li><a href="My_Gates_apps_upgrade.html">应用升级</a></li>-->
+                                                                <!--<li><a href="#"  data-toggle="modal" data-target="#modal-warning">应用卸载</a></li>-->
+                                                                <!--<li><a href="#"  data-toggle="modal" data-target="#modal-default">更改实例名</a></li>-->
+                                                            <!--</ul>-->
+                                                         <!--</div>-->
+                                                        <!--更多 下拉按钮组 end-->
+                                                    </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.box-body -->
+
+                                    </div>
+                                    <!-- /.box -->
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
 
+
+
+
+
+
+                </div>
             </div>
+
+
 
 
 
@@ -273,7 +338,6 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
 
     <!-- Control Sidebar start-->
     <!-- Control Sidebar -->
@@ -314,7 +378,10 @@
 
 <!-- jQuery 3 -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
+
+<!-- oem -->
+<script src="user_js/common/oem.js"></script>
+<!-- jQuery UI 1.11.4 -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -322,15 +389,10 @@
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Bootstrap switch -->
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- bootstrap-notify -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
-<!-- DataTables -->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>-->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>-->
-<!-- SlimScroll -->
+
+<!-- Slimscroll -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/fastclick/lib/fastclick.js"></script>
@@ -338,12 +400,17 @@
 <script src="dist/js/adminlte.min.js"></script>
 <script src="user_js/common/skin.js"></script>
 
+<script type="text/javascript" src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/echarts/theme/macarons.js"></script>
+
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<!--<script src="user_js/common/add_back_task.js"></script>-->
 <script src="user_js/common/user.js"></script>
+
+
 <script>
+
     $(function () {
 
 
