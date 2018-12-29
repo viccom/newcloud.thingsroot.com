@@ -9,6 +9,12 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- DataTables-Responsive -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -220,26 +226,32 @@
                         <!-- page left nav menu start -->
                         <div class="col-md-3" style="padding-right: 0">
                             <div class="box box-solid gate_nav">
-                                <div class="box-header with-border">
+                                <div class="box-header with-border company bg-gray" style="cursor: pointer">
                                     <h3 class="box-title"><a href="javascript:void(0);" class="company">冬笋科技</a></h3>
 
                                     <div class="box-tools">
-                                        <button type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i>
+                                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#modal-add-group-to-company" ><i class="fa fa-plus"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="box-body no-padding">
-                                    <ul class="nav nav-pills nav-stacked">
-                                        <li><a href="javascript:void(0);"><i class="fa  fa-group"></i> 分组1
-                                            <span class="label label-default pull-right"><i class="fa fa-trash"></i></span></a></li>
-                                        <li class="active"><a href="javascript:void(0);"><i class="fa  fa-group"></i> 分组2
-                                            <span class="label label-default pull-right"><i class="fa fa-trash"></i></span></a>
-                                        </li>
-                                        <li><a href="javascript:void(0);"><i class="fa  fa-group"></i> 分组3
-                                            <span class="label label-default pull-right"><i class="fa fa-trash"></i></span>
-                                            </a>
-                                        </li>
+                                    <ul class="nav nav-pills nav-stacked group_list"  style="min-height: 40px">
+                                        <!--<li><a href="javascript:void(0);"><i class="fa  fa-group"></i> 分组1-->
+                                            <!--<span class="label label-default pull-right" data-toggle="modal" data-target="#modal-del-group" ><i class="fa fa-trash"></i></span></a></li>-->
+
                                     </ul>
+
+                                    <ul class="nav nav-stacked">
+                                        <li>
+
+                                            <div class="pull-right" style="padding-top:10px; padding-right: 15px">
+                                                 <button type="button" class="btn btn-primary btn-sm add-group-to-company hide"  data-toggle="modal" data-target="#modal-add-group-to-company" >新增公司组</button>
+                                            </div>
+
+                                        </li>
+
+                                    </ul>
+                                    <br>
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -262,7 +274,7 @@
                                             <div class="pull-right">
                                                 <div class="input-group input-group" style="width: 33px;">
                                                     <div class="input-group-btn">
-                                                        <button type="button" class="btn btn-primary gate-install-app">添加成员</button>
+                                                        <button type="button" class="btn btn-primary company-add-member"  data-toggle="modal" data-target="#modal-add-member-to-company">添加新成员</button>
                                                     </div>
 
                                                 </div>
@@ -273,59 +285,32 @@
 
                                         <!------------------------------->
                                         <div class="box-body">
-                                            <table id="example1" class="table table-bordered row-border  nowrap" cellspacing="0" width="100%">
+                                            <table id="table_members" class="table table-bordered row-border  nowrap" cellspacing="0" width="100%">
                                                 <thead>
                                                 <tr>
                                                     <th width="5%"></th>
-                                                    <th>姓名</th>
-                                                    <th>手机</th>
-                                                    <th>角色</th>
+                                                    <th>用户ID</th>
+                                                    <th width="15%">姓名</th>
+                                                    <th width="15%">手机</th>
+                                                    <th width="15%">座机</th>
                                                     <th width="130px">操作</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                    <td><span><i class="fa fa-flag-o"></i></span></td>
-                                                    <td>张晓明</td>
-                                                    <td>13368541234</td>
-                                                    <td>操作员</td>
 
-                                                    <td>
-                                                        <button type="button" class="btn btn-default app-monitor">修改</button>
-                                                        <button type="button" class="btn btn-default">删除</button>
-                                                        <!--更多 下拉按钮组 start-->
-                                                        <!--<div class="btn-group">-->
-                                                            <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">更多-->
-                                                                <!--<span class="caret"></span>-->
-                                                                <!--<span class="sr-only">Toggle Dropdown</span>-->
-                                                            <!--</button>-->
-                                                            <!--<ul class="dropdown-menu" role="menu">-->
-                                                                <!--<li><a href="My_Gates_apps_upgrade.html">应用升级</a></li>-->
-                                                                <!--<li><a href="#"  data-toggle="modal" data-target="#modal-warning">应用卸载</a></li>-->
-                                                                <!--<li><a href="#"  data-toggle="modal" data-target="#modal-default">更改实例名</a></li>-->
-                                                            <!--</ul>-->
-                                                         <!--</div>-->
-                                                        <!--更多 下拉按钮组 end-->
-                                                    </td>
-
-                                                    </tr>
                                                 </tbody>
                                             </table>
+                                            <div class="btn-group pull-right">
+                                                <button type="button" class="btn btn-primary group-add-member hide"  data-toggle="modal" data-target="#modal-add-member-to-group">添加组成员</button>
+                                            </div>
+
                                         </div>
                                         <!-- /.box-body -->
-
-                                    </div>
-                                    <!-- /.box -->
                                 </div>
                             </div>
 
                         </div>
                     </div>
-
-
-
-
-
 
                 </div>
             </div>
@@ -373,6 +358,197 @@
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
+
+
+    <!-- /.modal add-company-group start-->
+    <div class="modal fade" id="modal-add-group-to-company" data-backdrop="static" style="padding-top: 100px">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">增加公司组
+
+                    </h4>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="tab-pane active" id="add_group">
+                        <form class="form-horizontal"  method="post" onsubmit="return false;">
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-3 control-label">组名：</label>
+
+                                <div class="col-sm-6">
+                                    <input name="group_name" type="text" class="form-control popover-group_name"  data-placement="top" data-content="" id="group_name" placeholder="组名">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default  pull-left" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary add_company_group">确定</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal end-->
+
+    <!-- /.modal add-member-to-company start-->
+    <div class="modal fade" id="modal-add-member-to-company" data-backdrop="static" style="padding-top: 100px">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">增加成员到公司</h4>
+
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="tab-pane active" id="settings">
+                        <form class="form-horizontal"  method="post" onsubmit="return false;">
+                            <div class="form-group">
+                                <label for="userid" class="col-sm-3 control-label">用户ID：</label>
+
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control popover-userid"  data-placement="top" data-content="" id="userid" placeholder="邮箱">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="first_name" class="col-sm-3 control-label">姓：</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control popover-first_name"  data-placement="top" data-content="" id="first_name" placeholder="用户名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name" class="col-sm-3 control-label">名：</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control popover-last_name"  data-placement="top" data-content="" id="last_name" placeholder="用户名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile" class="col-sm-3 control-label">手机号：</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control popover-mobile"  data-placement="top" data-content="" id="mobile" placeholder="手机号">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile" class="col-sm-3 control-label">座机：</label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control popover-phone"  data-placement="top" data-content="" id="phone" placeholder="座机">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-pwd" class="col-sm-3 control-label">密码：</label>
+
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control popover-new"  data-placement="top" data-content="" id="new-pwd" placeholder="输入密码">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="repeat-pwd" class="col-sm-3 control-label">再次输入：</label>
+
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control popover-reinput"  data-placement="top" data-content=""  id="repeat-pwd" placeholder="再次输入">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default  pull-left" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary add_member_confirm">确定</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal end-->
+
+    <!-- /.modal add-member-to-group start-->
+    <div class="modal fade" id="modal-add-member-to-group" data-backdrop="static" style="padding-top: 100px">
+        <div class="modal-dialog" style="width: 800px; ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">分配成员到组
+                        <button type="button" class="btn btn-default btn-sm templs-refresh"><i class="fa fa-refresh"></i></button>
+
+                    </h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive" style="padding-bottom: 20px">
+                        <table class="table table-bordered nowrap" id="select_templ_list">
+                            <tr>
+                                <th>用户ID</th>
+                                <th>名称</th>
+                                <th>操作</th>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default  pull-left" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary add_member_to_group">确定</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal end-->
+
+    <!-- /.modal warning start-->
+    <div class="modal modal-warning fade modal-del-group fade" style="padding-top: 100px" id="modal-del-group">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">移除组</h4>
+                </div>
+                <div class="modal-body">
+                    <p>确定移除组  <span class="del_group_name"></span><span class="del_group_id"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-outline del_group_confirm">确定</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal end-->
+
+
+
+
 </div>
 <!-- ./wrapper -->
 
@@ -391,6 +567,10 @@
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap-notify -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+<!-- DataTables -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
 
 <!-- Slimscroll -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
@@ -408,13 +588,708 @@
 <script src="user_js/common/common.js"></script>
 <script src="user_js/common/user.js"></script>
 
-
 <script>
 
-    $(function () {
+    function checkUsername(username) {
 
+        if (username == "" || username == null) {
+
+            $(".register:input[name='full_name']").data("content", "用户名不能为空");
+            $('.popover-name').popover('show');
+            setTimeout(function () {
+                $('.popover-name').popover('destroy');
+            },2000);
+            return false;
+        }
+        console.log(username, isUsername(username));
+        switch (isname(username)) {
+            case 0:
+                break;
+            case 1:
+            {
+                $(".register:input[name='full_name']").data("content", "用户名不能以数字开头");
+                $('.popover-name').popover('show');
+                setTimeout(function () {
+                    $('.popover-name').popover('destroy');
+                },2000);
+                return false;
+            }
+            case 2:
+            {
+                $(".register:input[name='full_name']").data("content", "合法长度为1-6个字符");
+                $('.popover-name').popover('show');
+                setTimeout(function () {
+                    $('.popover-name').popover('destroy');
+                },2000);
+                return false;
+            }
+            case 3:
+            {
+                $(".register:input[name='full_name']").data("content", "用户名只能包含_,英文字母，数字, 中文字符");
+                $('.popover-name').popover('show');
+                setTimeout(function () {
+                    $('.popover-name').popover('destroy');
+                },2000);
+                return false;
+            }
+            // case 4:
+            // {
+            //     $(".register:input[name='full_name']").data("content", "用户名只能包含_,英文字母，数字");
+            //     $('.popover-name').popover('show');
+            //     setTimeout(function () {
+            //         $('.popover-name').popover('destroy');
+            //     },2000);
+            //     return false;
+            // }
+        }
+        return true;
+    }
+
+    function isname(username) {
+        // console.log(typeof username);
+        if (/^\d.*$/.test(username)) {
+            return 1;
+        }
+        if (!/^.{1,6}$/.test(username)) {
+            return 2;
+        }
+        // if (!/^[\w_]*$/.test(username)) {
+        //     return 3;
+        // }
+        if (!/^[\u4e00-\u9fa5_a-zA-Z0-9]+$/.test(username)) {
+            return 3;
+        }
+        return 0;
+    }
+
+
+
+    function check_group_name(username) {
+        console.log(username);
+        if (username == "" || username == null) {
+
+            $("#group_name").data("content", "组名不能为空");
+            $('.popover-group_name').popover('show');
+            setTimeout(function () {
+                $('.popover-group_name').popover('destroy');
+            },2000);
+            return false;
+        }
+        console.log(username, isUsername(username));
+        switch (isUsername(username)) {
+            case 0:
+                break;
+            case 1:
+            {
+                $("#group_name").data("content", "组名不能以数字开头");
+                $('.popover-group_name').popover('show');
+                setTimeout(function () {
+                    $('.popover-group_name').popover('destroy');
+                },2000);
+                return false;
+            }
+            case 2:
+            {
+                $("#group_name").data("content", "组名合法长度为2-10个字符");
+                $('.popover-group_name').popover('show');
+                setTimeout(function () {
+                    $('.popover-group_name').popover('destroy');
+                },2000);
+                return false;
+            }
+            case 3:
+            {
+                $("#group_name").data("content", "组名只能包含_,英文字母，数字, 中文字符");
+                $('.popover-group_name').popover('show');
+                setTimeout(function () {
+                    $('.popover-group_name').popover('destroy');
+                },2000);
+                return false;
+            }
+            // case 4:
+            // {
+            //     $(".register:input[name='full_name']").data("content", "用户名只能包含_,英文字母，数字");
+            //     $('.popover-name').popover('show');
+            //     setTimeout(function () {
+            //         $('.popover-name').popover('destroy');
+            //     },2000);
+            //     return false;
+            // }
+        }
+        return true;
+    }
+
+    function isUsername(username) {
+        // console.log(typeof username);
+        if (/^\d.*$/.test(username)) {
+            return 1;
+        }
+        if (!/^.{2,10}$/.test(username)) {
+            return 2;
+        }
+        // if (!/^[\w_]*$/.test(username)) {
+        //     return 3;
+        // }
+        if (!/^[\u4e00-\u9fa5_a-zA-Z0-9]+$/.test(username)) {
+            return 3;
+        }
+        return 0;
+    }
+
+    /**
+     *	1 获取公司组列表
+     */
+    function creat_group_list(groups) {
+        $("button.add-group-to-company").addClass("hide");
+        $("ul.group_list").empty();
+        for (var i = 0; i < groups.length; i++) {
+            if(groups[i].group_name=="root"){
+                list_group_member(groups[i].name);
+                $("div.company").data("groupid", groups[i].name);
+                if(table_members==null){
+                    _groupid = groups[i].name;
+                    table_members_url = '/apis/api/method/iot_ui.iot_api.list_group_member?groupid=' + _groupid;
+                    render_table_members(table_members_url)
+                }
+
+
+            }else{
+                var li_html = '<li class="select_group" data-groupid="'+ groups[i].name + '"><a href="javascript:void(0);"><i class="fa  fa-group"></i>' +
+                    groups[i].group_name +
+                    '  <span><i class="fa fa-edit"></i></span><span class="label label-default pull-right del_group_info"  data-groupid="'+
+                    groups[i].name +
+                '" data-groupname="' +
+                    groups[i].group_name +
+                    '" data-toggle="modal" data-target="#modal-del-group" ><i class="fa fa-trash"></i></span></a></li>'
+                $("ul.group_list").append(li_html);
+            }
+
+        }
+        $("button.add-group-to-company").removeClass("hide");
+    }
+
+    /**
+     *	1 获取公司组列表
+     */
+    function get_company_groups() {
+        var userid = getCookie('usr');
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.get_company_groups?company=' + companies,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'get',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log("gret:",req);
+                    if(req.message){
+                        var groups = req.message;
+                        creat_group_list(groups);
+                    }
+
+
+                },
+                error:function(req){
+                    console.log(req);
+
+                }
+            });
+        }
+
+    }
+
+    /**
+     *	2 增加公司组
+     */
+    function add_company_group(newgroupname) {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            var newgroupinfo = {
+                "group_name": newgroupname,
+                "company": companies
+            };
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.add_company_group',
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'post',
+                data: JSON.stringify(newgroupinfo),
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log("addnewret:",req);
+                    if(req.message){
+                        var groups = req.message;
+                        creat_group_list(groups);
+                        $("button.add_company_group").attr("disabled", false);
+                        $("#modal-add-group-to-company").modal('hide');
+                        $("div.company").click();
+                    }
+
+                },
+                error:function(req){
+                    console.log(req);
+
+                }
+            });
+
+        }
+    }
+
+    /**
+     *	3 修改公司组
+     */
+    function mod_company_group() {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            var data = {
+                "user": user,
+                "company": companies
+            };
+
+        }
+    }
+
+    /**
+     *	4 删除公司组
+     */
+    function del_company_group(groupid) {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.del_company_group?groupid=' + groupid,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log("delgret:",req);
+                    if(req.message){
+                        get_company_groups();
+                        $("button.del_group_confirm").attr("disabled", false);
+                        $("#modal-del-group").modal('hide');
+                    }
+                },
+                error:function(req){
+                    console.log(req);
+                }
+            });
+        }
+    }
+
+
+    /**
+     *	5 获取公司成员
+     */
+    function list_company_member() {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.list_company_member?company=' + companies,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'get',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log("cret:",req);
+                    var data= [];
+                    var t = {};
+                    for (var i = 0; i < req.message.length; i++) {
+
+                    }
+
+                },
+                error:function(req){
+                    console.log(req);
+
+                }
+            });
+
+        }
+    }
+
+
+    /**
+     *	6 获取组成员
+     */
+    function list_group_member(groupid) {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.list_group_member?groupid=' + groupid,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'get',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log("mret:",req);
+
+                },
+                error:function(req){
+                    console.log(req);
+
+                }
+            });
+
+        }
+    }
+
+
+    /**
+     *	7 添加公司新用户
+     */
+    function add_newuser2company(userinfo) {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            var data = {
+                "userinfo": userinfo,
+                "company": companies
+            };
+
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.add_newuser2company',
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                data:JSON.stringify(data),
+                success:function(req){
+                    console.log("addnewret:",req);
+
+
+                },
+                error:function(req){
+                    console.log(req);
+
+                }
+            });
+        }
+
+    }
+
+    /**
+     *	8 获取公司成员详细信息
+     */
+    function get_userinfo(user) {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.userinfo_all?user=' + user,
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'get',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log("userret:",req);
+
+
+                },
+                error:function(req){
+                    console.log(req);
+
+                }
+            });
+        }
+
+    }
+
+    /**
+     *	9 更新公司成员信息
+     */
+    function update_userinfo(userinfo) {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            var data = {
+                "userid":'user@u.com',
+                "first_name":"abc111",
+                "last_name":"cbaxxx",
+                "phone":"123",
+                "mobile_no":"456",
+                "new_password":"123456"
+            };
+
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.update_userinfo',
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log("userret:",req);
+
+                },
+                error:function(req){
+                    console.log(req);
+
+                }
+            });
+        }
+
+    }
+
+
+    /**
+     *	10 删除公司成员
+     */
+    function del_userfromcompany(user) {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            var data = {
+                "user": user,
+                "company": companies
+            };
+
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.add_newuser2company',
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'post',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(req){
+                    console.log("addnewret:",req);
+                },
+                error:function(req){
+                    console.log(req);
+                }
+            });
+        }
+    }
+
+
+    /**
+     *	11 增加公司组成员
+     */
+    function add_group_members() {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            var data = {
+                "user": user,
+                "company": companies
+            };
+
+        }
+    }
+
+    /**
+     *	12 删除公司组成员
+     */
+    function delete_group_members() {
+        var companies = null;
+        if(getCookie('isAdmin')){
+            companies = getCookie('companies');
+        }
+        if(companies){
+            var data = {
+                "user": user,
+                "company": companies
+            };
+
+        }
+    }
+
+
+
+    /**
+     *	12 删除公司组成员
+     */
+    function render_table_members(table_members_url) {
+        table_members = $('#table_members').DataTable({
+            dom: 'rt<"#table_footer"Bp>',
+            buttons: [],
+            // "bStateSave": false,
+            // stateSave: true,
+            "bFilter": true,   //是否启动过滤，搜索功能
+            "sPaginationType": "full_numbers",
+            "iDisplayLength": 10,
+            destroy:true,
+            // "ajax": myajax,
+            // "sAjaxDataProp": "message",
+            "order": [[ 3, "asc" ]],
+            "ajax": {
+                "url": table_members_url,
+                "type": "GET",
+                "error": function (e) {
+                    console.log(e)
+                },
+                "dataSrc":  function (d) {
+                    console.log(d)
+                    if($.isEmptyObject(d)){
+                        return []
+                    }else{
+                        return d.message
+                    }}
+            },
+            "columns": [
+                {"data": null},
+                {"data": "name"},
+                {"data": "first_name"},
+                {"data": "mobile_no"},
+                {"data": "phone"},
+                {"data": null}
+            ],
+            "language": {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "没有用户",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            rowCallback: function (row, data, dataIndex) {
+                // console.log(data);
+                //时间截取----- 毫秒
+                // var timeText = $(row).children('td').eq(3).text();
+                // $(row).children('td').eq(3).text(timeText.substring(0,19));
+                //判断是否确认消息
+            },
+            columnDefs: [
+                {
+                    //   指定第第一列
+                    targets: [0],
+                    searchable: false,
+                    orderable: false,
+                    width: '5%',
+                    render: function (row, type, data, meta) {
+                        return "<i class=\"fa  fa-user\"></i>";
+                    }
+                },
+                {
+                    //   指定第第2列
+                    targets: [1],
+                    render: function (row, type, data, meta) {
+                        return row;
+                    }
+                },
+                {
+                    //   指定第第3列
+                    targets: [2]
+                },
+                {
+                    //   指定第第4列
+                    targets: [3],
+                    width: '15%'
+                },
+                {
+                    //   指定第第5列
+                    targets: [4],
+                    width: '15%'
+                },
+                {
+                    //   指定第第6列
+                    targets: [5],
+                    width: '15%',
+                    render: function (row, type, data, meta) {
+                        var td_html = '<button type="button" class="btn btn-default app-monitor">修改</button>\n' +
+                            '<button type="button" class="btn btn-default">删除</button>'
+                        return td_html;
+                    }
+                }
+
+            ]
+        });
+
+
+    }
+
+
+
+</script>
+
+
+
+<script>
+    $.ajaxSetup({
+        headers: { // 默认添加请求头
+            "X-Frappe-CSRF-Token": auth_token
+        }
+    });
+    $(function () {
+        get_company_groups();
+        list_company_member();
 
     });
+</script>
+
+<!--<script src="user_js/Company_member.js"></script>-->
+
+<script type="text/javascript">
+    document.write("<script type='text/javascript' src='user_js/Company_member.js?v="+jsversion+"'></s"+"cript>");
 </script>
 </body>
 </html>
