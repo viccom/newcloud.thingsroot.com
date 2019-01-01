@@ -9,21 +9,21 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Bootstrap switch -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/css/bootstrap-switch.min.css">
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/css/bootstrap-switch.min.css">-->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
     <!-- DataTables-Responsive -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">-->
     <!-- Tooltip classes -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />-->
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />-->
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />-->
     <!-- Ionicons -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">
-
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">-->
     <link rel="stylesheet" type="text/css" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/jstree/themes/default/style.min.css">
+
 
     <!-- Theme style -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/AdminLTE.min.css">
@@ -66,35 +66,41 @@
             font-size: 22px;
         }
         .debug_top span img {
-            width: 20px;
+            width: 24px;
+            cursor: pointer;
         }
         #jstree_tree {
             float: left;
-            min-width: 319px;
-            max-width: 319px;
+            min-width: 100px;
+            max-width: 300px;
             border-right: none;
             overflow: auto;
-            padding: 0 0;
+            padding: 0;
             border: 1px solid #e1e1e1;
         }
         .debug_left {
-            width: 320px;
+            width: 25%;
             height: 500px;
             border-right: 1px solid #e1e1e1;
             /* overflow-y: scroll; */
         }
         #editor_data #editor_code {
+            /*margin-right:auto;*/
             margin: 0;
             padding: 0;
-            height: 500px;
-            width: 73%;
+            height: 100%;
+            min-height: 695px;
+            width: 100%;
             border: 0;
             display: block;
             line-height: 18px;
-            resize: none;
-            border: 1px solid #e1e1e1;
+            resize: vertical;
+            /*border: 1px solid #e1e1e1;*/
         }
+        .div-inline{ display: inline;}
 
+        .div-left{ float:left;width:20%;border:1px solid #FFF}
+        .div-right{ float:right;width:80%;border:1px solid #d2d6de}
         /*.add_content>p{*/
             /*margin-top: 20px;*/
             /*line-height: 40px;*/
@@ -198,13 +204,18 @@
         }
         .debug_shade .add_content .off{
             background:#ddd;
-            color:#232326;
+            color: rgba(9, 1, 7, 0.98);
+        }
+        .html-body-overflow
+        {
+            overflow-x:hidden;
+            overflow-y:hidden;
         }
     </style>
 
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini html-body-overflow">
 <div class="wrapper">
 
     <!-- top Nav menu start. -->
@@ -225,238 +236,102 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <!-- end message -->
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                AdminLTE Design Team
-                                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Developers
-                                                <small><i class="fa fa-clock-o"></i> Today</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Sales Department
-                                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Reviewers
-                                                <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
-                    <!-- Notifications: style can be found in dropdown.less -->
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                                            page and may cause design problems
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-red"></i> 5 new members joined
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
-                    <!-- Tasks: style can be found in dropdown.less -->
+                    <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-flag-o"></i>
-                            <span class="label label-danger">9</span>
+                            <i class="fa  fa-user-md"></i>
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 9 tasks</li>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
                                     <li><!-- Task item -->
-                                        <a href="#">
+                                        <a href="User_Settings.html">
                                             <h3>
-                                                Design some buttons
-                                                <small class="pull-right">20%</small>
+                                                <i class="fa fa-user"></i>
+                                                基本资料
                                             </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">20% Complete</span>
-                                                </div>
-                                            </div>
                                         </a>
                                     </li>
-                                    <!-- end task item -->
+
                                     <li><!-- Task item -->
-                                        <a href="#">
+                                        <a href="My_Virtual_Gates.html">
                                             <h3>
-                                                Create a nice theme
-                                                <small class="pull-right">40%</small>
+                                                <i class="fa fa-laptop"></i>
+                                                虚拟网关
                                             </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">40% Complete</span>
-                                                </div>
-                                            </div>
                                         </a>
                                     </li>
-                                    <!-- end task item -->
+
                                     <li><!-- Task item -->
-                                        <a href="#">
+                                        <a href="My_AccessKey.html">
+
                                             <h3>
-                                                Some task I need to do
-                                                <small class="pull-right">60%</small>
+                                                <i class="fa fa-key"></i>
+                                                AccessKey
                                             </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">60% Complete</span>
-                                                </div>
-                                            </div>
                                         </a>
                                     </li>
-                                    <!-- end task item -->
-                                    <li><!-- Task item -->
-                                        <a href="#">
-                                            <h3>
-                                                Make beautiful transitions
-                                                <small class="pull-right">80%</small>
-                                            </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">80% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <!-- end task item -->
+
                                 </ul>
                             </li>
-                            <li class="footer">
-                                <a href="#">View all tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs user-name" data-accesskey="">user</span>
-                        </a>
-                        <ul class="dropdown-menu">
 
-                            <!-- Menu Body -->
-                            <li class="user-panel">
-
-                                <div class="text-center">
-                                    <a href="User_Settings.html">基本资料</a>
-                                </div>
-                            </li>
-                            <li class="user-panel">
-
-                                <div class="text-center">
-                                    <a href="My_AccessKey.html">AccessKey</a>
-                                </div>
-
-                            </li>
-
-                            <li class="user-panel">
-                                <div class="text-center">
-                                    <a href="My_Virtual_Gates.html">虚拟网关</a>
-                                </div>
-                            </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
 
-                                <div class="text-center">
-                                    <a href="javascript:logout();"  class="btn btn-default btn-flat">退出</a>
+                                <div>
+                                    <a href="javascript:logout();"  class="btn btn-warning btn-block btn-flat">退出</a>
                                 </div>
                             </li>
+
+                        </ul>
+                    </li>
+                    <!-- Help can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-question-circle"></i>
+                            帮助
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a target="_blank" href="/guide">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                快速指南
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                应用开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                平台开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
@@ -477,13 +352,16 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">Dashboard</li>
                 <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
                 <li class="header">我的资源</li>
-                <li><a href="My_Gates_list.html"><i class="fa fa-laptop"></i> <span>我的网关</span></a></li>
-                <li class="active"><a href="My_Apps_list.html"><i class="fa fa-th"></i> <span>我的应用</span></a></li>
-                <li><a href="My_Template_list.html"><i class="fa fa-table"></i> <span>我的模板</span></a></li>
+                <li class="active"><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
+
                 <li class="header">消息中心</li>
-                <li><a href="User_Platform_Messages.html"><i class="fa fa-circle-o text-red"></i> <span>平台消息</span></a></li>
-                <li><a href="User_Device_Messages.html"><i class="fa fa-circle-o text-yellow"></i> <span>设备消息</span></a></li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-commenting-o text-yellow"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-commenting-o text-light-blue"></i> <span>设备消息</span></a></li>
+
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -493,50 +371,70 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header" >
-                <h1>设备消息
-                    <span style="font-size: 16px;margin: 8px 0 0 10px;color: #777;">消息详情</span>
-                </h1>
-                <i class="glyphicon glyphicon-arrow-left" onclick="history.go(-1)"></i>
-        </section>
+        <!--<section class="content-header" >-->
+                <!--<h1>代码编辑-->
+                    <!--<small><span class="gate_name"></span> > <span class="inst_name"></span>>应用开发</small>-->
+                <!--</h1>-->
+
+        <!--</section>-->
 
         <!-- Main content -->
-        <section class="content">
-            <div class="box box-body " style="min-height: 625px">
+        <section class="content" style="padding: 0">
+            <div class="box box-body " style="min-height: 605px;padding: 0">
+                <!--<div class="col-md-12" style="padding: 0">-->
+                    <!---->
+                <!--</div>-->
 
-                <div class="debug_top">
-                    <div>
-                        <span class="tag"><img src="img/icon_d_02.png" areaname="tag" title="发布新版本"/></span>
-                        <span class="revert"><img src="img/icon_d_03.png" areaname="revert" title="重置工作区到指定版本"/></span>
-                        <span class="folder"><img src="img/icon_d_04.png" areaname="folder" title="新目录"/></span>
-                        <span class="file"><img src="img/icon_d_05.png" areaname="file" title="新文件"/></span>
-                        <span class="rename"><img src="img/icon_d_06.png" areaname="rename" title="重命名"/></span>
-                        <span class="delete"><img src="img/icon_d_07.png" areaname="delete" title="删除"/></span>
-                        <span class="save off"><img src="img/icon_d_08.png" areaname="save" title="保存文件"/></span>
-                        <span class="download"><img src="img/icon_d_09.png" areaname="download" title="获取文件"/></span>
-                        <span class="undo"><img src="img/icon_d_10.png" areaname="undo" title="撤销"/></span>
-                        <span class="redo"><img src="img/icon_d_11.png" areaname="redo" title="重置"/></span>
-                        <span class="zoom"><img src="img/icon_d_12.png" areaname="zoom" title="放大字体"/></span>
-                        <span class="zoom_out"><img src="img/icon_d_13.png" areaname="zoom_out" title="缩小字体"/></span>
-                        <span class="debug"><img src="img/icon_d_14.png"title="调试工具"/></span>
+                <div class="col-md-12" style="padding: 0">
+
+                    <div class="debug_top div-left">
+
+                        <div class="pull-right">
+                            <span class="folder"><img src="img/icon_d_04.png" areaname="folder" title="新目录"/></span>
+                            <span class="file"><img src="img/icon_d_05.png" areaname="file" title="新文件"/></span>
+                            <span class="rename"><img src="img/icon_d_06.png" areaname="rename" title="重命名"/></span>
+                            <span class="delete"><img src="img/icon_d_07.png" areaname="delete" title="删除"/></span>
+                        </div>
+                        <p class="fr">---</p>
+
                     </div>
-                    <p class="fr"></p>
+                    <div class="debug_top div-right">
+                        <div>
+                            <span class="tag"><img src="img/icon_d_02.png" areaname="tag" title="发布新版本"/></span>
+                            <span class="revert"><img src="img/icon_d_03.png" areaname="revert" title="重置工作区到指定版本"/></span>
+
+
+                            <span class="save off"><img src="img/icon_d_08.png" areaname="save" title="保存文件"/></span>
+                            <span class="download"><img src="img/icon_d_09.png" areaname="download" title="获取文件"/></span>
+                            <span class="undo"><img src="img/icon_d_10.png" areaname="undo" title="撤销"/></span>
+                            <span class="redo"><img src="img/icon_d_11.png" areaname="redo" title="重置"/></span>
+                            <span class="zoom"><img src="img/icon_d_12.png" areaname="zoom" title="放大字体"/></span>
+                            <span class="zoom_out"><img src="img/icon_d_13.png" areaname="zoom_out" title="缩小字体"/></span>
+                            <span class="debug"><img src="img/icon_d_14.png"title="调试工具"/></span>
+
+                            <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-sm"><i class="fa fa-reply"></i></button></a></div>
+
+                        </div>
+
+                    </div>
                 </div>
-                <div class="debug_main">
-                    <div class="debug_content">
-                        <div class="debug_left fl" id="jstree_tree">
+
+                <div class="col-md-12" style="padding: 0">
+
+                        <div class="div-left" id="jstree_tree">
+
                             <!--编辑器目录区-->
                         </div>
-                        <div class="debug_right fl" id="editor_data">
+
+
+                        <div class="div-right" id="editor_data" >
                             <div id="editor_code"><!--编辑器代码区--></div>
-                            <!--<div class="content folder" style="display:none;"></div>
-                            <div class="content image" style="display:none; position:relative;">
-                                <img src="" alt="" style="display:block; position:absolute; left:50%; top:50%; padding:0; max-height:90%; max-width:90%;" />
-                            </div>-->
-                            <!--<div class="content default" style="text-align:center;display:none;">请从文件树中选择要编辑的文件。</div>-->
                         </div>
-                    </div>
+
+
+
                 </div>
+
 
 
 
@@ -617,62 +515,7 @@
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                                <p>New phone +1(800)555-1234</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="label label-danger pull-right">70%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Update Resume
-                                <span class="label label-success pull-right">95%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                            </div>
-                        </a>
-                    </li>
-
-                </ul>
-                <!-- /.control-sidebar-menu -->
 
             </div>
             <!-- /.tab-pane -->
@@ -681,71 +524,7 @@
             <!-- /.tab-pane -->
             <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
 
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Some information
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Allow mail redirect
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            options are available
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Expose author name in posts
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Allow the user
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <!--<h3 class="control-sidebar-heading">Chat Settings</h3>-->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Show me as online
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Turn off notifications
-                            <input type="checkbox" class="pull-right">
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Delete chat history
-                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-                </form>
             </div>
             <!-- /.tab-pane -->
         </div>
@@ -777,9 +556,9 @@
 <!-- bootstrap-notify -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
 <!-- DataTables -->
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>-->
 <!-- SlimScroll -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 
@@ -848,12 +627,42 @@
         var code_editor = ace.edit("editor_code");
         code_editor.setTheme("ace/theme/tomorrow");
         code_editor.session.setMode("ace/mode/lua");
+        code_editor.getSession().setUseWrapMode(true);
         code_editor.setFontSize(16);
+        // code_editor.setOption("wrap", "free");
         code_editor.setOptions({
             enableBasicAutocompletion: true,
             enableSnippets: true,
             enableLiveAutocompletion: true
         });
+        code_editor.commands.addCommand({
+            name: "fullscreen",
+            bindKey: {win: "Ctrl-Enter", mac: "Command-Enter"},
+            exec: function(editor) {
+                var vp = cantkGetViewPort();
+                if(editor.isFullScreen) {
+                    div.style.width = editorW + "px";
+                    div.style.height = editorH + "px";
+                    div.style.position = "absolute";
+                    div.style.left = editorX + "px";
+                    div.style.top = (scrollTop + editorY) + "px";
+                    editor.resize();
+                    editor.isFullScreen = false;
+                    document.body.style.overflow = "auto";
+                }
+                else {
+                    div.style.width = vp.width+ "px";
+                    div.style.height = vp.height+ "px";
+                    div.style.position = "absolute";
+                    div.style.left = 0 + "px";
+                    div.style.top = (scrollTop + 0) + "px";
+                    editor.resize();
+                    editor.isFullScreen = true;
+                    document.body.style.overflow = "hidden";
+                }
+            }
+        });
+
         var local_storage_prefix = cur_app + "_saved_file:";
         var doc_list = {};
 
@@ -865,6 +674,7 @@
         code_editor.on("change", function(e) {
             var session = code_editor.getSession();
             session.changed = true;
+            session.setUseWrapMode(true);
             editor_codeIng.html('<b>' + session.name + " ***" + '</b>');
             editor_codeIng.removeClass('modified').addClass('modified');
             $('.debug_top .upload').removeClass('off');
@@ -872,12 +682,14 @@
         });
         code_editor.on("blur", function() {
             var session = code_editor.getSession();
+            session.setUseWrapMode(true);
             if (session.changed) {
                 code_editor.execCommand('save', {});
             }
         });
         code_editor.on("changeSession", function(e) {
             var session = code_editor.getSession();
+            session.setUseWrapMode(true);
             var title = session.name;
             editor_codeIng.removeClass('modified');
             if (session.changed) {
@@ -1325,11 +1137,11 @@
                         });
                         var text = '发布成功';
                         successAlert(text);
-                        setTimeout(function(){
-                            layui.use('layer', function(){
-                                window.location.reload();
-                            });
-                        },2000);
+                        // setTimeout(function(){
+                        //     layui.use('layer', function(){
+                        //         window.location.reload();
+                        //     });
+                        // },2000);
                     }
                 },
                 error: function () {

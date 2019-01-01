@@ -29,7 +29,7 @@ json_editor.setFontSize(16);
 json_editor.setReadOnly(false);
 
 //自动换行,设置为off关闭
-json_editor.setOption("wrap", "free")
+json_editor.setOption("wrap", "free");
 
 //启用提示菜单
 ace.require("ace/ext/language_tools");

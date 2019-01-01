@@ -122,5 +122,11 @@ $(function () {
 
     });
 
+    $('#modal-add-member-to-group').on('show.bs.modal', function () {
+        console.log("11111111");
+
+    });
+
+
 
 });
