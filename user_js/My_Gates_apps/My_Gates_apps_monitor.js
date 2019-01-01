@@ -252,6 +252,27 @@ $("a.view-rtdata").click(function(){
 //
 });
 
+/**
+ *	切换到代码编辑调试页面
+ */
+$("a.code-debug").click(function(){
+    var gate_sn = getParam('sn');
+    var inst = getParam('inst');
+    var appid = getParam('appid');
+    var instver = $("span.app-gatever").text();
+
+    redirect("/My_APP_Debug.html?app=" + appid + "&gate_sn="+ gate_sn +"&app_inst=" + inst + "&version=" +instver);
+
+    // var dst_dev = $(this).data("vsn");
+    // if(dst_dev){
+    //     redirect("/My_APP_Debug.html?sn="+ gate_sn +"&vsn=" + dst_dev);
+    // }else{
+    //     var text = '此应用无设备对象或者应用未启动';
+    //     errorAlert(text)
+    // }
+
+//
+});
 
 /**
  *	应用操作动作

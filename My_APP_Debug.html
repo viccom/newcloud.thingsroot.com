@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script src="user_js/common/debug.js"></script>
 <html>
 <head>
     <meta charset="utf-8">
@@ -12,10 +13,10 @@
     <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/css/bootstrap-switch.min.css">-->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- DataTables -->
-    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
-    <!-- DataTables-Responsive -->
-    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">-->
+
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
     <!-- Tooltip classes -->
     <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />-->
     <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />-->
@@ -54,9 +55,9 @@
 
 
 
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+
 
     <style>
         .content-header>i{
@@ -99,7 +100,7 @@
         }
         .div-inline{ display: inline;}
 
-        .div-left{ float:left;width:20%;border:1px solid #FFF}
+        .div-left{ float:left;width:20%;border:1px solid #d2d6de}
         .div-right{ float:right;width:80%;border:1px solid #d2d6de}
         /*.add_content>p{*/
             /*margin-top: 20px;*/
@@ -385,21 +386,23 @@
                     <!---->
                 <!--</div>-->
 
-                <div class="col-md-12" style="padding: 0">
+                <!--工具栏 开始-->
+                <div class="col-md-12 app_coding" style="padding: 0">
 
                     <div class="debug_top div-left">
 
-                        <div class="pull-right">
+                        <div class="pull-left">
                             <span class="folder"><img src="img/icon_d_04.png" areaname="folder" title="新目录"/></span>
                             <span class="file"><img src="img/icon_d_05.png" areaname="file" title="新文件"/></span>
                             <span class="rename"><img src="img/icon_d_06.png" areaname="rename" title="重命名"/></span>
                             <span class="delete"><img src="img/icon_d_07.png" areaname="delete" title="删除"/></span>
                         </div>
-                        <p class="fr">---</p>
+                        <!--<p class="fr">-&#45;&#45;</p>-->
 
                     </div>
                     <div class="debug_top div-right">
                         <div>
+
                             <span class="tag"><img src="img/icon_d_02.png" areaname="tag" title="发布新版本"/></span>
                             <span class="revert"><img src="img/icon_d_03.png" areaname="revert" title="重置工作区到指定版本"/></span>
 
@@ -410,16 +413,23 @@
                             <span class="redo"><img src="img/icon_d_11.png" areaname="redo" title="重置"/></span>
                             <span class="zoom"><img src="img/icon_d_12.png" areaname="zoom" title="放大字体"/></span>
                             <span class="zoom_out"><img src="img/icon_d_13.png" areaname="zoom_out" title="缩小字体"/></span>
-                            <span class="debug"><img src="img/icon_d_14.png"title="调试工具"/></span>
 
-                            <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-sm"><i class="fa fa-reply"></i></button></a></div>
+
+                            <div class="pull-right" style="padding-top:5px;padding-left: 15px; padding-right: 10px"><a href="javascript:history.back(-1);" title="返回上次页面"><span><i class="fa fa-reply"></i></span></a></div>
+                            <div class="pull-right gate_tools hide">
+                                <span class="apply"><img src="img/icon_d_01.png" areaname="apply" title="打包并安装到网关"/></span>
+                                <span class="debug"><img src="img/icon_d_14.png" title="调试工具"/></span>
+                            </div>
 
                         </div>
 
                     </div>
                 </div>
+                <!--工具栏 结束-->
 
-                <div class="col-md-12" style="padding: 0">
+
+                <!--应用代码编辑 开始-->
+                <div class="col-md-12 app_coding" style="padding: 0">
 
                         <div class="div-left" id="jstree_tree">
 
@@ -434,7 +444,168 @@
 
 
                 </div>
+                <!--应用代码编辑 结束-->
 
+
+                <!--应用日志报文查看 开始-->
+                <div class="col-md-12 app_debuger hide" style="padding: 0;min-height: 695px">
+
+                    <div class="col-xs-12" style="padding: 5px">
+                        <div class="col-xs-11" style="padding: 0">
+                            <table class="table-bordered" cellspacing="0">
+                                <tbody>
+                                <tr>
+                                    <td width="80px"><b>|网关名称：</b></td>
+                                    <td width="250px"><span class="gate_name"></span></td>
+                                    <td width="80px"><b>|网关状态：</b></td>
+                                    <td width="80px"><span class="gate_status"></span></td>
+                                    <td width="80px"><b>|实例名称：</b></td>
+                                    <td width="150px"><span class="app_inst"></span></td>
+                                    <td width="80px"><b>|实例状态：</b></td>
+                                    <td width="120px"><span class="app_status"></span></td>
+                                    <td width="100px">
+                                        <button type="button" class="btn btn-sm app-action">启动</button>
+                                        <button type="button" class="btn btn-sm btn-warning app-restart">重启</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pull-right" style="padding-top:5px;padding-left: 15px; padding-right: 10px"><a href="javascript:history.back(-1);" title="返回上次页面"><span><i class="fa fa-reply"></i></span></a></div>
+                        <div class="pull-right" style="padding-top:5px;padding-right: 5px"><a href="javascript:$('.debug_top .debug').click();" title="关闭应用监视"><span><i class="fa fa-remove"></i></span></a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#table_log_div" data-toggle="tab">运行日志</a></li>
+                                    <li><a href="#table_comm_div" data-toggle="tab">通讯报文</a></li>
+
+                                    <li class="pull-right">
+                                        <div class="input-group" style="width: 150px;">
+                                            <input type="text" name="table_search" class="form-control pull-right J_keyword " placeholder="Search">
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn btn-default J_keyword"><i class="fa fa-search "></i></button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="pull-right log_li">
+                                        <div class="btn-group log_filter" role="group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="search_keyword search_log" data-search_keyword="1">内容</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li data-name="device_name"><a style="cursor:pointer">内容</a></li>
+                                                <li data-name="device_desc"><a style="cursor:pointer">ID</a></li>
+                                                <li data-name="device_desc"><a style="cursor:pointer">类型</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="pull-right comm_li hide">
+                                        <div class="btn-group comm_filter" role="group">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="search_keyword search_comm" data-search_keyword="1">报文</span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li data-name="device_name"><a style="cursor:pointer">报文</a></li>
+                                                <li data-name="device_desc"><a style="cursor:pointer">方向</a></li>
+                                                <li data-name="device_desc"><a style="cursor:pointer">设备ID</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <!--<li class="pull-right"><button type="button" class="btn btn-primary appinfo-query">查询</button></li>-->
+                                    <!--<li class="pull-right"><button type="button" class="btn btn-primary appinfo-stop">停止</button></li>-->
+                                    <li class="pull-right"><button type="button" class="btn appinfo-clear">清除</button></li>
+
+                                    <li class="pull-right comm-subscribe hide"><button type="button" class="btn btn-comm-subscribe">报文订阅</button></li>
+                                    <li class="pull-right log-subscribe"><button type="button" class="btn btn-log-subscribe">日志订阅</button></li>
+                                    <li class="pull-right"><button type="button" class="btn btn-primary appinfo-upload">连接</button></li>
+                                    <li class="pull-right"><a><span>日志：</span><span class="log_nums">0</span>&nbsp&nbsp|&nbsp&nbsp<span>报文：</span><span class="comm_nums">0</span></a></li>
+                                </ul>
+                                <div class="tab-content">
+
+                                    <!-- Font Awesome Icons -->
+                                    <div class="tab-pane active" id="table_log_div">
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="box">
+
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        <table id="table_log" class="table table-bordered row-border" cellspacing="0" width="100%">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>时间</th>
+                                                                <th>类型</th>
+                                                                <th>实例ID</th>
+                                                                <th>内容</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- /.box-body -->
+
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /#fa-icons -->
+
+                                    <!-- glyphicons-->
+                                    <div class="tab-pane " id="table_comm_div">
+
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="box">
+
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        <table id="table_comm" class="table table-bordered row-border" cellspacing="0" width="100%">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>时间</th>
+                                                                <th>设备ID</th>
+                                                                <th>方向</th>
+                                                                <th>报文</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /#ion-icons -->
+
+
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+                            <!-- /.nav-tabs-custom -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+
+
+
+                </div>
+                <!--应用日志报文查看 结束-->
 
 
 
@@ -443,11 +614,10 @@
                     <div class="debug_shade">
                         <div class="add_content">
                             <!--<div class="tit">打包修改内容并安装到</div>-->
-                            <p>设备序列号</p>
+                            <p>网关序列号</p>
                             <input type="text" class="J_apply_device" readonly="true" value="value_device_sn" />
                             <p>应用实例</p>
                             <input type="text" class="J_apply_inst" readonly="true" value="value_inst" />
-                            <div class="checkbox"><label><input class="J_protocol" type="checkbox">我同意使用条款<em></em></label></div>
                             <div class="bottom">
                                 <button id="J_apply_do">应用</button>
                                 <button class="off J_content_close">取消</button>
@@ -463,9 +633,8 @@
                             <input type="text" id="J_tag_version" value="" />
                             <p>更新日志</p>
                             <textarea rows="5" id="J_tag_comment"></textarea>
-                            <div class="checkbox"><label><input class="J_protocol" type="checkbox">我同意使用条款<em></em></label></div>
                             <div class="bottom">
-                                <button id="J_tag_do">创建</button>
+                                <button id="J_tag_do">发布</button>
                                 <button class="off J_content_close">取消</button>
                             </div>
                         </div>
@@ -540,9 +709,8 @@
 <!-- ./wrapper -->
 
 
-
-<!-- jQuery 3 -->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery/dist/jquery.min.js"></script>-->
+<script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -556,9 +724,9 @@
 <!-- bootstrap-notify -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
 <!-- DataTables -->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>-->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>-->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
 <!-- SlimScroll -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 
@@ -570,18 +738,15 @@
 <!-- jQuery and the Poshy Tip plugin files -->
 <script type="text/javascript" src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
 
+<!-- paho.mqtt App -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/paho.mqtt/paho-mqtt-min.js"></script>
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/paho.mqtt/paho-utility.js"></script>
+
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<!--<script src="user_js/common/add_back_task.js"></script>-->
+<script src="user_js/common/add_back_task.js"></script>
 <script src="user_js/common/user.js"></script>
-
-<!--<script src="user_js/common/transport.js"></script>-->
-
-<!--&lt;!&ndash; DataTables &ndash;&gt;-->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>-->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
-<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>-->
 
 <!-- load user is -->
 <!--<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>-->
@@ -589,23 +754,28 @@
 
 <script>
     /**
-     * @file            debug1.js
-     * @description     应用调试。
+     * @description     应用代码编辑&&调试。
      **/
     $(function(){
         var API_HOST = "http://iot.symgrid.com";
 //var API_HOST = "http://ds.com/apis";
         API_HOST = "/apis";
         var pageSize = 4; // 每页条数
-        var device_sn = getParam('device_sn');// 以当前网关id身份进入应用中心
+        var gate_sn = getParam('gate_sn');// 以当前网关id身份进入应用中心
         var app_inst = getParam('app_inst');
         var version = getParam('version');
         var cur_app = getParam('app');
         var editor_worksapce_version; // 编辑区版本号
         var get_latest_version; // 获取应用最新的版本号
 
-        var device_info = JSON.parse(localStorage.getItem('device_detail_'+device_sn));
+        var device_info = JSON.parse(localStorage.getItem('device_detail_'+gate_sn));
 
+
+        if(gate_sn){
+            $("div.gate_tools").removeClass("hide");
+        }else{
+            $("div.gate_tools").addClass("hide");
+        }
         // $(".J_gate_name a").text(decodeURI(device_info.basic.name));
         // $(".J_current_inst").html(app_inst);
         // $("#J_current_inst").val(app_inst);
@@ -639,30 +809,37 @@
             name: "fullscreen",
             bindKey: {win: "Ctrl-Enter", mac: "Command-Enter"},
             exec: function(editor) {
-                var vp = cantkGetViewPort();
-                if(editor.isFullScreen) {
-                    div.style.width = editorW + "px";
-                    div.style.height = editorH + "px";
-                    div.style.position = "absolute";
-                    div.style.left = editorX + "px";
-                    div.style.top = (scrollTop + editorY) + "px";
-                    editor.resize();
-                    editor.isFullScreen = false;
-                    document.body.style.overflow = "auto";
-                }
-                else {
-                    div.style.width = vp.width+ "px";
-                    div.style.height = vp.height+ "px";
-                    div.style.position = "absolute";
-                    div.style.left = 0 + "px";
-                    div.style.top = (scrollTop + 0) + "px";
-                    editor.resize();
-                    editor.isFullScreen = true;
-                    document.body.style.overflow = "hidden";
-                }
+                var vp = $(window);
+                console.log(editor);
+                // if(editor.isFullScreen) {
+                //     $("#editor_code").style.width = editorW + "px";
+                //     $("#editor_code").style.height = editorH + "px";
+                //     $("#editor_code").style.position = "absolute";
+                //     $("#editor_code").style.left = editorX + "px";
+                //     $("#editor_code").style.top = (scrollTop + editorY) + "px";
+                //     editor.resize();
+                //     editor.isFullScreen = false;
+                //     document.body.style.overflow = "auto";
+                // }
+                // else {
+                //     $("#editor_code").width = vp.width()+ "px";
+                //     $("#editor_code").height = vp.height()+ "px";
+                //     $("#editor_code").position = "absolute";
+                //     $("#editor_code").left = 0 + "px";
+                //     $("#editor_code").top = (scrollTop + 0) + "px";
+                //     editor.resize();
+                //     editor.isFullScreen = true;
+                //     document.body.style.overflow = "hidden";
+                // }
             }
         });
-
+        code_editor.commands.addCommand({
+            name: "switch_debug",
+            bindKey: {win: "f2", mac: "f2"},
+            exec: function(editor) {
+                $('.debug_top .debug').click();
+            }
+        });
         var local_storage_prefix = cur_app + "_saved_file:";
         var doc_list = {};
 
@@ -1117,11 +1294,7 @@
                 errorAlert(text);
                 return false;
             }
-            if(!$('.ly .J_protocol').is(':checked')){
-                var text = '同意使用条款才能操作';
-                errorAlert(text);
-                return false;
-            }
+
             $.ajax({
                 url: backend_url,
                 headers: {
@@ -1346,26 +1519,28 @@
             type: "GET",
             success: function (req) {
                 console.log(req);
+                console.log(getParam('app'));
                 $('.get_version').text("版本"+req.message);
                 // 如果有版本的话，提示现在的版本
                 if(req && typeof req.message !== 'undefined') {
                     $.ajax({
                         url:"/apis/api/method/app_center.api.get_latest_version",
                         type: "GET",
-                        data: {app:decodeURI(window.location.href.split("=")[1]),beta:1},
+                        data: {app:getParam('app'),beta:1},
                         success:function(data){
-                            var version = data.message;
-                            if(req.message != version) {
+                            var ver = data.message;
+                            console.log(data.message);
+                            if(req.message != ver) {
                                 layui.use('layer', function () {
                                     layui.layer.open({
                                         title: '版本提示',
                                         type: 1,
                                         skin: 'layui-layer-rim', //加上边框
                                         area: ['420px', '180px'], //宽高
-                                        content: '<div class="debug_shade"><div class="add_content"><p style="text-align: center">当前工作区是基于版本' + req.message + '，当前应用的最新版本为'+ version +'。</p><div class="bottom"><button class="J_content_close">我知道了</button></div></div></div>'
+                                        content: '<div class="debug_shade"><div class="add_content"><p style="text-align: center">当前工作区是基于版本' + req.message + '，当前应用的最新版本为'+ ver +'。</p><div class="bottom"><button class="J_content_close">我知道了</button></div></div></div>'
                                     });
                                 });
-                            }else if(req.message == version){
+                            }else if(req.message == ver){
                                 layui.use('layer', function () {
                                     layui.layer.open({
                                         title: '版本提示',
@@ -1437,9 +1612,108 @@
 
 // 初始化工作区
         $('.get_name>a').text(decodeURI(window.location.href.split("=")[1]));
+
+        $(window).resize(function () {
+            // var h = Math.max($(window).height() - 160, 420);
+            // $(".debug_main").height($(".right-full").height() - 100);
+            // if($(".debug_bottom").hasClass("hd")){
+            //     h = $(".debug_main").height();
+            // } else {
+            //     h = $(".debug_main").height() - $(".debug_bottom").height();
+            // }
+            // $('#jstree_tree').height(h);
+            var code_editor = ace.edit("editor_code");
+            // code_editor.container.style.height = h + "px";
+            code_editor.resize();
+        }).resize();
+
+
+    });
+
+    $('.debug_top .debug').click(function(){
+        if($(this).data("debug")=="1"){
+            $('div.app_coding').removeClass("hide");
+            $('div.app_debuger').addClass("hide");
+            $(this).data("debug","0");
+        }else{
+            $('div.app_coding').addClass("hide");
+            $('div.app_debuger').removeClass("hide");
+            $(this).data("debug","1");
+        }
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+
+
+    });
+
+    $('.debug_top .apply').click(function(){
+        var gate_sn = getParam('gate_sn');//
+        var app_inst = getParam('app_inst');
+        var html = $('.J_apply').html();
+        html = html.replace(/value_device_sn/,gate_sn);
+        html = html.replace(/value_inst/,app_inst);
+        layui.use('layer', function(){
+            layui.layer.open({
+                title: '打包应用并安装到:',
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['460px', '400px'], //宽高
+                content: '<div class="ly">'+html+'</div>'
+            });
+        });
+    });
+
+    $('body').on('click','.ly #J_apply_do',function(){
+        var gate_sn = getParam('gate_sn');//
+        var app_inst = getParam('app_inst');
+        var version = getParam('version');
+        var appid = getParam('app');
+        var editor_worksapce_version; // 编辑区版本号
+        var get_latest_version; // 获取应用最新的版本号
+        console.log(gate_sn, app_inst, version, appid);
+
+        var backend_url = '/api/method/app_center.editor.editor_apply';
+        var args = {
+            'app': appid,
+            'device':gate_sn,
+            'inst':app_inst,
+            'version':version
+        };
+
+        // return false;
+        $.ajax({
+            url: backend_url,
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'post',
+            data: args,
+            contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success: function (req) {
+                console.log(req);
+            },
+            error:function(req){
+                console.log(req);
+            }
+        });
+
+
     });
 
 </script>
+<script src="plugins/hotkeys/hotkeys.min.js"></script>
+<script type="text/javascript">
+    hotkeys('f2', function(event,handler) {
+        switch(handler.key){
+            case "f2":$('.debug_top .debug').click();break;
 
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    document.write("<script type='text/javascript' src='user_js/My_APP_Debug.js?v="+jsversion+"'></s"+"cript>");
+</script>
 </body>
 </html>
