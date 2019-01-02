@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-    <!-- DataTables-Responsive -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- DataTables-scroller -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/scroller/1.5.1/css/scroller.dataTables.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
@@ -93,11 +93,17 @@
         /*.monitor-box-text {*/
             /*text-transform: uppercase;*/
         /*}*/
+
+        .html-body-overflow
+        {
+            overflow-x:hidden;
+            overflow-y:hidden;
+        }
     </style>
 
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini html-body-overflow">
 <div class="wrapper">
 
     <!-- top Nav menu start. -->
@@ -282,7 +288,7 @@
                             <span class="monitor-box-icon bg-aqua"><i class="ion ion-grid"></i></span>
                             <div class="pull-right">
                                 <a class="btn btn-app code-debug" style="margin: 15px">
-                                    <i class="fa fa-play"></i> 代码调试
+                                    <i class="fa fa-file-code-o"></i> 代码调试
                                 </a>
                                 <a class="btn btn-app view-rtdata" style="margin: 15px" disabled>
                                     <i class="fa fa-play"></i> 查看数据
@@ -383,10 +389,10 @@
 
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <div class="box">
+                                        <!--<div class="box">-->
 
                                             <!-- /.box-header -->
-                                            <div class="box-body">
+                                            <div class="box-body"  style="height:500px;overflow:auto;padding: 0">
                                                 <table id="table_log" class="table table-bordered row-border" cellspacing="0" width="100%">
                                                     <thead>
                                                     <tr>
@@ -402,7 +408,7 @@
                                             </div>
                                             <!-- /.box-body -->
 
-                                        </div>
+                                        <!--</div>-->
                                         <!-- /.box -->
                                     </div>
                                 </div>
@@ -416,10 +422,10 @@
 
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <div class="box">
+                                        <!--<div class="box">-->
 
                                             <!-- /.box-header -->
-                                            <div class="box-body">
+                                            <div class="box-body"  style="height:500px;overflow:auto;padding: 0">
                                                 <table id="table_comm" class="table table-bordered row-border" cellspacing="0" width="100%">
                                                     <thead>
                                                     <tr>
@@ -435,7 +441,7 @@
                                                 </table>
                                             </div>
                                             <!-- /.box-body -->
-                                        </div>
+                                        <!--</div>-->
                                         <!-- /.box -->
                                     </div>
                                 </div>
@@ -568,7 +574,7 @@
 <!-- DataTables -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/scroller/1.5.1/js/dataTables.scroller.min.js"></script>
 <!-- SlimScroll -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->

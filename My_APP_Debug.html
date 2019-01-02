@@ -60,6 +60,9 @@
 
 
     <style>
+        .table th, .table td {
+            vertical-align: middle!important;
+        }
         .content-header>i{
             position: absolute;
             right: 30px;
@@ -424,6 +427,8 @@
                         </div>
 
                     </div>
+
+
                 </div>
                 <!--工具栏 结束-->
 
@@ -455,13 +460,13 @@
                             <table class="table-bordered" cellspacing="0">
                                 <tbody>
                                 <tr>
-                                    <td width="80px"><b>|网关名称：</b></td>
+                                    <td width="80px"><strong>网关名称：</strong></td>
                                     <td width="250px"><span class="gate_name"></span></td>
-                                    <td width="80px"><b>|网关状态：</b></td>
+                                    <td width="80px"><strong>网关状态：</strong></td>
                                     <td width="80px"><span class="gate_status"></span></td>
-                                    <td width="80px"><b>|实例名称：</b></td>
+                                    <td width="80px"><strong>实例名称：</strong></td>
                                     <td width="150px"><span class="app_inst"></span></td>
-                                    <td width="80px"><b>|实例状态：</b></td>
+                                    <td width="80px"><strong>实例状态：</strong></td>
                                     <td width="120px"><span class="app_status"></span></td>
                                     <td width="100px">
                                         <button type="button" class="btn btn-sm app-action">启动</button>
@@ -527,14 +532,13 @@
                                 <div class="tab-content">
 
                                     <!-- Font Awesome Icons -->
-                                    <div class="tab-pane active" id="table_log_div">
+                                    <div class="tab-pane active" id="table_log_div" style="padding-bottom: 0">
 
                                         <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="box">
-
+                                            <div class="col-xs-12" style="padding: 0">
+                                                <!--<div class="box" style="padding-bottom: 0">-->
                                                     <!-- /.box-header -->
-                                                    <div class="box-body">
+                                                    <div class="box-solid" style="height:600px;overflow:auto;padding: 0">
                                                         <table id="table_log" class="table table-bordered row-border" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr>
@@ -550,7 +554,7 @@
                                                     </div>
                                                     <!-- /.box-body -->
 
-                                                </div>
+                                                <!--</div>-->
                                                 <!-- /.box -->
                                             </div>
                                         </div>
@@ -559,16 +563,16 @@
                                     <!-- /#fa-icons -->
 
                                     <!-- glyphicons-->
-                                    <div class="tab-pane " id="table_comm_div">
+                                    <div class="tab-pane " id="table_comm_div" style="padding-bottom: 0">
 
 
                                         <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="box">
+                                            <div class="col-xs-12" style="padding: 0">
+                                                <!--<div class="box" style="padding-bottom: 0">-->
 
                                                     <!-- /.box-header -->
-                                                    <div class="box-body">
-                                                        <table id="table_comm" class="table table-bordered row-border" cellspacing="0" width="100%">
+                                                    <div class="box-body" style="height:600px;overflow:auto;padding: 0">
+                                                        <table id="table_comm" class="table table-bordered row-border text-center" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr>
                                                                 <th>时间</th>
@@ -583,7 +587,7 @@
                                                         </table>
                                                     </div>
                                                     <!-- /.box-body -->
-                                                </div>
+                                                <!--</div>-->
                                                 <!-- /.box -->
                                             </div>
                                         </div>
@@ -833,13 +837,7 @@
                 // }
             }
         });
-        code_editor.commands.addCommand({
-            name: "switch_debug",
-            bindKey: {win: "f2", mac: "f2"},
-            exec: function(editor) {
-                $('.debug_top .debug').click();
-            }
-        });
+
         var local_storage_prefix = cur_app + "_saved_file:";
         var doc_list = {};
 
@@ -936,6 +934,17 @@
                 }
             }
         });
+
+        if(gate_sn){
+            commands.addCommand({
+                name: "switch_debug",
+                bindKey: {win: "f2", mac: "f2"},
+                exec: function(editor) {
+                    $('.debug_top .debug').click();
+                }
+            });
+        }
+
         var editor_switch_document = function(doc_name, data) {
             var mode = editorMode[data.type];
             if (!mode) {
@@ -1704,12 +1713,16 @@
 </script>
 <script src="plugins/hotkeys/hotkeys.min.js"></script>
 <script type="text/javascript">
-    hotkeys('f2', function(event,handler) {
-        switch(handler.key){
-            case "f2":$('.debug_top .debug').click();break;
+    var gate_sn = getParam('gate_sn');
+    if(gate_sn){
+        hotkeys('f2', function(event,handler) {
+            switch(handler.key){
+                case "f2":$('.debug_top .debug').click();break;
 
-        }
-    });
+            }
+        });
+    }
+
 </script>
 
 <script type="text/javascript">
