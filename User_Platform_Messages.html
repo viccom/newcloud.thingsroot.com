@@ -519,125 +519,137 @@
                     //   指定第第2列
                     targets: [1],
                     render: function (row, type, data, meta) {
+                        console.log(meta.row, data);
                         var str = data.message;
-                        // console.log(str);
-                        var obj = eval("("+str+")");
-                        // console.log(obj);
-                        //设备状态
-                        if(obj.hasOwnProperty('device_status')){
-                            // $(row).children('td').eq(8).text(obj.device_status);
-                            if(obj.device_status == "ONLINE"){
-                                return '设备上线';
-                            }else if(obj.device_status == "OFFLINE"){
-                                return '设备离线';
-                            }
-                            //设备操作
-                        }else if(obj.hasOwnProperty('action')){
-                            // $(row).children('td').eq(8).text("ACTION");
-                            if(obj.channel == "app"){
-                                if(obj.action == "option"){   //开机自启动
-                                    if(obj.data.value == 1){
-                                        return '开启应用'+obj.data.inst+'开机自启动';
-                                    }else if(obj.data.value == 0){
-                                        return '关闭应用'+obj.data.inst+'开机自启动';
-                                    }
-                                }else if(obj.action == "restart"){
-                                    return '重启应用'+obj.data.inst;
-                                }else if(obj.action == "start"){
-                                    return '启动应用'+obj.data.inst;
-                                }else if(obj.action == "stop"){
-                                    return '停止应用'+obj.data.inst;
-                                }else if(obj.action == "conf"){
-                                    return '更改应用'+obj.data.inst+'应用配置';
-                                }else if(obj.action == "upload_comm"){
-                                    if(typeof obj.data.sec == null){
-                                        return '停止上传应用'+obj.data.inst+'报文';
-                                    }else if(typeof obj.data.sec == "number"){
-                                        return '上传应用'+obj.data.inst+'报文';
-                                    }
-                                }else if(obj.action == "install"){
-                                    return '安装应用'+obj.data.name+'实例名'+obj.data.inst;
-                                }else if(obj.action == "uninstall"){
-                                    return '卸载应用'+obj.data.inst;
-                                }else if(obj.action == "query_comm"){
-                                    return '应用'+obj.data.inst+'查询报文';
-                                }else if(obj.action == "query_log"){
-                                    return '应用'+obj.data.inst+'查询日志';
-                                }else if(obj.action == "list"){
-                                    return '刷新应用列表';
-                                }else if(obj.action == "upgrade"){
-                                    return '应用'+obj.data.inst+'升级到最新版本';
-                                }else if(obj.action == "rename"){
-                                    return '应用'+obj.data.inst+'重命名为'+obj.data.new_name;
+                        console.log(meta.row, str);
+                        if(str!=null){
+                            var obj = JSON.parse(str);
+                            // console.log(typeof obj);
+                            console.log(meta.row, obj);
+                            //设备状态
+                            if(obj.hasOwnProperty('device_status')){
+                                // $(row).children('td').eq(8).text(obj.device_status);
+                                if(obj.device_status == "ONLINE"){
+                                    return '设备上线';
+                                }else if(obj.device_status == "OFFLINE"){
+                                    return '设备离线';
                                 }
-                            }  //app
-                            else if(obj.channel == "sys"){
-                                if(obj.action == "enable/beta"){
-                                    if(obj.data == 0){
-                                        return '网关关闭beta模式';
-                                    }else if(obj.data == 1){
-                                        return '网关开启beta模式';
+                                //设备操作
+                            }else if(obj.hasOwnProperty('action')){
+                                // $(row).children('td').eq(8).text("ACTION");
+                                if(obj.channel == "app"){
+                                    if(obj.action == "option"){   //开机自启动
+                                        if(obj.data.value == 1){
+                                            return '开启应用'+obj.data.inst+'开机自启动';
+                                        }else if(obj.data.value == 0){
+                                            return '关闭应用'+obj.data.inst+'开机自启动';
+                                        }
+                                    }else if(obj.action == "restart"){
+                                        return '重启应用'+obj.data.inst;
+                                    }else if(obj.action == "start"){
+                                        return '启动应用'+obj.data.inst;
+                                    }else if(obj.action == "stop"){
+                                        return '停止应用'+obj.data.inst;
+                                    }else if(obj.action == "conf"){
+                                        return '更改应用'+obj.data.inst+'应用配置';
+                                    }else if(obj.action == "upload_comm"){
+                                        if(typeof obj.data.sec == null){
+                                            return '停止上传应用'+obj.data.inst+'报文';
+                                        }else if(typeof obj.data.sec == "number"){
+                                            return '上传应用'+obj.data.inst+'报文';
+                                        }
+                                    }else if(obj.action == "install"){
+                                        return '安装应用'+obj.data.name+'实例名'+obj.data.inst;
+                                    }else if(obj.action == "uninstall"){
+                                        return '卸载应用'+obj.data.inst;
+                                    }else if(obj.action == "query_comm"){
+                                        return '应用'+obj.data.inst+'查询报文';
+                                    }else if(obj.action == "query_log"){
+                                        return '应用'+obj.data.inst+'查询日志';
+                                    }else if(obj.action == "list"){
+                                        return '刷新应用列表';
+                                    }else if(obj.action == "upgrade"){
+                                        return '应用'+obj.data.inst+'升级到最新版本';
+                                    }else if(obj.action == "rename"){
+                                        return '应用'+obj.data.inst+'重命名为'+obj.data.new_name;
                                     }
-                                }else if(obj.action == "enable/data"){
-                                    if(obj.data == 0){
-                                        return '网关关闭数据上传';
-                                    }else if(obj.data == 1){
-                                        return '网关开启数据上传';
+                                }  //app
+                                else if(obj.channel == "sys"){
+                                    if(obj.action == "enable/beta"){
+                                        if(obj.data == 0){
+                                            return '网关关闭beta模式';
+                                        }else if(obj.data == 1){
+                                            return '网关开启beta模式';
+                                        }
+                                    }else if(obj.action == "enable/data"){
+                                        if(obj.data == 0){
+                                            return '网关关闭数据上传';
+                                        }else if(obj.data == 1){
+                                            return '网关开启数据上传';
+                                        }
+                                    }else if(obj.action == "enable/log"){
+                                        if(typeof obj.data == null){
+                                            return '网关关闭日志上送';
+                                        }else if(typeof obj.data == "number"){
+                                            return '网关开启日志上送';
+                                        }
+                                    }else if(obj.action == "enable/comm"){
+                                        if(obj.data.sec == 0){
+                                            return '网关停止报文上送';
+                                        }else if(obj.data.sec == 120){
+                                            return '网关开启报文上送';
+                                        }
+                                    }else if(obj.action == "restart"){
+                                        return '网关IOT程序重启';
+                                    }else if(obj.action == "reboot"){
+                                        return '网关设备重启';
+                                    }else if(obj.action == "cloud_conf"){
+                                        return '网关云中心配置选项更新';
+                                    }else if(obj.action == "enable/data_one_short"){
+                                        if(typeof obj.data == null){
+                                            return '网关关闭临时上传数据';
+                                        }else if(typeof obj.data == "number"){
+                                            return '网关开启临时上传数据';
+                                        }
+                                    }else if(obj.action == "ext/upgrade"){
+                                        return '网关更新扩展库';
+                                    }else if(obj.action == "ext/list"){
+                                        return '网关上传扩展库列表';
+                                    }else if(obj.action == "cfg/download"){
+                                        return '网关IOT固件配置下载';
+                                    }else if(obj.action == "cfg/upload"){
+                                        return '网关IOT固件配置上传';
+                                    }else if(obj.action == "upgrade"){
+                                        return '网关升级到最新版本';
+                                    }else if(obj.action == "enable/event"){
+                                        return '网关更改事件上传等级';
+                                    }else if(obj.action == "enable/stat"){
+                                        return '网关开启统计数据上传';
+                                    }else if(obj.action == "batch_script"){
+                                        return '网关执行批量操作';
+                                    }else if(obj.action == "upgrade/ack"){
+                                        return '网关IOT固件升级确认';
                                     }
-                                }else if(obj.action == "enable/log"){
-                                    if(typeof obj.data == null){
-                                        return '网关关闭日志上送';
-                                    }else if(typeof obj.data == "number"){
-                                        return '网关开启日志上送';
-                                    }
-                                }else if(obj.action == "enable/comm"){
-                                    if(obj.data.sec == 0){
-                                        return '网关停止报文上送';
-                                    }else if(obj.data.sec == 120){
-                                        return '网关开启报文上送';
-                                    }
-                                }else if(obj.action == "restart"){
-                                    return '网关IOT程序重启';
-                                }else if(obj.action == "reboot"){
-                                    return '网关设备重启';
-                                }else if(obj.action == "cloud_conf"){
-                                    return '网关云中心配置选项更新';
-                                }else if(obj.action == "enable/data_one_short"){
-                                    if(typeof obj.data == null){
-                                        return '网关关闭临时上传数据';
-                                    }else if(typeof obj.data == "number"){
-                                        return '网关开启临时上传数据';
-                                    }
-                                }else if(obj.action == "ext/upgrade"){
-                                    return '网关更新扩展库';
-                                }else if(obj.action == "ext/list"){
-                                    return '网关上传扩展库列表';
-                                }else if(obj.action == "cfg/download"){
-                                    return '网关IOT固件配置下载';
-                                }else if(obj.action == "cfg/upload"){
-                                    return '网关IOT固件配置上传';
-                                }else if(obj.action == "upgrade"){
-                                    return '网关升级到最新版本';
-                                }else if(obj.action == "enable/event"){
-                                    return '网关更改事件上传等级';
-                                }else if(obj.action == "enable/stat"){
-                                    return '网关开启统计数据上传';
-                                }else if(obj.action == "batch_script"){
-                                    return '网关执行批量操作';
-                                }else if(obj.action == "upgrade/ack"){
-                                    return '网关IOT固件升级确认';
+                                }  //sys
+                                else if(obj.channel == "command"){
+                                    return '网关应用设备执行'+obj.data.cmd+'指令';
+                                } //command
+                                else if(obj.channel == "output"){
+                                    return '网关设备应用'+obj.data.output+'数据输出';
+                                }else{
+                                    return row
                                 }
-                            }  //sys
-                            else if(obj.channel == "command"){
-                                return '网关应用设备执行'+obj.data.cmd+'指令';
-                            } //command
-                            else if(obj.channel == "output"){
-                                return '网关设备应用'+obj.data.output+'数据输出';
-                            }else{
-                                return row
-                            }
+
+                        }
+
+
                         // return row;
-                    }}
+                    }else{
+                            return row
+                        }
+
+                    }
+
                 }, {
                     //   指定第第3列
                     targets: [2],
