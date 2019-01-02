@@ -7,7 +7,7 @@ gate_info(gate_sn);
 
 setTimeout(function () {
     connect();
-},1000);
+},600);
 
 $(function () {
     /**
