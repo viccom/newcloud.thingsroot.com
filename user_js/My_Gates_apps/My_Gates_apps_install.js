@@ -276,7 +276,8 @@ $('button.app-install-to-gate').click(function() {
 
             console.log(gate_sn, id, inst, appid, appcfg);
 
-            gate_exec_action(action, act_post, task_desc, inst, action, "1")
+            gate_exec_action(action, act_post, task_desc, inst, action, "1");
+
         }
     }
 

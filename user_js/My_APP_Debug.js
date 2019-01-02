@@ -381,6 +381,12 @@ if(gate_sn){
         };
 
         gate_exec_action(app_action, _act, task_desc, inst, app_action, oldval);
+
+        setTimeout(function () {
+            gate_info(gate_sn);
+            gate_app_detail(gate_sn, inst);
+        },2000);
+
     });
 
     $(".app-restart").click(function(){
@@ -397,6 +403,10 @@ if(gate_sn){
             "id": id
         };
         gate_exec_action(app_action, _act, task_desc, inst, app_action, oldval);
+        setTimeout(function () {
+            gate_info(gate_sn);
+            gate_app_detail(gate_sn, inst);
+        },2000);
     });
 
     /**

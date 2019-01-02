@@ -301,6 +301,8 @@ function doCrontab(){
                                 app_rename_result_response(true, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_uninstall"){
                                 app_uninstall_result_response(true, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_install"){
+                                    gate_upload_applist(gate_sn);
                             }
 
 
@@ -327,6 +329,8 @@ function doCrontab(){
                                 app_rename_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_uninstall"){
                                 app_uninstall_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_install"){
+                                gate_upload_applist(gate_sn);
                             }
 
                             q.splice(i, 1);// 删除任务
@@ -355,6 +359,8 @@ function doCrontab(){
                                 app_rename_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_uninstall"){
                                 app_uninstall_result_response(false, q[i].inst, q[i].value)
+                            }else if(q[i].action=="app_install"){
+                                gate_upload_applist(gate_sn);
                             }
                             q.splice(i,1);
                         }

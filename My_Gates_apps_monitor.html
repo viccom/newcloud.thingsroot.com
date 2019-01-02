@@ -267,7 +267,7 @@
                 <!--<a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>-->
                 应用监控
                 <small><span class="gate_name"></span></small>
-                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+                <div class="pull-right"><a href="javascript:window.location.replace(document.referrer);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
             </h1>
             <!--<ol class="breadcrumb">-->
                 <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
@@ -460,25 +460,20 @@
             <!-- /.row -->
 
             <!-- /.modal default start-->
-            <div class="modal fade" id="modal-default">
+            <div class="modal fade" id="modal-coder" data-backdrop="static" style="padding-top: 100px">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">更改实例名</h4>
+                            <h4 class="modal-title">代码调试</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">实例名</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="name">
-                                </div>
-                            </div>
+                            <p class="debug_tips"></p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary">保存</button>
+                            <button type="button" class="btn btn-primary coder_confirm">继续</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->

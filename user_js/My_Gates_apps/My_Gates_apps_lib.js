@@ -16,6 +16,7 @@ function gate_info(sn){
             // console.log(req);
             if(req.message!=null){
                 localStorage.setItem("gate_info/"+ sn, JSON.stringify(req.message));
+                is_beta = req.message.basic.iot_beta;
                 setTimeout(function () {
                     set_label(sn);
                 },200);
@@ -319,6 +320,15 @@ function gate_app_detail(sn, inst, pagename){
  *	使用网关APP状态信息app_monitor页面更新标签
  */
 function set_app_monitor_label(sn, inst){
+    var app_name = '';
+    var fork_app = '';
+    var fork_ver = '';
+    var ver = '--';
+    var cloudver = '';
+    var isdebug = 0;
+    var localapp  = 1;
+    var owner_login = getCookie('usr');
+    var owner = "";
     var appinfo = localStorage.getItem("app_info/"+ sn + "/" + inst);
     if(appinfo!=null && typeof(appinfo) != "undefined") {
         appinfo = JSON.parse(appinfo);
@@ -326,6 +336,15 @@ function set_app_monitor_label(sn, inst){
         $(".app-gatever").html(appinfo.info.version);
         if(appinfo.cloud!=null){
             $(".app-cloudver").html(appinfo.cloud.ver);
+            appid = appinfo.cloud.name;
+            app_name = appinfo.cloud.app_name;
+            fork_app  = appinfo.cloud.fork_app;
+            fork_ver = appinfo.cloud.fork_ver;
+            owner = appinfo.cloud.owner;
+            cloudver = appinfo.cloud.ver;
+            ver = appinfo.info.version;
+            isdebug = 1;
+            localapp  = 0;
         }else{
             $(".app-cloudver").html("-");
         }
@@ -339,6 +358,10 @@ function set_app_monitor_label(sn, inst){
             $(".app-action:button").text("启动");
             $(".app-action:button").removeClass("btn-danger");
             $(".app-action:button").addClass("btn-info");
+        }
+
+        if(localapp==0){
+            $("button.code-debug").attr("disabled", true)
         }
 
     }
@@ -389,11 +412,11 @@ function gate_app_dev_tree(sn,appid){
         data: {"sn": sn},
         dataType:'json',
         success:function(req){
-            // console.log(req.message);
+            console.log(req.message, appid);
             if(req.message!=null){
 
                 if(req.message[appid]){
-                    // console.log(req.message[appid][0].sn);
+                    console.log(req.message[appid][0].sn);
                     $("a.view-rtdata").data("vsn", req.message[appid][0].sn);
                     $("a.view-rtdata").attr("disabled", false);
                 }

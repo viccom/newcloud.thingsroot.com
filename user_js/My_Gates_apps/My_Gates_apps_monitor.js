@@ -6,6 +6,7 @@ var pagename = "Gates_apps_monitor";
 var log_subscribed = false;
 var comm_subscribed = false;
 var app_devslist = new Array();
+var is_beta = 0;
 
 gate_info(gate_sn);
 gate_app_detail(gate_sn, inst, pagename);
@@ -257,23 +258,149 @@ $("a.view-rtdata").click(function(){
  *	切换到代码编辑调试页面
  */
 $("a.code-debug").click(function(){
+    // console.log(is_beta);
+    if(is_beta==0){
+        var text = '网关未开启调试模式,请在网关设置中开启网关的"调试模式"';
+        errorAlert(text);
+        return false;
+    }
+    var gate_sn = getParam('sn');
+    var inst = getParam('inst');
+    var appid = getParam('appid');
+    var owner_login = getCookie('usr');
+    var instver = $("span.app-gatever").text();
+    var appinfo = localStorage.getItem("app_info/"+ gate_sn + "/" + inst);
+    var app_name = '';
+    var fork_app = '';
+    var fork_ver = '';
+    var ver = '--';
+    var cloudver = '';
+    var isdebug = 0;
+    var localapp  = 1;
+    var owner = "";
+    if(appinfo!=null && typeof(appinfo) != "undefined") {
+        appinfo = JSON.parse(appinfo);
+        if(appinfo.cloud!=null){
+            appid = appinfo.cloud.name;
+            app_name = appinfo.cloud.app_name;
+            fork_app  = appinfo.cloud.fork_app;
+            fork_ver = appinfo.cloud.fork_ver;
+            owner = appinfo.cloud.owner;
+            cloudver = appinfo.cloud.ver;
+            ver = appinfo.info.version;
+            localapp  = 0;
+        }
+        if(owner==owner_login){
+            isdebug = 1;
+        }else{
+            if(fork_app!=null && cloudver==fork_ver){
+                isdebug = 1;
+            }
+            isdebug = 0;
+        }
+    }
+
+    if(localapp==1){
+        var text = '本地应用无法远程调试';
+        errorAlert(text);
+        return false;
+    }
+
+    if(isdebug==1){
+        redirect("/My_APP_Debug.html?app=" + appid + "&gate_sn="+ gate_sn +"&app_inst=" + inst + "&version=" +instver);
+    }else{
+        $("p.debug_tips").html("您不是" + app_name + "的应用所有者，如要继续远程调试，会将此应用当前版本克隆一份到您的账户下，而且在代码调试页面编辑的是您克隆的代码，在代码调试页面下载应用会将克隆到你名下的应用覆盖网关中的应用！<br>如要继续，点击\"继续\"按钮！");
+        $("#modal-coder").modal('show');
+    }
+
+});
+$("button.coder_confirm").click(function(){
     var gate_sn = getParam('sn');
     var inst = getParam('inst');
     var appid = getParam('appid');
     var instver = $("span.app-gatever").text();
+    var data = {"app": appid, "version": instver };
+    // return false;
+    $.ajax({
+        url: '/apis/api/method/app_center.appmgr.get_fork',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: data,
+        success: function (req) {
+            console.log(req);
 
-    redirect("/My_APP_Debug.html?app=" + appid + "&gate_sn="+ gate_sn +"&app_inst=" + inst + "&version=" +instver);
+            if(req.message instanceof Array && req.message[0]!=null){
+                redirect("/My_APP_Debug.html?app=" + req.message[0] + "&gate_sn="+ gate_sn +"&app_inst=" + inst + "&version=" + req.message[1]);
+            }else{
+                $.ajax({
+                    url: '/apis/api/method/app_center.appmgr.fork',
+                    headers: {
+                        "Accept": "application/json; charset=utf-8",
+                        "X-Frappe-CSRF-Token": auth_token
+                    },
+                    type: 'post',
+                    data: data,
+                    success: function (req) {
+                        console.log(req);
+                        $("#modal-coder").modal('show');
+                        if(req.message!=''){
+                            console.log(req.message);
+                            redirect("/My_APP_Debug.html?app=" + req.message + "&gate_sn="+ gate_sn +"&app_inst=" + inst + "&version=" + instver);
+                        }else{
+                            var text = 'fork应用遇到错误，请联系开发者';
+                            errorAlert(text);
+                        }
 
-    // var dst_dev = $(this).data("vsn");
-    // if(dst_dev){
-    //     redirect("/My_APP_Debug.html?sn="+ gate_sn +"&vsn=" + dst_dev);
-    // }else{
-    //     var text = '此应用无设备对象或者应用未启动';
-    //     errorAlert(text)
-    // }
+                    },
+                    error:function(req){
+                        console.log(req);
+                        $("#modal-coder").modal('hide');
+                        var text = '服务器返回错误';
+                        errorAlert(text);
+                        if(req.responseJSON._server_messages){
+                            var err = JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]);
 
-//
+                            $.notify({
+                                title: "<strong>错误提示:</strong><br><br> ",
+                                message: err.message
+                            },{
+                                type: 'warning'
+                            });
+
+                        }
+
+                    }
+                });
+
+
+            }
+        },
+        error:function(req){
+            console.log(req);
+            var text = '服务器返回错误';
+            errorAlert(text);
+            $("#modal-coder").modal('hide');
+            if(req.responseJSON._server_messages){
+                var err = JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]);
+
+                    $.notify({
+                        title: "<strong>错误提示:</strong><br><br> ",
+                        message: err.message
+                    },{
+                        type: 'warning'
+                    });
+
+            }
+        }
+    });
+
+
 });
+
+
 
 /**
  *	应用操作动作

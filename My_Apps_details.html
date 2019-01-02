@@ -525,7 +525,7 @@
                         <address>
 
                             <p>
-                                <a class="btn btn-app edit">
+                                <a class="btn btn-app edit notowner">
                                     <i class="fa fa-edit"></i> 设置
                                 </a>
                             </p>
@@ -537,8 +537,8 @@
                         <address>
 
                             <p>
-                                <a class="btn btn-app app_editor">
-                                    <i class="fa  fa-file-text-o"></i> 代码编辑
+                                <a class="btn btn-app app_editor notowner">
+                                    <i class="fa  fa-file-code-o"></i> 代码编辑
                                 </a>
                             </p>
                         </address>
@@ -621,7 +621,7 @@
                         <div class="tab-pane" id="versions_list">
 
                             <div class="tab-pane " id="C">
-                                <button class="uploadNewVersion">上传新版本</button>
+                                <button class="uploadNewVersion notowner">上传新版本</button>
                                 <ul class="app_version">
 
                                 </ul>
@@ -810,7 +810,7 @@
                         '<li>'+
                         '<p><span>版本号：</span><span class="vs">'+ datas.version +'</span><span class="beta"></span></p>'+
                         '<p><span>更新时间：</span><span>'+ datas.creation.substr(0,19) +'</span></p>'+
-                        '<p style="position:relative"><span>更新日志：</span><span>'+ datas.comment +'</span><span class="temp_btn1 upload_formal_btn">申请发布正式版</span></p>'+
+                        '<p style="position:relative"><span>更新日志：</span><span>'+ datas.comment +'</span><span class="temp_btn1 upload_formal_btn notowner">申请发布正式版</span></p>'+
                         '<input type="hidden" value="'+ datas.version +'">'+
                         '<input class="betadesc" type="hidden" value="'+ datas.beta +'">'+
                         '</li>'
@@ -832,6 +832,7 @@
             console.log('error')
         },
         complete: function () {
+
             var btn = $('.upload_formal_btn');
             for (var i=0;i<btn.length;i++){
                 btn[i].index = i;
@@ -882,6 +883,8 @@
                     );
                 }
             }
+
+            get_app_detail();
         },
         error: function () {
             console.log('error')
