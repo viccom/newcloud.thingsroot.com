@@ -222,8 +222,3 @@ $("button.float-gate-list").click(function(){
 
 });
 
-
-$("body").on("click", ".gate_logviewer", function () {
-
-    window.open("My_Gates_logviewer.html?sn=" + gate_sn);
-});
