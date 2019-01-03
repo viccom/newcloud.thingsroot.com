@@ -519,13 +519,13 @@
                     //   指定第第2列
                     targets: [1],
                     render: function (row, type, data, meta) {
-                        console.log(meta.row, data);
+                        // console.log(meta.row, data);
                         var str = data.message;
-                        console.log(meta.row, str);
+                        // console.log(meta.row, str);
                         if(str!=null){
                             var obj = JSON.parse(str);
                             // console.log(typeof obj);
-                            console.log(meta.row, obj);
+                            // console.log(meta.row, obj);
                             //设备状态
                             if(obj.hasOwnProperty('device_status')){
                                 // $(row).children('td').eq(8).text(obj.device_status);
@@ -813,7 +813,7 @@
                         creation:[">",date1]
                     }
                 };
-                console.log(date1)
+                // console.log(date1)
                 var oneData;
                 var myajax1 = function(data, callback, oSettings ) {
                     return $.ajax({
@@ -892,7 +892,7 @@
                         creation:[">",date3]
                     }
                 };
-                console.log(param3)
+                // console.log(param3)
                 var myajax3 = function(data, callback, oSettings ) {
                     return $.ajax({
                         url: "/apis/api/method/iot.user_api.device_activity",
