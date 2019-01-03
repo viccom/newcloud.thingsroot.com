@@ -510,7 +510,7 @@
                         </address>
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-3 invoice-col">
+                    <div class="col-sm-2 invoice-col">
                         &nbsp;&nbsp;
                         <address>
                             <p style="padding-bottom: 10px">应用分类：<span class="app_category"></span></p>
@@ -520,7 +520,7 @@
                         </address>
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-1 invoice-col">
+                    <div class="col-sm-1 invoice-col" style="padding: 5px">
                         &nbsp;&nbsp;
                         <address>
 
@@ -532,7 +532,7 @@
                         </address>
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-1 invoice-col">
+                    <div class="col-sm-1 invoice-col" style="padding: 5px">
                         &nbsp;&nbsp;
                         <address>
 
@@ -546,7 +546,7 @@
                     <!-- /.col -->
 
                     <!-- /.col -->
-                    <div class="col-sm-1 invoice-col">
+                    <div class="col-sm-1 invoice-col" style="padding: 5px">
                         &nbsp;&nbsp;
                         <address>
 
@@ -558,6 +558,18 @@
                         </address>
                     </div>
 
+                    <!-- /.col -->
+                    <div class="col-sm-1 invoice-col" style="padding: 5px">
+                        &nbsp;&nbsp;
+                        <address>
+
+                            <p>
+                                <a class="btn btn-app app_install">
+                                    <i class="fa fa-cloud-download"></i> 安装
+                                </a>
+                            </p>
+                        </address>
+                    </div>
 
 
                     <!--<div class="app_right_button">-->
@@ -1161,14 +1173,20 @@
     });
 
     //edit
-    $('.edit').click(function () {
-        location.href = 'My_Apps_edit.html?appid=' + decodeURI(window.location.href.split("=")[1]);
+    $('a.edit').click(function () {
+        location.href = 'My_Apps_edit.html?appid=' + getParam('appid');
     });
 
     //Online editor
     $('a.app_editor').click(function () {
         // console.log(111);
-        location.href = 'My_APP_Debug.html?app=' + decodeURI(window.location.href.split("=")[1]);
+        location.href = 'My_APP_Debug.html?app=' + getParam('appid');
+    });
+
+    //app install
+    $('a.app_install').click(function () {
+        // console.log(111);
+        location.href = 'My_Apps_install.html?app=' + getParam('appid');
     });
 
     //主分页

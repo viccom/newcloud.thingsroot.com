@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<script src="user_js/common/debug.js"></script>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>冬笋云 | 应用安装</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/AdminLTE.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/skins/_all-skins.min.css">
+
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <!-- global style -->
+    <link rel="stylesheet" href="user_css/global.css">
+    <style>
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 10px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flex{
+            /*flex 布局*/
+            display: flex;
+            /*实现垂直居中*/
+            align-items: center;
+            /*实现水平居中*/
+            justify-content: center;
+
+            text-align: justify;
+            width:100%;
+            min-height:420px;
+            /*background: #000;*/
+            margin:0 auto;
+            /*color:#fff;*/
+        }
+        .config-label {
+            text-align: left!important;
+            max-width: 150px!important;
+        }
+    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <!-- top Nav menu start. -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>冬</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>冬笋云</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-user-md"></i>
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="User_Settings.html">
+                                            <h3>
+                                                <i class="fa fa-user"></i>
+                                                基本资料
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_Virtual_Gates.html">
+                                            <h3>
+                                                <i class="fa fa-laptop"></i>
+                                                虚拟网关
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_AccessKey.html">
+
+                                            <h3>
+                                                <i class="fa fa-key"></i>
+                                                AccessKey
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+
+                                <div>
+                                    <a href="javascript:logout();"  class="btn btn-warning btn-block btn-flat">退出</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- Help can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-question-circle"></i>
+                            帮助
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a target="_blank" href="/guide">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                快速指南
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                应用开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                平台开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- top Nav menu end. -->
+
+    <!-- Left Nav menu start. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+
+                <li class="header">Dashboard</li>
+
+                <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
+                <li class="header">我的资源</li>
+                <li class="active"><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
+
+                <li class="header">消息中心</li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-commenting-o text-yellow"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-commenting-o text-light-blue"></i> <span>设备消息</span></a></li>
+
+
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Left Nav menu end. contains the logo and sidebar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+         <section class="content-header">
+             <h1>
+                 我的应用
+                 <small><span class="gate_name"></span> > <span class="inst_name"></span>>应用安装</small>
+                 <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-mail-reply"></i>返回</button></a></div>
+             </h1>
+
+        </section>
+
+        <!-- Main content -->
+        <section id="content">
+
+            <div class="row app-install" style="padding: 15px">
+                <div class="col-md-12">
+                    <div class="box box-primary" >
+                        <div class="box-header with-border">
+                            <div class="col-md-2" style="padding: 0">
+                                <div><b>当前操作网关：</b><span class="gate_status"></span></div>
+                            </div>
+                            <div class="col-md-3" style="padding: 0">
+                                <i class="fa fa fa-dot-circle-o"></i> 名称：<span class="gate_name"></span>
+                            </div>
+                            <div class="col-md-3" style="padding: 0"><i class="fa fa fa-dot-circle-o"></i> 描述：<span class="gate_desc"></span></div>
+                            <div class="col-md-3" style="padding: 0"><i class="fa fa fa-dot-circle-o"></i> 序号：<span class="gate_sn"></span></div>
+                            <!--<div class="col-md-2"><i class="fa fa-circle"></i> 调试模式：</div>-->
+                            <div class="pull-right">
+                                <a href="javascript:void(0)" class="gate_logviewer"><i class="fa fa-history"></i>日志</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2" style="padding-right: 0">
+
+                    <div class="box hide-gate-list">
+                        <div class="box-header with-border">
+                            <!--<h3 class="box-title">网关列表</h3>-->
+                            <input style="width: 80%" id="search-highlight" name="search-highlight" placeholder="搜索" type="text" data-list=".highlight_list" autocomplete="off">
+                            <div class="box-tools"> <button type="button" class="btn btn-box-tool fa-refresh-gate-list"><i class="fa fa-refresh"></i> </button></div>
+                        </div>
+                        <div class="box-body no-padding" style="height:560px;overflow:auto">
+
+                            <ul class="nav nav-pills nav-stacked gates_list highlight_list">
+
+                            </ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+                <div class="col-md-10">
+
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#confi_panel_div" data-toggle="tab">配置面板</a></li>
+                            <li><a href="#config_json_div" data-toggle="tab">JSON源码</a></li>
+
+                            <!--<li class="pull-right"><button type="button" class="btn btn-primary app-install-to-gate">安装</button></li>-->
+
+                        </ul>
+                        <div class="tab-content">
+
+                            <form class="form-horizontal"  method="post" onsubmit="return false;">
+                                <div class="form-group">
+                                    <label for="gate_inst_1" class="col-sm-2 control-label config-label">实例名：</label>
+
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control  popover-name"  data-placement="top" data-content="" id="gate_inst_1" placeholder="输入实例名">
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+                            <!-- confi_panel_div -->
+                            <div class="tab-pane active" id="confi_panel_div" style="padding: 0">
+
+
+                                <div class="has_panel_cfg c_content" style="min-height:450px; border: 0px solid #e1e1e1;">
+
+
+
+
+                                </div>
+                                <!-- /无配置参数时显示 -->
+                                <div class="flex no_panel_cfg hide">
+                                    <h1>此应用不支持配置界面<br>请使用JSON格式配置</h1>
+                                </div>
+
+                            </div>
+                            <!-- /#confi_panel_div -->
+
+                            <!-- config_json_div-->
+                            <div class="tab-pane " id="config_json_div" style="padding-left: 0px; padding-top: 5px; padding-right: 0px;padding-bottom: 0px;border:1px solid #eaead1">
+
+
+                                <div>编辑器状态：<b><span class="json_editor_status text-light-blue"></span></b></div>
+                                <div id="json_editor"  style="min-height:405px; border: 0px solid #e1e1e1;">
+                                </div>
+
+                                <script>
+
+                                    //console.log('-------------------session1',session.getValue());
+                                </script>
+
+                            </div>
+                            <!-- /#config_json_div -->
+
+                            <form class="form-horizontal"  method="post" onsubmit="return false;">
+                                <div class="form-group" style="padding-left: 15px; padding-top: 15px">
+                                    <button type="button" class="btn btn-primary btn-lg app-install-to-gate" style="width: 150px">保存</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                        <!-- /.tab-content -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar start-->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- /.control-sidebar end-->
+
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+
+
+    <!-- /.modal templ start-->
+    <div class="modal fade" id="modal-add-templ" data-backdrop="static" style="padding-top: 100px">
+        <div class="modal-dialog" style="width: 800px; ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">添加模板
+                        <button type="button" class="btn btn-default btn-sm templs-refresh"><i class="fa fa-refresh"></i></button>
+
+                    </h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive" style="padding-bottom: 20px">
+                        <table class="table table-bordered nowrap" id="select_templ_list">
+                            <tr>
+                                <th style="width: 25%">名称</th>
+                                <th style="width: 30%">描述</th>
+                                <th style="width: 25%">模板ID</th>
+                                <th style="width: 10%">版本</th>
+                                <th style="width: 10%">操作</th>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <!--<div><button type="button" class="btn btn-primary creat_templ templates">创建新模板</button></div>-->
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary creat_templ templates  pull-left">创建新模板</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal end-->
+
+    <div class="alert danger" role="alert" style="text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
+        <a href="#" class="alert-link" style="color: #333;font-size: 16px;text-decoration: none">...</a>
+    </div>
+
+
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery/dist/jquery.min.js"></script>
+
+<!-- oem -->
+<script src="user_js/common/oem.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- bootstrap-notify -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+<!-- jQuery hideseek -->
+<script type="text/javascript" src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/HideSeek-master/jquery.hideseek.min.js"></script>
+
+<!-- Slimscroll -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/js/adminlte.min.js"></script>
+<script src="user_js/common/skin.js"></script>
+
+
+<!-- ace editor -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/ace/ace.js" charset="utf-8" type="text/javascript"></script>
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/ace/ext-language_tools.js" type="text/javascript"></script>
+
+<!-- load common js-->
+<script src="user_js/common/jQuery.cookie.js"></script>
+<!--<script src="user_js/common/common.js"></script>-->
+<!--<script src="user_js/common/user.js"></script>-->
+<!--<script src="user_js/common/add_back_task.js"></script>-->
+
+<!-- load user js-->
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps_config.js"></script>-->
+
+<script type="text/javascript">
+    document.write("<script type='text/javascript' src='user_js/common/common.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/common/add_back_task.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/common/user.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/My_Apps_install.js?v="+jsversion+"'></s"+"cript>");
+</script>
+
+<script>
+    $(function(){
+        update_gates_list();
+        function update_gates_list() {
+            $.ajax({
+                url: '/apis/api/method/iot_ui.iot_api.devices_list?filter=online',
+                headers: {
+                    Accept: "application/json; charset=utf-8",
+                    "X-Frappe-CSRF-Token": auth_token
+                },
+                type: 'get',
+                contentType: "application/json; charset=utf-8",
+                dataType:'json',
+                success:function(data){
+                    var user = getCookie('usr');
+                    var op_list = new Array();
+                    var tmpstr = localStorage.getItem("gate_op/"+ user);
+                    if(tmpstr!==null){
+                        var arr = JSON.parse(tmpstr);
+                        if(arr.length>0){
+                            op_list = arr
+                        }
+                    }
+
+                    $("ul.gates_list").empty();
+                    for (i = 0; i < op_list.length; i++){
+                        var tmpstr = localStorage.getItem("gate_info/"+ op_list[i]);
+                        if(tmpstr!==null){
+                            var gateobj = JSON.parse(tmpstr);
+                            if(gateobj.hasOwnProperty("basic")){
+                                var gsn = op_list[i];
+                                var gate_desc = gateobj.basic.desc;
+                                var lenText = gateobj.basic.name;
+                                if(gateobj.basic.name.length>16){
+                                    lenText=gateobj.basic.name.substring(0,16)
+                                }
+                                var li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                $("ul.gates_list").append(li_html);
+
+                            }
+                        }
+                    }
+                    if(data.message && data.message.length>0){
+                        var maxlen = data.message.length;
+                        // if(data.message.length>12){
+                        //     maxlen = 12;
+                        // }
+                        for (i = 0; i < maxlen; i++){
+                            // console.log(i, data.message[i].device_name);
+                            // console.log(op_list);
+                            var arrayObj = new Array(data.message[i].device_name,
+                                data.message[i].device_desc, data.message[i].last_updated,
+                                data.message[i].device_status,data.message[i].device_apps_num,
+                                data.message[i].device_devs_num,"" ,data.message[i].device_sn,
+                                data.message[i].beta, data.message[i].iot_beta);
+
+
+                            // console.log($.inArray(data.message[i].device_sn, op_list));
+                            if($.inArray(data.message[i].device_sn, op_list)==-1){
+                                // console.log("ok");
+                                var lenText = data.message[i].device_name;
+                                if(data.message[i].device_name.length>16){
+                                    lenText=data.message[i].device_name.substring(0,16)
+                                }
+
+                                var li_html = '<li data-gatesn="' + data.message[i].device_sn + '"  data-gatename="'+ lenText +'"  data-gatedesc="'+ data.message[i].device_desc + '"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                // if(data.message[i].device_sn==gate_sn){
+                                //     li_html = '<li class="active"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                // }
+                                $("ul.gates_list").append(li_html);
+                            }
+                        }
+                    }
+
+                },
+                error:function(data){
+                    console.log(data);
+
+                }
+            });
+        }
+
+        $("body").on("click", "ul.gates_list>li", function() {
+            var gsn = $(this).data("gatesn");
+            gate_sn = gsn;
+            gate_info(gate_sn);
+            // var gdesc = $(this).data("gatedesc");
+            // var gname = $(this).data("gatename");
+            // $(".gate_sn").text(gsn);
+            // $(".gate_name").text(gname);
+            // $(".gate_desc").text(gdesc);
+            $(this).addClass("active");
+            $(this).siblings().removeClass("active");
+
+        });
+
+        $('#search-highlight').hideseek({
+            highlight: true
+        });
+
+        $('button.fa-refresh-gate-list').click(function(){
+            update_gates_list();
+
+        });
+
+    });
+</script>
+<script>
+
+    $(function () {
+
+        $("body").on("click", ".gate_logviewer", function () {
+            if(gate_sn){
+                window.open("My_Gates_logviewer.html?sn=" + gate_sn);
+            }else{
+                var text = "请选择网关";
+                errorAlert(text)
+            }
+
+        });
+    });
+
+
+</script>
+</body>
+</html>
