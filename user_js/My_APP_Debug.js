@@ -117,15 +117,15 @@ if(gate_sn){
                 $("span.app_status").addClass("text-success");
                 $("span.app_status").removeClass("text-warning");
                 console.log("1");
-                $(".app-action:button").text("停止");
-                $(".app-action:button").addClass("btn-danger");
+                $(".app-action").text("停止");
+                $(".app-action").addClass("btn-danger");
             }else{
                 $("span.app_status").html("stoped");
                 $("span.app_status").addClass("text-warning");
                 $("span.app_status").removeClass("text-success");
                 console.log("0");
-                $(".app-action:button").text("启动");
-                $(".app-action:button").removeClass("btn-danger");
+                $(".app-action").text("启动");
+                $(".app-action").removeClass("btn-danger");
 
             }
 
