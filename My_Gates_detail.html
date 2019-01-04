@@ -567,14 +567,18 @@
                                 var gsn = op_list[i];
                                 var gate_desc = gateobj.basic.desc;
                                 var lenText = gateobj.basic.name;
-                                if(gateobj.basic.name.length>16){
-                                    lenText=gateobj.basic.name.substring(0,16)
+                                if(gateobj.basic.status==="ONLINE"){
+                                    if(gateobj.basic.name.length>16){
+                                        lenText=gateobj.basic.name.substring(0,16)
+                                    }
+                                    var li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                    if(gsn==gate_sn){
+                                        li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '" class="active"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
+                                    }
+                                    $("ul.gates_list").append(li_html);
+
                                 }
-                                var li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
-                                if(gsn==gate_sn){
-                                    li_html = '<li data-gatesn="' + gsn + '"  data-gatename="'+ gateobj.basic.name +'"  data-gatedesc="'+ gate_desc + '" class="active"><a href="#"><i class="fa fa-circle-o text-yellow"></i>' + lenText + '</a></li>'
-                                }
-                                $("ul.gates_list").append(li_html);
+
 
                             }
                         }
@@ -598,6 +602,9 @@
                             if($.inArray(data.message[i].device_sn, op_list)==-1){
                                 // console.log("ok");
                                 var lenText = data.message[i].device_name;
+                                if(gateobj.basic.status==="ONLINE"){
+
+                                }
                                 if(data.message[i].device_name.length>16){
                                     lenText=data.message[i].device_name.substring(0,16)
                                 }

@@ -29,10 +29,10 @@ function get_app_detail(){
             }
 
             if(data.message.fork_from == null){      //主分支，判断是否有主分支
-                $('.fork_from').css('display','none');
+                $('div.fork_from').addClass("hide");
             }else{
-                $('.fork_from').css('display','inline-block');
-                $('.fork_from').val(data.message.fork_from);
+                $('div.fork_from').removeClass("hide");
+                $('a.fork_from').val(data.message.fork_from);
             }
             $('.edit').val(data.message.name);   //name
             $('.app_category').text(data.message.category);   //应用类别

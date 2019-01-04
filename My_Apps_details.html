@@ -545,20 +545,7 @@
                     </div>
                     <!-- /.col -->
 
-                    <!-- /.col -->
-                    <div class="col-sm-1 invoice-col" style="padding: 5px">
-                        &nbsp;&nbsp;
-                        <address>
 
-                            <p>
-                                <a class="btn btn-app fork_from">
-                                    <i class="fa fa-edit "></i> 主分支
-                                </a>
-                            </p>
-                        </address>
-                    </div>
-
-                    <!-- /.col -->
                     <div class="col-sm-1 invoice-col" style="padding: 5px">
                         &nbsp;&nbsp;
                         <address>
@@ -570,14 +557,22 @@
                             </p>
                         </address>
                     </div>
+                    <!-- /.col -->
+                    <div class="col-sm-1 invoice-col fork_from hide" style="padding: 5px">
+                        &nbsp;&nbsp;
+                        <address>
+
+                            <p>
+                                <a class="btn btn-app fork_from">
+                                    <i class="fa fa-edit "></i> 主分支
+                                </a>
+                            </p>
+                        </address>
+                    </div>
+                    <!-- /.col -->
 
 
-                    <!--<div class="app_right_button">-->
-                        <!--<button class="edit" value="">edit</button>-->
-                        <!--&lt;!&ndash;<button class="app_editor"> >_Online editor </button>&ndash;&gt;-->
-                        <!--<button class="fork_from" value="" >主分支</button>-->
-                        <!--&lt;!&ndash;<button>删除</button>&ndash;&gt;-->
-                    <!--</div>-->
+
                 </div>
                 <!--应用编辑end-->
                 <div class="nav-tabs-custom">
@@ -1190,7 +1185,7 @@
     });
 
     //主分页
-    $('.fork_from').click(function () {
+    $('a.fork_from').click(function () {
         location.href = 'My_Apps_details.html?appid=' + $(this).val();
     });
 

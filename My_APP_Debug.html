@@ -519,7 +519,9 @@
                                 <span class="apply"><img src="img/icon_d_01.png" areaname="apply" title="打包并安装到网关"/></span>
                                 <span class="debug"><img src="img/icon_d_14.png" title="调试工具"/></span>
                             </div>
-
+                            <div class="pull-right app_edit hide" style="padding: 5px">
+                                <a href="javascript:history.back(-1);" title="返回上次页面" style="padding-left: 10px;"><span><i class="fa fa-reply"></i></span></a>
+                            </div>
                         </div>
 
                     </div>
@@ -863,8 +865,10 @@
 
         if(gate_sn){
             $("div.gate_tools").removeClass("hide");
+            $("div.app_edit").addClass("hide");
         }else{
             $("div.gate_tools").addClass("hide");
+            $("div.app_edit").removeClass("hide");
         }
         // $(".J_gate_name a").text(decodeURI(device_info.basic.name));
         // $(".J_current_inst").html(app_inst);
