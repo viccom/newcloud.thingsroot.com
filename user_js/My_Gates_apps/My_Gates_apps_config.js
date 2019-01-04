@@ -225,7 +225,7 @@ $('#modal-add-templ').on('show.bs.modal', function () {
 
 });
 $('.creat_templ').click(function () {
-    window.open("/My_Template_list.html?action=newtempl&appid="+appid);
+    window.open("/My_Template_creat.htm?appid="+appid);
 });
 
 $('.templs-refresh').click(function () {

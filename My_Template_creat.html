@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>冬笋云 | 创建模板</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Bootstrap switch -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/css/bootstrap-switch.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/select2/dist/css/select2.min.css">
+    <!-- Tooltip classes -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/skins/_all-skins.min.css">
+
+    <!-- global style -->
+    <link rel="stylesheet" href="user_css/global.css">
+
+    <!-- user style -->
+    <!--<link rel="stylesheet" href="user_css/star.css">-->
+    <link rel="stylesheet" href="user_css/apps_list.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- DataTables-Responsive -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+
+
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <![endif]-->
+
+    <style type="text/css">
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+            padding: 11px!important;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <!-- top Nav menu start. -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>冬</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>冬笋云</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-user-md"></i>
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="User_Settings.html">
+                                            <h3>
+                                                <i class="fa fa-user"></i>
+                                                基本资料
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_Virtual_Gates.html">
+                                            <h3>
+                                                <i class="fa fa-laptop"></i>
+                                                虚拟网关
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_AccessKey.html">
+
+                                            <h3>
+                                                <i class="fa fa-key"></i>
+                                                AccessKey
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+
+                                <div>
+                                    <a href="javascript:logout();"  class="btn btn-warning btn-block btn-flat">退出</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- Help can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-question-circle"></i>
+                            帮助
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a target="_blank" href="/guide">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                快速指南
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                应用开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                平台开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- top Nav menu end. -->
+
+    <!-- Left Nav menu start. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+
+                <li class="header">Dashboard</li>
+
+                <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
+                <li class="header">我的资源</li>
+                <li><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
+                <li class="active"><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
+
+                <li class="header">消息中心</li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-commenting-o text-yellow"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-commenting-o text-light-blue"></i> <span>设备消息</span></a></li>
+
+
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Left Nav menu end. contains the logo and sidebar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header" >
+            <h1>
+                我的模板
+                <small><span class="gate_name"></span>创建模板</small>
+                <div class="pull-right"><a href="My_Template_list.html"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="box box-body " style="min-height: 425px">
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-12">
+                            <p class="lead">| 创建新模板</p>
+                            <div class="new_templ">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label" style="width: 120px">名称：</label>
+
+                                        <div class="col-sm-4" style="width: 400px">
+                                            <input type="text" class="form-control popover-name"  data-placement="top" data-content="" id="templ-name" placeholder="必填">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label" style="width: 120px">描述：</label>
+
+                                        <div class="col-sm-4" style="width: 400px">
+                                            <input type="text" class="form-control popover-desc"  data-placement="top" data-content="" id="templ-desc" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label" style="width: 120px">应用：</label>
+
+                                        <div class="col-sm-4" style="width: 400px">
+                                            <input type="text" class="form-control popover-appname"  data-placement="top" data-content="" id="app-name" placeholder="" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label" style="width: 120px">源模板：</label>
+
+                                        <div class="col-sm-4" style="width: 400px">
+                                            <!--<input type="text" class="form-control" id="user-group" placeholder="">-->
+
+                                            <select class="form-control select2 template_select popover-template"  data-placement="top" data-content="模板不能为空" style="width: 87%;" disabled>
+                                                <!--<option selected="selected">root</option>-->
+
+                                            </select>
+                                            <button type="button" class="btn  view_templ" title="查看模板" disabled>
+                                                <i class="fa fa-vcard-o"></i>
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label" style="width: 120px">版本：</label>
+
+                                        <div class="col-sm-4" style="width: 400px">
+                                            <!--<input type="text" class="form-control" id="user-group" placeholder="">-->
+
+                                            <select class="form-control select2 templver_select popover-templver"  data-placement="top" data-content="版本不能为空" style="width: 100%;" disabled>
+                                                <!--<option selected="selected">root</option>-->
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label" style="width: 120px">权限：</label>
+
+                                        <div class="col-sm-4" style="width: 400px">
+
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <button type="button" class="btn btn-info permission_select select_personal" data-attach="1">
+                                                    <input type="radio" name="select_personal" value="1">个人
+                                                </button>
+                                                <button type="button" class="btn  permission_select select_company" data-attach="2">
+                                                    <input type="radio" name="select_company" value="2">公司
+                                                </button>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-1 control-label" style="width: 120px">是否公开：</label>
+
+                                        <div class="col-sm-4" style="width: 400px">
+
+                                            <div class="btn-group" data-toggle="buttons">
+                                                <button type="button" class="btn btn-info isopen_select select_private" data-attach="0">
+                                                    <input type="radio" name="select_private" value="0">私有
+                                                </button>
+                                                <button type="button" class="btn isopen_select select_public" data-attach="1">
+                                                    <input type="radio" name="select_public" value="1">公开
+                                                </button>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="col-md-2" style="padding: 0; width:120px"><button type="button" class="btn btn-block btn-primary btn-lg creat_templ_confirm">创建</button></div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.row -->
+
+
+            </div>
+        </section>
+        <!-- /.content -->
+
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar start-->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark"  style="height: 100%">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- /.control-sidebar end-->
+
+    <div class="alert success" role="alert" style="z-index: 9999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+        <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
+    </div>
+    <div class="alert danger" role="alert" style="z-index: 9999;text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
+        <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
+    </div>
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+
+
+<!-- jQuery 3 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="user_js/common/oem.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap switch -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- bootstrap-notify -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+<!-- Select2 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- SlimScroll -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- FastClick -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<script src="user_js/common/skin.js"></script>
+<!-- jQuery and the Poshy Tip plugin files -->
+<script type="text/javascript" src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
+
+<!-- load common js-->
+<script src="user_js/common/jQuery.cookie.js"></script>
+<script src="user_js/common/common.js"></script>
+<!--<script src="user_js/common/add_back_task.js"></script>-->
+<script src="user_js/common/user.js"></script>
+<!--<script src="user_js/common/transport.js"></script>-->
+
+<!-- load user is -->
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>-->
+<!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
+
+<script>
+    $(function () {
+        permission_map = {"1":"User", "2":"Cloud Company Group"};
+        isopen_map = {"0":0, "1":1};
+        permission_select = "1";
+        isopen_select = "0";
+        //Initialize Select2 Elements
+        $('.select2').select2();
+
+        // 模板权限选择按钮
+        $("button.permission_select").click(function(){
+            $(this).removeClass("btn-default");
+            $(this).addClass("btn-info");
+            $(this).siblings().removeClass("btn-info");
+            $(this).siblings().addClass("btn-default");
+            permission_select = $(this).data("attach");
+
+
+        });
+
+        // 模板是否公开选择按钮
+        $("button.isopen_select").click(function(){
+            $(this).removeClass("btn-default");
+            $(this).addClass("btn-info");
+            $(this).siblings().removeClass("btn-info");
+            $(this).siblings().addClass("btn-default");
+            isopen_select = $(this).data("attach");
+
+
+        });
+
+
+    })
+</script>
+
+<script>
+
+    $(function(){
+
+
+        $.ajaxSetup({
+            headers: { // 默认添加请求头
+                "X-Frappe-CSRF-Token": auth_token
+            }
+        });
+
+        //获取用户信息
+        var user = getCookie('usr');
+        var appid = getParam('appid');
+
+        app_detail(appid);
+
+        // getVerList(tempid);
+
+
+
+    });
+
+    function successAlert(text){
+        $('.success').show();
+
+        $('.success>a').text(text);
+        setTimeout(function () {
+            $('.success').hide();
+        },2000)
+    }
+    function errorAlert(text){
+        $('.danger').show();
+
+        $('.danger>a').text(text);
+        setTimeout(function () {
+            $('.danger').hide();
+        },2000)
+    }
+
+
+
+
+    /**
+     *	获取应用信息
+     */
+    function app_detail(id) {
+
+        $.ajax({
+            url: "/apis/api/method/app_center.api.app_detail",
+            type: "GET",
+            data: {app:id},
+            async:false,
+            success: function (req) {
+                console.log(req);
+                if(req.message){
+                    $("#app-name").val(req.message.app_name);
+                    formTempl(id);
+                }
+            }, error: function (req) {
+                console.log('no')
+            }, complete: function () {
+                console.log("ss");
+
+            }
+        });
+    }
+
+    $("select.template_select").on("select2:select",function(e){
+        console.log(e.params.data);
+        var templid = e.params.data.id;
+        getVerList(templid)
+    });
+
+
+    $("select.templver_select").on("select2:select",function(e){
+        console.log(e);
+    });
+
+    $("button.view_templ").click(function(){
+        var appid = getParam('appid');
+        var templid = $("select.template_select").val();
+        var templname = $("select.template_select option:checked").text();
+        var templver = $("select.templver_select").val();
+        // console.log(templname);
+        window.open("My_Template_Detail.html?name="+ templname+ "&tempId="+ templid + "&appId="+ appid + "&version="+ templver );
+    });
+
+
+    $("button.creat_templ_confirm").click(function(){
+        var templ_name = $("#templ-name").val();
+        var templ_desc = $("#templ-desc").val();
+        var appid = getParam('appid');
+        var src_templ = $("select.template_select").val();
+        var src_ver = Number($("select.templver_select").val());
+
+        if(templ_name==""){
+            $("#templ-name").data("content", "名称不能为空");
+            $('.popover-name').popover('show');
+            setTimeout(function () {
+                $('.popover-name').popover('destroy');
+            },2000);
+            $("#templ-name").focus();
+            return false;
+        }
+        if(templ_name.length>16){
+            $("#templ-name").data("content", "名称不能超过16字符");
+            $('.popover-name').popover('show');
+            setTimeout(function () {
+                $('.popover-name').popover('destroy');
+            },2000);
+            $("#templ-name").focus();
+            return false;
+        }
+
+        if(templ_desc.length>32){
+            $("#templ-desc").data("content", "描述不能超过64字符");
+            $('.popover-desc').popover('show');
+            setTimeout(function () {
+                $('.popover-desc').popover('destroy');
+            },2000);
+            $("#templ-desc").focus();
+            return false;
+        }
+
+        var data2 = {
+            app: appid,
+            conf_name: templ_name,
+            description: templ_desc,
+            owner_type: permission_map[permission_select],
+            public: isopen_map[isopen_select]
+        };
+        console.log(data2);
+        $.ajax({
+            url: "/apis/api/method/conf_center.api.create_app_conf",
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: "POST",
+            data: data2,
+            success: function (req) {
+                var text = "创建模板成功";
+                successAlert(text);
+                var newTempid = req.message;
+                //判断源模板和版本是否为空
+
+                if(src_ver){
+                    var data3 = {
+                        app: data2.app,
+                        conf: src_templ,
+                        version: src_ver
+                    };
+                    $.ajax({
+                        url: "/apis/api/method/conf_center.api.app_conf_data",
+                        type: "GET",
+                        data: data3,
+                        success: function (data) {
+                            var csvData = data.message.data;
+                            var data4 = {
+                                app: data2.app,
+                                conf: newTempid,
+                                version: 1,
+                                data: csvData
+                            };
+                            $.ajax({
+                                url: "/apis/api/method/conf_center.api.upload_conf_version",
+                                headers: {
+                                    Accept: "application/json; charset=utf-8",
+                                    "X-Frappe-CSRF-Token": auth_token
+                                },
+                                type: "POST",
+                                data: data4,
+                                success: function (req) {
+                                    console.log(req);
+                                }, error: function (req) {
+                                    console.log(req);
+                                }
+                            });
+                        },
+                        error: function (error) {
+                            console.log(error)
+                        },
+                        complete:function () {
+                            var text = '创建成功';
+                            successAlert(text);
+                            setTimeout(function () {
+                                redirect('My_Template_list.html')
+                            },2000)
+                        }
+                    })
+                }else{
+                    setTimeout(function () {
+                        redirect('My_Template_list.html')
+                    },2000)
+                }
+
+
+            },
+            error: function (error) {
+                if(error.responseJSON. _server_messages == '["{\\"message\\": \\"name must be unique\\"}"]'){
+                    var text = '模板名称不能重复';
+                    errorAlert(text)
+                }
+            }
+        });
+
+
+
+    });
+
+    //应用下的源模板
+    function formTempl(id){
+        $.ajax({
+            url: "/apis/api/method/conf_center.api.list_app_conf",
+            type: "GET",
+            data: {app: id,start:0,limit:100},
+            success: function (req) {
+                console.log(req);
+                if(req.message && req.message.length>0){
+                    var data= [];
+                    var t = {};
+                    for (var i = 0; i < req.message.length; i++) {
+                        console.log(i, req.message[i].conf_name, req.message[i].name);
+
+                        if(i==0){
+                            t={ id: req.message[i].name, text: req.message[i].conf_name, "selected": true };
+                        }else{
+                            t={ id: req.message[i].name, text: req.message[i].conf_name };
+                        }
+
+                        data.push(t)
+                    }
+
+                    // data = [{ id: 0, text: 'enhancement',"selected": true }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+                    $("select.template_select").select2({
+                        data: data,
+                        placeholder:'请选择源模板',
+                        allowClear:false
+                    });
+                    $("select.template_select").attr("disabled",false);
+                    $("button.view_templ").attr("disabled",false);
+                    getVerList(req.message[0].name)
+                }else {
+                    $("select.template_select").attr("disabled",true);
+                    $("button.view_templ").attr("disabled",true);
+                    $("select.template_select").select2({
+                        data: [],
+                        placeholder:'此应用无模板',
+                        allowClear:false
+                    });
+                }
+            }, error: function (req) {
+                console.log(req)
+            },
+            complete: function () {
+
+            }
+        })
+    }
+
+    //得到当前源模板的所有版本
+    function getVerList(tempid){
+        $.ajax({
+            url: "/apis/api/method/conf_center.api.get_versions",
+            type: "GET",
+            data: {conf: tempid},
+            success: function (req) {
+                console.log(req)
+                if(req.message && req.message.length>0){
+                    var data= [];
+                    var t = {};
+                    for (var i = 0; i < req.message.length; i++) {
+
+                        if(i==0){
+                            t={ id: req.message[i].version, text: req.message[i].version, "selected": true };
+                        }else{
+                            t={ id: req.message[i].version, text: req.message[i].version };
+                        }
+
+                        data.push(t)
+                    }
+
+                    // data = [{ id: 0, text: 'enhancement',"selected": true }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+                    $("select.templver_select").select2({
+                        data: data,
+                        placeholder:'请选择模板版本',
+                        allowClear:false
+                    });
+                    $("select.templver_select").attr("disabled",false);
+                }else{
+                    $("select.templver_select").attr("disabled",true);
+                    $("select.templver_select").select2({
+                        data: [],
+                        placeholder:'此模板还未上传过',
+                        allowClear:false
+                    });
+                }
+            }, error: function (req) {
+                console.log(req)
+            },
+            complete: function () {
+
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

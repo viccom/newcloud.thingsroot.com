@@ -845,8 +845,14 @@
 
         //刷新页面
         $('#refreshHtml').click(function(){
+
             table.settings()[0].ajax = myajax;
-            table.ajax.reload(null,false);
+            // table.clear().draw();
+            table.ajax.reload( null, false );
+            table.draw();
+            // table.ajax.reload( function ( json ) {
+            //     console.log(json);
+            // } );
         });
         //点击行进入详情
         $('#myTemplate tbody').on('click','.look',function() {
