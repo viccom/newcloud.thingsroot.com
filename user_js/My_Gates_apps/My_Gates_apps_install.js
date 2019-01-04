@@ -1386,7 +1386,7 @@ function create_templ_select(){
             html += '<td>' + templ_list[n].latest_version + '</td>';
             console.log(templ_list[n].conf_name, templates_row1)
             if($.inArray(templ_list[n].conf_name, templates_row1)==-1){
-                html += '<td><button class="add_templ_toapp">添加</button></td></tr>';
+                html += '<td><button class="btn-sm add_templ_toapp">添加</button><button class="btn-sm view_templ">查看</button></td></tr>';
             }else{
                 html += '<td>已添加</td></tr>';
             }
@@ -1422,6 +1422,17 @@ function create_templ_select(){
 
     });
 
+    //点击查看按钮
+    $('.view_templ').click(function () {
+        var appid = $('.templs-refresh').data("cloudappid");
+        var valx = $(this).parent().parent().find("td");
+        var templname = valx.eq(0).text();
+        var templid = valx.eq(2).text();
+        var templver = valx.eq(3).text();
+
+        window.open("My_Template_Detail.html?name="+ templname+ "&tempId="+ templid + "&appId="+ appid + "&version="+ templver);
+
+    });
 
 
 }
