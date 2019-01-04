@@ -113,6 +113,10 @@ function checkinst(inst) {
 
 list_app_conf(appid);
 app_detail(appid);
+if(gate_sn==null){
+    var text = "当前还未选择网关，请选择网关后操作";
+    errorAlert(text);
+}
 
 $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
     // console.log($(this).text())
