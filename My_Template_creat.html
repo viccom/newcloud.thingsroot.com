@@ -218,7 +218,7 @@
             <h1>
                 我的模板
                 <small><span class="gate_name"></span>创建模板</small>
-                <div class="pull-right"><a href="My_Template_list.html"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+                <div class="pull-right"><a href="javascript:close_self();"><button type="button" class="btn btn-default"><i class="fa fa-close"></i>关闭</button></a></div>
             </h1>
         </section>
 
@@ -646,13 +646,13 @@
                             var text = '创建成功';
                             successAlert(text);
                             setTimeout(function () {
-                                redirect('My_Template_list.html')
+                                redirect('My_Template_Detail.html?name='+ data2.conf_name +'&tempId='+newTempid+'&appId='+data2.app+'&version=1')
                             },2000)
                         }
                     })
                 }else{
                     setTimeout(function () {
-                        redirect('My_Template_list.html')
+                        redirect('My_Template_Detail.html?name='+ data2.conf_name +'&tempId='+newTempid+'&appId='+data2.app+'&version=1')
                     },2000)
                 }
 

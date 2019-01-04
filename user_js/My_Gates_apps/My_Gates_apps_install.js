@@ -336,7 +336,7 @@ $('#modal-add-templ').on('show.bs.modal', function () {
 
 $('.creat_templ').click(function () {
     var appid = $('button.app-install-to-gate').data("cloudappid");
-    window.open("/My_Template_creat.htm?appid="+appid);
+    window.open("/My_Template_creat.html?appid="+appid);
 });
 
 $('.templs-refresh').click(function () {

@@ -620,27 +620,6 @@
         //获取用户信息
         var user = getCookie('usr');
 
-        //请求模板列表
-        var dataSet = [];
-        var data = {
-            start: 0,
-            limit: 100
-        };
-        myajax();
-        function myajax() {
-            $.ajax({
-                url: "/apis/api/method/conf_center.api.list_private_conf",
-                type: "GET",
-                data:data,
-                async:false,
-                success: function (data) {
-                    var a = data.message.company;
-                    var b = data.message.private;
-                    dataSet = a.concat(b);
-                }
-            });
-        }
-
         //datatables配置
         var table = $('#myTemplate').DataTable({
             dom: 'rt<"#table_footer"Bp>',
@@ -650,15 +629,33 @@
             "bFilter": true,   //是否启动过滤，搜索功能
             "sPaginationType": "full_numbers",
             "iDisplayLength": 10,
-            destroy:true,
-            data: dataSet,
-            "dataSrc":  function (d) {
-                if($.isEmptyObject(d)){
-                    return []
-                }else{
-                    return d.message
-                }
+            // destroy:true,
+            "ajax": {
+                "url": "/apis/api/method/conf_center.api.list_private_conf",
+                "type": "GET",
+                "data": {start: 0,limit: 100},
+                "error": function (e) {
+                    console.log(e)
+                },
+                "dataSrc":  function (d) {
+                    if($.isEmptyObject(d)){
+                        return []
+                    }else{
+                        var a = d.message.company;
+                        var b = d.message.private;
+                        dataSet = a.concat(b);
+                        return dataSet
+                    }}
             },
+
+            // data: dataSet,
+            // "dataSrc":  function (d) {
+            //     if($.isEmptyObject(d)){
+            //         return []
+            //     }else{
+            //         return d.message
+            //     }
+            // },
             "columns": [
                 {"data": "conf_name"},
                 {"data": "description"},
@@ -845,14 +842,8 @@
 
         //刷新页面
         $('#refreshHtml').click(function(){
-
-            table.settings()[0].ajax = myajax;
-            // table.clear().draw();
-            table.ajax.reload( null, false );
-            table.draw();
-            // table.ajax.reload( function ( json ) {
-            //     console.log(json);
-            // } );
+            var templ_url = "/apis/api/method/conf_center.api.list_private_conf";
+            table.ajax.url(templ_url).load(null,false);
         });
         //点击行进入详情
         $('#myTemplate tbody').on('click','.look',function() {
