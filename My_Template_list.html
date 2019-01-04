@@ -610,10 +610,9 @@
 
     $(function(){
 
-        var token = $.cookie('DS_auth_token');
         $.ajaxSetup({
             headers: { // 默认添加请求头
-                "X-Frappe-CSRF-Token": token
+                "X-Frappe-CSRF-Token": auth_token
             }
         });
 
@@ -762,9 +761,6 @@
         });
 
 
-
-
-
         //下拉框--- 搜索类型
         $('.search_filter li').on('click', function(){
             console.log($(this))
@@ -806,7 +802,6 @@
         } );
 
 
-
         $("input.J_keyword").bind("input propertychange",function(event){
 
             var key = $('input.J_keyword').val();    //搜索框内容
@@ -835,16 +830,12 @@
         });
 
 
-
-
-
-
-
         //刷新页面
         $('#refreshHtml').click(function(){
             var templ_url = "/apis/api/method/conf_center.api.list_private_conf";
             table.ajax.url(templ_url).load(null,false);
         });
+
         //点击行进入详情
         $('#myTemplate tbody').on('click','.look',function() {
             var name = $(this).parent('td').parent('tr').find('td:nth-child(1)').text();
@@ -1059,6 +1050,7 @@
         var appId1 = $('#appId').val();
         formTemp(appId1);
     });
+
     //应用下的源模板
     function formTemp(app){
         $.ajax({
