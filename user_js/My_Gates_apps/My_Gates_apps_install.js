@@ -502,6 +502,7 @@ function create_appconfig_panel(data) {
 
 
         if(data[i].type=="section"){
+
             if(data[i].name=="serial_section"){
                 var head_html = '<div id="serial_section" class="col-md-12" style="padding: 0"><p>| 串口设置 </p></div>'
                 $('.c_content').append(head_html);
@@ -702,14 +703,12 @@ function create_appconfig_panel(data) {
             }
 
             if(data[i].name=="template_section"){
-
-                var child = [
-                    {
+                var child ={
                         "name": "templates",
                         "desc": "模板选择",
                         "type": "templates"
-                    }
-                ];
+                    };
+
                 if(child.type=="templates"){
 
                     var head_html = '<div id="template_section_templates" class="col-md-12" style="padding: 0"><p><span>| '+ data[i].desc +' </span></p>' +

@@ -944,13 +944,11 @@ function get_panel_data(data){
         }
 
         if(data[i].type=="section" && data[i].name=="template_section") {
-            var child = [
-                {
+            var child = {
                     "name": "templates",
                     "desc": "模板选择",
                     "type": "templates"
-                }
-            ];
+                };
 
             for (var j = 0; j < child.length; j++) {
                 if(child[j].type=="templates"){
