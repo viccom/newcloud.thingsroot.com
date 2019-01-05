@@ -664,13 +664,11 @@ function create_appconfig_panel(data) {
 
             if(data[i].name=="template_section"){
 
-                var child = [
-                    {
+                var child ={
                         "name": "templates",
                         "desc": "模板选择",
                         "type": "templates"
-                    }
-                ];
+                    };
                 if(child.type=="templates"){
 
                     var head_html = '<div id="template_section_templates" class="col-md-12" style="padding: 0"><p><span>| '+ data[i].desc +' </span></p>' +
@@ -1012,11 +1010,13 @@ function get_panel_data(data){
         }
 
         if(data[i].type=="section" && data[i].name=="template_section") {
-            var child ={
+            var child = [
+                {
                     "name": "templates",
                     "desc": "模板选择",
                     "type": "templates"
-                };
+                }
+            ];
 
             for (var j = 0; j < child.length; j++) {
                 if(child[j].type=="templates"){

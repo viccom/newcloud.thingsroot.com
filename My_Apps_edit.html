@@ -817,9 +817,9 @@
                         console.log(req);
                         var text = '修改成功';
                         successAlert(text);
-                        // setTimeout(function () {
-                        //     window.location = "My_Apps_details.html?appid=" + getParam('appid');
-                        // },1000)
+                        setTimeout(function () {
+                            window.location = "My_Apps_details.html?appid=" + getParam('appid');
+                        },1000)
                     },
                     error: function () {
                         var text = '修改失败';
