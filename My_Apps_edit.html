@@ -787,9 +787,15 @@
                 errorAlert(text)
             } else {
                 var form1 = new FormData(document.getElementById("form"));
+                var app_conf_templ = {};
+                var app_pre_val = {};
+                if(session_app_conf_template.getValue()!==''){
+                    app_conf_templ = JSON.parse(session_app_conf_template.getValue());
+                }
+                if(session_app_pre_configuration.getValue()!==''){
+                    app_pre_val = JSON.parse(session_app_pre_configuration.getValue());
+                }
 
-                var app_conf_templ = JSON.parse(session_app_conf_template.getValue());
-                var app_pre_val = JSON.parse(session_app_pre_configuration.getValue());
                 if($.isEmptyObject(app_conf_templ)){
                     form1.append("has_conf_template",0);
                 }else{
@@ -854,15 +860,21 @@
                 // console.log($('input[name=protocol]').val())
                 // console.log($('input[name=app]').val())
                 var form2 = new FormData(document.getElementById("form"));
-                var app_conf_templ = JSON.parse(session_app_conf_template.getValue());
-                var app_pre_val = JSON.parse(session_app_pre_configuration.getValue());
+                var app_conf_templ = {};
+                var app_pre_val = {};
+                if(session_app_conf_template.getValue()!==''){
+                    app_conf_templ = JSON.parse(session_app_conf_template.getValue());
+                }
+                if(session_app_pre_configuration.getValue()!==''){
+                    app_pre_val = JSON.parse(session_app_pre_configuration.getValue());
+                }
                 if($.isEmptyObject(app_conf_templ)){
                     form2.append("has_conf_template",0);
                 }else{
                     form2.append("has_conf_template",1);
                     form2.append("conf_template",JSON.stringify(app_conf_templ));
                 }
-                if($.isEmptyObject(app_pre_val)){
+                if(!$.isEmptyObject(app_pre_val)){
                     form2.append("pre_configuration",JSON.stringify(app_pre_val));
                 }
 
