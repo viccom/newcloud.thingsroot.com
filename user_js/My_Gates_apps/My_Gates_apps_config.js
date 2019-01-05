@@ -596,9 +596,13 @@ function create_appconfig_panel(data) {
 
             if(data[i].name=="template_section"){
 
-                var child = data[i].child[0];
-                // console.log(data[i].desc);
-                // console.log(child);
+                var child = [
+                    {
+                        "name": "templates",
+                        "desc": "模板选择",
+                        "type": "templates"
+                    }
+                ];
                 if(child.type=="templates"){
 
                     var head_html = '<div id="template_section_templates" class="col-md-12" style="padding: 0"><p><span>| '+ data[i].desc +' </span></p>' +

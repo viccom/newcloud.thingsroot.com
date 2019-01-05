@@ -796,9 +796,10 @@
                     form1.append("has_conf_template",1);
                     form1.append("conf_template",JSON.stringify(app_conf_templ));
                 }
-                if($.isEmptyObject(app_pre_val)){
+                if(!$.isEmptyObject(app_pre_val)){
                     form1.append("pre_configuration",JSON.stringify(app_pre_val));
                 }
+
 
                 // console.log(typeof form1);
                 // console.log(JSON.stringify(form1) );
@@ -816,9 +817,9 @@
                         console.log(req);
                         var text = '修改成功';
                         successAlert(text);
-                        setTimeout(function () {
-                            window.location = "My_Apps_details.html?appid=" + getParam('appid');
-                        },1000)
+                        // setTimeout(function () {
+                        //     window.location = "My_Apps_details.html?appid=" + getParam('appid');
+                        // },1000)
                     },
                     error: function () {
                         var text = '修改失败';
