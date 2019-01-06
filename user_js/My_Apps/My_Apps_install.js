@@ -1081,7 +1081,14 @@ function get_panel_data(data){
 function set_panel_data(){
 
     if(app_default.hasOwnProperty("Link_type")){
-        $("select[name=Link_type]").val(app_default.Link_type)
+        $("select[name=Link_type]").val(app_default.Link_type);
+        if(app_default.Link_type=="tcp"){
+            $("#tcp_section").removeClass("hide");
+            $("#serial_section").addClass("hide");
+        }else if(app_default.Link_type=="serial"){
+            $("#tcp_section").addClass("hide");
+            $("#serial_section").removeClass("hide");
+        }
     }
 
     if(app_default.hasOwnProperty("protocol")){
