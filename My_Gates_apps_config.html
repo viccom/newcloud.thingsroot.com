@@ -300,36 +300,22 @@
                                             <div class="btn-group" style="width:250px">
                                                 <select class="select2 devtempl_select popover-templ"  data-placement="top" data-content="" style="width: 100%;">
                                                     <!--<option selected="selected">root</option>-->
-
                                                 </select>
                                             </div>
                                             <div class="btn-group"><span>版本：</span><span class="templ-ver"></span></div>
-
-
                                         </div>
 
                                         <div class="pull-right">
                                             <button class="btn btn-default btn-github upload_templ no_templ" data-toggle="modal" data-target="#modal-upload-templ">上传新版本</button>
                                             <button class="btn btn-default btn-github download_templ no_templ">下载到本地</button>
-                                            <!--<button class="btn btn-default btn-github create_templ">新建模板</button>-->
                                         </div>
-
-
                                     </div>
-
 
                                 <!-- /模板表格 -->
                                     <div class="box box-solid templ_table" style="height:405px; border: 1px solid #e1e1e1;overflow:auto;">
-
-
-
-
                                     </div>
-
-
-
                             </div>
-                            <!-- /#confi_panel_div -->
+                            <!-- /#device_templ_div -->
 
 
                             <!-- config_json_div-->
@@ -676,12 +662,10 @@
         $('.select2').select2();
 
         $("#upload_table").click(function () {
-            console.log("xxxxxxxxx");
             $('#upload_templ_csv').click()
         });
 
         $('.upload_templ_confirm').click(function () {
-            console.log("upload");
             var appid = getParam('appid');
             var templid = $("select.devtempl_select").val();
             // console.log(templData);
