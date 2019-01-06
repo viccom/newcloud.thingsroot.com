@@ -901,7 +901,9 @@ function create_appconfig_panel(data) {
         console.log(rowdat)
     })
 
-
+    if(app_default){
+        set_panel_data();
+    }
 
 }
 

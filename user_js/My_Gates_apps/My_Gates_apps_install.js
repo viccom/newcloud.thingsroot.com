@@ -21,10 +21,10 @@ function app_detail(appid) {
             }
             if(data.message.pre_configuration) {
 
-                // console.log("1", app_default);
+                console.log("1", app_default);
                 app_default = $.parseJSON(data.message.pre_configuration);
-                set_panel_data();
-                // console.log("2", app_default);
+
+                console.log("2", app_default);
 
             }else{
                 app_default = {};
@@ -150,7 +150,7 @@ $("body").on("click", "a.app-config", function() {
     $('.templs-refresh').data("cloudappid",appid)
     $('button.app-install-to-gate').data("cloudappid",appid)
     $('button.app-install-to-gate').data("appname",appname)
-    console.log(appid, appname);
+    console.log("config::",appid, appname);
     $('#container').waterfall('pause', function() {
     });
     list_app_conf(appid);
@@ -941,6 +941,9 @@ function create_appconfig_panel(data) {
         console.log(rowdat)
     })
 
+    if(app_default){
+        set_panel_data();
+    }
 
 
 }
@@ -1117,12 +1120,14 @@ function get_panel_data(data){
  *	根据JSON生成配置面板
  */
 function set_panel_data(){
-
+    console.log('使用默认值填充面板！')
     if(app_default.hasOwnProperty("Link_type")){
+        console.log('Link_type',app_default.Link_type)
         $("select[name=Link_type]").val(app_default.Link_type)
     }
 
     if(app_default.hasOwnProperty("protocol")){
+        console.log('protocol',app_default.protocol)
         $("select[name=protocol]").val(app_default.protocol)
     }
 
