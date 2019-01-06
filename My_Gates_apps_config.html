@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/select2/dist/css/select2.min.css">
+    <!-- jQuery.upload -->
+    <!--<link rel="stylesheet" href="plugins/jQuery.upload/jQuery.upload.css">-->
+
     <!-- Ionicons -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
@@ -39,6 +44,16 @@
             margin:0 auto;
             /*color:#fff;*/
         }
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 0px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
         .config-label {
             text-align: left!important;
             max-width: 150px!important;
@@ -236,6 +251,7 @@
                     <div class="nav-tabs-custom" style="padding-top:0px">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#confi_panel_div" data-toggle="tab">配置面板</a></li>
+                            <li><a href="#device_templ_div" data-toggle="tab">设备模板</a></li>
                             <li><a href="#config_json_div" data-toggle="tab">JSON源码</a></li>
 
                             <!--<li class="pull-right"><button type="button" class="btn btn-primary app-install-to-gate">安装</button></li>-->
@@ -245,7 +261,7 @@
 
                             <form class="form-horizontal"  method="post" onsubmit="return false;">
                                 <div class="form-group">
-                                    <label for="gate_inst_1" class="col-sm-2 control-label config-label">实例名：</label>
+                                    <label for="gate_inst_1" class="col-sm-1 control-label config-label">实例名：</label>
 
                                     <div class="col-sm-4">
                                         <input type="text" class="form-control  popover-name"  data-placement="top" data-content="" id="gate_inst_1" placeholder="" readonly>
@@ -257,29 +273,71 @@
 
                             <!-- confi_panel_div -->
                             <div class="tab-pane active" id="confi_panel_div" style="padding: 0">
+                                <div class="box box-header">
+                                    <div class="has_panel_cfg c_content" style="min-height:450px; border: 0px solid #e1e1e1;">
 
 
-                                <div class="has_panel_cfg c_content" style="min-height:450px; border: 0px solid #e1e1e1;">
 
 
-
-
+                                    </div>
+                                    <!-- /无配置参数时显示 -->
+                                    <div class="flex no_panel_cfg hide">
+                                        <h1>此应用不支持配置界面<br>请使用JSON格式配置</h1>
+                                    </div>
                                 </div>
-                                <!-- /无配置参数时显示 -->
-                                <div class="flex no_panel_cfg hide">
-                                    <h1>此应用不支持配置界面<br>请使用JSON格式配置</h1>
-                                </div>
+
+
 
                             </div>
                             <!-- /#confi_panel_div -->
 
+                            <!-- device_templ_div -->
+                            <div class="tab-pane" id="device_templ_div" style="padding: 0">
+                                    <div class="box box-header">
+                                        <div class="pull-left">
+
+                                            <div class="btn-group"><b>选择模板：</b></div>
+                                            <div class="btn-group" style="width:250px">
+                                                <select class="select2 devtempl_select popover-templ"  data-placement="top" data-content="" style="width: 100%;">
+                                                    <!--<option selected="selected">root</option>-->
+
+                                                </select>
+                                            </div>
+                                            <div class="btn-group"><span>版本：</span><span class="templ-ver"></span></div>
+
+
+                                        </div>
+
+                                        <div class="pull-right">
+                                            <button class="btn btn-default btn-github upload_templ no_templ" data-toggle="modal" data-target="#modal-upload-templ">上传新版本</button>
+                                            <button class="btn btn-default btn-github download_templ no_templ">下载到本地</button>
+                                            <!--<button class="btn btn-default btn-github create_templ">新建模板</button>-->
+                                        </div>
+
+
+                                    </div>
+
+
+                                <!-- /模板表格 -->
+                                    <div class="box box-solid templ_table" style="height:405px; border: 1px solid #e1e1e1;overflow:auto;">
+
+
+
+
+                                    </div>
+
+
+
+                            </div>
+                            <!-- /#confi_panel_div -->
+
+
                             <!-- config_json_div-->
                             <div class="tab-pane " id="config_json_div" style="padding-left: 0px; padding-top: 5px; padding-right: 0px;padding-bottom: 0px;border:1px solid #eaead1">
 
-
-                                <div>编辑器状态：<b><span class="json_editor_status text-light-blue"></span></b></div>
-                                <div id="json_editor"  style="min-height:405px; border: 0px solid #e1e1e1;">
-                                </div>
+                                    <div>编辑器状态：<b><span class="json_editor_status text-light-blue"></span></b></div>
+                                    <div id="json_editor"  style="min-height:405px; border: 0px solid #e1e1e1;">
+                                    </div>
 
                                 <script>
 
@@ -346,7 +404,7 @@
     <div class="control-sidebar-bg"></div>
 
 
-    <!-- /.modal templ start-->
+    <!-- /.modal add_templ start-->
     <div class="modal fade" id="modal-add-templ" data-backdrop="static" style="padding-top: 100px">
         <div class="modal-dialog" style="width: 800px; ">
             <div class="modal-content">
@@ -386,7 +444,56 @@
     </div>
     <!-- /.modal end-->
 
-    <div class="alert danger" role="alert" style="text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
+
+
+
+    <!-- /.modal upload-templ start-->
+    <div class="modal fade" id="modal-upload-templ" data-backdrop="static">
+        <div class="modal-dialog" style="width: 1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">上传模板文件
+                        <input type="file" id="upload_templ_csv" style="display:none">
+                    </h4>
+
+                </div>
+
+                <div class="modal-body">
+                    <!-- /数据预览表格 -->
+                    <div class="box box-solid" style="height:505px; border: 1px solid #e1e1e1;overflow:auto;">
+                        <div class="upload upload_table" id="upload_table" data-num="10" data-type="csv">
+
+                            <div  id="drop_area" style="border:3px dashed silver;width:100%; min-height:502px">
+
+                                <div class="flex upload_tips">
+                                    点击上传文件或将文件拖拽到此
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary upload_templ_confirm">确定</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal end-->
+
+    <div class="alert success" role="alert" style="z-index: 99999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+        <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
+    </div>
+
+    <div class="alert danger" role="alert" style="z-index:99999;text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
         <a href="#" class="alert-link" style="color: #333;font-size: 16px;text-decoration: none">...</a>
     </div>
 
@@ -410,6 +517,11 @@
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- bootstrap-notify -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+<!-- Select2 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/select2/dist/js/select2.full.min.js"></script>
+<!--<script src="plugins/papaparse/papaparse.js"></script>-->
+<script src="plugins/papaparse/papaparse.min.js"></script>
+<!--<script src="plugins/jQuery.upload/jQuery.upload.min.js"></script>-->
 
 <!-- Slimscroll -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
@@ -440,15 +552,264 @@
     document.write("<script type='text/javascript' src='user_js/My_Gates_apps/My_Gates_apps_config.js?v="+jsversion+"'></s"+"cript>");
 </script>
 
+<script type="text/javascript">
+    $('#upload_templ_csv').change(function(){
+        var file = this.files[0];
+        // console.log(file);
+        // console.log(file.type);
+        // console.log(file.name);
+        if(file){
+            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+            upload_templ_data = null;
+            if(file.type === 'application/vnd.ms-excel') {
+                var reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload=function(f){
+                    console.log(this.result);
+                    // document.getElementById('drop_area').innerHTML=this.result;
+                    upload_templ_data = this.result;
+                    csvData(this.result);
+                }
 
-<script>
-
-    $(function () {
+            }else{ //其他格式，输出文件名
+                var str = "不支持的文件格式:" + file.type;
+                str += "<br>";
+                str += "文件名字:"+file.name;
+                $('div.upload_tips').html(str);
+            }
+        }
 
 
     });
 
+    document.addEventListener("drop",function(e){  //拖离
+        e.preventDefault();
+    })
+    document.addEventListener("dragleave",function(e){  //拖后放
+        e.preventDefault();
+    })
+    document.addEventListener("dragenter",function(e){  //拖进
+        e.preventDefault();
+    })
+    document.addEventListener("dragover",function(e){  //拖来拖去
+        e.preventDefault();
+    })
 
+    var box = document.getElementById('drop_area'); //拖拽区域
+    box.addEventListener("drop",function(e){
+        $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+        upload_templ_data = null;
+        var fileList = e.dataTransfer.files; //获取文件对象
+        //检测是否是拖拽文件到页面的操作
+        if(fileList.length == 0){
+            return false;
+        }
+        //拖拉图片到浏览器，可以实现预览功能
+        //规定视频格式
+        Array.prototype.S=String.fromCharCode(2);
+        Array.prototype.in_array=function(e){
+            var r=new RegExp(this.S+e+this.S);
+            return (r.test(this.S+this.join(this.S)+this.S));
+        };
+        var video_type=["video/mp4","video/ogg"];
+
+        //创建一个url连接,供src属性引用
+        var fileurl = window.URL.createObjectURL(fileList[0]);
+        // console.log(fileList[0].type);
+        // if(fileList[0].type.indexOf('image') === 0){  //如果是图片
+        //     var str="<img width='200px' height='200px' src='"+fileurl+"'>";
+        //     document.getElementById('drop_area').innerHTML=str;
+        // }else if(video_type.in_array(fileList[0].type)){   //如果是规定格式内的视频
+        //     var str="<video width='200px' height='200px' controls='controls' src='"+fileurl+"'></video>";
+        //     document.getElementById('drop_area').innerHTML=str;
+        // }else if(fileList[0].type === 'application/vnd.ms-excel') {
+        if(fileList[0].type === 'application/vnd.ms-excel') {
+            var file = fileList[0];
+            var reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload=function(f){
+                console.log(this.result);
+                // document.getElementById('drop_area').innerHTML=this.result;
+                upload_templ_data = this.result;
+                csvData(this.result);
+            }
+
+        }else{ //其他格式，输出文件名
+            var str = "不支持的文件格式:" + fileList[0].type;
+            str += "<br>";
+             str += "文件名字:"+fileList[0].name;
+            $('div.upload_tips').html(str);
+        }
+        // resultfile = fileList[0];
+
+
+    },false);
+
+    //查看新版本csv数据
+    function csvData(csvresults){
+        var tableData = Papa.parse(csvresults);
+        var tables = "<table border='1' style='width: 100%'>";
+        for(var i=0;i<tableData.data.length;i++){
+            tables += "<tr>";
+            if(tableData.data[i] && tableData.data[i].length>1){
+                for(var j=0;j<tableData.data[i].length;j++){
+                    tables += "<td style='padding: 10px;'>"+ tableData.data[i][j] +"</td>";
+                }
+            }
+            tables += "</tr>";
+        }
+        tables += "</table>";
+        $('#drop_area').html(tables);
+        // $('#drop_area').css("overflow","auto");
+    }
+
+
+</script>
+<script>
+
+    $(function () {
+
+        $('.select2').select2();
+
+        $("#upload_table").click(function () {
+            console.log("xxxxxxxxx");
+            $('#upload_templ_csv').click()
+        });
+
+        $('.upload_templ_confirm').click(function () {
+            console.log("upload");
+            var appid = getParam('appid');
+            var templid = $("select.devtempl_select").val();
+            // console.log(templData);
+            if(upload_templ_data==null){
+                var text = '上传文件不能为空';
+                errorAlert(text)
+            }else{
+                $.ajax({
+                    url: "/apis/api/method/conf_center.api.get_versions",
+                    type: "GET",
+                    data: {conf: templid},
+                    success: function (req) {
+                        // console.log(req)
+                        if(req.message && req.message.length>0){
+                            var newver = req.message[0].version +1 ;
+                            var templData = {
+                                app: appid,
+                                conf: templid,
+                                version: newver,
+                                data: upload_templ_data
+                            };
+                            $.ajax({
+                                url: "/apis/api/method/conf_center.api.upload_conf_version",
+                                headers: {
+                                    Accept: "application/json; charset=utf-8",
+                                    "X-Frappe-CSRF-Token": auth_token
+                                },
+                                type: "POST",
+                                data: templData,
+                                success: function (req) {
+                                    var text = "新版本已上传";
+                                    successAlert(text);
+                                    $("span.templ-ver").text(newver);
+
+                                    setTimeout(function () {
+                                        $('#modal-upload-templ').modal('hide');
+                                        create_templ_table(newver);
+                                        $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+                                    },400);
+                                    var tdata = $("table.template_section_templates").find("td");
+                                    for (var i=0;i<tdata.length;i++){
+                                        if($(tdata[i]).text()==templid){
+                                            // console.log($(tdata[i+1]).text());
+                                            $(tdata[i+1]).text(newver);
+                                            break;
+                                        }
+                                    }
+                                },
+                                error: function (req) {
+                                    console.log(req);
+                                    var text = "新版本上传失败";
+                                    errorAlert(text);
+                                },
+                                complete: function () {
+
+                                }
+                            })
+
+
+
+                        }
+                    }, error: function (req) {
+                        console.log(req)
+                        var text = '获取版本出错';
+                        errorAlert(text)
+                    }
+                });
+
+
+            }
+
+        });
+
+        $('.download_templ').click(function () {
+            var appid = getParam('appid');
+            var templid = $("select.devtempl_select").val();
+            var templname = $("select.devtempl_select option:checked").text();
+            var templver = $("span.templ-ver").text();
+            var data = {
+                app     : appid,
+                conf    : templid,
+                version : Number(templver)
+            };
+            $.ajax({
+                url:"/apis/api/method/conf_center.api.app_conf_data",
+                type:"GET",
+                data: data,
+                async: false,
+                success: function(req){
+                    if(req.message.data){
+                        downloadFile(templname+"_v"+templver+".csv", req.message.data);
+                    }
+
+                },
+                error: function (req) {console.log(req);}
+            });
+            //创建文件并下载到本地    '\ufeff'指定字符集为utf-8
+            function downloadFile(fileName, content) {
+                var aTag = document.createElement('a');
+                var blob = new Blob(['\ufeff'+content],{ type: "text/csv" });
+                aTag.download = fileName;
+                aTag.href = URL.createObjectURL(blob);
+                aTag.click();
+                URL.revokeObjectURL(blob);
+            }
+        });
+
+
+        $('#modal-upload-templ').on('hide.bs.modal', function () {
+            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+            $('#upload_templ_csv').val('');
+        });
+
+
+    });
+
+    function successAlert(text){
+        $('.success').show();
+
+        $('.success>a').text(text);
+        setTimeout(function () {
+            $('.success').hide();
+        },2000)
+    }
+    function errorAlert(text){
+        $('.danger').show();
+
+        $('.danger>a').text(text);
+        setTimeout(function () {
+            $('.danger').hide();
+        },2000)
+    }
 </script>
 </body>
 </html>

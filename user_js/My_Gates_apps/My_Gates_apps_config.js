@@ -9,7 +9,7 @@ $("span.inst_name").text(inst);
 templ_list = null;
 app_default = {};
 templ_conf = null;
-
+upload_templ_data = null;
 
 app_detail(appid);
 list_app_conf(appid);
@@ -152,12 +152,70 @@ $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
             $("div.no_panel_cfg").removeClass("hide");
 
         }
-
-
     }
 
+    if(nowtext=="设备模板"){
+        $('div.templ_table').empty();
+        $("span.templ-ver").text("");
+        $("select.devtempl_select").empty();
+        if(templ_conf){
+            var table_data = get_table_data('template_section_templates');
+            console.log(table_data);
+            if (table_data !== undefined && table_data.length > 0){
+                console.log("ppppppp");
+                var data= [];
+                var t = {};
+                for (var i = 0; i < table_data.length; i++) {
+
+                    if(i==0){
+                        t={ id: table_data[i][2], text: table_data[i][0], "selected": true };
+                        // getVerList(table_data[i][2]);
+                        console.log(Number(table_data[i][3]));
+                        $("span.templ-ver").text(table_data[i][3]);
+
+                    }else{
+                        t={ id: table_data[i][2], text: table_data[i][0] };
+                    }
+                    data.push(t)
+                }
+
+                $("select.devtempl_select").select2({
+                    data: data,
+                    placeholder:'请选择模板',
+                    allowClear:false
+                });
+                create_templ_table(Number($("span.templ-ver").text()));
+                $('button.no_templ').attr("disabled", false);
+
+            }else{
+                console.log("clear")
+                $('div.templ_table').empty();
+                $("span.templ-ver").text("");
+                $("select.devtempl_select").empty();
+                $('button.no_templ').attr("disabled", true);
+            }
+
+
+
+
+        }
+    }
 
 } );
+
+$("select.devtempl_select").on("select2:select",function(e){
+    var templid = e.params.data.id;
+    // getVerList(templid)
+    var tdata = $("table.template_section_templates").find("td");
+    for (var i=0;i<tdata.length;i++){
+        if($(tdata[i]).text()==templid){
+            // console.log($(tdata[i+1]).text());
+            $("span.templ-ver").text($(tdata[i+1]).text());
+            create_templ_table(Number($(tdata[i+1]).text()));
+            break;
+        }
+    }
+});
 
 $('button.app-install-to-gate').click(function() {
     var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
@@ -1313,3 +1371,87 @@ function create_templ_select(){
 
 
 }
+
+
+/**
+ *	获取设备模板创建表格
+ */
+function create_templ_table(v){
+    var appid = getParam('appid');
+    var templid = $("select.devtempl_select").val();
+    // var templver = $("span.templ-ver").text();
+    var data = {
+        app     : appid,
+        conf    : templid,
+        version : v
+    };
+    console.log(data);
+    //模板数据
+    $.ajax({
+        url:"/apis/api/method/conf_center.api.app_conf_data",
+        type:"GET",
+        data: data,
+        async: false,
+        success: function(req){
+            console.log(req);
+            var dataSet = Papa.parse(req.message.data);
+            console.log(dataSet);
+            //创建表格
+            if(dataSet.data.length>0){
+                $('div.templ_table').empty();
+                var tab = "<table border='1' style='width:100%'>";
+                for (var i=0;i<dataSet.data.length;i++){
+                    // console.log(dataSet.data[i]);
+                    if(dataSet.data[i] && dataSet.data[i].length>1){
+                        tab += "<tr>";
+                        for (var j=0;j<dataSet.data[i].length;j++){
+                            tab += "<td style='padding: 10px;'>"+ dataSet.data[i][j] +"</td>";
+                        }
+                        tab += "</tr>";
+                    }
+                }
+                tab += "</table>";
+                // $('div.templ_table').show();
+                $('div.templ_table').html(tab);
+                // $('.no').hide()
+            }
+
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+}
+
+
+/**
+ *	获取设备模板的所有版本
+ */
+function getVerList(tempid){
+    // console.log(tempid);
+    $.ajax({
+        url: "/apis/api/method/conf_center.api.get_versions",
+        type: "GET",
+        data: {conf: tempid},
+        success: function (req) {
+            // console.log(req)
+            if(req.message && req.message.length>0){
+                // $("span.templ-ver").text(req.message[0].version);
+                // if(req.message[0].version){
+                //     setTimeout(function () {
+                //         create_templ_table(req.message[0].version);
+                //     },500)
+                // }
+
+            }else{
+                $("span.templ-ver").text("")
+            }
+        }, error: function (req) {
+            console.log(req)
+        },
+        complete: function () {
+
+        }
+    });
+}
+

@@ -80,6 +80,7 @@
             top: 20px;
             right: 15px;
             color: #354E77;
+            cursor: pointer;
         }
         .newTemp_version{
             width: 100%;
@@ -92,11 +93,11 @@
             background-color: rgba(0,0,0,0.4);
         }
         .newTemp_version .newTemp{
-            width: 800px;
+            width: 900px;
             height: 600px;
             padding: 0 10px;
             background-color: #FFFFFF;
-            margin-left: -400px;
+            margin-left: -300px;
             margin-top: -300px;
             position: absolute;
             top: 50%;
@@ -355,7 +356,7 @@
                 <a class="download"><i class="glyphicon glyphicon-download"></i></a>
                 <a class="download disabled"><i class="glyphicon glyphicon-ban-circle"></i></a>
                 <button class="create_ver_btn">上传新版本</button>
-                <i id="goBack" style="font-size: 22px" onclick="history.go(-1)" class="glyphicon glyphicon-arrow-left"></i>
+                <a id="goBack" style="font-size: 22px" onclick="history.go(-1)" class="fa fa-mail-reply" title="返回上一页"></a>
             </div>
 
 
@@ -366,11 +367,14 @@
         <!-- Main content -->
         <section class="content">
             <div class="box box-body " style="min-height: 625px">
-                <p style="line-height: 40px;">
-                    <span class="temp_name"></span> >
-                    <span class="temp_desc"></span> >
-                    <span class="temp_app"></span>
-                </p>
+                <div class="col-lg-12">
+                    <p style="line-height: 40px;">
+                        <span class="temp_name"></span> >
+                        <span class="temp_desc"></span> >
+                        <span class="temp_app"></span>
+                    </p>
+                </div>
+
 
                 <p class="no" style="display: none;width: 100%;margin:200px 0;text-align: center;font-size: 22px">还没有上传版本!</p>
 
@@ -569,13 +573,16 @@
                 var dataSet = Papa.parse(req.message.data);
                 console.log(dataSet);
                 //创建表格
-                var tab = "<table border='1'>";
+                var tab = "<table border='1' style='width:100%'>";
                 for (var i=0;i<dataSet.data.length;i++){
-                    tab += "<tr>";
-                    for (var j=0;j<dataSet.data[i].length;j++){
-                        tab += "<td style='padding: 10px;'>"+ dataSet.data[i][j] +"</td>";
+                    if(dataSet.data[i] && dataSet.data[i].length>1){
+                        tab += "<tr>";
+                        for (var j=0;j<dataSet.data[i].length;j++){
+                            tab += "<td style='padding: 10px;'>"+ dataSet.data[i][j] +"</td>";
+                        }
+                        tab += "</tr>";
                     }
-                    tab += "</tr>";
+
                 }
                 tab += "</table>";
                 $('.table').show();
@@ -643,13 +650,16 @@
     //查看新版本csv数据
     function csvData(results){
         var tableData = Papa.parse(results);
-        var tables = "<table border='1'>";
+        var tables = "<table border='1' width='100%'>";
         for(var i=0;i<tableData.data.length;i++){
-            tables += "<tr>";
-            for(var j=0;j<tableData.data[i].length;j++){
-                tables += "<td style='padding: 10px;'>"+ tableData.data[i][j] +"</td>";
+            if(tableData.data[i] && tableData.data[i].length>1){
+                tables += "<tr>";
+                for(var j=0;j<tableData.data[i].length;j++){
+                    tables += "<td style='padding: 10px;'>"+ tableData.data[i][j] +"</td>";
+                }
+                tables += "</tr>";
             }
-            tables += "</tr>";
+
         }
         tables += "</table>";
         $('.csv_content').append(tables);
