@@ -654,6 +654,7 @@ function create_appconfig_panel(data) {
 
             if(data[i].name=="template_section"){
 
+                $("li.li_device_templ").removeClass("hide");
                 var child = {
                         "name": "templates",
                         "desc": "模板选择",
