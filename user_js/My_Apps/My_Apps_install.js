@@ -471,7 +471,7 @@ function create_appconfig_panel(data) {
                         "name": "tty",
                         "desc": "端口",
                         "type": "dropdown",
-                        "value": ["ttymcx0","ttymcx1"]
+                        "value": ["/dev/ttymcx0","/dev/ttymcx1"]
                     },
                     {
                         "name": "baudrate",
@@ -960,7 +960,7 @@ function get_panel_data(data){
                     "name": "tty",
                     "desc": "端口",
                     "type": "dropdown",
-                    "value": ["ttymcx0","ttymcx1"]
+                    "value": ["/dev/ttymcx0","/dev/ttymcx1"]
                 },
                 {
                     "name": "baudrate",
