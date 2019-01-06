@@ -568,7 +568,9 @@
                     console.log(this.result);
                     // document.getElementById('drop_area').innerHTML=this.result;
                     upload_templ_data = this.result;
-                    csvData(this.result);
+                    var reg = /\n(\n)*( )*(\n)*\n/g;
+                    upload_templ_data = upload_templ_data.replace(reg,"\n");
+                    csvData(upload_templ_data);
                 }
 
             }else{ //其他格式，输出文件名
@@ -631,7 +633,9 @@
                 console.log(this.result);
                 // document.getElementById('drop_area').innerHTML=this.result;
                 upload_templ_data = this.result;
-                csvData(this.result);
+                var reg = /\n(\n)*( )*(\n)*\n/g;
+                upload_templ_data = upload_templ_data.replace(reg,"\n");
+                csvData(upload_templ_data);
             }
 
         }else{ //其他格式，输出文件名
@@ -681,6 +685,8 @@
             var appid = getParam('appid');
             var templid = $("select.devtempl_select").val();
             // console.log(templData);
+            var reg = /\n(\n)*( )*(\n)*\n/g;
+            upload_templ_data = upload_templ_data.replace(reg,"\n");
             if(upload_templ_data==null){
                 var text = '上传文件不能为空';
                 errorAlert(text)
