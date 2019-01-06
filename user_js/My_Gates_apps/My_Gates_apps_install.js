@@ -541,7 +541,7 @@ function create_appconfig_panel(data) {
                         "name": "parity",
                         "desc": "校验",
                         "type": "dropdown",
-                        "value": ["None", "Even", "Odd"]
+                        "value": ["NONE", "EVEN", "ODD"]
                     }
                 ]
                 for (var j=0;j<child.length;j++){
@@ -1031,7 +1031,7 @@ function get_panel_data(data){
                     "name": "parity",
                     "desc": "校验",
                     "type": "dropdown",
-                    "value": ["None", "Even", "Odd"]
+                    "value": ["NONE", "EVEN", "ODD"]
                 }
             ];
             app_config.serial = {};
