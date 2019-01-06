@@ -190,12 +190,11 @@ $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
             }else{
                 console.log("clear")
                 $('div.templ_table').empty();
+                $('div.templ_table').html('<div class="flex">当前配置中无设备模板</div>');
                 $("span.templ-ver").text("");
                 $("select.devtempl_select").empty();
                 $('button.no_templ').attr("disabled", true);
             }
-
-
 
 
         }
