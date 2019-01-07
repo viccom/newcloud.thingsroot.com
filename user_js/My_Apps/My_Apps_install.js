@@ -158,12 +158,6 @@ $('a[data-toggle="tab"]').on( 'show.bs.tab', function (e) {
 
 
 $('button.app-install-to-gate').click(function() {
-    if(gate_sn==null){
-        var text = "请选择网关";
-        errorAlert(text);
-        return false
-    }
-
     var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
     var installed_apps = new Array();
     if(gateinfo!=null && typeof(gateinfo) != "undefined"){
@@ -173,6 +167,8 @@ $('button.app-install-to-gate').click(function() {
             installed_apps = Object.keys(applist)
         }
     }
+
+    var appid = getParam('app');
     var inst = $('#gate_inst_1').val();
 
     if($.inArray(inst, installed_apps)!=-1){
@@ -188,17 +184,19 @@ $('button.app-install-to-gate').click(function() {
         get_panel_data(templ_conf);
         var appcfg = app_default;
         if(checkinst(inst)){
-            var id = 'app_conf/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
+            var id = 'app_install/' + gate_sn + '/'+ inst +'/'+ Date.parse(new Date());
             var act_post = {
                 "device": gate_sn,
                 "id": id,
                 "data": {
                     "inst": inst,
+                    "name": appid,
+                    "version":'latest',
                     "conf": appcfg
                 }
             };
-            var action = "app_conf";
-            var task_desc = '应用配置'+ inst;
+            var action = "app_install";
+            var task_desc = '应用安装'+ inst;
 
             console.log(gate_sn, id, inst, appid, appcfg);
 
@@ -213,27 +211,33 @@ $('button.app-install-to-gate').click(function() {
         var appcfg = app_default;
         // console.log(typeof appcfg);
         if(checkinst(inst)) {
-            var id = 'app_conf/' + gate_sn + '/' + inst + '/' + Date.parse(new Date());
+            var id = 'app_install/' + gate_sn + '/' + inst + '/' + Date.parse(new Date());
             var act_post = {
                 "device": gate_sn,
                 "id": id,
                 "data": {
                     "inst": inst,
+                    "name": appid,
+                    "version": 'latest',
                     "conf": appcfg
                 }
             };
-            var action = "app_conf";
-            var task_desc = '应用配置' + inst;
+            var action = "app_install";
+            var task_desc = '应用安装' + inst;
 
             console.log(gate_sn, id, inst, appid, appcfg);
 
-            gate_exec_action(action, act_post, task_desc, inst, action, "1")
+            gate_exec_action(action, act_post, task_desc, inst, action, "1");
+
         }
     }
 
+
+
+
+
+
 });
-
-
 
 
 $('#modal-add-templ').on('show.bs.modal', function () {

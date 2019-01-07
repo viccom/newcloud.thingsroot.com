@@ -16,6 +16,11 @@ if(gate_sn){
     },1000);
 
 
+setInterval(function(){
+    gate_info(gate_sn);
+    gate_app_detail(gate_sn, inst);
+    },3000);
+
     /**
      *	获取网关状态信息
      */

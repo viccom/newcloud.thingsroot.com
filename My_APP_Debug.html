@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | 信息详情</title>
+    <title>冬笋云 | 代码编辑调试</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -282,6 +282,11 @@
             background:#ddd;
             color: rgba(9, 1, 7, 0.98);
         }
+        .debug_top .off{
+            opacity: 0.3;
+        }
+
+
         .html-body-overflow
         {
             overflow-x:hidden;
@@ -744,6 +749,11 @@
         <!-- /.content -->
 
 <!--提示框-->
+
+        <div class="alert fileupload" role="alert" style="z-index: 99999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 50px;left: 400px;">
+            <a href="#" class="alert-link" style="z-index: 99999;color: #333;text-decoration: none;font-size: 16px">...</a>
+        </div>
+
         <div class="alert success" role="alert" style="z-index: 99999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
             <a href="#" class="alert-link" style="z-index: 99999;color: #333;text-decoration: none;font-size: 16px">...</a>
         </div>
@@ -972,6 +982,15 @@
 
 
         /* 提示框 */
+        function uploadAlert(text){
+            $('.fileupload').show();
+
+            $('.fileupload>a').text(text);
+            setTimeout(function () {
+                $('.fileupload').hide();
+            },1000)
+        }
+
         function successAlert(text){
             $('.success').show();
 
@@ -1005,7 +1024,8 @@
                 session.changed = true;
                 editor_codeIng.removeClass('modified').addClass('modified');
                 editor_codeIng.html('<b>' + session.name + " *" + '</b>');
-                $('.debug_top .save').addClass('off');
+                $('.debug_top .save').click();
+                // $('.debug_top .save').addClass('off');
                 //code_editor.cmdLine.setValue("saved "+ name);
             }
         });
@@ -1263,7 +1283,7 @@
             })
             .on('copy_node.jstree', function (e, data) {// 替换ok
                 $.ajax({
-                    url: '/api/method/app_center.editor.editor?app=' + cur_app+"&operation=copy_node&id="+data.original.id+"&parent="+data.parent,
+                    url: '/apis/api/method/app_center.editor.editor?app=' + cur_app+"&operation=copy_node&id="+data.original.id+"&parent="+data.parent,
                     type: 'GET',
                     success: function (d) {
                         data.instance.refresh();
@@ -1418,7 +1438,7 @@
                             'version' : post_ver,
                         };
                         $.ajax({
-                            url: '/apis//api/method/app_center.editor.editor_revert',
+                            url: '/apis/api/method/app_center.editor.editor_revert',
                             headers: {
                                 Accept: "application/json; charset=utf-8",
                                 "X-Frappe-CSRF-Token": auth_token
@@ -1496,7 +1516,7 @@
 
 
         $('body').on('click','.ly #J_revert_do',function(){
-            var backend_url = '/apis//api/method/app_center.editor.editor_revert';
+            var backend_url = '/apis/api/method/app_center.editor.editor_revert';
             var args = {
                 'app': cur_app,
                 'operation': 'set_content',
@@ -1597,7 +1617,7 @@
         });
         // ==ok
         var upload_application_file = function(name, content) {
-            var backend_url = '/api/method/app_center.editor.editor';
+            var backend_url = '/apis/api/method/app_center.editor.editor';
             var args = {
                 'app': cur_app,
                 'operation': 'set_content',
@@ -1622,7 +1642,7 @@
                             editor_codeIng.html('<b>' + session.name + '</b>');
                         }
                         var text = 'Upload Ok!';
-                        successAlert(text);
+                        uploadAlert(text);
                     }else{
                         var session = doc_list[name];
                         code_editor.setSession(session, 1);
