@@ -796,7 +796,7 @@
 <script>
     //获取应用版本列表
     var data1 = {
-        app: decodeURI(window.location.href.split("=")[1]),
+        app: getParam('appid'),
         beta: 1
     };
     $.ajax({
@@ -810,6 +810,7 @@
             }else{
                 var data = req.message;
                 console.log(req.message)
+                $('.uploadNewVersion').data("newver", (data[0].version + 1));
                 for(var i=0;i<data.length;i++){
                     var datas = data[i];
                     // console.log(datas)
@@ -845,7 +846,7 @@
                 btn[i].index = i;
                 btn.eq(i).click(function () {
                     var data = {
-                        appid   : decodeURI(window.location.href.split("=")[1]),
+                        appid   : getParam('appid'),
                         version : $(this).parent().parent().find($('input')).val()
                     };
                     $.ajax({
@@ -855,6 +856,7 @@
                         success: function (req) {
                             var text = "已发布为正式版本";
                             successAlert(text);
+
                         },error: function () {
                             var text = "发布正式版本失败";
                             errorAlert(text)
@@ -962,7 +964,7 @@
     $('.uploadNewVersion').click(function(){
         $('.uploadVersion').css('display','block');
         document.body.style.overflow='hidden';
-        $('#version').val("");
+        $('#version').val($('.uploadNewVersion').data("newver"));
         $('#explain').val("");
         $('#app_file').val("");
     });

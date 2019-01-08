@@ -256,11 +256,6 @@
                     <div class="box box-solid gate_nav">
                         <div class="box-header with-border">
                             <h3 class="box-title">扩展功能</h3>
-
-                            <div class="box-tools">
-                                <button type="button" class="btn btn-box-tool ex-gate"><i class="fa fa-cog"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="box-body no-padding">
                             <ul class="nav nav-pills nav-stacked">
@@ -307,142 +302,381 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5" style="padding-left: 0">
-                        <div class="box box-body">
-                            <div class="col-md-7"><p class="lead">| 基本信息</p></div>
-                            <div class="btn-group pull-right"><button type="button" class="btn btn-block btn-primary btn-flat pull-right gate_setting">高级设置</button></div>
 
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table nowrap">
-                                        <tr>
-                                            <th style="width:100px">序列号：</th>
-                                            <td><span class="gate_sn"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>位置：</th>
-                                            <td>--</td>
-                                        </tr>
-                                        <tr>
-                                            <th>名称：</th>
-                                            <td><span class="gate_name"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>描述：</th>
-                                            <td><span class="gate_desc"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>型号：</th>
-                                            <td><span class="gate_model"></span></td>
-                                        </tr>
-                                    </table>
+                    <div class="col-lg-12"  style="padding: 0">
+
+                        <div class="nav-tabs-custom" style="padding-top:0px">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#basic_panel_div" data-toggle="tab">基本信息</a></li>
+                                <li class=""><a href="#advanced_panel_div" data-toggle="tab">高级设置</a></li>
+                                <li><a href="#upgrade_panel_div" data-toggle="tab">固件升级</a></li>
+
+                                <!--<li class="pull-right"><button type="button" class="btn btn-primary app-install-to-gate">安装</button></li>-->
+
+                            </ul>
+                            <div class="tab-content">
+
+                                <!-- basic_panel_div -->
+                                <div class="tab-pane active" id="basic_panel_div" style="padding: 0">
+                                    <div style="min-height:720px; padding: 0">
+
+                                        <div class="col-md-5" style="padding-left: 0">
+                                            <div class="box box-body">
+                                                <div class="col-md-7"><p class="lead">| 基本信息</p></div>
+                                                <div class="btn-group pull-right"><button type="button" class="btn btn-block btn-primary btn-flat pull-right gate_setting">高级设置</button></div>
+
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table nowrap">
+                                                            <tr>
+                                                                <th style="width:100px">序列号：</th>
+                                                                <td><span class="gate_sn"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>位置：</th>
+                                                                <td>--</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>名称：</th>
+                                                                <td><span class="gate_name"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>描述：</th>
+                                                                <td><span class="gate_desc"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>型号：</th>
+                                                                <td><span class="gate_model"></span></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <p class="lead">| 配置信息</p>
+                                                    <div class="table-responsive">
+                                                        <table class="table nowrap">
+                                                            <tr>
+                                                                <th style="width:100px">CPU：</th>
+                                                                <td><span class="gate_cpu"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>内存：</th>
+                                                                <td><span class="gate_ram"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>存储：</th>
+                                                                <td><span class="gate_rom"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>操作系统：</th>
+                                                                <td><span class="gate_os"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>核心软件：</th>
+                                                                <td>
+                                                                    <span class="pull-left gate_skynet_version"></span>
+
+                                                                    <span class="pull-right"><i class="fa fa-chevron-right text-green hide new_skynet_version"></i></span>
+                                                                    <a href="javascript:void(0)" class="pull-right text-green hide new_skynet_version">发现新版本</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>业务软件：</th>
+                                                                <td>
+                                                                    <span class="pull-left gate_iot_version"></span>
+
+                                                                    <span class="pull-right"><i class="fa fa-chevron-right hide text-green new_iot_version"></i></span>
+                                                                    <a href="javascript:void(0)" class="pull-right hide text-green new_iot_version">发现新版本</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>公网IP：</th>
+                                                                <td><span class="gate_public_ip"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>调试模式：</th>
+                                                                <td><span class="gate_iot_beta"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>数据上传：</th>
+                                                                <td><span class="gate_data_upload"></span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>统计上传：</th>
+                                                                <td><span class="gate_stat_upload"></span></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <!-- /.col -->
+
+                                        <div class="col-md-7" style="padding-right: 0;padding-left: 0">
+
+                                            <!-- LINE CHART1 start -->
+                                            <div class="box box-body">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title">CPU负载</h3>
+
+                                                    <div class="box-tools pull-right">
+                                                        <button type="button" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="box-body">
+                                                    <div class="chart">
+                                                        <canvas id="lineChart1" style="height:150px"></canvas>
+                                                    </div>
+                                                </div>
+                                                <!-- /.box-body -->
+                                            </div>
+                                            <!-- LINE CHART1 end -->
+
+                                            <!-- LINE CHART2 start -->
+                                            <div class="box box-body">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title">内存负载</h3>
+
+                                                    <div class="box-tools pull-right">
+                                                        <button type="button" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="box-body">
+                                                    <div class="chart">
+                                                        <canvas id="lineChart2" style="height:150px"></canvas>
+                                                    </div>
+                                                </div>
+                                                <!-- /.box-body -->
+                                            </div>
+                                            <!-- LINE CHART2 end -->
+
+                                        </div>
+
+                                    </div>
+
+
+
                                 </div>
-                            </div>
+                                <!-- /#basic_panel_div -->
 
-                            <div class="col-md-12">
-                                <p class="lead">| 配置信息</p>
-                                <div class="table-responsive">
-                                    <table class="table nowrap">
-                                        <tr>
-                                            <th style="width:100px">CPU：</th>
-                                            <td><span class="gate_cpu"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>内存：</th>
-                                            <td><span class="gate_ram"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>存储：</th>
-                                            <td><span class="gate_rom"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>操作系统：</th>
-                                            <td><span class="gate_os"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>核心软件：</th>
-                                            <td>
-                                                <span class="pull-left gate_skynet_version"></span>
+                                <!-- advanced_panel_div -->
+                                <div class="tab-pane" id="advanced_panel_div" style="padding: 0">
+                                    <div style="min-height:720px; padding: 0">
+                                        <h2 class="page-header">
+                                            <i class="fa fa-cog"></i>&nbsp;&nbsp;<span>高级设置</span>
 
-                                                <span class="pull-right"><i class="fa fa-chevron-right text-green hide new_skynet_version"></i></span>
-                                                <a href="javascript:void(0)" class="pull-right text-green hide new_skynet_version">发现新版本</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>业务软件：</th>
-                                            <td>
-                                                <span class="pull-left gate_iot_version"></span>
 
-                                                <span class="pull-right"><i class="fa fa-chevron-right hide text-green new_iot_version"></i></span>
-                                                <a href="javascript:void(0)" class="pull-right hide text-green new_iot_version">发现新版本</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>公网IP：</th>
-                                            <td><span class="gate_public_ip"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>调试模式：</th>
-                                            <td><span class="gate_iot_beta"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>数据上传：</th>
-                                            <td><span class="gate_data_upload"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>统计上传：</th>
-                                            <td><span class="gate_stat_upload"></span></td>
-                                        </tr>
-                                    </table>
+                                            <div class="pull-right" style="padding-left: 30px"><a href="javascript:void(0)" class="close-gate-advanced"><i class="fa fa-close"></i></a></div>
+
+                                        </h2>
+                                            <div class="no-padding">
+
+                                                <table class="table table-condensed">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td style="width: 5%"></td>
+                                                        <td style="width: 35%">
+
+                                                            <h4>
+                                                                <i class="fa fa-connectdevelop"></i> 调试模式
+                                                            </h4>
+
+                                                        </td>
+                                                        <td style="width: 50%">
+                                                            <span class="hide iot_beta" >处理中……</span>
+                                                            <div  class="iot_beta" data-on="success" data-off="warning">
+                                                                <input data-inst="iot_beta" class="switch one" type="checkbox"  />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 15%"></td>
+                                                        <td style="width: 35%">
+
+                                                            <h4>
+                                                                <i class="fa fa-cloud-upload"></i> 数据上传
+                                                            </h4>
+
+                                                        </td>
+                                                        <td style="width: 50%">
+                                                            <span class="hide data_upload" >处理中……</span>
+                                                            <div  class="data_upload" data-on="success" data-off="warning">
+                                                                <input data-inst="data_upload" class="switch two" type="checkbox"  />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 15%"></td>
+                                                        <td style="width: 35%">
+
+                                                            <h4>
+                                                                <i class="fa fa-globe"></i> 统计上传
+                                                            </h4>
+
+                                                        </td>
+                                                        <td style="width: 50%">
+                                                            <span class="hide stat_upload" >处理中……</span>
+                                                            <div  class="stat_upload" data-on="success" data-off="warning">
+                                                                <input data-inst="stat_upload" class="switch three" type="checkbox"  />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="width: 15%"></td>
+                                                        <td style="width: 35%">
+
+                                                            <h4>
+                                                                <i class="fa fa-wrench"></i> 网络配置
+                                                            </h4>
+
+                                                        </td>
+                                                        <td style="width: 50%">
+                                                            <span class="hide Net_Manager" >处理中……</span>
+                                                            <div  class="Net_Manager" data-on="success" data-off="warning">
+                                                                <input data-inst="Net_Manager" class="switch four" type="checkbox"  />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="width: 15%"></td>
+                                                        <td style="width: 35%">
+
+                                                            <h4>
+                                                                <i class="fa fa-key"></i> 虚拟网络
+                                                            </h4>
+
+                                                        </td>
+                                                        <td style="width: 50%">
+                                                            <span class="hide ioe_frpc" >处理中……</span>
+                                                            <div  class="ioe_frpc" data-on="success" data-off="warning">
+                                                                <input data-inst="ioe_frpc" class="switch five" type="checkbox"  />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                    </div>
                                 </div>
-                            </div>
+                                <!-- /#advanced_panel_div -->
 
+
+                                <!-- upgrade_panel_div-->
+                                <div class="tab-pane " id="upgrade_panel_div" style="padding: 0">
+                                    <div style="min-height:720px; padding: 0">
+                                        <h2 class="page-header">
+                                            <i class="fa  fa-level-up"></i>&nbsp;&nbsp;<span>固件升级</span>
+
+                                            <div class="pull-right" style="padding-left: 30px"><a href="javascript:void(0)" class="close-gate-upgrade"><i class="fa fa-close"></i></a></div>
+
+                                        </h2>
+                                        <!-- Info boxes -->
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                                <!-- /.info-box start-->
+                                                <div class="info-box">
+                                                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-number app-skynet" data-appid="" data-iotbeta="" data-cloudver="" data-skynetflag="">Skynet</span>
+                                                        <span class="skynet-gatever"></span><span class="skynet-cloudver"></span><br/>
+                                                        <div class="progress">
+                                                            <div class="progress-bar"></div>
+                                                        </div>
+                                                        <span class="progress-description skynet_update_tip">
+                                                            ------
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.info-box end-->
+
+
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                                <!-- /.info-box start-->
+                                                <div class="info-box">
+                                                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-number app-freeioe" data-freeioeflag="">FreeIOE</span>
+                                                        <span class="freeioe-gatever"></span><span class="freeioe-cloudver"></span><br/>
+                                                        <div class="progress">
+                                                            <div class="progress-bar"></div>
+                                                        </div>
+                                                        <span class="progress-description freeioe_update_tip">
+                                                            ------
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.info-box-content end-->
+                                            </div>
+                                            <!-- /.col -->
+
+                                            <div class="col-md-12" style="padding: 0">
+                                                <div class="col-md-6">
+                                                    <button type="button" class="btn btn-block btn-primary btn-flat update_check">检查更新</button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <!-- /.row -->
+                                        <br />
+                                        <div class="row">
+                                            <!-- /.skynet-change-log start-->
+                                            <div class="col-md-12">
+                                                <h1>Skynet</h1>
+                                                <div class="skynet-change-log">
+                                                    <!-- The time line -->
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- /.skynet-change-log end-->
+
+
+                                            <!-- /.freeioe-change-log start-->
+
+                                            <div class="col-md-12">
+                                                <h1>FreeIOE</h1>
+                                                <div class="freeioe-change-log">
+                                                    <!-- The time line -->
+
+                                                </div>
+                                            </div>
+
+                                            <!-- /.freeioe-change-log end-->
+
+                                        </div>
+                                        <!-- /.row -->
+
+
+
+                                    </div>
+
+                                </div>
+                                <!-- /#upgrade_panel_div -->
+
+                            </div>
+                            <!-- /.tab-content -->
                         </div>
-
-                    </div>
-                    <!-- /.col -->
-
-                    <div class="col-md-7" style="padding-right: 0;padding-left: 0">
-
-                        <!-- LINE CHART1 start -->
-                        <div class="box box-body">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">CPU负载</h3>
-
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
-                                    </button>
-
-                                </div>
-                            </div>
-                            <div class="box-body">
-                                <div class="chart">
-                                    <canvas id="lineChart1" style="height:150px"></canvas>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                        </div>
-                        <!-- LINE CHART1 end -->
-
-                        <!-- LINE CHART2 start -->
-                        <div class="box box-body">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">内存负载</h3>
-
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
-                                    </button>
-
-                                </div>
-                            </div>
-                            <div class="box-body">
-                                <div class="chart">
-                                    <canvas id="lineChart2" style="height:150px"></canvas>
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                        </div>
-                        <!-- LINE CHART2 end -->
+                        <!-- /.nav-tabs-custom -->
 
                     </div>
 
@@ -524,7 +758,7 @@
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 <script src="user_js/common/common.js"></script>
-<!--<script src="user_js/common/add_back_task.js"></script>-->
+<script src="user_js/common/add_back_task.js"></script>
 <script src="user_js/common/user.js"></script>
 
 <!-- load user is -->

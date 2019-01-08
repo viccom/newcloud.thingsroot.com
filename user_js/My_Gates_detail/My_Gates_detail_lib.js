@@ -31,6 +31,19 @@ function gate_info(sn){
                         }else{
                             $(".new_iot_version").addClass("hide");
                         }
+                        if(result.message>gate_freeioe_ver){
+                            $(".app-freeioe").data("freeioeflag", "1");
+                            $(".freeioe-cloudver").html("→"+ result.message);
+                            $(".freeioe_update_tip").html("可升级到最新版");
+                            $(".update_check").html("升级更新");
+                            $('.update_check').attr("disabled",false);
+                        }else{
+                            $(".app-freeioe").data("freeioeflag", "0");
+                            $(".freeioe-cloudver").html("");
+                            $(".freeioe_update_tip").html("已经是最新版");
+                            $('.update_check').attr("disabled",false);
+                        }
+
                     }else if(pagename=="Gates_firmware_upgrade"){
                         console.log("设置！！！！")
                         if(result.message>gate_freeioe_ver){
@@ -56,6 +69,25 @@ function gate_info(sn){
                         }else{
                             $(".new_skynet_version").addClass("hide");
                         }
+
+                        $(".app-skynet").data("iotbeta", gate_beta);
+                        $(".app-skynet").data("appid", skynet_appid);
+                        $(".app-skynet").data("cloudver", result.message);
+                        $(".app-skynet").data("data_up", data_up);
+                        $(".app-skynet").data("data_up_span", data_up_span);
+                        gate_firmware_detail();
+                        if(result.message>gate_skynet_ver){
+                            $(".app-skynet").data("skynetflag", "1");
+                            $(".skynet-cloudver").html("→"+ result.message);
+                            $(".skynet_update_tip").html("可升级到最新版");
+
+                        }else{
+                            $(".app-skynet").data("skynetflag", "0");
+                            $(".skynet-cloudver").html("");
+                            $(".skynet_update_tip").html("已经是最新版");
+
+                        }
+
                     }else if(pagename=="Gates_firmware_upgrade"){
                         $(".app-skynet").data("iotbeta", gate_beta);
                         $(".app-skynet").data("appid", skynet_appid);
@@ -81,6 +113,8 @@ function gate_info(sn){
 
                 if(pagename=="Gates_detail"){
                     set_label(sn);
+                    switch_setting();
+                    set_firmware_label(sn);
                 }else if(pagename=="Gates_firmware_upgrade"){
                     set_firmware_label(sn);
                 }else if(pagename=="Gates_setting"){

@@ -165,10 +165,13 @@ function set_tabel(sn, tableobj){
                     + '</ul>'
                     + '</div>'
             }
-
+            var check_ver = appsinfo[i].info.version;
+            if(Number(appsinfo[i].info.version)<Number(appsinfo[i].cloud.ver)){
+                check_ver = '<a href="My_Gates_apps_upgrade.html?sn=' + gate_sn + '&inst=' + appsinfo[i].info.inst + '">'+ String(appsinfo[i].info.version) + '<i class="fa fa-arrow-circle-up"></i>' + '</a>'
+            }
 
             var arrayObj = new Array(appico,
-                appsinfo[i].info.inst, appsinfo[i].info.name,
+                appsinfo[i].info.inst, appsinfo[i].info.name,check_ver,
                 appsinfo[i].info.devs_len, status,
                 runtime, app_auto, ops);
             // console.log(arrayObj);

@@ -86,11 +86,6 @@ $(".devices-refresh").click(function(){
     gate_devs_list(gate_sn, table_devices);
 });
 
-$(".ex-gate").click(function(){
-    var url = "My_Gates_setting.html?sn="+ gate_sn;
-    redirect(url);
-});
-
 
 $("button.gate-install-app").click(function(){
     // ttips($(this), '功能暂时未实现.')

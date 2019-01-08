@@ -1384,6 +1384,37 @@
 //------------------- 编辑器菜单栏操作
         //发布新版本 start
         $('.debug_top .tag').click(function(){
+
+            var data1 = {
+                app: getParam('app'),
+                beta: 1
+            };
+            $.ajax({
+                url: "/apis/api/method/app_center.api.get_versions",
+                type: "GET",
+                data: data1,
+                success: function (req) {
+                    if(JSON.stringify(req) == "{}") {
+
+                    }else{
+                        var data = req.message;
+                        // console.log("vvvvvv",req.message);
+                        if(data.length>0){
+                            $('.ly #J_tag_version').val(data[0].version + 1);
+                            $('.ly #J_tag_comment').html("v" + (data[0].version + 1));
+                        }
+                    }
+
+                },
+                error: function (req) {
+                    console.log(req)
+                }
+
+            });
+
+
+
+
             var html = $('.J_tag').html();
             layui.use('layer', function(){
                 layui.layer.open({
@@ -1411,7 +1442,7 @@
                 return false;
             }
             if($('.ly #J_tag_comment').val()==''){
-                var text = '评论内容不能空';
+                var text = '更新日志不能空';
                 errorAlert(text);
                 return false;
             }

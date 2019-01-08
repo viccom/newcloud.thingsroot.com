@@ -197,11 +197,6 @@ $("button.gate-install-app").click(function(){
 });
 
 
-$(".ex-gate").click(function(){
-    var url = "My_Gates_setting.html?sn="+ gate_sn;
-    redirect(url);
-});
-
 $("button.float-gate-list").click(function(){
 
     if($(this).data("showlist")!="1"){

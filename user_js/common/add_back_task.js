@@ -203,12 +203,12 @@ function sys_upgrade_result_response(result, inst, oldvalue){
         $(".app-skynet").data("skynetflag", "0");
         setTimeout(function () {
             $('.update_check').trigger("updateClick");
-            $('.update_check').attr("disabled","disabled");
+            $('.update_check').attr("disabled",true);
             action_result_tips("升级提示：", "如升级状态未刷新，请60秒后点击检查更新", "info");
         }, 3000);
         setTimeout(function () {
             $('.update_check').trigger("updateClick");
-            $('.update_check').removeAttr("disabled");
+            $('.update_check').attr("disabled",false);
         }, 55000);
 
     }else{
@@ -295,7 +295,7 @@ function doCrontab(){
                                 send_output_result_response(true, q[i].inst, q[i].value)
                             }else if(q[i].action=="sys_upgrade"){
                                 sys_upgrade_result_response(true, q[i].inst, q[i].value)
-                            }else if(pagename=="Gates_setting"){
+                            }else if(pagename=="Gates_detail"){
                                 gate_setting_result_response(true, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_rename"){
                                 app_rename_result_response(true, q[i].inst, q[i].value)
@@ -323,7 +323,7 @@ function doCrontab(){
                                 send_output_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="sys_upgrade"){
                                 sys_upgrade_result_response(false, q[i].inst, q[i].value)
-                            }else if(pagename=="Gates_setting"){
+                            }else if(pagename=="Gates_detail"){
                                 gate_setting_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_rename"){
                                 app_rename_result_response(false, q[i].inst, q[i].value)
@@ -353,7 +353,7 @@ function doCrontab(){
                                 send_output_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="sys_upgrade"){
                                 sys_upgrade_result_response(false, q[i].inst, q[i].value)
-                            }else if(pagename=="Gates_setting"){
+                            }else if(pagename=="Gates_detail"){
                                 gate_setting_result_response(false, q[i].inst, q[i].value)
                             }else if(q[i].action=="app_rename"){
                                 app_rename_result_response(false, q[i].inst, q[i].value)
