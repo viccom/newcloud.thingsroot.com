@@ -445,7 +445,7 @@ function apply_AccessKey(){
             Accept: "application/json; charset=utf-8",
             "X-Frappe-CSRF-Token": auth_token
         },
-        type: 'get',
+        type: 'post',
         contentType: "application/json; charset=utf-8",
         dataType:'json',
         success:function(req){
@@ -471,7 +471,7 @@ function renew_AccessKey(){
             Accept: "application/json; charset=utf-8",
             "X-Frappe-CSRF-Token": auth_token
         },
-        type: 'get',
+        type: 'post',
         contentType: "application/json; charset=utf-8",
         dataType:'json',
         success:function(req){

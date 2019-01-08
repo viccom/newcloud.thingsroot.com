@@ -183,7 +183,7 @@ function set_label(sn){
         $(".gate_iot_beta").html(gate_debug[gateinfo.basic.iot_beta]);
         $(".gate_data_upload").html(data_upload[gateinfo.config.data_upload]);
         $(".gate_stat_upload").html(stat_upload[gateinfo.config.stat_upload]);
-
+        $(".gate_event_upload").html(stat_upload[gateinfo.config.event_upload]);
 
         if(gateinfo.hasOwnProperty("applist")){
             var applist= gateinfo.applist
