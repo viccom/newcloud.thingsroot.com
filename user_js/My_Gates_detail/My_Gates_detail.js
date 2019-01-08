@@ -4,7 +4,7 @@ pagename = "Gates_detail";
 ex_setting = new Object();
 ex_setting.ioe_frpc=false;
 ex_setting.Net_Manager=false;
-
+event_upload_input = false;
 gate_info(gate_sn);
 
 setInterval(function(){
@@ -50,6 +50,47 @@ $("a.close-gate-upgrade").click(function(){
     $('a[href="#basic_panel_div"]').tab('show');
 });
 
+$(".event_upload input").focus( function(){
+
+    event_upload_input = true;
+    $("button.set_event_upload").removeClass('hide');
+    $("button.set_event_upload").data("value",$("input[name=event_upload]").val())
+
+} );
+$("button.set_event_upload").click( function(){
+
+    var event_level = Number($("input[name=event_upload]").val())
+
+    var action = "sys_enable_event";
+    var task_desc = '更改事件上传等级'+ gate_sn ;
+    var id = 'sys_enable_event/' + gate_sn + '/'+ Date.parse(new Date());
+    var post_data = {
+        "device": gate_sn,
+        "id": id,
+        "data": event_level
+    };
+
+    gate_exec_action(action, post_data, task_desc, action, action, event_level);
+
+    setTimeout(function () {
+        $("button.set_event_upload").addClass('hide');
+        event_upload_input = false;
+    }, 1000);
+
+
+
+} );
+$(".event_upload input").blur( function(){
+
+    var oval = $("button.set_event_upload").data("value");
+    var nval = $("input[name=event_upload]").val();
+
+    if(oval==nval){
+        $("button.set_event_upload").addClass('hide');
+        event_upload_input = false;
+    }
+} );
+
 // 给固件升级按钮绑定事件，给后台任务调用；
 $('.update_check').bind("updateClick", function(){
     gate_info(gate_sn);
@@ -64,7 +105,7 @@ $(".update_check").click(function(){
     var cloudver = $(".app-skynet").data("cloudver");
     var data_up =$(".app-skynet").data("data_up");
     var data_up_span =$(".app-skynet").data("data_up_span");
-    console.log(skynetflag, freeioeflag)
+    // console.log(skynetflag, freeioeflag)
     if(skynetflag=="1" || freeioeflag=="1"){
         console.log("sys_upgrade");
         $('.update_check').attr("disabled",true);

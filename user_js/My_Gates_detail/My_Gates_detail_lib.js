@@ -163,7 +163,7 @@ function set_label(sn){
         var Cts = "2-30002";
         var gate_model = "unknown";
         if(gateinfo.basic.sn.indexOf(Cts) >= 0 ) {
-            console.log(true)
+            // console.log(true)
             gate_model = gateinfo.basic.model;
         }
         $(".gate_sn").html(gateinfo.basic.sn);
@@ -183,7 +183,21 @@ function set_label(sn){
         $(".gate_iot_beta").html(gate_debug[gateinfo.basic.iot_beta]);
         $(".gate_data_upload").html(data_upload[gateinfo.config.data_upload]);
         $(".gate_stat_upload").html(stat_upload[gateinfo.config.stat_upload]);
-        $(".gate_event_upload").html(gateinfo.config.event_upload);
+        if(gateinfo.config.event_upload){
+            $(".gate_event_upload").html(gateinfo.config.event_upload);
+        }else{
+            $(".gate_event_upload").html("");
+        }
+
+        if(event_upload_input==false){
+            if(gateinfo.config.event_upload){
+                $(".event_upload input").val(gateinfo.config.event_upload);
+            }else{
+                $(".event_upload input").val("");
+            }
+
+        }
+
 
         if(gateinfo.hasOwnProperty("applist")){
             var applist= gateinfo.applist
@@ -273,7 +287,7 @@ function gate_firmware_detail(){
     var iotbeta = $(".app-skynet").data("iotbeta");
     var skynetid = $(".app-skynet").data("appid");
     var freeioeid = "freeioe";
-    console.log(skynetid, freeioeid, iotbeta);
+    // console.log(skynetid, freeioeid, iotbeta);
 
     if(iotbeta!=null) {
 
@@ -428,7 +442,7 @@ function switch_setting(){
             $(".gate_status").html("OFFLINE");
         }
 
-        console.log(ex_setting);
+        // console.log(ex_setting);
 
         var html = '';
         if(ex_setting.iot_beta==1){
@@ -475,8 +489,8 @@ function switch_setting(){
             // var inst = $(this).data("inst");
 
             var inst = $(this).attr("data-inst");
-            console.log(state);
-            console.log("inst:",inst);
+            // console.log(state);
+            // console.log("inst:",inst);
             var action = "";
             var task_desc = "";
             var id = "";
@@ -603,7 +617,7 @@ function switch_setting(){
             var obj_bbbbb = "span."+inst;
             $(obj_aaaaa).addClass("hide");
             $(obj_bbbbb).removeClass("hide");
-            console.log(action, post_data, task_desc, inst, action, data);
+            // console.log(action, post_data, task_desc, inst, action, data);
             gate_exec_action(action, post_data, task_desc, inst, action, data);
         } });
 

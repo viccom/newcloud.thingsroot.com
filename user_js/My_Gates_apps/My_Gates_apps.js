@@ -2,6 +2,7 @@
 gate_sn  = getParam('sn');
 console.log(gate_sn);
 pagename = "Gates_apps";
+
 if(gate_sn){
     record_gate_op(gate_sn);
 }
