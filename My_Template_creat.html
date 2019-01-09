@@ -544,7 +544,7 @@
         var templname = $("select.template_select option:checked").text();
         var templver = $("select.templver_select").val();
         // console.log(templname);
-        window.open("My_Template_Detail.html?name="+ templname+ "&tempId="+ templid + "&appId="+ appid + "&version="+ templver );
+        window.open("My_Template_Detail.html?name="+ templname+ "&templid="+ templid + "&appid="+ appid+ "&version="+ templver );
     });
 
 
@@ -646,13 +646,13 @@
                             var text = '创建成功';
                             successAlert(text);
                             setTimeout(function () {
-                                redirect('My_Template_Detail.html?name='+ data2.conf_name +'&tempId='+newTempid+'&appId='+data2.app+'&version=1')
+                                redirect('My_Template_Detail.html?name='+ data2.conf_name +'&templid='+newTempid+'&appid='+data2.app+'&version=1')
                             },2000)
                         }
                     })
                 }else{
                     setTimeout(function () {
-                        redirect('My_Template_Detail.html?name='+ data2.conf_name +'&tempId='+newTempid+'&appId='+data2.app+'&version=1')
+                        redirect('My_Template_Detail.html?name='+ data2.conf_name +'&templid='+newTempid+'&appid='+data2.app+'&version=1')
                     },2000)
                 }
 

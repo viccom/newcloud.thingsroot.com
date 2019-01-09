@@ -913,7 +913,7 @@
                     var tempId = $(this).parent().parent().find('input[name=tempId]').val();
                     var appId =  decodeURI(window.location.href.split("=")[1]);
                     var version = $(this).parent().find('.version').text();
-                    location.href = 'My_Template_Detail.html?name='+ name +'&tempId='+tempId+'&appId='+appId+'&version='+version;
+                    location.href = 'My_Template_Detail.html?name='+ name +'&templid='+tempId+'&appId='+appid+'&version='+version;
                 })
                 $('.copy_btn').eq(i).click(function () {
                     var tempId = $(this).parent().parent().find('input[name=tempId]').val();

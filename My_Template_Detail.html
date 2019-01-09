@@ -1,28 +1,27 @@
 <!DOCTYPE html>
+<script src="user_js/common/debug.js"></script>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>冬笋云 | 模板详情</title>
+    <title>冬笋云 | Blank</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Bootstrap switch -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/css/bootstrap-switch.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/select2/dist/css/select2.min.css">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">-->
     <!-- DataTables-Responsive -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
-    <!-- Tooltip classes -->
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
-    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
+    <!--<link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">-->
     <!-- Ionicons -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">
-
     <!-- Theme style -->
     <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -32,138 +31,44 @@
     <!-- global style -->
     <link rel="stylesheet" href="user_css/global.css">
 
-    <!-- user style -->
-    <!--<link rel="stylesheet" href="user_css/star.css">-->
-    <link rel="stylesheet" href="user_css/apps_list.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
     <![endif]-->
 
+    <!-- Google Font -->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+
     <style type="text/css">
+        .flex{
+            /*flex 布局*/
+            display: flex;
+            /*实现垂直居中*/
+            align-items: center;
+            /*实现水平居中*/
+            justify-content: center;
 
-        .template_select{
-            display: inline-block;
-            padding: 0 10px;
+            text-align: justify;
+            width:100%;
+            min-height:400px;
+            /*background: #000;*/
+            margin:0 auto;
+            /*color:#fff;*/
         }
 
-        .create_ver_btn{
-            width: 100px;
-            height: 34px;
-            margin: 0 30px 0 40px;
-            background-color: #354E77;
-            color: #FFFFFF;
-            border-radius: 4px;
-            border: 0;
-            font-weight: normal;
-            line-height: 34px;
-            outline: none;
-        }
-        .download{
-            display: inline-block;
-            font-size: 22px;
-            position: absolute;
-            top: 20px;
-            right: 160px;
-            color: #354E77;
-        }
-        .download:hover{
-            color: #354E77;
-        }
-        .disabled{
-            display: none;
-        }
-        #goBack{
-            position: absolute;
-            top: 20px;
-            right: 15px;
-            color: #354E77;
-            cursor: pointer;
-        }
-        .newTemp_version{
-            width: 100%;
-            height: 100%;
-            /*display: none;*/
-            z-index: 99;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: rgba(0,0,0,0.4);
-        }
-        .newTemp_version .newTemp{
-            width: 900px;
-            height: 600px;
-            padding: 0 10px;
-            background-color: #FFFFFF;
-            margin-left: -300px;
-            margin-top: -300px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
-        #csv_file{
-            margin-left: 10px;
-        }
-        .csv_content{
-            width: 100%;
-            height: 74%;
-            overflow: auto;
-        }
-        .csv_content div{
-            width: 120%;
-            height: 100px;
-            margin: 10px;
-            background-color: #FFFFFF;
-        }
-        .version_title{
-            width: 100%;
+        .table tr {
             height: 40px;
-            line-height: 40px;
-            padding-left: 10px;
-            color: #364F78;
-            border-bottom: 1px solid #E5E9EE;
-        }
-        .version_title>span{
-            cursor: pointer;
-            float: right;
-            font-size: 20px;
-        }
-        .version_file{
-            width: 100%;
-            padding: 10px;
-        }
-        .version_file>input[type=text]{
-            display: inline-block;
-            width: 200px;
-            height: 30px;
-            border: 1px solid #E5E9EE;
-            border-radius: 5px;
-            padding-left: 10px;
-        }
-        .version_file>input[type=file]{
-            display: inline-block;
-        }
-        .v_upload,.v_cancel{
-            width: 60px;
-            height: 25px;
-            margin: 10px;
-            border: 0;
-            border-radius: 3px;
-        }
-        .v_upload{
-            background-color: #364F78;
-            color: #FFFFFF;
-        }
-        .select_text{
 
         }
-        .btn-group .caret{
-            position: absolute!important;
-            right: 10px;
-            top: 16px;
+        .table th, .table td {
+            /*text-align: center;*/
+            vertical-align: middle!important;
         }
+
+
     </style>
 </head>
 
@@ -188,6 +93,7 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -310,7 +216,7 @@
                 <li class="header">我的资源</li>
                 <li><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
                 <li><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
-                <li class="active"><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
 
                 <li class="header">消息中心</li>
                 <li><a href="User_Platform_Messages.html"><i class="fa fa-commenting-o text-yellow"></i> <span>平台消息</span></a></li>
@@ -327,74 +233,60 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <!--<h1 style="display: inline-block;">-->
-                <!--模板详情-->
-            <!--</h1>-->
-            <!--<div style="width: 360px;">-->
+            <h1>
+                模板详情
+                <small><span class="templ_name"></span></small>
+                <div class="pull-right"><a href="javascript:history.back(-1);"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+            </h1>
 
-
-
-            <!--</div>-->
-        <div style="display: flex;align-items: center;justify-content: space-between">
-            <h3 style="margin: 0;">模板详情
-                <span style="font-size: 16px;margin: 8px 0 0 10px;color: #777;">设备模板</span>
-            </h3>
-            <div style="display: flex">
-                <div class="template_select">
-                    <span class="temp_title">版本：</span>
-                    <div class="btn-group search_filter2" role="group">
-                        <button name="app" style="text-align: left;width: 150px;" type="button" class="select_width btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="search_keyword2 select_text" data-search_keyword="">版本选择</span>
-                            <input type="hidden" value="" id="tempId">
-                            <span class="caret select_arrow"></span>
-                        </button>
-                        <ul class="dropdown-menu select_menu over" style="width: 150px;max-height: 400px;" id="muban">
-                            <!--<li data-name=""><a style="cursor:pointer">免费</a></li>-->
-                        </ul>
-                    </div>
-                </div>
-                <a class="download"><i class="glyphicon glyphicon-download"></i></a>
-                <a class="download disabled"><i class="glyphicon glyphicon-ban-circle"></i></a>
-                <button class="create_ver_btn">上传新版本</button>
-                <a id="goBack" style="font-size: 22px" onclick="history.go(-1)" class="fa fa-mail-reply" title="返回上一页"></a>
-            </div>
-
-
-        </div>
-
+            <!--<ol class="breadcrumb">-->
+            <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+            <!--<li class="active">Dashboard</li>-->
+            <!--</ol>-->
         </section>
 
         <!-- Main content -->
         <section class="content">
-            <div class="box box-body " style="min-height: 625px">
-                <div class="col-lg-12">
-                    <p style="line-height: 40px;">
-                        <span class="temp_name"></span> >
-                        <span class="temp_desc"></span> >
-                        <span class="temp_app"></span>
-                    </p>
+
+
+            <!--<div class="box-header">-->
+            <!--<div class="pull-right">-->
+            <!--<div class="btn-group">-->
+            <!--<button type="button" class="btn btn-primary apply_AccessKey">申请AccessKey</button>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="box" style="padding:10px;min-height: 625px">
+
+                <div class="box-header">
+                    <div class="pull-left">
+                        <div class="btn-group" style="width: 250px"><b>关联应用：</b><span class="app_name"></span></div>
+                        <div class="btn-group"><b>模板版本：</b></div>
+                        <div class="btn-group" style="width:80px">
+                            <select class="select2 templver_select popover-templ"  data-placement="top" data-content="" style="width: 100%;">
+                                <!--<option selected="selected">root</option>-->
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="pull-right">
+                        <button class="btn btn-default btn-github upload_templ no_templ" data-toggle="modal" data-target="#modal-upload-templ">上传新版本</button>
+                        <button class="btn btn-default btn-github download_templ no_templ">下载到本地</button>
+                    </div>
                 </div>
 
-
-                <p class="no" style="display: none;width: 100%;margin:200px 0;text-align: center;font-size: 22px">还没有上传版本!</p>
-
-                <!-- 表格 -->
-                <div class="table" style="border: 1px solid #d2d6de;padding: 15px;width: 100%;height: 625px;overflow: auto;">
-
+                <!-- /模板表格 -->
+                <div class="box-solid templ_table" style="height:600px; border: 1px solid #e1e1e1;overflow:auto;">
                 </div>
+
             </div>
+
 
 
         </section>
         <!-- /.content -->
-
-
-        <div class="alert success" role="alert" style="z-index: 99999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
-            <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
-        </div>
-        <div class="alert danger" role="alert" style="z-index: 99999;text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
-            <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
-        </div>
     </div>
     <!-- /.content-wrapper -->
 
@@ -413,6 +305,7 @@
             <!-- Home tab content -->
             <div class="tab-pane" id="control-sidebar-home-tab">
 
+
             </div>
             <!-- /.tab-pane -->
             <!-- Stats tab content -->
@@ -428,6 +321,55 @@
     <!-- /.control-sidebar -->
     <!-- /.control-sidebar end-->
 
+    <!-- /.modal upload-templ start-->
+    <div class="modal fade" id="modal-upload-templ" data-backdrop="static">
+        <div class="modal-dialog" style="width: 1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">上传模板文件
+                        <input type="file" id="upload_templ_csv" style="display:none">
+                    </h4>
+
+                </div>
+
+                <div class="modal-body">
+                    <!-- /数据预览表格 -->
+                    <div class="box box-solid" style="height:505px; border: 1px solid #e1e1e1;overflow:auto;">
+                        <div class="upload upload_table" id="upload_table" data-num="10" data-type="csv">
+
+                            <div  id="drop_area" style="border:3px dashed silver;width:100%; min-height:502px">
+
+                                <div class="flex upload_tips">
+                                    点击上传文件或将文件拖拽到此
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary upload_templ_confirm">确定</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal end-->
+
+    <div class="alert success" role="alert" style="z-index: 99999;text-align: center;width: 600px;display: none;background-color:#DFF0D8;position: fixed;top: 350px;left: 400px;">
+        <a href="#" class="alert-link" style="color: #333;text-decoration: none;font-size: 16px;">...</a>
+    </div>
+
+    <div class="alert danger" role="alert" style="z-index:99999;text-align: center;width: 600px;display: none;background-color:#F2DEDE;position: fixed;top: 350px;left: 400px;">
+        <a href="#" class="alert-link" style="color: #333;font-size: 16px;text-decoration: none">...</a>
+    </div>
 
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
@@ -435,26 +377,9 @@
 </div>
 <!-- ./wrapper -->
 
-<!--上传新版本-->
-<div class="newTemp_version" style="display: none;">
-    <div class="newTemp">
-        <div class="version_title">上传模板新版本</div>
-        <div class="version_file">版本：<input id="ver_num" type="text" style="width:300px" placeholder="Version"><input id="csv_file" type="file"></div>
-        <input type="hidden" id="csv_data" value="">
-        <div class="csv_content">
-            <!--新版本内容展示-->
-        </div>
-        <p style="padding: 15px 0;text-align: right">
-            <button class="v_upload">确定</button>
-            <button class="v_cancel">取消</button>
-        </p>
-    </div>
-</div>
-
 <!-- jQuery 3 -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="user_js/common/oem.js"></script>
-<!-- jQuery UI 1.11.4 -->
+<script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -462,24 +387,23 @@
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- Bootstrap switch -->
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- Select2 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- bootstrap-notify -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
 <!-- DataTables -->
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+<!--<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>-->
 <!-- SlimScroll -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-
 <!-- FastClick -->
 <script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- papaparse -->
+<script src="plugins/papaparse/papaparse.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
 <script src="user_js/common/skin.js"></script>
-<!-- jQuery and the Poshy Tip plugin files -->
-<script type="text/javascript" src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
 
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
@@ -487,41 +411,281 @@
 <!--<script src="user_js/common/add_back_task.js"></script>-->
 <script src="user_js/common/user.js"></script>
 
-<!-- load user is -->
-<!--<script src="user_js/My_Gates_apps/My_Gates_apps_lib.js" type="text/javascript"></script>-->
-<!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
-<!--<script src="plugins/papaparse/papaparse.js"></script>-->
-<script src="plugins/papaparse/papaparse.min.js"></script>
-
-
 <script>
-    $('.J_nickname').text(getCookie('full_name'));
+    $(function () {
+        upload_templ_data = null;
+        getTemplinfo();
 
-    var token = $.cookie('DS_auth_token');
-    $.ajaxSetup({
-        headers: { // 默认添加请求头
-            "X-Frappe-CSRF-Token": token
+        /**
+         *	获取设备模板的相关信息
+         */
+        function getTemplinfo(){
+            var templid = getParam('templid');
+            $.ajax({
+                url: "/apis/api/method/conf_center.api.app_conf_detail",
+                type: "GET",
+                data: {name: templid},
+                success:function (req) {
+                    console.log(req);
+                    if(req.message){
+                        $("span.app_name").text(req.message.app_name);
+                        $("span.templ_name").text(req.message.conf_name);
+                        getVerList();
+                    }
+
+                },
+                error:function (req) {
+
+                }
+            });
         }
+
     });
-    //清空文件
-    $('#csv_file').val("");
+</script>
 
-    (function ($) {
-        $.getUrlParam = function (name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]); return null;
+
+<script type="text/javascript">
+    $('#upload_templ_csv').change(function(){
+        var file = this.files[0];
+        // console.log(file);
+        // console.log(file.type);
+        // console.log(file.name);
+        if(file){
+            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+            upload_templ_data = null;
+            if(file.type === 'application/vnd.ms-excel') {
+                var reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload=function(f){
+                    console.log(this.result);
+                    // document.getElementById('drop_area').innerHTML=this.result;
+                    upload_templ_data = this.result;
+                    var reg = /\n(\n)*( )*(\n)*\n/g;
+                    upload_templ_data = upload_templ_data.replace(reg,"\n");
+                    csvData(upload_templ_data);
+                }
+
+            }else{ //其他格式，输出文件名
+                var str = "不支持的文件格式:" + file.type;
+                str += "<br>";
+                str += "文件名字:"+file.name;
+                $('div.upload_tips').html(str);
+            }
         }
-    })(jQuery);
 
-    var tempId = $.getUrlParam('tempId');
-    var tempname = null;
-    var appId = $.getUrlParam('appId');
-    var version = $.getUrlParam('version');
 
-    if(version == 0){
-        $('#ver_num').val(0);
+    });
+
+    document.addEventListener("drop",function(e){  //拖离
+        e.preventDefault();
+    })
+    document.addEventListener("dragleave",function(e){  //拖后放
+        e.preventDefault();
+    })
+    document.addEventListener("dragenter",function(e){  //拖进
+        e.preventDefault();
+    })
+    document.addEventListener("dragover",function(e){  //拖来拖去
+        e.preventDefault();
+    })
+
+    var box = document.getElementById('drop_area'); //拖拽区域
+    box.addEventListener("drop",function(e){
+        $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+        upload_templ_data = null;
+        var fileList = e.dataTransfer.files; //获取文件对象
+        //检测是否是拖拽文件到页面的操作
+        if(fileList.length == 0){
+            return false;
+        }
+        //拖拉图片到浏览器，可以实现预览功能
+        //规定视频格式
+        Array.prototype.S=String.fromCharCode(2);
+        Array.prototype.in_array=function(e){
+            var r=new RegExp(this.S+e+this.S);
+            return (r.test(this.S+this.join(this.S)+this.S));
+        };
+        var video_type=["video/mp4","video/ogg"];
+
+        //创建一个url连接,供src属性引用
+        var fileurl = window.URL.createObjectURL(fileList[0]);
+        // console.log(fileList[0].type);
+        // if(fileList[0].type.indexOf('image') === 0){  //如果是图片
+        //     var str="<img width='200px' height='200px' src='"+fileurl+"'>";
+        //     document.getElementById('drop_area').innerHTML=str;
+        // }else if(video_type.in_array(fileList[0].type)){   //如果是规定格式内的视频
+        //     var str="<video width='200px' height='200px' controls='controls' src='"+fileurl+"'></video>";
+        //     document.getElementById('drop_area').innerHTML=str;
+        // }else if(fileList[0].type === 'application/vnd.ms-excel') {
+        if(fileList[0].type === 'application/vnd.ms-excel') {
+            var file = fileList[0];
+            var reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload=function(f){
+                console.log(this.result);
+                // document.getElementById('drop_area').innerHTML=this.result;
+                upload_templ_data = this.result;
+                var reg = /\n(\n)*( )*(\n)*\n/g;
+                upload_templ_data = upload_templ_data.replace(reg,"\n");
+                csvData(upload_templ_data);
+            }
+
+        }else{ //其他格式，输出文件名
+            var str = "不支持的文件格式:" + fileList[0].type;
+            str += "<br>";
+            str += "文件名字:"+fileList[0].name;
+            $('div.upload_tips').html(str);
+        }
+        // resultfile = fileList[0];
+
+
+    },false);
+
+    //查看新版本csv数据
+    function csvData(csvresults){
+        var tableData = Papa.parse(csvresults);
+        var tables = "<table border='1' style='width: 100%'>";
+        for(var i=0;i<tableData.data.length;i++){
+            tables += "<tr>";
+            if(tableData.data[i] && tableData.data[i].length>1){
+                for(var j=0;j<tableData.data[i].length;j++){
+                    tables += "<td style='padding: 10px;'>"+ tableData.data[i][j] +"</td>";
+                }
+            }
+            tables += "</tr>";
+        }
+        tables += "</table>";
+        $('#drop_area').html(tables);
+        // $('#drop_area').css("overflow","auto");
     }
+
+
+</script>
+<script>
+
+    $(function () {
+
+        $('.select2').select2();
+
+        $("select.templver_select").on("select2:select",function(e){
+            var templver = $("select.templver_select option:checked").text();
+            create_templ_table(Number(templver));
+
+        });
+
+        $("#upload_table").click(function () {
+            $('#upload_templ_csv').click()
+        });
+
+        $('.upload_templ_confirm').click(function () {
+            var appid = getParam('appid');
+            var templid = getParam('templid');
+            // console.log(templData);
+            var reg = /\n(\n)*( )*(\n)*\n/g;
+
+            if(upload_templ_data==null){
+                var text = '上传文件不能为空';
+                errorAlert(text);
+                return false;
+            }else
+                {
+                upload_templ_data = upload_templ_data.replace(reg,"\n");
+                var newver = Number($("select.templver_select option:checked").text()) +1 ;
+                var templData = {
+                    app: appid,
+                    conf: templid,
+                    version: newver,
+                    data: upload_templ_data
+                };
+                $.ajax({
+                    url: "/apis/api/method/conf_center.api.upload_conf_version",
+                    headers: {
+                        Accept: "application/json; charset=utf-8",
+                        "X-Frappe-CSRF-Token": auth_token
+                    },
+                    type: "POST",
+                    data: templData,
+                    success: function (req) {
+                        var text = "新版本已上传";
+                        successAlert(text);
+                        // $("span.templ-ver").text(newver);
+
+                        setTimeout(function () {
+                            $('#modal-upload-templ').modal('hide');
+                            getVerList();
+                            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+                        },400);
+
+                    },
+                    error: function (req) {
+                        console.log(req);
+                        var text = "新版本上传失败";
+                        errorAlert(text);
+                    },
+                    complete: function () {
+
+                    }
+                });
+
+
+            }
+
+        });
+
+        $('.download_templ').click(function () {
+            var appid = getParam('appid');
+            var templid = getParam('templid');
+            var templname = $("span.templ_name").text();
+            var templver = $("select.templver_select option:checked").text();
+            var data = {
+                app     : appid,
+                conf    : templid,
+                version : Number(templver)
+            };
+            $.ajax({
+                url:"/apis/api/method/conf_center.api.app_conf_data",
+                type:"GET",
+                data: data,
+                async: false,
+                success: function(req){
+                    if(req.message.data){
+                        downloadFile(templname+"_v"+templver+".csv", req.message.data);
+                    }
+
+                },
+                error: function (req) {console.log(req);}
+            });
+            //创建文件并下载到本地    '\ufeff'指定字符集为utf-8
+            function downloadFile(fileName, content) {
+                // console.log(fileName);
+                var csvData = new Blob(['\ufeff'+content],{ type: "text/csv" });
+                // for IE
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(csvData, fileName);
+                }
+                // for Non-IE (chrome, firefox etc.)
+                else {
+                    var a = document.createElement('a');
+                    document.body.appendChild(a);
+                    a.style = 'display: none';
+                    var url = window.URL.createObjectURL(csvData);
+                    a.href =  url;
+                    a.download = fileName;
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                }
+            }
+        });
+
+
+        $('#modal-upload-templ').on('hide.bs.modal', function () {
+            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+            $('#upload_templ_csv').val('');
+        });
+
+
+    });
 
     function successAlert(text){
         $('.success').show();
@@ -540,29 +704,75 @@
         },2000)
     }
 
-    //获取模板详情
-    $.ajax({
-        url: "/apis/api/method/conf_center.api.app_conf_detail",
-        type: "GET",
-        data: {name: tempId},
-        success:function (req) {
-            console.log(req)
-            tempname = req.message.conf_name;
-            $('.temp_desc').text("模板描述："+req.message.description);
-            $('.temp_app').text("关联应用："+req.message.app_name)
-        },error:function () {}
-    });
 
-    $('.temp_name').text("模板名称："+$.getUrlParam('name'));
+    /**
+     *	获取设备模板的所有版本
+     */
+    function getVerList(){
+        var templid = getParam('templid');
+        $.ajax({
+            url: "/apis/api/method/conf_center.api.get_versions",
+            type: "GET",
+            data: {conf: templid},
+            success: function (req) {
+                $("select.templver_select").empty();
+                if(req.message && req.message.length>0){
+                    var vdata = req.message;
+                    var data= [];
+                    var t = {};
+                    for (var i = 0; i < vdata.length; i++) {
 
-    function getVersion (v){
+                        if(i==0){
+                            t={ id: vdata[i].version, text: vdata[i].version, "selected": true };
+
+                            create_templ_table(vdata[i].version);
+
+                        }else{
+                            t={ id: vdata[i].version, text: vdata[i].version };
+                        }
+                        data.push(t)
+                    }
+
+                    $("select.templver_select").select2({
+                        data: data,
+                        placeholder:'请选择模板',
+                        allowClear:false
+                    });
+
+                    // $("span.templ-ver").text(req.message[0].version);
+                    // if(req.message[0].version){
+                    //     setTimeout(function () {
+                    //         create_templ_table(req.message[0].version);
+                    //     },500)
+                    // }
+
+                }else{
+                    $("span.templ-ver").text("")
+                }
+            }, error: function (req) {
+                console.log(req)
+            },
+            complete: function () {
+
+            }
+        });
+    }
+
+
+
+    /**
+     *	获取设备模板创建表格
+     */
+    function create_templ_table(v){
+        var appid = getParam('appid');
+        var templid = getParam('templid');
+        // var templver = $("span.templ-ver").text();
         var data = {
-            app     : appId,
-            conf    : tempId,
+            app     : appid,
+            conf    : templid,
             version : v
         };
-        console.log("当前版本"+v);
-        $('.search_keyword2').text(v)
+        console.log(data);
         //模板数据
         $.ajax({
             url:"/apis/api/method/conf_center.api.app_conf_data",
@@ -570,26 +780,29 @@
             data: data,
             async: false,
             success: function(req){
-                console.log('ok');
-                console.log(req)
+                console.log(req);
                 var dataSet = Papa.parse(req.message.data);
                 console.log(dataSet);
                 //创建表格
-                var tab = "<table border='1' style='width:100%'>";
-                for (var i=0;i<dataSet.data.length;i++){
-                    if(dataSet.data[i] && dataSet.data[i].length>1){
-                        tab += "<tr>";
-                        for (var j=0;j<dataSet.data[i].length;j++){
-                            tab += "<td style='padding: 10px;'>"+ dataSet.data[i][j] +"</td>";
+                if(dataSet.data.length>0){
+                    $('div.templ_table').empty();
+                    var tab = "<table border='1' style='width:100%'>";
+                    for (var i=0;i<dataSet.data.length;i++){
+                        // console.log(dataSet.data[i]);
+                        if(dataSet.data[i] && dataSet.data[i].length>1){
+                            tab += "<tr>";
+                            for (var j=0;j<dataSet.data[i].length;j++){
+                                tab += "<td style='padding: 10px;'>"+ dataSet.data[i][j] +"</td>";
+                            }
+                            tab += "</tr>";
                         }
-                        tab += "</tr>";
                     }
-
+                    tab += "</table>";
+                    // $('div.templ_table').show();
+                    $('div.templ_table').html(tab);
+                    // $('.no').hide()
                 }
-                tab += "</table>";
-                $('.table').show();
-                $('.table').html(tab);
-                $('.no').hide()
+
             },
             error: function () {
                 console.log('error');
@@ -597,221 +810,13 @@
         });
     }
 
-    if(version == "" || version == 0){
-        $('.no').show();
-        $('.table').hide()
-        $('.disabled').css("display",'block');
-    }else{
-        //获取当前data
-        getVersion(version);
-    }
 
-    //获取版本列表
-    getVerList();
-    function getVerList(){
-        $('#muban').html("");
-        $.ajax({
-            url: "/apis/api/method/conf_center.api.get_versions",
-            type: "GET",
-            data: {conf: tempId},
-            success: function (req) {
-                if(req.message){
-                    for (var i=0;i<req.message.length;i++){
-                        $('#muban').append('<li data-name=""><a style="cursor:pointer">'+ req.message[i].version +'</a></li>')
-                    }
-                }else{
-                    // $('input[name=app]').setAttribute('disabled',true);
-                }
-
-            },
-            error: function () {
-                console.log('error');
-            },
-            complete: function () {
-                //切换版本  --数据
-                $('.search_filter2 li').on('click', function() {
-                    $('.search_keyword2').text($(this).text());
-                    var vs = $('.search_keyword2').text();
-                    console.log(vs);
-                    console.log(1)
-                    getVersion(vs);
-                    console.log(2)
-                });
-            }
-        });
-    }
-
-    //上传新版本
-    $('.create_ver_btn').click(function () {
-        $('.newTemp_version').show();
-        $('#ver_num').val("");
-        $('#csv_file').val("");
-        $('.csv_content').html("");
-    });
-
-    //查看新版本csv数据
-    function csvData(results){
-        var tableData = Papa.parse(results);
-        var tables = "<table border='1' width='100%'>";
-        for(var i=0;i<tableData.data.length;i++){
-            if(tableData.data[i] && tableData.data[i].length>1){
-                tables += "<tr>";
-                for(var j=0;j<tableData.data[i].length;j++){
-                    tables += "<td style='padding: 10px;'>"+ tableData.data[i][j] +"</td>";
-                }
-                tables += "</tr>";
-            }
-
-        }
-        tables += "</table>";
-        $('.csv_content').append(tables);
-        $('.csv_content').css("overflow","auto");
-    }
-
-    function upload(input) {
-        //支持chrome IE10
-        if (window.FileReader) {
-            var file = input.files[0];
-            filename = file.name.split(".")[0];
-            var reader = new FileReader();
-            reader.onload = function() {
-                var data1 = this.result;
-                $('#csv_data').val(data1);
-                csvData(data1);
-            };
-            reader.readAsText(file);
-        }
-        // //支持IE 7 8 9 10
-        // else if (typeof window.ActiveXObject != 'undefined'){
-        //     var xmlDoc;
-        //     xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-        //     xmlDoc.async = false;
-        //     xmlDoc.load(input.value);
-        //     console.log(xmlDoc.xml);
-        // }
-        //支持FF
-        // else if (document.implementation && document.implementation.createDocument) {
-        //     var xmlDoc;
-        //     xmlDoc = document.implementation.createDocument("", "", null);
-        //     xmlDoc.async = false;
-        //     xmlDoc.load(input.value);
-        //     console.log(xmlDoc.xml);
-        // }
-        else {
-
-        }
-    }
-
-    //选择文件
-    $('#csv_file').change(function(){
-        upload(this);
-    });
-
-    //上传新版本 -- 取消
-    $('.v_cancel').click(function () {
-        $('.newTemp_version').hide();
-    });
-
-
-
-    //上传新版本 -- 确定
-    $('.v_upload').click(function () {
-        var formData = {
-            app: appId,
-            conf: tempId,
-            version: $('#ver_num').val(),
-            data: $('#csv_data').val()
-        };
-        console.log(formData)
-        if(formData.version == ""){
-            console.log(1)
-            var text = "版本号不能为空";
-            errorAlert(text);
-        }else if(formData.version <= parseInt(version)){
-            var text = '新版本号应大于旧版本号';
-            errorAlert(text)
-        }else if(formData.data == ""){
-            var text = '上传文件不能为空';
-            errorAlert(text)
-        }else {
-            $.ajax({
-                url: "/apis/api/method/conf_center.api.upload_conf_version",
-                headers: {
-                    Accept: "application/json; charset=utf-8",
-                    "X-Frappe-CSRF-Token": auth_token
-                },
-                type: "POST",
-                data: formData,
-                success: function (req) {
-                    var text = "新版本已上传";
-                    successAlert(text)
-                    getVerList();
-                },
-                error: function () {
-                    console.log('error');
-                },
-                complete: function () {
-                    $('.newTemp_version').hide();
-                    var vs = formData.version;
-                    getVersion(vs)
-                }
-            })
-        }
-    });
-
-    //点击下载
-    $('.download').click(function () {
-        var data = {
-            app     : appId,
-            conf    : tempId,
-            version : $('.search_keyword2').text()
-        };
-        $.ajax({
-            url:"/apis/api/method/conf_center.api.app_conf_data",
-            type:"GET",
-            data: data,
-            async: false,
-            success: function(req){
-                // console.log(req.message.data);
-                if(req.message.data){
-                    downloadFile(tempname + "_v"+ req.message.version +".csv", req.message.data);
-                }
-
-            },
-            error: function () {console.log('error');}
-        });
-        //创建文件并下载到本地    '\ufeff'指定字符集为utf-8
-        function downloadFile(fileName, content) {
-            var csvData = new Blob(['\ufeff'+content],{ type: "text/csv" });
-            // for IE
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(csvData, fileName);
-            }
-            // for Non-IE (chrome, firefox etc.)
-            else {
-                var a = document.createElement('a');
-                document.body.appendChild(a);
-                a.style = 'display: none';
-                var url = window.URL.createObjectURL(csvData);
-                a.href =  url;
-                a.download = fileName;
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            }
-
-            // var aTag = document.createElement('a');
-            // console.log(aTag);
-            // var blob = new Blob(['\ufeff'+content],{ type: "text/csv" });
-            // aTag.download = fileName;
-            // aTag.href = window.URL.createObjectURL(blob);
-            // URL.revokeObjectURL(blob);
-            // aTag.click();
-            // window.URL.revokeObjectURL(blob);
-        }
-    })
 </script>
+<script>
+    $(function () {
 
 
+    });
+</script>
 </body>
 </html>

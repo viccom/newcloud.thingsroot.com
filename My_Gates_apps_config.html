@@ -667,11 +667,11 @@
             var templid = $("select.devtempl_select").val();
             // console.log(templData);
             var reg = /\n(\n)*( )*(\n)*\n/g;
-            upload_templ_data = upload_templ_data.replace(reg,"\n");
             if(upload_templ_data==null){
                 var text = '上传文件不能为空';
                 errorAlert(text)
             }else{
+                upload_templ_data = upload_templ_data.replace(reg,"\n");
                 $.ajax({
                     url: "/apis/api/method/conf_center.api.get_versions",
                     type: "GET",

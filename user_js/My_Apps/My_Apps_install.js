@@ -1388,7 +1388,7 @@ function create_templ_select(){
         var templid = valx.eq(2).text();
         var templver = valx.eq(3).text();
 
-       window.open("My_Template_Detail.html?name="+ templname+ "&tempId="+ templid + "&appId="+ appid + "&version="+ templver);
+       window.open("My_Template_Detail.html?name="+ templname+ "&templid="+ templid + "&appid="+ appid+ "&version="+ templver);
 
     });
 
