@@ -515,6 +515,7 @@
     })(jQuery);
 
     var tempId = $.getUrlParam('tempId');
+    var tempname = null;
     var appId = $.getUrlParam('appId');
     var version = $.getUrlParam('version');
 
@@ -546,6 +547,7 @@
         data: {name: tempId},
         success:function (req) {
             console.log(req)
+            tempname = req.message.conf_name;
             $('.temp_desc').text("模板描述："+req.message.description);
             $('.temp_app').text("关联应用："+req.message.app_name)
         },error:function () {}
@@ -770,19 +772,43 @@
             data: data,
             async: false,
             success: function(req){
-                console.log(req.message.data);
-                downloadFile("1.csv", req.message.data);
+                // console.log(req.message.data);
+                if(req.message.data){
+                    downloadFile(tempname + "_v"+ req.message.version +".csv", req.message.data);
+                }
+
             },
             error: function () {console.log('error');}
         });
         //创建文件并下载到本地    '\ufeff'指定字符集为utf-8
         function downloadFile(fileName, content) {
-            var aTag = document.createElement('a');
-            var blob = new Blob(['\ufeff'+content],{ type: "text/csv" });
-            aTag.download = fileName;
-            aTag.href = URL.createObjectURL(blob);
-            aTag.click();
-            URL.revokeObjectURL(blob);
+            console.log(fileName);
+            var csvData = new Blob(['\ufeff'+content],{ type: "text/csv" });
+            // for IE
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveOrOpenBlob(csvData, fileName);
+            }
+            // for Non-IE (chrome, firefox etc.)
+            else {
+                var a = document.createElement('a');
+                document.body.appendChild(a);
+                a.style = 'display: none';
+                var url = window.URL.createObjectURL(csvData);
+                a.href =  url;
+                a.download = fileName;
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            }
+
+            // var aTag = document.createElement('a');
+            // console.log(aTag);
+            // var blob = new Blob(['\ufeff'+content],{ type: "text/csv" });
+            // aTag.download = fileName;
+            // aTag.href = window.URL.createObjectURL(blob);
+            // URL.revokeObjectURL(blob);
+            // aTag.click();
+            // window.URL.revokeObjectURL(blob);
         }
     })
 </script>
