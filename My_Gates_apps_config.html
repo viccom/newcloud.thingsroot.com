@@ -763,12 +763,23 @@
             });
             //创建文件并下载到本地    '\ufeff'指定字符集为utf-8
             function downloadFile(fileName, content) {
-                var aTag = document.createElement('a');
-                var blob = new Blob(['\ufeff'+content],{ type: "text/csv" });
-                aTag.download = fileName;
-                aTag.href = URL.createObjectURL(blob);
-                aTag.click();
-                URL.revokeObjectURL(blob);
+                var csvData = new Blob(['\ufeff'+content],{ type: "text/csv" });
+                // for IE
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(csvData, fileName);
+                }
+                // for Non-IE (chrome, firefox etc.)
+                else {
+                    var a = document.createElement('a');
+                    document.body.appendChild(a);
+                    a.style = 'display: none';
+                    var url = window.URL.createObjectURL(csvData);
+                    a.href =  url;
+                    a.download = fileName;
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                }
             }
         });
 

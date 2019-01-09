@@ -782,7 +782,6 @@
         });
         //创建文件并下载到本地    '\ufeff'指定字符集为utf-8
         function downloadFile(fileName, content) {
-            console.log(fileName);
             var csvData = new Blob(['\ufeff'+content],{ type: "text/csv" });
             // for IE
             if (window.navigator && window.navigator.msSaveOrOpenBlob) {
