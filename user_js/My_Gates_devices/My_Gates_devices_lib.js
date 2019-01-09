@@ -194,10 +194,13 @@ function get_devices_inputs(sn, vsn){
         async: false,
         success:function(req){
             // console.log(req);
-            if(req.message.inputs!==null){
-                localStorage.setItem("gate_devices_inputs/"+ vsn, JSON.stringify(req.message.inputs));
-                inputs_obj[vsn]=req.message.inputs;
+            if(req.message!==null){
+                if($.isEmptyObject(req.message)===false) {
+                    localStorage.setItem("gate_devices_inputs/"+ vsn, JSON.stringify(req.message.inputs));
+                    inputs_obj[vsn]=req.message.inputs;
+                }
             }
+
         },
         error:function(req){
             console.log(req);
