@@ -48,13 +48,21 @@ table = $('#example1').DataTable({
             "width": "90px"
 
         },
+
+        {
+            //   指定第最后一列
+            targets: 6,
+            searchable: false,
+            orderable: false
+        },
         {
             //   指定第最后一列
             targets: 7,
             searchable: false,
             orderable: false,
             width: '12%'
-        }],
+        }
+        ],
     "initComplete": function(settings, json) {
         console.log("over")
     }

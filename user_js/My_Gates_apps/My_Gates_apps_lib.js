@@ -171,7 +171,7 @@ function set_tabel(sn, tableobj){
             }
 
             var arrayObj = new Array(appico,
-                appsinfo[i].info.inst, appsinfo[i].info.name,check_ver,
+                appsinfo[i].info.inst, check_ver,
                 appsinfo[i].info.devs_len, status,
                 runtime, app_auto, ops);
             // console.log(arrayObj);
