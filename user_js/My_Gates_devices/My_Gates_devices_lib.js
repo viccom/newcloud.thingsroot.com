@@ -91,6 +91,8 @@ function gate_devs_list(sn, tableobj){
                 setTimeout(function () {
                     set_table(sn, tableobj);
                 },200);
+            }else{
+                tableobj.clear().draw();
             }
 
         },

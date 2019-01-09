@@ -100,6 +100,8 @@ function gate_applist(sn, tableobj){
                 setTimeout(function () {
                     set_tabel(sn, tableobj);
                 },200);
+            }else{
+                tableobj.clear().draw();
             }
 
         },

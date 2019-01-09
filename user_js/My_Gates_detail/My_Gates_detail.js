@@ -59,7 +59,17 @@ $(".event_upload input").focus( function(){
 } );
 $("button.set_event_upload").click( function(){
 
-    var event_level = Number($("input[name=event_upload]").val())
+    var event_level = Number($("input[name=event_upload]").val());
+
+    if(event_level>99 || event_level < 0){
+
+        $("input[name=event_upload]").data("content", "有效范围0~99");
+        $('.popover-warning').popover('show');
+        setTimeout(function () {
+            $('.popover-warning').popover('destroy');
+        },2000);
+        return false;
+    }
 
     var action = "sys_enable_event";
     var task_desc = '更改事件上传等级'+ gate_sn ;
