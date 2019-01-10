@@ -168,9 +168,14 @@ function set_tabel(sn, tableobj){
                     + '</div>'
             }
             var check_ver = appsinfo[i].info.version;
-            if(Number(appsinfo[i].info.version)<Number(appsinfo[i].cloud.ver)){
-                check_ver = '<a target="_blank" href="My_Gates_apps_upgrade.html?sn=' + gate_sn + '&inst=' + appsinfo[i].info.inst + '">'+ String(appsinfo[i].info.version) + '<i class="fa fa-arrow-circle-up"></i>' + '</a>'
+            if(appsinfo[i].cloud!==null){
+                if(Number(appsinfo[i].info.version)<Number(appsinfo[i].cloud.ver)){
+                    check_ver = '<a target="_blank" href="My_Gates_apps_upgrade.html?sn=' + gate_sn + '&inst=' + appsinfo[i].info.inst + '">'+ String(appsinfo[i].info.version) + '<i class="fa fa-arrow-circle-up"></i>' + '</a>'
+                }
+            }else{
+                check_ver = appsinfo[i].info.version + '<i class="fa fa-bug"></i>'
             }
+
 
             var arrayObj = new Array(appico,
                 appsinfo[i].info.inst, check_ver,
