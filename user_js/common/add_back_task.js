@@ -230,31 +230,10 @@ function sys_upgrade_result_response(result, inst, oldvalue){
 function gate_setting_result_response(result, inst, oldvalue){
     var _aaaaa = "div."+inst;
     var _bbbbb = "span."+inst;
-    var html = "";
-    if(oldvalue==0){
-        html = '<input  data-inst="' + inst + '" class="switch" type="checkbox"/>\n'
-    }else{
-        html = '<input data-inst="' + inst + '" class="switch" type="checkbox" checked />\n'
-    }
-    if(result){
-
-        setTimeout(function () {
-            $(_aaaaa).removeClass("hide");
-            $(_bbbbb).addClass("hide");
-            $('.fa-connectdevelop').trigger("upload_applist");
-            console.log("刷新")
-            gate_info(gate_sn);
-
-        }, 2000);
-
-    }else{
-        setTimeout(function () {
-            $(_aaaaa).html(html);
-            $(_aaaaa).removeClass("hide");
-            $(_bbbbb).addClass("hide");
-        }, 2000);
-
-    }
+    setTimeout(function () {
+        $(_aaaaa).removeClass("hide");
+        $(_bbbbb).addClass("hide");
+    }, 10000);
 
 }
 
@@ -343,7 +322,10 @@ function doCrontab(){
 
                             q.splice(i, 1);// 删除任务
                         }
-                        sys_data_snapshot(gate_sn);
+                        sys_data_query(gate_sn,gate_sn);
+                        setTimeout(function () {
+                            sys_data_query(gate_sn,gate_sn);
+                        }, 5000);
                     }else{
                         q[i].times--;
                         if(q[i].times==0){ // 十次查询完毕还未成功，表明失败。
