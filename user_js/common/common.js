@@ -556,3 +556,168 @@ function errorAlert(text){
         $('.danger').hide();
     },4000)
 }
+
+
+/**
+ *	强制网关上传快照值60秒
+ */
+function sys_enable_data_one_short(sn){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.sys_enable_data_one_short',
+        headers: {
+            "Accept": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify({"device":sn,"data":60}),
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+/**
+ *	强制网关上传快照值
+ */
+function sys_data_snapshot(sn){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.sys_data_snapshot',
+        headers: {
+            "Accept": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify({"device":sn,"data":60}),
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+/**
+ *	强制网关立即上传某设备快照值
+ */
+function sys_data_query(sn, vsn){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.sys_data_query',
+        headers: {
+            "Accept": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify({"device":sn,"data":vsn}),
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+/**
+ *	强制网关立即上传某设备快照值
+ */
+function sys_data_flush(sn){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.sys_data_flush',
+        headers: {
+            "Accept": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify({"device":sn,"data":1}),
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+}
+
+
+/**
+ *	网关重启freeioe
+ */
+function sys_restart(sn){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.sys_restart',
+        headers: {
+            "Accept": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify({"device":sn,"data":1}),
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+            $.notify({
+                title: "<strong>提交任务成功:</strong><br><br> ",
+                message: 'FreeIOE重启'+ gate_sn
+            },{
+                type: 'success'
+            });
+        },
+        error:function(req){
+            console.log(req);
+            $.notify({
+                title: "<strong>提交任务失败:</strong><br><br> ",
+                message: 'FreeIOE重启'+ gate_sn
+            },{
+                type: 'warning'
+            });
+        }
+    });
+}
+
+
+/**
+ *	网关重启
+ */
+function sys_reboot(sn){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.sys_reboot',
+        headers: {
+            "Accept": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify({"device":sn,"data":1}),
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+            $.notify({
+                title: "<strong>提交任务成功:</strong><br><br> ",
+                message: '网关重启'+ gate_sn
+            },{
+                type: 'success'
+            });
+        },
+        error:function(req){
+            console.log(req);
+            $.notify({
+                title: "<strong>提交任务失败:</strong><br><br> ",
+                message: '网关重启'+ gate_sn
+            },{
+                type: 'warning'
+            });
+        }
+    });
+}

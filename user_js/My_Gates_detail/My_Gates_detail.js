@@ -87,9 +87,17 @@ $("button.set_event_upload").click( function(){
         event_upload_input = false;
     }, 1000);
 
-
-
 } );
+
+
+$("button.FreeIOE_restart").click( function(){
+    sys_restart(gate_sn);
+} );
+
+$("button.thingslink_restart").click( function(){
+    sys_reboot(gate_sn);
+} );
+
 $(".event_upload input").blur( function(){
 
     var oval = $("button.set_event_upload").data("value");

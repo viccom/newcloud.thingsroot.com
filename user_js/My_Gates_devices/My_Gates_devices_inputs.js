@@ -57,7 +57,7 @@ inputs_obj = new Object();
 inputsrtdata_obj = new Object();
 $(".device_sn").html(device_sn);
 $(".device_name").html(device_name);
-
+sys_enable_data_one_short(gate_sn);
 gate_info(gate_sn);
 get_devices_inputs(gate_sn, device_sn);
 creat_devs_list(gate_sn);

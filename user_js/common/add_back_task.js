@@ -59,6 +59,7 @@ function action_result_tips(title, content, infotype){
 
 function app_auto_result_response(result, inst, oldvalue){
     console.log("刷新应用列表");
+    gate_upload_applist(gate_sn);
     setTimeout(function () {
         $('.applist-refresh').trigger("refreshapp");
     },1000);
@@ -67,6 +68,7 @@ function app_auto_result_response(result, inst, oldvalue){
 
 function app_rename_result_response(result, inst, oldvalue){
     console.log("刷新应用列表");
+    gate_upload_applist(gate_sn);
     setTimeout(function () {
         $('.applist-refresh').trigger("refreshapp");
     },1000);
@@ -75,6 +77,7 @@ function app_rename_result_response(result, inst, oldvalue){
 
 function app_uninstall_result_response(result, inst, oldvalue){
     console.log("刷新应用列表");
+    gate_upload_applist(gate_sn);
     setTimeout(function () {
         $('.applist-refresh').trigger("refreshapp");
     },1000);
@@ -135,6 +138,7 @@ function app_auto_result_response_bak(result, inst, oldvalue){
 
 function app_start_result_response(result, inst, oldvalue){
     if(result){
+        gate_upload_applist(gate_sn);
         $(".app-action:button").text("停止");
         $(".app-action:button").removeClass("btn-info");
         $(".app-action:button").addClass("btn-danger");
@@ -149,6 +153,7 @@ function app_start_result_response(result, inst, oldvalue){
 
 function app_stop_result_response(result, inst, oldvalue){
     if(result){
+        gate_upload_applist(gate_sn);
         $(".app-action:button").text("启动");
         $(".app-action:button").removeClass("btn-danger");
         $(".app-action:button").addClass("btn-info");
@@ -161,6 +166,7 @@ function app_stop_result_response(result, inst, oldvalue){
 
 function app_restart_result_response(result, inst, oldvalue){
     if(result){
+        gate_upload_applist(gate_sn);
         $(".app-action:button").text("停止");
         $(".app-action:button").removeClass("btn-info");
         $(".app-action:button").addClass("btn-danger");
@@ -174,7 +180,7 @@ function app_restart_result_response(result, inst, oldvalue){
 
 function app_upgrade_result_response(result, inst, oldvalue){
     if(result){
-
+        gate_upload_applist(gate_sn);
         $("button.update_check").text("检查更新" );
         $("button.update_check").data("flag","0");
         $(".update_tip").html("已经是最新版本" );
@@ -201,10 +207,12 @@ function sys_upgrade_result_response(result, inst, oldvalue){
         console.log("升级完成");
         $(".app-freeioe").data("freeioeflag", "0");
         $(".app-skynet").data("skynetflag", "0");
+        sys_data_query(gate_sn, gate_sn);
         setTimeout(function () {
             $('.update_check').trigger("updateClick");
             $('.update_check').attr("disabled",true);
             action_result_tips("升级提示：", "如升级状态未刷新，请60秒后点击检查更新", "info");
+            sys_data_query(gate_sn, gate_sn);
         }, 3000);
         setTimeout(function () {
             $('.update_check').trigger("updateClick");
