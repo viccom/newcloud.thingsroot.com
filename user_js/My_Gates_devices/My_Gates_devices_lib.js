@@ -56,6 +56,7 @@ function set_label(sn){
             $("span.data_upload_status").removeClass("hide");
         }else{
             $("span.data_upload_status").addClass("hide");
+            sys_enable_data_one_short(sn);
         }
 
 

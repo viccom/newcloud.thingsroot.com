@@ -74,7 +74,9 @@ function set_label(sn){
         $(".gate_desc").html(gateinfo.basic.desc);
         $(".gate_apps_len").html(gateinfo.apps_len);
         $(".gate_devs_len").html(gateinfo.devs_len);
-
+        if(gateinfo.config.data_upload==0){
+            sys_enable_data_one_short(sn);
+        }
         if(gateinfo.hasOwnProperty("applist")){
             var applist= gateinfo.applist
             if(applist.hasOwnProperty("ioe_frpc")){
