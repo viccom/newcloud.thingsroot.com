@@ -245,6 +245,7 @@ table_inputs = $('#table_inputs').DataTable({
         {
             //   指定第5列
             targets: 4,
+            width: '15%',
             render: function(data, type, row, meta) {
 
                 if(row.pv.length > 40){

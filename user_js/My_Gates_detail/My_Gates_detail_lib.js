@@ -80,12 +80,12 @@ function gate_info(sn){
                             $(".app-skynet").data("skynetflag", "1");
                             $(".skynet-cloudver").html("→"+ result.message);
                             $(".skynet_update_tip").html("可升级到最新版");
-
+                            $("div.skynet").removeClass("hide");
                         }else{
                             $(".app-skynet").data("skynetflag", "0");
                             $(".skynet-cloudver").html("");
                             $(".skynet_update_tip").html("已经是最新版");
-
+                            $("div.skynet").addClass("hide");
                         }
 
                     }else if(pagename=="Gates_firmware_upgrade"){
@@ -115,11 +115,6 @@ function gate_info(sn){
                     set_label(sn);
                     switch_setting();
                     set_firmware_label(sn);
-                }else if(pagename=="Gates_firmware_upgrade"){
-                    set_firmware_label(sn);
-                }else if(pagename=="Gates_setting"){
-                    switch_setting();
-
                 }
             }
         },
@@ -309,7 +304,14 @@ function gate_firmware_detail(){
                     if(req.message!=null){
                         var app_detail = req.message;
                         var label = $(".skynet-change-log");
-                        set_firmware_timeline(label, app_detail)
+                        var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
+                        if(gateinfo){
+                            gateinfo = JSON.parse(gateinfo);
+                            var gate_skynet_ver = gateinfo.config.skynet_version;
+                            set_firmware_timeline(label, app_detail, gate_skynet_ver);
+                        }
+
+
                     }
                 }
 
@@ -337,7 +339,13 @@ function gate_firmware_detail(){
                 if(req.message!=null){
                     var app_detail = req.message;
                     var label = $(".freeioe-change-log");
-                    set_firmware_timeline(label, app_detail)
+                    var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
+                    if(gateinfo){
+                        gateinfo = JSON.parse(gateinfo);
+                        var gate_freeioe_ver = gateinfo.config.iot_version;
+                        set_firmware_timeline(label, app_detail, gate_freeioe_ver);
+                    }
+
                 }
 
             },
@@ -353,7 +361,7 @@ function gate_firmware_detail(){
 /**
  *	生成应用升级日志
  */
-function set_firmware_timeline(label, app_detail){
+function set_firmware_timeline(label, app_detail, gate_ver){
     var skynetflag = $(".app-skynet").data("skynetflag");
     var freeioeflag = $(".app-freeioe").data("freeioeflag");
     if(skynetflag=="1" || freeioeflag=="1"){
@@ -363,34 +371,36 @@ function set_firmware_timeline(label, app_detail){
     }
     var maxnum = Math.min(4, app_detail.length);
     label.empty();
-    for (i = 0; i < maxnum; i++){
+
+    for (i = 0; i < app_detail.length; i++){
         // console.log(app_versions[i].modified.split(" ")[1].split(".")[0])
         var isbeta= "";
         if(app_detail[i].beta==1){
             isbeta=" --【beta】"
         }
-
-        var html = '<ul class="timeline">'
-            + '<li class="time-label">'
-            + '<span class="bg-blue ver-data">'
-            + app_detail[i].modified.split(" ")[0]
-            + '</span>'
-            + '</li>'
-            + '<li>'
-            + '<i class="fa fa-thumbs-up bg-blue"></i>'
-            + '<div class="timeline-item">'
-            + '<span class="time"><i class="fa fa-clock-o"></i> <span class="ver-time">'
-            + app_detail[i].modified.split(" ")[1].split(".")[0]
-            + '</span></span>'
-            + '<h3 class="timeline-header"><a>升级日志</a></h3>'
-            + '<div class="timeline-body ver-comment">'
-            + "--V" + app_detail[i].version + isbeta + '<br />'
-            + app_detail[i].comment.replace(/\r\n/gm,"<br>")
-            + '</div>'
-            + '</div>'
-            + '</li>'
-            + '</ul>'
-        label.append(html);
+        if(Number(app_detail[i].name.split(".")[1])<Number(gate_ver)===false){
+            var html = '<ul class="timeline">'
+                + '<li class="time-label">'
+                + '<span class="bg-blue ver-data">'
+                + app_detail[i].modified.split(" ")[0]
+                + '</span>'
+                + '</li>'
+                + '<li>'
+                + '<i class="fa fa-thumbs-up bg-blue"></i>'
+                + '<div class="timeline-item">'
+                + '<span class="time"><i class="fa fa-clock-o"></i> <span class="ver-time">'
+                + app_detail[i].modified.split(" ")[1].split(".")[0]
+                + '</span></span>'
+                + '<h3 class="timeline-header"><a>升级日志</a></h3>'
+                + '<div class="timeline-body ver-comment">'
+                + "--V" + app_detail[i].version + isbeta + '<br />'
+                + app_detail[i].comment.replace(/\r\n/gm,"<br>")
+                + '</div>'
+                + '</div>'
+                + '</li>'
+                + '</ul>'
+            label.append(html);
+        }
 
     }
 

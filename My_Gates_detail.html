@@ -38,7 +38,15 @@
     <!-- Google Font -->
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
     <style type="text/css">
-
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 10px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
     </style>
 
 </head>
@@ -646,6 +654,25 @@
                                                     <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
                                                     <div class="info-box-content">
+                                                        <span class="info-box-number app-freeioe" data-freeioeflag="">FreeIOE</span>
+                                                        <span class="freeioe-gatever"></span><span class="freeioe-cloudver"></span><br/>
+                                                        <div class="progress">
+                                                            <div class="progress-bar"></div>
+                                                        </div>
+                                                        <span class="progress-description freeioe_update_tip">
+                                                            ------
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.info-box-content end-->
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 col-xs-6 skynet">
+                                                <!-- /.info-box start-->
+                                                <div class="info-box" style="width: 220px">
+                                                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+                                                    <div class="info-box-content">
                                                         <span class="info-box-number app-skynet" data-appid="" data-iotbeta="" data-cloudver="" data-skynetflag="">Skynet</span>
                                                         <span class="skynet-gatever"></span><span class="skynet-cloudver"></span><br/>
                                                         <div class="progress">
@@ -662,30 +689,12 @@
 
 
                                             </div>
-                                            <div class="col-md-3 col-sm-6 col-xs-6">
-                                                <!-- /.info-box start-->
-                                                <div class="info-box" style="width: 220px">
-                                                    <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
-                                                    <div class="info-box-content">
-                                                        <span class="info-box-number app-freeioe" data-freeioeflag="">FreeIOE</span>
-                                                        <span class="freeioe-gatever"></span><span class="freeioe-cloudver"></span><br/>
-                                                        <div class="progress">
-                                                            <div class="progress-bar"></div>
-                                                        </div>
-                                                        <span class="progress-description freeioe_update_tip">
-                                                            ------
-                                                        </span>
-                                                    </div>
-
-                                                </div>
-                                                <!-- /.info-box-content end-->
-                                            </div>
                                             <!-- /.col -->
 
                                             <div class="col-md-12" style="padding: 0">
-                                                <div class="col-md-6">
-                                                    <button type="button" class="btn btn-block btn-primary btn-flat update_check">检查更新</button>
+                                                <div class="col-md-3" style="width: 250px">
+                                                    <button type="button" class="btn btn-block btn-primary btn-lg update_check">检查更新</button>
                                                 </div>
 
                                             </div>
@@ -694,8 +703,22 @@
                                         <!-- /.row -->
                                         <br />
                                         <div class="row">
+
+
+                                            <!-- /.freeioe-change-log start-->
+
+                                            <div class="col-md-12 freeioe">
+                                                <h1>FreeIOE</h1>
+                                                <div class="freeioe-change-log">
+                                                    <!-- The time line -->
+
+                                                </div>
+                                            </div>
+
+                                            <!-- /.freeioe-change-log end-->
+
                                             <!-- /.skynet-change-log start-->
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 skynet">
                                                 <h1>Skynet</h1>
                                                 <div class="skynet-change-log">
                                                     <!-- The time line -->
@@ -708,17 +731,6 @@
                                             <!-- /.skynet-change-log end-->
 
 
-                                            <!-- /.freeioe-change-log start-->
-
-                                            <div class="col-md-12">
-                                                <h1>FreeIOE</h1>
-                                                <div class="freeioe-change-log">
-                                                    <!-- The time line -->
-
-                                                </div>
-                                            </div>
-
-                                            <!-- /.freeioe-change-log end-->
 
                                         </div>
                                         <!-- /.row -->

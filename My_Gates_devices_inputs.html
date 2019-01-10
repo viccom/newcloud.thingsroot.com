@@ -42,6 +42,15 @@
     <!-- Google Font -->
     <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
     <style type="text/css">
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 10px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
         #table_inputs{
         table-layout: fixed;
         }
@@ -230,8 +239,8 @@
                     <div class="col-md-2"><i class="fa fa fa-dot-circle-o"></i> 描述：<span class="gate_desc"></span></div>
                     <div class="col-md-3"><i class="fa fa fa-dot-circle-o"></i> 序号：<span class="gate_sn"></span></div>
                     <div class="col-md-4"><i class="fa fa fa-dot-circle-o"></i> 设备序号：<span class="device_sn"></span></div>
-                    <div class="col-md-1">
-                        <div class="pull-right" style="width: 180px">
+                    <div class="col-md-1"style="padding:0;">
+                        <div class="pull-right" style="padding:0; width: 140px">
                             <span class="text-green data_upload_status"><i class="fa  fa-long-arrow-up"></i></span>
                             <button type="button" class="btn btn-default btn-sm rt-autoupdate"><i class="fa fa-play"></i></button>
                             <button type="button" class="btn btn-default btn-sm rt-refresh" ><i class="fa fa-refresh"></i></button>
