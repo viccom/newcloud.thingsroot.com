@@ -22,7 +22,7 @@ function addCrontab(arr){
     crontab_list.push(arr);
     console.log("后台任务2：", crontab_list)
     localStorage.setItem(pagename + '_Back_taskslist',JSON.stringify(crontab_list));
-    return ;
+
 }
 
 
@@ -343,6 +343,7 @@ function doCrontab(){
 
                             q.splice(i, 1);// 删除任务
                         }
+                        sys_data_snapshot(gate_sn);
                     }else{
                         q[i].times--;
                         if(q[i].times==0){ // 十次查询完毕还未成功，表明失败。

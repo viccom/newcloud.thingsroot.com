@@ -399,7 +399,7 @@ function set_firmware_timeline(label, app_detail){
 
 
 /**
- *	生成应用升级日志
+ *	网关高级设置
  */
 function switch_setting(){
     var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
