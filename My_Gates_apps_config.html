@@ -450,9 +450,7 @@
 
                             <div  id="drop_area" style="border:3px dashed silver;width:100%; min-height:502px">
 
-                                <div class="flex upload_tips">
-                                    点击上传文件或将文件拖拽到此
-                                </div>
+                                <div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>
 
                             </div>
 
@@ -542,7 +540,7 @@
         // console.log(file.type);
         // console.log(file.name);
         if(file){
-            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+            $('#drop_area').html('<div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>');
             upload_templ_data = null;
             if(file.type === 'application/vnd.ms-excel') {
                 var reader = new FileReader();
@@ -582,7 +580,7 @@
 
     var box = document.getElementById('drop_area'); //拖拽区域
     box.addEventListener("drop",function(e){
-        $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+        $('#drop_area').html('<div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>');
         upload_templ_data = null;
         var fileList = e.dataTransfer.files; //获取文件对象
         //检测是否是拖拽文件到页面的操作
@@ -702,7 +700,7 @@
                                     setTimeout(function () {
                                         $('#modal-upload-templ').modal('hide');
                                         create_templ_table(newver);
-                                        $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+                                        $('#drop_area').html('<div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>');
                                     },400);
                                     var tdata = $("table.template_section_templates").find("td");
                                     for (var i=0;i<tdata.length;i++){
@@ -785,7 +783,7 @@
 
 
         $('#modal-upload-templ').on('hide.bs.modal', function () {
-            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+            $('#drop_area').html('<div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>');
             $('#upload_templ_csv').val('');
         });
 

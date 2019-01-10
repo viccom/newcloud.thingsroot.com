@@ -740,7 +740,7 @@
                     targets: [5],
                     width: '20%',
                     render: function (data, type, row, meta) {
-                        var btn = '<button class="temp_btn look">查看</button><button class="temp_btn copy">复制</button><button disabled="disabled" class="temp_btn" style="color: #CCCCCC; border-color: #CCCCCC;">删除</button>';
+                        var btn = '<button class="temp_btn look">查看</button><button class="temp_btn copy">复制</button><button class="temp_btn delete_templ">删除</button>';
                         return btn;
                     }
                 },
@@ -838,9 +838,11 @@
 
         //点击行进入详情
         $('#myTemplate tbody').on('click','.look',function() {
-            var name = $(this).parent('td').parent('tr').find('td:nth-child(1)').text();
-            var tempId = $(this).parent('td').parent('tr').find('td:nth-child(7)').text();
-            var appId = $(this).parent('td').parent('tr').find('td:nth-child(8)').text();
+            var _this = $(this).parent('td').parent('tr');
+            var rowdata = table.row( _this ).data();
+            var name = rowdata.conf_name;
+            var tempId = rowdata.name;
+            var appId = rowdata.app;
             var version = "";
             $.ajax({
                 url: "/apis/api/method/conf_center.api.get_latest_version",
@@ -873,13 +875,14 @@
 
         //点击复制
         $('#myTemplate tbody').on('click','.copy',function() {
-            var _this = $(this).parent('td').parent('tr')
-            var temp_name = _this.find('td:nth-child(1)').text();
-            var miaoshu = _this.find('td:nth-child(2)').text();
-            var app = _this.find('td:nth-child(3)').text();
-            var appId1 = _this.find('td:nth-child(8)').text();
-            var tempId2 = _this.find('td:nth-child(7)').text();
-            var version = _this.find('td:nth-child(9)').text();
+            var _this = $(this).parent('td').parent('tr');
+            var rowdata = table.row( _this ).data();
+            var temp_name = rowdata.conf_name;
+            var miaoshu = rowdata.description;
+            var app = rowdata.app_name;
+            var appId1 = rowdata.app;
+            var tempId2 = rowdata.name;
+            var version = rowdata.latest_version;
             $('#newTemplate').show();
             $('#template_name').val(temp_name+"-copy");
             $('.search_keyword1').text(app);
@@ -887,7 +890,7 @@
             $('#appId').val(appId1);
             $('.search_keyword2 ').text(temp_name);
             $('#tempId1').val(tempId2);
-            if(version == ""){
+            if(version == null){
                 $('.text1').show();
                 $('.text2').hide();
                 $('button[name=ver]').hide();
@@ -899,6 +902,46 @@
             initradio('belong','User');
             initradio('isOpen','0');
             document.body.style.overflow='hidden';
+        });
+
+
+        //点击删除
+        $('#myTemplate tbody').on('click','button.delete_templ',function() {
+            var _this = $(this).parent('td').parent('tr');
+            var rowdata = table.row( _this ).data();
+            var temp_name = rowdata.conf_name;
+            var miaoshu = rowdata.description;
+            var app_name = rowdata.app_name;
+            var appid = rowdata.app;
+            var templid = rowdata.name;
+
+            console.log( rowdata );
+
+            $.ajax({
+                url: "/apis/api/method/conf_center.api.delete_app_conf?name=" + templid,
+                type: "post",
+                success: function (req) {
+                    // console.log(req);
+                    var templ_url = "/apis/api/method/conf_center.api.list_private_conf";
+                    table.ajax.url(templ_url).load(null,false);
+                }, error: function (req) {
+                    console.log(req);
+                    if(req.responseJSON._server_messages){
+                        var err = JSON.parse(JSON.parse(req.responseJSON._server_messages)[0]);
+                        // console.log(err.message);
+                        var text = '删除失败:'+ err.message;
+                        errorAlert(text)
+                    }else{
+                        var text = '删除失败';
+                        errorAlert(text)
+                    }
+
+                },
+                complete: function () {
+
+                }
+            });
+
         });
 
     });
@@ -1153,14 +1196,6 @@
         $('#newTemplate').hide()
         document.body.style.overflow='auto';
     })
-
-    //通过参数创建新模板
-    var action = getParam('action');
-    if(action){
-        // var selappid = getParam('appid');
-        // $('#appId').val(selappid);
-        $('#createTemplate').click();
-    }
 
 
 </script>

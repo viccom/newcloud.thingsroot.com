@@ -53,7 +53,7 @@
 
             text-align: justify;
             width:100%;
-            min-height:400px;
+            min-height:500px;
             /*background: #000;*/
             margin:0 auto;
             /*color:#fff;*/
@@ -261,14 +261,14 @@
 
                 <div class="box-header">
                     <div class="pull-left">
-                        <div class="btn-group" style="width: 250px"><b>关联应用：</b><span class="app_name"></span></div>
+
                         <div class="btn-group"><b>模板版本：</b></div>
-                        <div class="btn-group" style="width:80px">
+                        <div class="btn-group" style="width:150px">
                             <select class="select2 templver_select popover-templ"  data-placement="top" data-content="" style="width: 100%;">
                                 <!--<option selected="selected">root</option>-->
                             </select>
                         </div>
-
+                        <div class="btn-group" style="padding-left:30px;width: 250px"><b>关联应用：</b><span class="app_name"></span></div>
                     </div>
 
                     <div class="pull-right">
@@ -279,6 +279,7 @@
 
                 <!-- /模板表格 -->
                 <div class="box-solid templ_table" style="height:600px; border: 1px solid #e1e1e1;overflow:auto;">
+                    <div class="flex"><h3>当前模板未包含数据</h3></div>
                 </div>
 
             </div>
@@ -341,9 +342,7 @@
 
                             <div  id="drop_area" style="border:3px dashed silver;width:100%; min-height:502px">
 
-                                <div class="flex upload_tips">
-                                    点击上传文件或将文件拖拽到此
-                                </div>
+                                <div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>
 
                             </div>
 
@@ -430,6 +429,9 @@
                     if(req.message){
                         $("span.app_name").text(req.message.app_name);
                         $("span.templ_name").text(req.message.conf_name);
+                        if(req.message.latest_version){
+
+                        }
                         getVerList();
                     }
 
@@ -451,7 +453,7 @@
         // console.log(file.type);
         // console.log(file.name);
         if(file){
-            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+            $('#drop_area').html('<div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>');
             upload_templ_data = null;
             if(file.type === 'application/vnd.ms-excel') {
                 var reader = new FileReader();
@@ -491,7 +493,7 @@
 
     var box = document.getElementById('drop_area'); //拖拽区域
     box.addEventListener("drop",function(e){
-        $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+        $('#drop_area').html('<div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>');
         upload_templ_data = null;
         var fileList = e.dataTransfer.files; //获取文件对象
         //检测是否是拖拽文件到页面的操作
@@ -613,7 +615,7 @@
                         setTimeout(function () {
                             $('#modal-upload-templ').modal('hide');
                             getVerList();
-                            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+                            $('#drop_area').html('<div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>');
                         },400);
 
                     },
@@ -680,7 +682,7 @@
 
 
         $('#modal-upload-templ').on('hide.bs.modal', function () {
-            $('#drop_area').html('<div class="flex upload_tips">点击上传文件或将文件拖拽到此</div>');
+            $('#drop_area').html('<div class="flex upload_tips"><h3>点击上传文件或将文件拖拽到此</h3></div>');
             $('#upload_templ_csv').val('');
         });
 
@@ -804,8 +806,10 @@
                 }
 
             },
-            error: function () {
-                console.log('error');
+            error: function (req) {
+                console.log(req);
+                $('div.templ_table').empty();
+                $('div.templ_table').html('<div class="flex"><h3>当前模板未包含数据</h3></div>');
             }
         });
     }
