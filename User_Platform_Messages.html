@@ -629,6 +629,8 @@
                                         return '网关执行批量操作';
                                     }else if(obj.action == "upgrade/ack"){
                                         return '网关IOT固件升级确认';
+                                    }else if(obj.action == "data/query"){
+                                        return '网关请求立刻上传数据';
                                     }
                                 }  //sys
                                 else if(obj.channel == "command"){

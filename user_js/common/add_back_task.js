@@ -233,7 +233,7 @@ function gate_setting_result_response(result, inst, oldvalue){
     setTimeout(function () {
         $(_aaaaa).removeClass("hide");
         $(_bbbbb).addClass("hide");
-    }, 10000);
+    }, 6000);
 
 }
 
@@ -322,7 +322,7 @@ function doCrontab(){
 
                             q.splice(i, 1);// 删除任务
                         }
-                        sys_data_query(gate_sn,gate_sn);
+                        // sys_data_query(gate_sn,gate_sn);
                         setTimeout(function () {
                             sys_data_query(gate_sn,gate_sn);
                         }, 5000);
