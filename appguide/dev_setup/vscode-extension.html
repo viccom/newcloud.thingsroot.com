@@ -1,0 +1,823 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>使用VSCode插件开发 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../guide/" />
+    
+    
+    <link rel="prev" href="dev_web.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../intro/">
+            
+                <a href="../intro/">
+            
+                    
+                    基础介绍
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../intro/freeioe.html">
+            
+                <a href="../intro/freeioe.html">
+            
+                    
+                    FreeIOE是什么
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../intro/glossary.html">
+            
+                <a href="../intro/glossary.html">
+            
+                    
+                    名词解释
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../intro/iot.html">
+            
+                <a href="../intro/iot.html">
+            
+                    
+                    什么是物联网
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    开发环境搭建
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="account.html">
+            
+                <a href="account.html">
+            
+                    
+                    注册开发者账户
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="vbox.html">
+            
+                <a href="vbox.html">
+            
+                    
+                    虚拟机开发环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="linux.html">
+            
+                <a href="linux.html">
+            
+                    
+                    Linux原生开发环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="app_center.html">
+            
+                <a href="app_center.html">
+            
+                    
+                    应用中心在线开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="dev_web.html">
+            
+                <a href="dev_web.html">
+            
+                    
+                    设备Web在线开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.6" data-path="vscode-extension.html">
+            
+                <a href="vscode-extension.html">
+            
+                    
+                    使用VSCode插件开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../guide/">
+            
+                <a href="../guide/">
+            
+                    
+                    开发引导
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../guide/tutorial.html">
+            
+                <a href="../guide/tutorial.html">
+            
+                    
+                    开发指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../guide/onestep.html">
+            
+                <a href="../guide/onestep.html">
+            
+                    
+                    应用简要
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../guide/example.html">
+            
+                <a href="../guide/example.html">
+            
+                    
+                    应用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../app/">
+            
+                <a href="../app/">
+            
+                    
+                    接口文档
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../app/sys.html">
+            
+                <a href="../app/sys.html">
+            
+                    
+                    系统接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../app/api.html">
+            
+                <a href="../app/api.html">
+            
+                    
+                    基础接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../app/device.html">
+            
+                <a href="../app/device.html">
+            
+                    
+                    设备对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../app/stat.html">
+            
+                <a href="../app/stat.html">
+            
+                    
+                    统计接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../app/logger.html">
+            
+                <a href="../app/logger.html">
+            
+                    
+                    日志接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../app/event.html">
+            
+                <a href="../app/event.html">
+            
+                    
+                    事件类型和等级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../app/conf_api.html">
+            
+                <a href="../app/conf_api.html">
+            
+                    
+                    云配置接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../app/conf_helper.html">
+            
+                <a href="../app/conf_helper.html">
+            
+                    
+                    云配置帮助接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../app_center/">
+            
+                <a href="../app_center/">
+            
+                    
+                    发布应用
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../app_center/reg.html">
+            
+                <a href="../app_center/reg.html">
+            
+                    
+                    申请账户
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../app_center/pack.html">
+            
+                <a href="../app_center/pack.html">
+            
+                    
+                    应用打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../app_center/upload.html">
+            
+                <a href="../app_center/upload.html">
+            
+                    
+                    版本上传
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../app_center/fork.html">
+            
+                <a href="../app_center/fork.html">
+            
+                    
+                    克隆应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../examples/">
+            
+                <a href="../examples/">
+            
+                    
+                    应用示例
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../examples/modbus.html">
+            
+                <a href="../examples/modbus.html">
+            
+                    
+                    Modbus示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../examples/opcuacollect.html">
+            
+                <a href="../examples/opcuacollect.html">
+            
+                    
+                    OpcUA采集示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../examples/opcuaserver.html">
+            
+                <a href="../examples/opcuaserver.html">
+            
+                    
+                    OpcUA服务示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../examples/mqtt.html">
+            
+                <a href="../examples/mqtt.html">
+            
+                    
+                    MQTT示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../other/">
+            
+                <a href="../other/">
+            
+                    
+                    其它
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../other/learning_lua.html">
+            
+                <a href="../other/learning_lua.html">
+            
+                    
+                    Lua语言学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../other/binary.html">
+            
+                <a href="../other/binary.html">
+            
+                    
+                    二进制数据操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../other/file.html">
+            
+                <a href="../other/file.html">
+            
+                    
+                    文件操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../other/modules.html">
+            
+                <a href="../other/modules.html">
+            
+                    
+                    Lua模块
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >使用VSCode插件开发</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <hr>
+<h1 id="&#x4F7F;&#x7528;vs-code&#x5F00;&#x53D1;freeioe&#x5E94;&#x7528;">&#x4F7F;&#x7528;VS Code&#x5F00;&#x53D1;FreeIOE&#x5E94;&#x7528;</h1>
+<h2 id="&#x4E0B;&#x8F7D;vs-code">&#x4E0B;&#x8F7D;VS Code</h2>
+<p>&#x53EF;&#x4EE5;&#x4ECE;&#x5FAE;&#x8F6F;&#x7F51;&#x7AD9;&#x4E0B;&#x8F7D;VS Code&#x3002;<a href="https://code.visualstudio.com/" target="_blank">&#x5730;&#x5740;</a></p>
+<h2 id="&#x5B89;&#x88C5;iot-editor&#x63D2;&#x4EF6;">&#x5B89;&#x88C5;IOT Editor&#x63D2;&#x4EF6;</h2>
+<p>&#x8FD0;&#x884C;VS Code&#x540E;&#xFF0C;&#x5B89;&#x88C5;IOT Editor&#x63D2;&#x4EF6;&#x3002;</p>
+<blockquote>
+<p>&#x53E6;&#xFF1A;&#x5EFA;&#x8BAE;&#x5B89;&#x88C5;Lua&#x8BED;&#x8A00;&#x63D2;&#x4EF6;:</p>
+<ul>
+<li>luaide-lite</li>
+</ul>
+</blockquote>
+<h2 id="&#x4F7F;&#x7528;-iot-editor&#x63D2;&#x4EF6;">&#x4F7F;&#x7528; IOT Editor&#x63D2;&#x4EF6;</h2>
+<h3 id="&#x5F00;&#x542F;iot-editor&#x4F7F;&#x7528;&#x6B65;&#x9AA4;">&#x5F00;&#x542F;IOT Editor&#x4F7F;&#x7528;&#x6B65;&#x9AA4;</h3>
+<ul>
+<li>&#x6253;&#x5F00;&#x5DE5;&#x4F5C;&#x76EE;&#x5F55;</li>
+<li>&#x4FDD;&#x5B58;&#x5DE5;&#x4F5C;&#x533A;</li>
+<li>Shift + Alt + P &#x641C;&#x7D22;&#x8FD0;&#x884C; &quot;IOT: Setup editor workspace&quot;</li>
+<li>&#x5728;&#x6253;&#x5F00;&#x7684;freeioe_devices.json&#x6587;&#x4EF6;&#x4E2D;&#x7684;devices&#x8282;&#x70B9;&#x4E0B;&#xFF0C;&#x8F93;&#x5165;&#x6B63;&#x786E;&#x7684;&#x8BBE;&#x5907;IP&#xFF0C;&#x5E76;&#x4FEE;&#x6539;&#x5176;&#x8BBE;&#x5907;&#x540D;&#x79F0;</li>
+<li>Shift + Alt + P &#x641C;&#x7D22;&#x8FD0;&#x884C; &quot;IOT: Connect to freeioe device&quot;</li>
+<li>&#x9009;&#x62E9;&#x4F60;&#x8981;&#x8FDE;&#x63A5;&#x7684;&#x8BBE;&#x5907;</li>
+<li>&#x5F53;&#x8BBE;&#x5907;&#x8FDE;&#x63A5;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x5728;&#x5DE5;&#x4F5C;&#x533A;&#x4F1A;&#x51FA;&#x73B0;&#x4EE5;&#x8BBE;&#x5907;&#x540D;&#x4E3A;&#x540D;&#x79F0;&#x7684;&#x76EE;&#x5F55;&#x8282;&#x70B9;&#xFF08;&#x8BE5;&#x8282;&#x70B9;&#x6620;&#x5C04;&#x4E86;&#x8BBE;&#x5907;&#x4E2D;&#x7684;&#x5E94;&#x7528;&#x5217;&#x8868;&#xFF09;</li>
+</ul>
+<h3 id="iot-editor-&#x63D0;&#x4F9B;&#x7684;&#x529F;&#x80FD;">IOT Editor &#x63D0;&#x4F9B;&#x7684;&#x529F;&#x80FD;</h3>
+<ul>
+<li>&#x81EA;&#x52A8;&#x6620;&#x5C04;&#x8BBE;&#x5907;&#x4E2D;&#x7684;&#x5E94;&#x7528;&#x6587;&#x4EF6;&#x5230;&#x5DE5;&#x4F5C;&#x533A;&#x3002; &#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6253;&#x5F00;&#x548C;&#x4FDD;&#x5B58;&#x6587;&#x4EF6;&#xFF0C;IOT Editor&#x4F1A;&#x81EA;&#x52A8;&#x540C;&#x6B65;&#x5230;&#x8BBE;&#x5907;</li>
+<li>&#x8F93;&#x51FA;&#x7A97;&#x53E3;&#x6709;&#x8BBE;&#x5907;&#x65E5;&#x5FD7;&#xFF0C;&#x8BBE;&#x5907;&#x62A5;&#x6587;&#x4EE5;&#x53CA;IOT Editor&#x5DE5;&#x4F5C;&#x4FE1;&#x606F;</li>
+<li>&#x8BBE;&#x5907;&#x5217;&#x8868;&#x7A97;&#x53E3;&#x6709;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x6240;&#x6709;&#x8BBE;&#x5907;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x5E76;&#x53EF;&#x4EE5;&#x624B;&#x5DE5;&#x8FDB;&#x884C;&#x8FDE;&#x63A5;/&#x65AD;&#x5F00;&#x64CD;&#x4F5C;&#x3002;&#x53EF;&#x4EE5;&#x540C;&#x6B65;&#x8FDE;&#x63A5;&#x591A;&#x4E2A;&#x8BBE;&#x5907;&#x3002;</li>
+<li>&#x4E8B;&#x4EF6;&#x5217;&#x8868;&#x53EF;&#x4EE5;&#x663E;&#x793A;&#x5DF2;&#x8FDE;&#x63A5;&#x8BBE;&#x5907;&#x4E2D;&#x7684;&#x8BBE;&#x5907;&#x4E8B;&#x4EF6;&#x4FE1;&#x606F;</li>
+</ul>
+<p><img src="assets/vscode_editor.png" alt="IOT Editor &#x529F;&#x80FD;&#x533A;" title="&#x63D2;&#x4EF6;&#x529F;&#x80FD;&#x533A;"></p>
+<h2 id="&#x4F7F;&#x7528;-iot-editor-&#x65B0;&#x5EFA;&#x5E94;&#x7528;">&#x4F7F;&#x7528; IOT Editor &#x65B0;&#x5EFA;&#x5E94;&#x7528;</h2>
+<ul>
+<li>Shift + Alt + P &#x641C;&#x7D22;&#x8FD0;&#x884C; &quot;IOT: Create new application&quot;</li>
+<li>&#x8F93;&#x5165;&#x5E94;&#x7528;&#x5B9E;&#x4F8B;&#x540D;&#x79F0;&#x548C;&#x5E94;&#x7528;&#x540D;&#x79F0;</li>
+<li>&#x8BBE;&#x5907;&#x4E2D;&#x4F1A;&#x65B0;&#x5EFA;&#x51FA;&#x5E26;&#x6709;&#x6A21;&#x677F;&#x4EE3;&#x7801;&#x7684;&#x65B0;&#x5E94;&#x7528;&#x3002;&#x540C;&#x65F6;VS Code&#x5DE5;&#x4F5C;&#x533A;&#x4F1A;&#x51FA;&#x73B0;&#x8BE5;&#x5E94;&#x7528;&#x76EE;&#x5F55;&#x3002;</li>
+<li>&#x6253;&#x5F00;&#x5E94;&#x7528;&#x4E0B;&#x9762;&#x7684;&#x5165;&#x53E3;&#x6587;&#x4EF6;(app.lua)&#x5C31;&#x53EF;&#x4EE5;&#x5F00;&#x59CB;&#x60A8;&#x7684;&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x4E4B;&#x65C5;</li>
+</ul>
+<h2 id="&#x4E0B;&#x8F7D;&#x5E94;&#x7528;&#x5305;">&#x4E0B;&#x8F7D;&#x5E94;&#x7528;&#x5305;</h2>
+<p>&#x5F53;&#x5E94;&#x7528;&#x4EE3;&#x7801;&#x5F00;&#x53D1;&#x5B8C;&#x6BD5;&#xFF0C;&#x901A;&#x8FC7;&quot;Download Application&quot;&#x53F3;&#x952E;&#x83DC;&#x5355;&#x4E0B;&#x8F7D;&#x5E94;&#x7528;&#x5305;:</p>
+<ol>
+<li>&#x6587;&#x4EF6;&#x6D4F;&#x89C8;&#x5668;&#x7A97;&#x53E3;&#x7684;&#x5E94;&#x7528;&#x76EE;&#x5F55;&#x70B9;&#x51FB;&#x53F3;&#x952E;</li>
+<li>&#x8BBE;&#x5907;&#x5217;&#x8868;&#x7A97;&#x53E3;&#x7684;&#x5E94;&#x7528;&#x8282;&#x70B9;&#x70B9;&#x51FB;&#x53F3;&#x952E;</li>
+</ol>
+<p>IOT Editor&#x4F1A;&#x4ECE;&#x8BBE;&#x5907;&#x4E2D;&#x4E0B;&#x8F7D;&#x6253;&#x5305;&#x597D;&#x7684;&#x5E94;&#x7528;&#x5305;&#x5230;&#x6307;&#x5B9A;&#x7684;&#x76EE;&#x5F55;&#x3002;&#x8BF7;&#x52A1;&#x5FC5;&#x624B;&#x5DE5;&#x4FEE;&#x6539;version&#x6587;&#x4EF6;&#xFF0C;&#x786E;&#x4FDD;&#x7248;&#x672C;&#x548C;&#x5E94;&#x7528;&#x4E2D;&#x5FC3;&#x4E0A;&#x4F20;&#x65F6;&#x7684;&#x7248;&#x672C;&#x4E00;&#x81F4;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="dev_web.html" class="navigation navigation-prev " aria-label="Previous page: 设备Web在线开发">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../guide/" class="navigation navigation-next " aria-label="Next page: 开发引导">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"使用VSCode插件开发","level":"1.3.6","depth":2,"next":{"title":"开发引导","level":"1.4","depth":1,"path":"guide/README.md","ref":"guide/README.md","articles":[{"title":"开发指南","level":"1.4.1","depth":2,"path":"guide/tutorial.md","ref":"guide/tutorial.md","articles":[]},{"title":"应用简要","level":"1.4.2","depth":2,"path":"guide/onestep.md","ref":"guide/onestep.md","articles":[]},{"title":"应用示例","level":"1.4.3","depth":2,"path":"guide/example.md","ref":"guide/example.md","articles":[]}]},"previous":{"title":"设备Web在线开发","level":"1.3.5","depth":2,"path":"dev_setup/dev_web.md","ref":"dev_setup/dev_web.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dev_setup/vscode-extension.md","mtime":"2019-01-10T13:05:03.096Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-10T13:06:37.073Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

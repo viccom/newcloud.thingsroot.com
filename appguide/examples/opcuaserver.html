@@ -1,0 +1,1030 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>OpcUA服务示例 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="mqtt.html" />
+    
+    
+    <link rel="prev" href="opcuacollect.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../intro/">
+            
+                <a href="../intro/">
+            
+                    
+                    基础介绍
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../intro/freeioe.html">
+            
+                <a href="../intro/freeioe.html">
+            
+                    
+                    FreeIOE是什么
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../intro/glossary.html">
+            
+                <a href="../intro/glossary.html">
+            
+                    
+                    名词解释
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../intro/iot.html">
+            
+                <a href="../intro/iot.html">
+            
+                    
+                    什么是物联网
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../dev_setup/">
+            
+                <a href="../dev_setup/">
+            
+                    
+                    开发环境搭建
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../dev_setup/account.html">
+            
+                <a href="../dev_setup/account.html">
+            
+                    
+                    注册开发者账户
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../dev_setup/vbox.html">
+            
+                <a href="../dev_setup/vbox.html">
+            
+                    
+                    虚拟机开发环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../dev_setup/linux.html">
+            
+                <a href="../dev_setup/linux.html">
+            
+                    
+                    Linux原生开发环境
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../dev_setup/app_center.html">
+            
+                <a href="../dev_setup/app_center.html">
+            
+                    
+                    应用中心在线开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../dev_setup/dev_web.html">
+            
+                <a href="../dev_setup/dev_web.html">
+            
+                    
+                    设备Web在线开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../dev_setup/vscode-extension.html">
+            
+                <a href="../dev_setup/vscode-extension.html">
+            
+                    
+                    使用VSCode插件开发
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../guide/">
+            
+                <a href="../guide/">
+            
+                    
+                    开发引导
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../guide/tutorial.html">
+            
+                <a href="../guide/tutorial.html">
+            
+                    
+                    开发指南
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../guide/onestep.html">
+            
+                <a href="../guide/onestep.html">
+            
+                    
+                    应用简要
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../guide/example.html">
+            
+                <a href="../guide/example.html">
+            
+                    
+                    应用示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../app/">
+            
+                <a href="../app/">
+            
+                    
+                    接口文档
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../app/sys.html">
+            
+                <a href="../app/sys.html">
+            
+                    
+                    系统接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../app/api.html">
+            
+                <a href="../app/api.html">
+            
+                    
+                    基础接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../app/device.html">
+            
+                <a href="../app/device.html">
+            
+                    
+                    设备对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../app/stat.html">
+            
+                <a href="../app/stat.html">
+            
+                    
+                    统计接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../app/logger.html">
+            
+                <a href="../app/logger.html">
+            
+                    
+                    日志接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../app/event.html">
+            
+                <a href="../app/event.html">
+            
+                    
+                    事件类型和等级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../app/conf_api.html">
+            
+                <a href="../app/conf_api.html">
+            
+                    
+                    云配置接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../app/conf_helper.html">
+            
+                <a href="../app/conf_helper.html">
+            
+                    
+                    云配置帮助接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../app_center/">
+            
+                <a href="../app_center/">
+            
+                    
+                    发布应用
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../app_center/reg.html">
+            
+                <a href="../app_center/reg.html">
+            
+                    
+                    申请账户
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../app_center/pack.html">
+            
+                <a href="../app_center/pack.html">
+            
+                    
+                    应用打包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../app_center/upload.html">
+            
+                <a href="../app_center/upload.html">
+            
+                    
+                    版本上传
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../app_center/fork.html">
+            
+                <a href="../app_center/fork.html">
+            
+                    
+                    克隆应用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    应用示例
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="modbus.html">
+            
+                <a href="modbus.html">
+            
+                    
+                    Modbus示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="opcuacollect.html">
+            
+                <a href="opcuacollect.html">
+            
+                    
+                    OpcUA采集示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7.3" data-path="opcuaserver.html">
+            
+                <a href="opcuaserver.html">
+            
+                    
+                    OpcUA服务示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="mqtt.html">
+            
+                <a href="mqtt.html">
+            
+                    
+                    MQTT示例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../other/">
+            
+                <a href="../other/">
+            
+                    
+                    其它
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../other/learning_lua.html">
+            
+                <a href="../other/learning_lua.html">
+            
+                    
+                    Lua语言学习
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../other/binary.html">
+            
+                <a href="../other/binary.html">
+            
+                    
+                    二进制数据操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../other/file.html">
+            
+                <a href="../other/file.html">
+            
+                    
+                    文件操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../other/modules.html">
+            
+                <a href="../other/modules.html">
+            
+                    
+                    Lua模块
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >OpcUA服务示例</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <hr>
+<h1 id="&#x63D0;&#x4F9B;opcua-&#x6570;&#x636E;&#x670D;&#x52A1;&#x5E94;&#x7528;&#x793A;&#x4F8B;">&#x63D0;&#x4F9B;OpcUA &#x6570;&#x636E;&#x670D;&#x52A1;&#x5E94;&#x7528;&#x793A;&#x4F8B;</h1>
+<ul>
+<li>&#x4F7F;&#x7528;&#x4E86;opcua&#x7684;Lua&#x6A21;&#x5757;: <a href="https://github.com/freeioe/open62541-lua" target="_blank">open62541-lua</a></li>
+<li>&#x4F5C;&#x4E3A;OPCUA&#x670D;&#x52A1;&#x5668;</li>
+<li>&#x53D1;&#x5E03;&#x6240;&#x6709;&#x8BBE;&#x5907;&#x7684;&#x6570;&#x636E;&#x9879;</li>
+</ul>
+<p><strong><em>&#x4EE3;&#x7801;:</em></strong></p>
+<pre><code class="lang-lua"><span class="hljs-keyword">local</span> class = <span class="hljs-built_in">require</span> <span class="hljs-string">&apos;middleclass&apos;</span>
+<span class="hljs-keyword">local</span> opcua = <span class="hljs-built_in">require</span> <span class="hljs-string">&apos;opcua&apos;</span>
+
+<span class="hljs-comment">--- &#x6CE8;&#x518C;&#x5BF9;&#x8C61;(&#x8BF7;&#x5C3D;&#x91CF;&#x4F7F;&#x7528;&#x552F;&#x4E00;&#x7684;&#x6807;&#x8BC6;&#x5B57;&#x7B26;&#x4E32;)</span>
+<span class="hljs-keyword">local</span> app = class(<span class="hljs-string">&quot;IOT_OPCUA_SERVER_APP&quot;</span>)
+<span class="hljs-comment">--- &#x8BBE;&#x5B9A;&#x5E94;&#x7528;&#x6700;&#x5C0F;&#x8FD0;&#x884C;&#x63A5;&#x53E3;&#x7248;&#x672C;(&#x76EE;&#x524D;&#x7248;&#x672C;&#x4E3A;1,&#x4E3A;&#x4E86;&#x4EE5;&#x540E;&#x7684;&#x63A5;&#x53E3;&#x517C;&#x5BB9;&#x6027;)</span>
+app.API_VER = <span class="hljs-number">1</span>
+
+<span class="hljs-comment">---</span>
+<span class="hljs-comment">-- &#x5E94;&#x7528;&#x5BF9;&#x8C61;&#x521D;&#x59CB;&#x5316;&#x51FD;&#x6570;</span>
+<span class="hljs-comment">-- @param name: &#x5E94;&#x7528;&#x672C;&#x5730;&#x5B89;&#x88C5;&#x540D;&#x79F0;&#x3002; &#x5982;modbus_com_1</span>
+<span class="hljs-comment">-- @param sys: &#x7CFB;&#x7EDF;sys&#x63A5;&#x53E3;&#x5BF9;&#x8C61;&#x3002;&#x53C2;&#x8003;API&#x6587;&#x6863;&#x4E2D;&#x7684;sys&#x63A5;&#x53E3;&#x8BF4;&#x660E;</span>
+<span class="hljs-comment">-- @param conf: &#x5E94;&#x7528;&#x914D;&#x7F6E;&#x53C2;&#x6570;&#x3002;&#x7531;&#x5B89;&#x88C5;&#x914D;&#x7F6E;&#x4E2D;&#x7684;json&#x6570;&#x636E;&#x8F6C;&#x6362;&#x51FA;&#x6765;&#x7684;&#x6570;&#x636E;&#x5BF9;&#x8C61;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">app:initialize</span><span class="hljs-params">(name, sys, conf)</span></span>
+    self._name = name
+    self._sys = sys
+    self._conf = conf
+    <span class="hljs-comment">--- &#x83B7;&#x53D6;&#x6570;&#x636E;&#x63A5;&#x53E3;</span>
+    self._api = sys:data_api()
+    <span class="hljs-comment">--- &#x83B7;&#x53D6;&#x65E5;&#x5FD7;&#x63A5;&#x53E3;</span>
+    self._log = sys:logger()
+    self._nodes = {}
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment">--- &#x8BBE;&#x5B9A;&#x53D8;&#x91CF;&#x7684;&#x9ED8;&#x8BA4;&#x503C;</span>
+<span class="hljs-keyword">local</span> default_vals = {
+    int = <span class="hljs-number">0</span>,
+    <span class="hljs-built_in">string</span> = <span class="hljs-string">&apos;&apos;</span>,
+}
+
+<span class="hljs-comment">--- &#x521B;&#x5EFA;OPCUA&#x53D8;&#x91CF;</span>
+<span class="hljs-comment">-- @param idx: &#x547D;&#x540D;&#x7A7A;&#x95F4;</span>
+<span class="hljs-comment">-- @param devobj: &#x8BBE;&#x5907;OPCUA&#x5BF9;&#x8C61;</span>
+<span class="hljs-comment">-- @param input: &#x8F93;&#x5165;&#x9879;&#x540D;&#x79F0;</span>
+<span class="hljs-comment">-- @param device: &#x7CFB;&#x7EDF;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;&#x7528;&#x4EE5;&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x6570;&#x503C;</span>
+<span class="hljs-keyword">local</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create_var</span><span class="hljs-params">(idx, devobj, input, device)</span></span>
+    <span class="hljs-keyword">local</span> var, err = devobj:getChild(input.name)
+    <span class="hljs-keyword">if</span> var <span class="hljs-keyword">then</span>
+        var:setDescription(opcua.LocalizedText.new(<span class="hljs-string">&apos;zh_CN&apos;</span>, input.desc))
+        <span class="hljs-keyword">return</span> var
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">local</span> attr = opcua.VariableAttributes.new()
+    attr.displayName = opcua.LocalizedText.new(<span class="hljs-string">&quot;zh_CN&quot;</span>, input.name)
+    <span class="hljs-keyword">if</span> input.desc <span class="hljs-keyword">then</span>
+        attr.description = opcua.LocalizedText.new(<span class="hljs-string">&quot;zh_CN&quot;</span>, input.desc)
+    <span class="hljs-keyword">end</span>
+
+    <span class="hljs-keyword">local</span> current = device:get_input_prop(input.name, <span class="hljs-string">&apos;value&apos;</span>)
+    <span class="hljs-keyword">local</span> val = input.vt <span class="hljs-keyword">and</span> default_vals[input.vt] <span class="hljs-keyword">or</span> <span class="hljs-number">0.0</span>
+    attr.value = opcua.Variant.new(current <span class="hljs-keyword">or</span> val)
+
+    <span class="hljs-keyword">return</span> devobj:addVariable(opcua.NodeId.new(idx, <span class="hljs-number">0</span>), input.name, attr)
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment">--- &#x8BBE;&#x5B9A;&#x53D8;&#x91CF;&#x7684;&#x5F53;&#x524D;&#x503C;</span>
+<span class="hljs-comment">-- @param var: OPCUA&#x53D8;&#x91CF;&#x5BF9;&#x8C61;</span>
+<span class="hljs-comment">-- @param value: &#x53D8;&#x91CF;&#x7684;&#x5F53;&#x524D;&#x503C;</span>
+<span class="hljs-comment">-- @param timestamp: &#x65F6;&#x95F4;&#x6233;</span>
+<span class="hljs-comment">-- @param quality: &#x8D28;&#x91CF;&#x6233;</span>
+<span class="hljs-keyword">local</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">set_var_value</span><span class="hljs-params">(var, value, timestamp, quality)</span></span>
+    <span class="hljs-comment">-- <span class="hljs-doctag">TODO:</span> for timestamp and quality</span>
+    var:setValue(opcua.Variant.new(value))
+
+    <span class="hljs-comment">--[[
+    local val = opcua.DataValue.new(opcua.Variant.new(value))
+    val.status = quality
+    local tm = opcua.DateTime.fromUnixTime(math.floor(timestamp)) +  math.floor((timestamp%1) * 100) * 100000
+    val.sourceTimestamp = tm
+    --var.dataValue = val
+    var:setDataValue(val)
+    ]]</span><span class="hljs-comment">--</span>
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment">--- &#x521B;&#x5EFA;&#x6570;&#x636E;&#x56DE;&#x8C03;&#x5BF9;&#x8C61;</span>
+<span class="hljs-comment">-- @param app: &#x5E94;&#x7528;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;</span>
+<span class="hljs-keyword">local</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create_handler</span><span class="hljs-params">(app)</span></span>
+    <span class="hljs-keyword">local</span> api = app._api
+    <span class="hljs-keyword">local</span> server = app._server
+    <span class="hljs-keyword">local</span> log = app._log
+    <span class="hljs-keyword">local</span> idx = app._idx
+    <span class="hljs-keyword">local</span> nodes = app._nodes
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-comment">--- &#x5904;&#x7406;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;&#x6DFB;&#x52A0;&#x6D88;&#x606F;</span>
+        on_add_device = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(app, sn, props)</span></span>
+            <span class="hljs-comment">--- &#x83B7;&#x53D6;&#x5BF9;&#x8C61;&#x76EE;&#x5F55;</span>
+            <span class="hljs-keyword">local</span> objects = server:getObjectsNode()
+            <span class="hljs-comment">--- &#x4F7F;&#x7528;&#x8BBE;&#x5907;SN&#x6765;&#x751F;&#x6210;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;&#x7684;ID</span>
+            <span class="hljs-keyword">local</span> id = opcua.NodeId.new(idx, sn)
+            <span class="hljs-keyword">local</span> device = api:get_device(sn)
+
+            <span class="hljs-comment">---&#x68C0;&#x6D4B;OPCUA&#x5BF9;&#x8C61;&#x662F;&#x5426;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;</span>
+            <span class="hljs-keyword">local</span> devobj, err = objects:getChild(idx..<span class="hljs-string">&quot;:&quot;</span>..sn)
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> r <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> devobj <span class="hljs-keyword">then</span>
+                <span class="hljs-comment">--- &#x8BBE;&#x5907;&#x5BF9;&#x8C61;&#x4E0D;&#x5B58;&#x5728;&#x589E;&#x52A0;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
+                <span class="hljs-keyword">local</span> attr = opcua.ObjectAttributes.new()
+                <span class="hljs-comment">--- &#x8BBE;&#x5B9A;&#x663E;&#x793A;&#x540D;&#x79F0;</span>
+                attr.displayName = opcua.LocalizedText.new(<span class="hljs-string">&quot;zh_CN&quot;</span>, <span class="hljs-string">&quot;Device &quot;</span>..sn)
+                <span class="hljs-comment">--- &#x6DFB;&#x52A0;OPCUA&#x5BF9;&#x8C61;</span>
+                devobj, err = objects:addObject(opcua.NodeId.new(idx, sn), sn, attr)
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> devobj <span class="hljs-keyword">then</span>
+                    log:warning(<span class="hljs-string">&apos;Create device object failed, error&apos;</span>, devobj)
+                    <span class="hljs-keyword">return</span>
+                <span class="hljs-keyword">end</span>
+            <span class="hljs-keyword">end</span>
+
+            <span class="hljs-comment">--- &#x8BB0;&#x5F55;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
+            <span class="hljs-keyword">local</span> node = nodes[sn] <span class="hljs-keyword">or</span> {
+                device = device,
+                devobj = devobj,
+                vars = {}
+            }
+            <span class="hljs-keyword">local</span> vars = node.vars
+            <span class="hljs-comment">--- &#x5C06;&#x8BBE;&#x5907;&#x7684;&#x8F93;&#x5165;&#x9879;&#x6620;&#x5C04;&#x6210;&#x4E3A;OPCUA&#x5BF9;&#x8C61;&#x7684;&#x53D8;&#x91CF;</span>
+            <span class="hljs-keyword">for</span> i, input <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>(props.inputs) <span class="hljs-keyword">do</span>
+                <span class="hljs-keyword">local</span> var = vars[input.name]
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> var <span class="hljs-keyword">then</span>
+                    vars[input.name] = create_var(idx, devobj, input, device)
+                <span class="hljs-keyword">else</span>
+                    <span class="hljs-comment">--- &#x5982;&#x679C;&#x5B58;&#x5728;&#x5C1D;&#x8BD5;&#x4FEE;&#x6539;&#x53D8;&#x91CF;&#x63CF;&#x8FF0;</span>
+                    var:setDescription(opcua.LocalizedText.new(<span class="hljs-string">&apos;zh_CN&apos;</span>, input.desc))
+                <span class="hljs-keyword">end</span>
+            <span class="hljs-keyword">end</span>
+            nodes[sn] = node
+        <span class="hljs-keyword">end</span>,
+        <span class="hljs-comment">--- &#x5904;&#x7406;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;&#x5220;&#x9664;&#x6D88;&#x606F;</span>
+        on_del_device = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(app, sn)</span></span>
+            <span class="hljs-keyword">local</span> node = nodes[sn]
+            <span class="hljs-keyword">if</span> node <span class="hljs-keyword">then</span>
+                <span class="hljs-comment">--- &#x5220;&#x9664;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;</span>
+                server:deleteNode(node.devobj.id, <span class="hljs-keyword">true</span>)
+                nodes[sn] = <span class="hljs-keyword">nil</span>
+            <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">end</span>,
+        <span class="hljs-comment">--- &#x5904;&#x7406;&#x8BBE;&#x5907;&#x5BF9;&#x8C61;&#x4FEE;&#x6539;&#x6D88;&#x606F;</span>
+        on_mod_device = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(app, sn, props)</span></span>
+            <span class="hljs-keyword">local</span> node = nodes[sn]
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> node.vars <span class="hljs-keyword">then</span>
+                <span class="hljs-comment">-- <span class="hljs-doctag">TODO:</span></span>
+            <span class="hljs-keyword">end</span>
+            <span class="hljs-keyword">local</span> vars = node.vars
+            <span class="hljs-keyword">for</span> i, input <span class="hljs-keyword">in</span> <span class="hljs-built_in">ipairs</span>(props.inputs) <span class="hljs-keyword">do</span>
+                <span class="hljs-keyword">local</span> var = vars[input.name]
+                <span class="hljs-comment">---&#x4E0D;&#x5B58;&#x5728;&#x5C31;&#x589E;&#x52A0;&#x53D8;&#x91CF;&#xFF0C;&#x5B58;&#x5728;&#x5219;&#x4FEE;&#x6539;&#x63CF;&#x8FF0;&#xFF0C;&#x786E;&#x4FDD;&#x63CF;&#x8FF0;&#x4E00;&#x81F4;</span>
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> var <span class="hljs-keyword">then</span>
+                    vars[input.name] = create_var(idx, node.devobj, input, node.device)
+                <span class="hljs-keyword">else</span>
+                    var:setDescription(opcua.LocalizedText.new(<span class="hljs-string">&apos;zh_CN&apos;</span>, input.desc))
+                <span class="hljs-keyword">end</span>
+            <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">end</span>,
+        <span class="hljs-comment">--- &#x5904;&#x7406;&#x8BBE;&#x5907;&#x8F93;&#x5165;&#x9879;&#x6570;&#x503C;&#x53D8;&#x66F4;&#x6D88;&#x606F;</span>
+        on_input = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(app, sn, input, prop, value, timestamp, quality)</span></span>
+            <span class="hljs-keyword">local</span> node = nodes[sn]
+            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> node <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> node.vars <span class="hljs-keyword">then</span>
+                log:<span class="hljs-built_in">error</span>(<span class="hljs-string">&quot;Unknown sn&quot;</span>, sn)
+                <span class="hljs-keyword">return</span>
+            <span class="hljs-keyword">end</span>
+            <span class="hljs-comment">--- &#x8BBE;&#x5B9A;OPCUA&#x53D8;&#x91CF;&#x7684;&#x5F53;&#x524D;&#x503C;</span>
+            <span class="hljs-keyword">local</span> var = node.vars[input]
+            <span class="hljs-keyword">if</span> var <span class="hljs-keyword">and</span> prop == <span class="hljs-string">&apos;value&apos;</span> <span class="hljs-keyword">then</span>
+                set_var_value(var, value, timestamp, quality)
+            <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">end</span>,
+    }
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment">--- &#x5E94;&#x7528;&#x542F;&#x52A8;&#x51FD;&#x6570;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">app:start</span><span class="hljs-params">()</span></span>
+    <span class="hljs-comment">--- &#x5904;&#x7406;OPCUA&#x6A21;&#x5757;&#x7684;&#x65E5;&#x5FD7;</span>
+    <span class="hljs-keyword">local</span> Level_Funcs = {}
+    Level_Funcs[opcua.LogLevel.TRACE] = <span class="hljs-built_in">assert</span>(self._log.trace)
+    Level_Funcs[opcua.LogLevel.DEBUG] = <span class="hljs-built_in">assert</span>(self._log.<span class="hljs-built_in">debug</span>)
+    Level_Funcs[opcua.LogLevel.INFO] = <span class="hljs-built_in">assert</span>(self._log.info)
+    Level_Funcs[opcua.LogLevel.WARNING] = <span class="hljs-built_in">assert</span>(self._log.warning)
+    Level_Funcs[opcua.LogLevel.ERROR] = <span class="hljs-built_in">assert</span>(self._log.<span class="hljs-built_in">error</span>)
+    Level_Funcs[opcua.LogLevel.FATAL] = <span class="hljs-built_in">assert</span>(self._log.fatal)
+    Category_Names = {}
+    Category_Names[opcua.LogCategory.NETWORK] = <span class="hljs-string">&quot;network&quot;</span>
+    Category_Names[opcua.LogCategory.SECURECHANNEL] = <span class="hljs-string">&quot;channel&quot;</span>
+    Category_Names[opcua.LogCategory.SESSION] = <span class="hljs-string">&quot;session&quot;</span>
+    Category_Names[opcua.LogCategory.SERVER] = <span class="hljs-string">&quot;server&quot;</span>
+    Category_Names[opcua.LogCategory.CLIENT] = <span class="hljs-string">&quot;client&quot;</span>
+    Category_Names[opcua.LogCategory.USERLAND] = <span class="hljs-string">&quot;userland&quot;</span>
+    Category_Names[opcua.LogCategory.SECURITYPOLICY] = <span class="hljs-string">&quot;securitypolicy&quot;</span>
+
+    self._logger = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(level, category, ...)</span></span>
+        Level_Funcs[level](self._log, Category_Names[category], ...)
+    <span class="hljs-keyword">end</span>
+    opcua.setLogger(self._logger)
+
+    <span class="hljs-comment">--- &#x751F;&#x6210;OPCUA&#x670D;&#x52A1;&#x5668;&#x5B9E;&#x4F8B;</span>
+    <span class="hljs-keyword">local</span> server = opcua.Server.new()
+
+    <span class="hljs-comment">--- &#x8BBE;&#x5B9A;&#x670D;&#x52A1;&#x5668;&#x5730;&#x5740;</span>
+    server.config:setServerURI(<span class="hljs-string">&quot;urn:://opcua.symid.com&quot;</span>)
+
+    <span class="hljs-comment">--- &#x6DFB;&#x52A0;&#x547D;&#x540D;&#x7A7A;&#x95F4;</span>
+    <span class="hljs-keyword">local</span> id = self._sys:id()
+    <span class="hljs-keyword">local</span> idx = server:addNamespace(<span class="hljs-string">&quot;http://iot.symid.com/&quot;</span>..id)
+
+    self._server = server
+    self._idx = idx
+    <span class="hljs-comment">--- &#x8BBE;&#x5B9A;&#x56DE;&#x8C03;&#x5904;&#x7406;&#x5BF9;&#x8C61;</span>
+    self._handler = create_handler(self)
+    self._api:set_handler(self._handler, <span class="hljs-keyword">true</span>)
+
+    <span class="hljs-comment">--- List all devices and then create opcua object</span>
+    self._sys:fork(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>
+        <span class="hljs-keyword">local</span> devs = self._api:list_devices() <span class="hljs-keyword">or</span> {}
+        <span class="hljs-keyword">for</span> sn, props <span class="hljs-keyword">in</span> <span class="hljs-built_in">pairs</span>(devs) <span class="hljs-keyword">do</span>
+            <span class="hljs-comment">--- Calling handler for creating opcua object</span>
+            self._handler.on_add_device(self, sn, props)
+        <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>)
+
+    <span class="hljs-comment">--- &#x542F;&#x52A8;&#x670D;&#x52A1;&#x5668;</span>
+    server:startup()
+
+    self._log:notice(<span class="hljs-string">&quot;Started!!!!&quot;</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment">--- &#x5E94;&#x7528;&#x9000;&#x51FA;&#x51FD;&#x6570;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">app:close</span><span class="hljs-params">(reason)</span></span>
+    self._server:shutdown()
+    self._server = <span class="hljs-keyword">nil</span>
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment">--- &#x5E94;&#x7528;&#x8FD0;&#x884C;&#x5165;&#x53E3;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">app:run</span><span class="hljs-params">(tms)</span></span>
+    <span class="hljs-comment">--- OPCUA&#x6A21;&#x5757;&#x8FD0;&#x884C;&#x5165;&#x53E3;</span>
+    <span class="hljs-keyword">while</span> self._server.running <span class="hljs-keyword">do</span>
+        <span class="hljs-keyword">local</span> ms = self._server:run_once(<span class="hljs-keyword">false</span>)
+        <span class="hljs-comment">--- &#x6682;&#x505C;OPCUA&#x6A21;&#x5757;&#x8FD0;&#x884C;&#xFF0C;&#x5904;&#x7406;FreeIOE&#x7CFB;&#x7EDF;&#x6D88;&#x606F;</span>
+        self._sys:sleep(ms % <span class="hljs-number">10</span>)
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&apos;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&apos;</span>)
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1000</span>
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-comment">--- &#x8FD4;&#x56DE;&#x5E94;&#x7528;&#x5BF9;&#x8C61;</span>
+<span class="hljs-keyword">return</span> app
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="opcuacollect.html" class="navigation navigation-prev " aria-label="Previous page: OpcUA采集示例">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="mqtt.html" class="navigation navigation-next " aria-label="Next page: MQTT示例">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"OpcUA服务示例","level":"1.7.3","depth":2,"next":{"title":"MQTT示例","level":"1.7.4","depth":2,"path":"examples/mqtt.md","ref":"examples/mqtt.md","articles":[]},"previous":{"title":"OpcUA采集示例","level":"1.7.2","depth":2,"path":"examples/opcuacollect.md","ref":"examples/opcuacollect.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"examples/opcuaserver.md","mtime":"2019-01-10T13:05:03.098Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-10T13:06:37.073Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
