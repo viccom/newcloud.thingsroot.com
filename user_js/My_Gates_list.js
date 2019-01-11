@@ -202,6 +202,7 @@ var    table_gates = $('#table_gates').DataTable({
                         + data.device_sn
                         + '">网关信息</a></li>'
                         +     '<li><a href="#" class="gate_rename" data-toggle="modal" data-target="#modal-update-gate" data-sn="'+ data.device_sn +  '">更改名称</a></li>'
+                        +     '<li><a href="#" class="gate_positin" data-toggle="modal" data-target="#modal-set-gate-position" data-sn="'+ data.device_sn +  '">设置经纬度</a></li>'
                         +     '<li><a href="#" class="gate_remove" data-toggle="modal" data-target="#modal-remove-gate" data-sn="'+ data.device_sn +  '">移除网关</a></li>'
                         +     '<li><a href="My_Gates_onlinelog.html?sn=' + data.device_sn + '">在线记录</a></li>'
                         + '</ul>'
@@ -220,7 +221,10 @@ var    table_gates = $('#table_gates').DataTable({
             }],
         "initComplete": function(settings, json) {
             console.log("over");
-            $("[data-toggle='popover']").popover();
+            $("body").on("click", "td", function() {
+                $("[data-toggle='popover']").popover();
+            });
+
             $("body").on("click", ".on .gate-devsmanager", function() {
                 // console.log($(this).data("sn"));
                 redirect("My_Gates_devices.html?sn=" + $(this).data("sn"));
@@ -247,6 +251,16 @@ var    table_gates = $('#table_gates').DataTable({
                     attach = "2";
                 }
             });
+            $("body").on("click", "a.gate_positin", function() {
+                var rowdata=table_gates.row($(this).parents('tr')).data();
+                $("input[name='device_sn']").val(rowdata.device_sn);
+                $("input[name='device_name']").val(rowdata.device_name);
+                $("input[name='device_desc']").val(rowdata.device_desc);
+                $("input[name='latitude']").val(rowdata.latitude);
+                $("input[name='longitude']").val(rowdata.longitude);
+
+            });
+
             $("body").on("click", "a.gate_remove", function() {
                 var rowdata=table_gates.row($(this).parents('tr')).data();
                 $("#remove-device-sn").val(rowdata.device_sn);
@@ -295,6 +309,47 @@ var    table_gates = $('#table_gates').DataTable({
                 $.notify({
                     title: "<strong>更新网关提示</strong><br><br> ",
                     message: "更新网关信息失败"
+                },{
+                    newest_on_top: false,
+                    type: "warning"
+                });
+            }
+        });
+
+    }
+
+    /**
+     *	设置网关位置
+     */
+    function set_gate_position(postdata) {
+        $.ajax({
+            url: '/apis/api/method/iot_ui.iot_api.set_gate_position',
+            headers: {
+                Accept: "application/json; charset=utf-8",
+                "X-Frappe-CSRF-Token": auth_token
+            },
+            type: 'post',
+            data: JSON.stringify(postdata),
+            contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success:function(req){
+                // console.log(req);
+                if(req.message){
+                    $.notify({
+                        title: "<strong>设置网关位置提示</strong><br><br> ",
+                        message: "设置网关位置成功"
+                    },{
+                        newest_on_top: false,
+                        type: "success"
+                    });
+                    table_gates.ajax.url(gates_url).load(null,false);
+                }
+            },
+            error:function(req){
+                console.log(req);
+                $.notify({
+                    title: "<strong>设置网关位置提示</strong><br><br> ",
+                    message: "设置网关位置失败"
                 },{
                     newest_on_top: false,
                     type: "warning"
@@ -436,6 +491,43 @@ var    table_gates = $('#table_gates').DataTable({
         console.log(data);
         update_gate(data);
         $("#modal-update-gate").modal('hide');
+
+    });
+
+
+
+    // 网关设置经纬度
+    $("button.set_positino_confirm").click(function(){
+        var device_sn = $("input[name='device_sn']").val();
+        var latitude = $("input[name='latitude']").val();
+        var longitude = $("input[name='longitude']").val();
+
+        if(latitude==""){
+            $("input[name='latitude']").data("content", "经纬度不能为空");
+            $('.popover-latitude').popover('show');
+            setTimeout(function () {
+                $('.popover-latitude').popover('destroy');
+            },2000);
+            return false;
+        }
+
+        if(longitude==""){
+            $("input[name='longitude']").data("content", "经纬度不能为空");
+            $('.popover-longitude').popover('show');
+            setTimeout(function () {
+                $('.popover-longitude').popover('destroy');
+            },2000);
+            return false;
+        }
+
+        var data = {
+            sn:device_sn,
+            latitude: latitude,
+            longitude: longitude
+        };
+        console.log(data);
+        set_gate_position(data);
+        $("#modal-set-gate-position").modal('hide');
 
     });
 

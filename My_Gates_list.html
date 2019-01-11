@@ -473,6 +473,72 @@
             </div>
             <!-- /.modal end-->
 
+            <!-- /.modal set-gate-position start-->
+            <div class="modal fade" id="modal-set-gate-position" data-backdrop="static">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">更改位置</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="tab-pane active">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">序号：</label>
+
+                                        <div class="col-sm-10">
+                                            <input name="device_sn" type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">名称：</label>
+
+                                        <div class="col-sm-10">
+                                            <input name="device_name"  type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">描述：</label>
+
+                                        <div class="col-sm-10">
+                                            <input name="device_desc" type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">维度：</label>
+
+                                        <div class="col-sm-10">
+                                            <input name="latitude" type="text" class="form-control popover-latitude"  data-placement="top" data-content="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label">经度：</label>
+
+                                        <div class="col-sm-10">
+                                            <input name="longitude" type="text" class="form-control popover-longitude"  data-placement="top" data-content="">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary set_positino_confirm">保存</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal set-gate-position end-->
 
             <!-- /.modal remove start-->
             <div class="modal modal-warning fade" id="modal-remove-gate" data-backdrop="static">
