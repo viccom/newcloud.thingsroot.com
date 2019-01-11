@@ -721,3 +721,38 @@ function sys_reboot(sn){
         }
     });
 }
+
+/**
+ *	网关重启
+ */
+function sys_cloud_conf(data){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.sys_cloud_conf',
+        headers: {
+            "Accept": "application/json; charset=utf-8",
+            "Content-Type": "application/json; charset=UTF-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        data: JSON.stringify(data),
+        dataType:'json',
+        success:function(req){
+            // console.log(req);
+            $.notify({
+                title: "<strong>提交任务成功:</strong><br><br> ",
+                message: '修改参数'+ gate_sn
+            },{
+                type: 'success'
+            });
+        },
+        error:function(req){
+            console.log(req);
+            $.notify({
+                title: "<strong>提交任务失败:</strong><br><br> ",
+                message: '修改参数'+ gate_sn
+            },{
+                type: 'warning'
+            });
+        }
+    });
+}

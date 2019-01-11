@@ -596,7 +596,7 @@
                                     }else if(obj.action == "enable/comm"){
                                         if(obj.data.sec == 0){
                                             return '网关停止报文上送';
-                                        }else if(obj.data.sec == 120){
+                                        }else if(obj.data.sec){
                                             return '网关开启报文上送';
                                         }
                                     }else if(obj.action == "restart"){
@@ -630,7 +630,7 @@
                                     }else if(obj.action == "upgrade/ack"){
                                         return '网关IOT固件升级确认';
                                     }else if(obj.action == "data/query"){
-                                        return '网关请求立刻上传数据';
+                                        return '请求网关立刻上传数据';
                                     }
                                 }  //sys
                                 else if(obj.channel == "command"){

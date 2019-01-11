@@ -178,6 +178,9 @@ function set_label(sn){
         $(".gate_iot_beta").html(gate_debug[gateinfo.basic.iot_beta]);
         $(".gate_data_upload").html(data_upload[gateinfo.config.data_upload]);
         $(".gate_stat_upload").html(stat_upload[gateinfo.config.stat_upload]);
+
+
+
         if(gateinfo.config.event_upload){
             $(".gate_event_upload").html(gateinfo.config.event_upload);
         }else{
@@ -190,9 +193,23 @@ function set_label(sn){
             }else{
                 $(".event_upload input").val("");
             }
-
         }
 
+        if(data_upload_period_input==false){
+            if(gateinfo.config.data_upload_period){
+                $(".data_upload_period input").val(gateinfo.config.data_upload_period);
+            }else{
+                $(".data_upload_period input").val('');
+            }
+        }
+
+        if(data_upload_cov_ttl_input==false){
+            if(gateinfo.config.data_upload_cov_ttl){
+                $(".data_upload_cov_ttl input").val(gateinfo.config.data_upload_cov_ttl);
+            }else{
+                $(".data_upload_cov_ttl input").val('');
+            }
+        }
 
         if(gateinfo.hasOwnProperty("applist")){
             var applist= gateinfo.applist

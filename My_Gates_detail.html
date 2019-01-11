@@ -490,18 +490,19 @@
                                         </h2>
                                             <div class="no-padding">
 
-                                                <table class="table table-condensed">
+                                                <table class="table table-condensed nowrap">
                                                     <tbody>
                                                     <tr>
                                                         <td style="width: 5%"></td>
-                                                        <td style="width: 35%">
+                                                        <td style="width: 400px">
 
                                                             <h4>
                                                                 <i class="fa fa-connectdevelop"></i> 调试模式
+                                                                <small>[*开启后可安装测试版本软件]</small>
                                                             </h4>
 
                                                         </td>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 45%">
                                                             <span class="hide iot_beta" >处理中……</span>
                                                             <div  class="iot_beta" data-on="success" data-off="warning">
                                                                 <input data-inst="iot_beta" class="switch one" type="checkbox"  />
@@ -510,30 +511,76 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 5%"></td>
-                                                        <td style="width: 35%">
+                                                        <td style="width: 400px">
 
                                                             <h4>
                                                                 <i class="fa fa-cloud-upload"></i> 数据上传
+                                                                <small>[*开启后设备数据会传到当前平台]</small>
                                                             </h4>
 
                                                         </td>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 35%">
                                                             <span class="hide data_upload" >处理中……</span>
                                                             <div  class="data_upload" data-on="success" data-off="warning">
                                                                 <input data-inst="data_upload" class="switch two" type="checkbox"  />
                                                             </div>
                                                         </td>
                                                     </tr>
+
                                                     <tr>
                                                         <td style="width: 5%"></td>
+                                                        <td style="width: 400px">
+
+                                                            <h4>
+                                                                <i class="fa  fa-retweet"></i> 变化数据上送间隔（ms）
+                                                                <small>[*程序会重启]</small>
+                                                            </h4>
+
+
+                                                        </td>
                                                         <td style="width: 35%">
+                                                            <span class="hide data_upload_period" >处理中……</span>
+                                                            <div  class="data_upload_period" style="width:200px">
+                                                                <input name="data_upload_period" class="data_upload_period popover-data_upload_period"  data-placement="top" data-content=""  type="number"  style="width:106px"/>
+                                                                <button class="btn set_data_upload_period hide">保存</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="width: 5%"></td>
+                                                        <td style="width: 400px">
+
+                                                            <h4>
+                                                                <i class="fa  fa-retweet"></i> 全量数据上送间隔（s）
+                                                                <small>[*程序会重启]</small>
+                                                            </h4>
+
+
+                                                        </td>
+                                                        <td style="width: 35%">
+                                                            <span class="hide data_upload_cov_ttl" >处理中……</span>
+                                                            <div  class="data_upload_cov_ttl" style="width:200px">
+                                                                <input name="data_upload_cov_ttl" class="data_upload_cov_ttl popover-data_upload_cov_ttl"  data-placement="top" data-content=""  type="number"  style="width:106px"/>
+                                                                <button class="btn set_data_upload_cov_ttl hide">保存</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+
+
+                                                    <tr>
+                                                        <td style="width: 5%"></td>
+                                                        <td style="width: 400px">
 
                                                             <h4>
                                                                 <i class="fa fa-globe"></i> 统计上传
+                                                                <small>[*开启后数据传到当前平台]</small>
                                                             </h4>
 
                                                         </td>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 35%">
                                                             <span class="hide stat_upload" >处理中……</span>
                                                             <div  class="stat_upload" data-on="success" data-off="warning">
                                                                 <input data-inst="stat_upload" class="switch three" type="checkbox"  />
@@ -543,14 +590,15 @@
 
                                                     <tr>
                                                         <td style="width: 5%"></td>
-                                                        <td style="width: 35%">
+                                                        <td style="width: 400px">
 
                                                             <h4>
                                                                 <i class="fa fa-wrench"></i> 网络配置
+
                                                             </h4>
 
                                                         </td>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 35%">
                                                             <span class="hide Net_Manager" >处理中……</span>
                                                             <div  class="Net_Manager" data-on="success" data-off="warning">
                                                                 <input data-inst="Net_Manager" class="switch four" type="checkbox"  />
@@ -560,14 +608,15 @@
 
                                                     <tr>
                                                         <td style="width: 5%"></td>
-                                                        <td style="width: 35%">
+                                                        <td style="width: 400px">
 
                                                             <h4>
                                                                 <i class="fa fa-key"></i> 虚拟网络
+                                                                <small>[*开启后可建立点对点VPN]</small>
                                                             </h4>
 
                                                         </td>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 35%">
                                                             <span class="hide ioe_frpc" >处理中……</span>
                                                             <div  class="ioe_frpc" data-on="success" data-off="warning">
                                                                 <input data-inst="ioe_frpc" class="switch five" type="checkbox"  />
@@ -577,14 +626,15 @@
 
                                                     <tr>
                                                         <td style="width: 5%"></td>
-                                                        <td style="width: 35%">
+                                                        <td style="width: 400px">
 
                                                             <h4>
                                                                 <i class="fa fa-key"></i> 日志上传等级
+                                                                <small>[*事件上传的最低等级]</small>
                                                             </h4>
 
                                                         </td>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 35%">
                                                             <span class="hide event_upload" >处理中……</span>
                                                             <div  class="event_upload" style="width:200px">
                                                                 <input name="event_upload" class="event_upload popover-warning"  data-placement="top" data-content=""  type="number"  style="width:106px"/>
@@ -596,14 +646,15 @@
 
                                                     <tr>
                                                         <td style="width: 5%"></td>
-                                                        <td style="width: 35%">
+                                                        <td style="width: 400px">
 
                                                             <h4>
                                                                 <i class="fa  fa-repeat"></i> 重启FreeIOE
+                                                                <small>[*FreeIOE重启会导致5秒左右的离线]</small>
                                                             </h4>
 
                                                         </td>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 35%">
                                                             <div  class="event_upload" style="width:200px">
                                                                 <button class="btn FreeIOE_restart">程序重启</button>
                                                             </div>
@@ -613,14 +664,15 @@
 
                                                     <tr>
                                                         <td style="width: 5%"></td>
-                                                        <td style="width: 35%">
+                                                        <td style="width: 400px">
 
                                                             <h4>
                                                                 <i class="fa  fa-recycle"></i> 重启网关
+                                                                <small>[*网关重启会导致60秒左右的离线]</small>
                                                             </h4>
 
                                                         </td>
-                                                        <td style="width: 50%">
+                                                        <td style="width: 35%">
                                                             <div  class="event_upload" style="width:200px">
                                                                 <button class="btn thingslink_restart">网关重启</button>
                                                             </div>

@@ -146,7 +146,7 @@ var    table_gates_log1 = $('#table_gates_log1').DataTable({
         "smart": true
     },
     // "PaginationType": "full_numbers",
-    "order": [[ 0, "asc" ]],
+    "order": [[ 0, "desc" ]],
     "ajax": {
         "url": gate_url,
         "type": "GET",
@@ -232,7 +232,7 @@ var    table_gates_log2 = $('#table_gates_log2').DataTable({
         "smart": true
     },
     // "PaginationType": "full_numbers",
-    "order": [[ 0, "asc" ]],
+    "order": [[ 0, "desc" ]],
     "ajax": {
         "url": gate_url,
         "type": "GET",
@@ -323,7 +323,7 @@ var    table_gates_log3 = $('#table_gates_log3').DataTable({
         "smart": true
     },
     // "PaginationType": "full_numbers",
-    "order": [[ 0, "asc" ]],
+    "order": [[ 0, "desc" ]],
     "ajax": {
         "url": gate_url,
         "type": "GET",
@@ -394,3 +394,10 @@ var    table_gates_log3 = $('#table_gates_log3').DataTable({
 
 
 
+$("button.gate-log-refresh").click(function(){
+    console.log("shua")
+    table_gates_log1.ajax.url(gate_url).load(null,false);
+    table_gates_log2.ajax.url(gate_url).load(null,false);
+    table_gates_log3.ajax.url(gate_url).load(null,false);
+
+});

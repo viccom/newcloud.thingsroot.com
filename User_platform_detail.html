@@ -509,7 +509,7 @@
                                 }else if(obj.action == "enable/data_one_short"){
                                     if(obj.data.sec == ""){
                                         text = '网关关闭临时上传数据';
-                                    }else if(obj.data.sec == 120){
+                                    }else if(obj.data.sec){
                                         text = '网关开启临时上传数据';
                                     }
                                 }else if(obj.action == "ext/upgrade"){
@@ -531,7 +531,7 @@
                                 }else if(obj.action == "upgrade/ack"){
                                     text = '网关IOT固件升级确认';
                                 }else if(obj.action == "data/query"){
-                                    text = '网关请求立刻上传数据';
+                                    text = '请求网关立刻上传数据';
                                 }
                             }  //sys
                             else if(obj.channel == "command"){

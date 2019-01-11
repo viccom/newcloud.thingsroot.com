@@ -5,6 +5,9 @@ ex_setting = new Object();
 ex_setting.ioe_frpc=false;
 ex_setting.Net_Manager=false;
 event_upload_input = false;
+data_upload_period_input = false;
+data_upload_cov_ttl_input = false;
+
 gate_info(gate_sn);
 
 setInterval(function(){
@@ -50,6 +53,117 @@ $("a.close-gate-upgrade").click(function(){
     $('a[href="#basic_panel_div"]').tab('show');
 });
 
+
+$(".data_upload_period input").focus( function(){
+
+    data_upload_period_input = true;
+    $("button.set_data_upload_period").removeClass('hide');
+    $("button.set_data_upload_period").data("value",$("input[name=data_upload_period]").val())
+
+} );
+$(".data_upload_period input").blur( function(){
+
+    var oval = $("button.set_data_upload_period").data("value");
+    var nval = $("input[name=data_upload_period]").val();
+    console.log(oval,nval,oval==nval)
+    if(oval==nval){
+        $("button.set_data_upload_period").addClass('hide');
+        data_upload_period_input = false;
+    }
+} );
+
+$("button.set_data_upload_period").click( function(){
+
+    var data_upload_period = Number($("input[name=data_upload_period]").val());
+
+    if(data_upload_period < 1 ){
+
+        $("input[name=data_upload_period]").data("content", "有效范围>1");
+        $('.popover-data_upload_period').popover('show');
+        setTimeout(function () {
+            $('.popover-data_upload_period').popover('destroy');
+        },2000);
+        return false;
+    }
+
+    var action = "sys_cloud_conf";
+    var task_desc = '更改数据上传配置'+ gate_sn ;
+    var id = 'sys_cloud_conf/' + gate_sn + '/'+ Date.parse(new Date());
+    var post_data = {
+        "device": gate_sn,
+        "id": id,
+        "data": {"DATA_UPLOAD_PERIOD": data_upload_period}
+    };
+
+    gate_exec_action(action, post_data, task_desc, action, action, data_upload_period);
+    $("button.set_data_upload_period").attr('disabled', true);
+    setTimeout(function () {
+        $("button.set_data_upload_period").addClass('hide');
+        data_upload_period_input = false;
+        $("button.set_data_upload_period").attr('disabled', false);
+    }, 8000);
+
+} );
+
+
+
+
+$(".data_upload_cov_ttl input").focus( function(){
+
+    data_upload_cov_ttl_input = true;
+    $("button.set_data_upload_cov_ttl").removeClass('hide');
+    $("button.set_data_upload_cov_ttl").data("value",$("input[name=data_upload_cov_ttl]").val())
+
+} );
+$(".data_upload_cov_ttl input").blur( function(){
+
+    var oval = $("button.set_data_upload_cov_ttl").data("value");
+    var nval = $("input[name=data_upload_cov_ttl]").val();
+
+    if(oval==nval){
+        $("button.set_data_upload_cov_ttl").addClass('hide');
+        data_upload_cov_ttl_input = false;
+    }
+} );
+
+$("button.set_data_upload_cov_ttl").click( function(){
+
+    var data_upload_cov_ttl = Number($("input[name=data_upload_cov_ttl]").val());
+
+    if(data_upload_cov_ttl < 10 ){
+
+        $("input[name=data_upload_cov_ttl]").data("content", "有效范围>10");
+        $('.popover-data_upload_cov_ttl').popover('show');
+        setTimeout(function () {
+            $('.popover-data_upload_cov_ttl').popover('destroy');
+        },2000);
+        return false;
+    }
+
+    var action = "sys_cloud_conf";
+    var task_desc = '更改数据上传配置'+ gate_sn ;
+    var id = 'sys_cloud_conf/' + gate_sn + '/'+ Date.parse(new Date());
+    var post_data = {
+        "device": gate_sn,
+        "id": id,
+        "data": {"COV_TTL": data_upload_cov_ttl}
+    };
+
+    gate_exec_action(action, post_data, task_desc, action, action, data_upload_cov_ttl);
+
+    $("button.set_data_upload_cov_ttl").attr('disabled', true);
+    setTimeout(function () {
+        $("button.set_data_upload_cov_ttl").addClass('hide');
+        data_upload_cov_ttl_input = false;
+        $("button.set_data_upload_cov_ttl").attr('disabled', false);
+    }, 8000);
+
+} );
+
+
+
+
+
 $(".event_upload input").focus( function(){
 
     event_upload_input = true;
@@ -57,6 +171,17 @@ $(".event_upload input").focus( function(){
     $("button.set_event_upload").data("value",$("input[name=event_upload]").val())
 
 } );
+$(".event_upload input").blur( function(){
+
+    var oval = $("button.set_event_upload").data("value");
+    var nval = $("input[name=event_upload]").val();
+
+    if(oval==nval){
+        $("button.set_event_upload").addClass('hide');
+        event_upload_input = false;
+    }
+} );
+
 $("button.set_event_upload").click( function(){
 
     var event_level = Number($("input[name=event_upload]").val());
@@ -81,11 +206,12 @@ $("button.set_event_upload").click( function(){
     };
 
     gate_exec_action(action, post_data, task_desc, action, action, event_level);
-
+    $("button.set_event_upload").attr('disabled', true);
     setTimeout(function () {
         $("button.set_event_upload").addClass('hide');
         event_upload_input = false;
-    }, 1000);
+        $("button.set_event_upload").attr('disabled', false);
+    }, 10000);
 
 } );
 
@@ -98,16 +224,7 @@ $("button.thingslink_restart").click( function(){
     sys_reboot(gate_sn);
 } );
 
-$(".event_upload input").blur( function(){
 
-    var oval = $("button.set_event_upload").data("value");
-    var nval = $("input[name=event_upload]").val();
-
-    if(oval==nval){
-        $("button.set_event_upload").addClass('hide');
-        event_upload_input = false;
-    }
-} );
 
 // 给固件升级按钮绑定事件，给后台任务调用；
 $('.update_check').bind("updateClick", function(){
