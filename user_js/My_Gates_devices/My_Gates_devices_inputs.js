@@ -62,7 +62,7 @@ setInterval(function(){
     gate_info(gate_sn);
 },3000);
 
-var gateinfo = localStorage.getItem("gate_info/"+ sn);
+var gateinfo = localStorage.getItem("gate_info/"+ gate_sn);
 if(gateinfo){
     gateinfo = JSON.parse(gateinfo);
     if(gateinfo.config.data_upload!==1){
@@ -70,9 +70,6 @@ if(gateinfo){
     }
 
 }
-
-
-
 get_devices_inputs(gate_sn, device_sn);
 creat_devs_list(gate_sn);
 if(gate_sn){
