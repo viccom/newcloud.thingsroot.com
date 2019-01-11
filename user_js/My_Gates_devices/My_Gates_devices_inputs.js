@@ -66,7 +66,7 @@ var gateinfo = localStorage.getItem("gate_info/"+ sn);
 if(gateinfo){
     gateinfo = JSON.parse(gateinfo);
     if(gateinfo.config.data_upload!==1){
-        sys_enable_data_one_short(sn);
+        sys_enable_data_one_short(gate_sn);
     }
 
 }
