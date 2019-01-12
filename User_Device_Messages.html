@@ -551,36 +551,36 @@
                 var content = $('.search_keyword1').text();
                 if(content == "通讯"){
                     $('input[name=search_keyword1]').val('通讯');
-                    table
+                    event_table
                         .column(4)
                         .search("通讯")
                         .draw();
                 }else if(content == "网关系统"){
                     $('input[name=search_keyword1]').val('系统');
-                    table
+                    event_table
                         .column(4)
                         .search("系统")
                         .draw();
                 }else if(content == "采集数据"){
                     $('input[name=search_keyword1]').val('数据');
-                    table
+                    event_table
                         .column(4)
                         .search("数据")
                         .draw();
                 }else if(content == "采集设备"){
                     $('input[name=search_keyword1]').val('设备');
-                    table
+                    event_table
                         .column(4)
                         .search("设备")
                         .draw();
                 }else if(content == "网关应用"){
                     $('input[name=search_keyword1]').val('应用');
-                    table
+                    event_table
                         .column(4)
                         .search("应用")
                         .draw();
                 }else if(content == "全部"){
-                    table
+                    event_table
                         .column(4)
                         .search("")
                         .draw()
@@ -589,34 +589,49 @@
                 var content = $('.search_keyword3').text();
                 if(content == "常规"){
                     $('input[name=search_keyword3]').val(1);
-                    table
+                    event_table
                         .column(5)
                         .search(1)
                         .draw();
                 }else if(content == "警告"){
                     $('input[name=search_keyword3]').val(2);
-                    table
+                    event_table
                         .column(5)
                         .search(2)
                         .draw();
                 }else if(content == "错误"){
                     $('input[name=search_keyword3]').val(3);
-                    table
+                    event_table
                         .column(5)
                         .search(3)
                         .draw();
                 }else if(content == "致命"){
                     $('input[name=search_keyword3]').val(99);
-                    table
+                    event_table
                         .column(5)
                         .search(99)
                         .draw();
                 }else if(content == "全部"){
-                    table
+                    event_table
                         .column(5)
                         .search("")
                         .draw()
                 }
+
+                var key = $('input.J_keyword').val();    //搜索框内容
+                if($('.search_keyword4').text()=="序列号"){
+                    event_table
+                        .columns(2)
+                        .search(key)
+                        .draw();
+                }
+                if($('.search_keyword4').text()=="标题"){
+                    event_table
+                        .columns(1)
+                        .search(key)
+                        .draw();
+                }
+
 
             }
 
@@ -1123,27 +1138,13 @@
                             error:function(error){
                             }, complete: function () {
                                 if(aList.length != 0){
-                                    var myfilters = {
-                                        start: 0,
-                                        limit: 100
-                                    };
-                                    var myajax11 = function(data, callback, oSettings ) {
-                                        return $.ajax({
-                                            url: "/apis/api/method/iot.user_api.device_event",
-                                            headers: {
-                                                Accept: "application/json; charset=utf-8",
-                                                "X-Frappe-CSRF-Token": auth_token
-                                            },
-                                            type: "POST",
-                                            contentType: "application/json",
-                                            data:JSON.stringify(myfilters),
-                                            success: function (data) {
-                                                callback(data);
-                                            }
-                                        })
-                                    };
-                                    table.settings()[0].ajax = myajax11;
-                                    table.ajax.reload();
+                                    myfilters.limit = $('input[name=search_keyword0]').val();
+                                    var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+                                    if(sel_time){
+                                        myfilters.filters = {"creation"  :[">", sel_time]}
+                                    }
+
+                                    load_device_event(myfilters, table);
                                 }
                             }
                         });

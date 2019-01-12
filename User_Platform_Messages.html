@@ -794,22 +794,35 @@
                 var content = $('.search_keyword1').text();
                 if(content == "设备操作"){
                     $('input[name=search_keyword1]').val("Action");
-                    table
+                    activity_table
                         .column(4)
                         .search("Action")
                         .draw();
                 }else if(content == "设备状态"){
                     $('input[name=search_keyword1]').val("Status");
-                    table
+                    activity_table
                         .column(4)
                         .search("Status")
                         .draw();
                 }else if(content != ""){
                     $('input[name=search_keyword1]').val("");
-                    table
+                    activity_table
                         .column(4)
                         .search("")
                         .draw()
+                }
+
+                var key = $('input.J_keyword').val();    //搜索框内容
+                if($('.search_keyword3').text()=="序列号"){
+                    activity_table
+                        .columns(2)
+                        .search(key)
+                        .draw();            }
+                if($('.search_keyword3').text()=="标题"){
+                    activity_table
+                        .columns(1)
+                        .search(key)
+                        .draw();
                 }
             }
 
@@ -1112,28 +1125,13 @@
                                 console.log('error')
                             }, complete: function () {
                                 if(aList.length != 0){
-                                    var myfilters = {
-                                        start: 0,
-                                        limit: Number($('input[name=search_keyword0]').val())
-                                    };
-                                    var myajax11 = function(data, callback, oSettings ) {
-                                        return $.ajax({
-                                            url: "/apis/api/method/iot.user_api.device_activity",
-                                            headers: {
-                                                Accept: "application/json; charset=utf-8",
-                                                "X-Frappe-CSRF-Token": auth_token
-                                            },
-                                            type: "POST",
-                                            contentType: "application/json",
-                                            data:JSON.stringify(myfilters),
-                                            success: function (data) {
-                                                callback(data);
-                                                // console.log(data);
-                                            }
-                                        })
-                                    };
-                                    table.settings()[0].ajax = myajax11;
-                                    table.ajax.reload();
+                                    myfilters.limit = $('input[name=search_keyword0]').val();
+                                    var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+                                    if(sel_time){
+                                        myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
+                                    }
+
+                                    load_device_activity(myfilters, table)
                                 }
                             }
                         });
