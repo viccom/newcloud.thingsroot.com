@@ -317,8 +317,8 @@
                             <th>发生时间</th>
                             <th>消息类型</th>
                             <th>等级</th>
-                            <th>ID</th>
-                            <th>状态</th>
+                            <th class="hide">ID</th>
+                            <th class="hide">状态</th>
                         </tr>
                         </thead>
                     </table>
@@ -463,45 +463,9 @@
         }
 
 
-        //获取未读信息条数
-        function unread_count(){
-            $.ajax({
-                url: "/apis/api/method/iot.user_api.device_event",
-                headers: {
-                    Accept: "application/json; charset=utf-8",
-                    "X-Frappe-CSRF-Token": auth_token
-                },
-                type: "POST",
-                data: {start:0,limit:500},
-                dataType: "json",
-                async:false,
-                success: function (data) {
-                    var a = 0;
-                    var list = data.message;
-                    for(var i=0;i<list.length;i++){
-                        if(list[i].disposed == 0){
-                            a++;
-                        }
-                    }
-                    $('.disposed_message').text(a);
-                    if(a == 0){
-                        $('.confirmation').attr('disabled',true);
-                        $('.confirmationAll').attr('disabled',true);
-                    }else{
-                        $('.confirmation').attr('disabled',false);
-                        $('.confirmationAll').attr('disabled',false);
-                    }
-                },
-                error: function (error) {
-                    console.log(error)
-                }
-            });
-        }
-
-
         var myfilters = {
             start: 0,
-            limit: 100
+            limit: 500
         };
 
 
@@ -735,7 +699,7 @@
                 $('input[name=search_keyword2]').val(date1);
                 var param1 = {
                     start: 0,
-                    limit: 100,
+                    limit: 500,
                     filters: {
                         creation:[">",date1]
                     }
@@ -770,7 +734,7 @@
                 $('input[name=search_keyword2]').val(date2);
                 var param1 = {
                     start: 0,
-                    limit: 150,
+                    limit: 1000,
                     filters: {
                         creation:[">",date2]
                     }
@@ -805,7 +769,7 @@
                 $('input[name=search_keyword2]').val(date3);
                 var param3 = {
                     start: 0,
-                    limit: 400,
+                    limit: 4000,
                     filters: {
                         creation:[">",date3]
                     }
@@ -1094,7 +1058,7 @@
             var grade = $('input[name=search_keyword3]').val();  //等级
             var param1 = {
                 start: 0,
-                limit: 100,
+                limit: 500,
                 filters: {
                     "disposed"  : is_look,
                     "event_type" : mess_type,    //消息类型
