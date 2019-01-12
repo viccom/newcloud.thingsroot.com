@@ -294,7 +294,7 @@
                                 </button>
                                 <ul class="dropdown-menu" id="version">
                                     <li data-name=""><a style="cursor:pointer">序列号</a></li>
-                                    <!--<li data-name=""><a style="cursor:pointer">用户</a></li>-->
+                                    <li data-name=""><a style="cursor:pointer">标题</a></li>
                                 </ul>
                             </div><!-- /btn-group -->
                             <input type="text" class="form-control J_keyword"  placeholder="输入关键词">
@@ -731,6 +731,16 @@
 
         function load_device_activity(param, activity_table){
 
+            var key = $('input.J_keyword').val();    //搜索框内容
+            if(key && key.length==20){
+                if($('.search_keyword3').text()=="序列号"){
+                    param.sn = key;
+                }else{
+                    delete param.sn;
+                }
+                delete param.sn;
+            }
+
             var oneData;
             console.log(param);
             var myajax1 = function(data, callback, oSettings ) {
@@ -869,9 +879,6 @@
             if(sel_time){
                 myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
             }
-            if($('.J_keyword').val()){
-                myfilters.sn = $('.J_keyword').val();
-            }
 
             load_device_activity(myfilters, table)
 
@@ -891,9 +898,6 @@
                 if(sel_time){
                     myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
                 }
-                if($('.J_keyword').val()){
-                    myfilters.sn = $('.J_keyword').val();
-                }
 
                 load_device_activity(myfilters, table)
 
@@ -907,9 +911,6 @@
                 if(sel_time){
                     myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
                 }
-                if($('.J_keyword').val()){
-                    myfilters.sn = $('.J_keyword').val();
-                }
 
                 load_device_activity(myfilters, table)
 
@@ -921,9 +922,6 @@
                 var sel_time = $('input[name=search_keyword2]').val();  //时间范围
                 if(sel_time){
                     myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
-                }
-                if($('.J_keyword').val()){
-                    myfilters.sn = $('.J_keyword').val();
                 }
 
                 load_device_activity(myfilters, table)
@@ -938,7 +936,7 @@
             var con = $('.search_keyword3').text();
             if(con == "序列号"){
                 $('.search_keyword3').val('device')
-            }else if(con == "用户"){
+            }else if(con == "标题"){
                 $('.search_keyword3').val('user')
             };
         });
@@ -976,9 +974,9 @@
                     .columns(2)
                     .search(key)
                     .draw();            }
-            if($('.search_keyword3').text()=="用户"){
+            if($('.search_keyword3').text()=="标题"){
                 table
-                    .columns(5)
+                    .columns(1)
                     .search(key)
                     .draw();
             }
@@ -1169,9 +1167,6 @@
             var sel_time = $('input[name=search_keyword2]').val();  //时间范围
             if(sel_time){
                 myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
-            }
-            if($('.J_keyword').val()){
-                myfilters.sn = $('.J_keyword').val();
             }
 
             load_device_activity(myfilters, table)

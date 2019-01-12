@@ -240,24 +240,27 @@
                     <button class="btn btn-default btn-github confirmation">确认消息</button>
                     <button class="btn btn-default btn-github confirmationAll">确认所有消息</button>
 
-                    <div class="btn-group search_filter1" role="group">
+                    <div class="btn-group search_filter0" role="group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="search_keyword1" data-search_keyword="1">全部消息类型</span><input type="hidden" name="search_keyword1" value="">
+                            <span>最大记录数:</span><span class="search_keyword0" data-search_keyword="1">500</span><input type="hidden" name="search_keyword0" value="">
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <li data-name=""><a style="cursor:pointer">全部消息类型</a></li>
-                            <li data-name=""><a style="cursor:pointer">通讯</a></li>
-                            <li data-name=""><a style="cursor:pointer">网关系统</a></li>
-                            <li data-name=""><a style="cursor:pointer">采集设备</a></li>
-                            <li data-name=""><a style="cursor:pointer">采集数据</a></li>
-                            <li data-name=""><a style="cursor:pointer">网关应用</a></li>
+                            <li data-name=""><a style="cursor:pointer">100</a></li>
+                            <li data-name=""><a style="cursor:pointer">500</a></li>
+                            <li data-name=""><a style="cursor:pointer">1000</a></li>
+                            <li data-name=""><a style="cursor:pointer">3000</a></li>
+                            <li data-name=""><a style="cursor:pointer">5000</a></li>
+                            <li data-name=""><a style="cursor:pointer">10000</a></li>
+                            <!--<li data-name="Owner"><a style="cursor:pointer">所有人变更</a></li>-->
                         </ul>
                     </div>
+
+
                     <div class="btn-group search_filter2" role="group">
                         <input type="hidden" value="" id="time_classify">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="search_keyword2" data-search_keyword="1">时间</span><input type="hidden" name="search_keyword2" value="">
+                            <span>时间:</span><span class="search_keyword2" data-search_keyword="1">--</span><input type="hidden" name="search_keyword2" value="">
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
@@ -266,12 +269,31 @@
                             <li data-name="device_time3"><a style="cursor:pointer">3天</a></li>
                         </ul>
                     </div>
+
+
+                    <div class="btn-group search_filter1" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span>消息类型:</span><span class="search_keyword1" data-search_keyword="1">全部</span><input type="hidden" name="search_keyword1" value="">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li data-name=""><a style="cursor:pointer">全部</a></li>
+                            <li data-name=""><a style="cursor:pointer">通讯</a></li>
+                            <li data-name=""><a style="cursor:pointer">网关系统</a></li>
+                            <li data-name=""><a style="cursor:pointer">采集设备</a></li>
+                            <li data-name=""><a style="cursor:pointer">采集数据</a></li>
+                            <li data-name=""><a style="cursor:pointer">网关应用</a></li>
+                        </ul>
+                    </div>
+
+
                     <div class="btn-group search_filter3" role="group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="search_keyword3" data-search_keyword="1">等级</span><input type="hidden" name="search_keyword3" value="">
+                            <span>等级:</span><span class="search_keyword3" data-search_keyword="1">全部</span><input type="hidden" name="search_keyword3" value="">
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
+                            <li data-name="device_time1"><a style="cursor:pointer">全部</a></li>
                             <li data-name="device_time1"><a style="cursor:pointer">常规</a></li>
                             <li data-name="device_time2"><a style="cursor:pointer">警告</a></li>
                             <li data-name="device_time3"><a style="cursor:pointer">错误</a></li>
@@ -463,9 +485,151 @@
         }
 
 
+        function load_device_event(param, event_table){
+            // console.log(param);
+            var key = $('input.J_keyword').val();    //搜索框内容
+            if(key && key.length==20){
+                if($('.search_keyword4').text()=="序列号"){
+                    param.sn = key;
+                }else{
+                    delete param.sn
+                }
+            }else{
+                delete param.sn
+            }
+            var oneData;
+            console.log(param);
+            var myajax1 = function(data, callback, oSettings ) {
+                return $.ajax({
+                    url: "/apis/api/method/iot.user_api.device_event",
+                    headers: {
+                        Accept: "application/json; charset=utf-8",
+                        "X-Frappe-CSRF-Token": auth_token
+                    },
+                    type: "POST",
+                    async: false,
+                    contentType: "application/json",
+                    data:JSON.stringify(param),
+                    success: function (data) {
+                        var a = 0;
+                        var list = data.message;
+                        for(var i=0;i<list.length;i++){
+                            if(list[i].disposed == 0){
+                                a++;
+                            }
+                        }
+                        $('.disposed_message').text(a);
+                        if(a == 0){
+                            $('.confirmation').attr('disabled',true);
+                            $('.confirmationAll').attr('disabled',true);
+                        }else{
+                            $('.confirmation').attr('disabled',false);
+                            $('.confirmationAll').attr('disabled',false);
+                        }
+
+                        oneData = data;
+                        if(JSON.stringify(data) == "{}"){
+                            var text = '一小时之内暂时没有消息';
+                            errorAlert(text);
+                        }else if(JSON.stringify(data) != "{}"){
+                            // console.log(data);
+                            callback(data);
+                        }
+                    }
+                })
+            }
+            if(JSON.stringify(oneData) != "{}"){
+                event_table.settings()[0].ajax = myajax1;
+                event_table.ajax.reload();
+
+                //确认/未确认过滤
+                var is_look = $('input[name=isLook]').val();
+                if(is_look=="0"){
+                    $('.isLook').click();
+                }
+                //消息类型过滤
+                var content = $('.search_keyword1').text();
+                if(content == "通讯"){
+                    $('input[name=search_keyword1]').val('通讯');
+                    table
+                        .column(4)
+                        .search("通讯")
+                        .draw();
+                }else if(content == "网关系统"){
+                    $('input[name=search_keyword1]').val('系统');
+                    table
+                        .column(4)
+                        .search("系统")
+                        .draw();
+                }else if(content == "采集数据"){
+                    $('input[name=search_keyword1]').val('数据');
+                    table
+                        .column(4)
+                        .search("数据")
+                        .draw();
+                }else if(content == "采集设备"){
+                    $('input[name=search_keyword1]').val('设备');
+                    table
+                        .column(4)
+                        .search("设备")
+                        .draw();
+                }else if(content == "网关应用"){
+                    $('input[name=search_keyword1]').val('应用');
+                    table
+                        .column(4)
+                        .search("应用")
+                        .draw();
+                }else if(content == "全部"){
+                    table
+                        .column(4)
+                        .search("")
+                        .draw()
+                }
+                //消息等级过滤
+                var content = $('.search_keyword3').text();
+                if(content == "常规"){
+                    $('input[name=search_keyword3]').val(1);
+                    table
+                        .column(5)
+                        .search(1)
+                        .draw();
+                }else if(content == "警告"){
+                    $('input[name=search_keyword3]').val(2);
+                    table
+                        .column(5)
+                        .search(2)
+                        .draw();
+                }else if(content == "错误"){
+                    $('input[name=search_keyword3]').val(3);
+                    table
+                        .column(5)
+                        .search(3)
+                        .draw();
+                }else if(content == "致命"){
+                    $('input[name=search_keyword3]').val(99);
+                    table
+                        .column(5)
+                        .search(99)
+                        .draw();
+                }else if(content == "全部"){
+                    table
+                        .column(5)
+                        .search("")
+                        .draw()
+                }
+
+            }
+
+        }
+
+
+
+
+        $('input[name=search_keyword0]').val(500);
+
         var myfilters = {
             start: 0,
-            limit: 500
+            limit: Number($('input[name=search_keyword0]').val())
         };
 
 
@@ -666,6 +830,23 @@
             }
         });
 
+        //下拉框--- 记录数
+        $('.search_filter0 li').on('click', function(){
+            $('.search_keyword0').text($(this).text());
+            $('input[name=search_keyword0]').val($(this).text());
+
+            all_count();
+            myfilters.limit = $('input[name=search_keyword0]').val();
+            var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+            if(sel_time){
+                myfilters.filters = {"creation"  :[">", sel_time]}
+            }
+
+            load_device_event(myfilters, table)
+
+        });
+
+
         //下拉框--- 关键词
         $('.search_filter4 li').on('click', function(){
             $('.search_keyword4').text($(this).text());
@@ -694,105 +875,44 @@
             var content = $('.search_keyword2').text();
             if(content == "1小时"){
                 //获取当前时间前一小时
-                var an_hour_ago = Date.parse(new Date()) - 1 * 60 * 60 * 1000;
-                var date1 = timestampToTime(an_hour_ago);
+                var date1 = timestampToTime(Date.parse(new Date()) - 1 * 60 * 60 * 1000);
                 $('input[name=search_keyword2]').val(date1);
-                var param1 = {
-                    start: 0,
-                    limit: 500,
-                    filters: {
-                        creation:[">",date1]
-                    }
-                };
-                var myajax1 = function(data, callback, oSettings ) {
-                    return $.ajax({
-                        url: "/apis/api/method/iot.user_api.device_event",
-                        headers: {
-                            Accept: "application/json; charset=utf-8",
-                            "X-Frappe-CSRF-Token": auth_token
-                        },
-                        type: "POST",
-                        contentType: "application/json",
-                        data:JSON.stringify(param1),
-                        success: function (data) {
-                            if(JSON.stringify(data) == "{}"){
-                                var text = '一小时之内暂时没有消息';
-                                errorAlert(text)
-                            }else{
-                                // console.log(data);
-                                callback(data);
-                            }
-                        }
-                    })
+
+
+                myfilters.limit = $('input[name=search_keyword0]').val();
+                var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+                if(sel_time){
+                    myfilters.filters = {"creation"  :[">", sel_time]}
                 }
-                table.settings()[0].ajax = myajax1;
-                table.ajax.reload();
+
+                load_device_event(myfilters, table)
+
             }else if(content == "24小时"){
                 //获取当前时间前24小时
-                var one_day_ago = Date.parse(new Date()) - 24 * 60 * 60 * 1000;
-                var date2 = timestampToTime(one_day_ago);
+
+                var date2 = timestampToTime(Date.parse(new Date()) - 24 * 60 * 60 * 1000);
                 $('input[name=search_keyword2]').val(date2);
-                var param1 = {
-                    start: 0,
-                    limit: 1000,
-                    filters: {
-                        creation:[">",date2]
-                    }
-                };
-                var myajax2 = function(data, callback, oSettings ) {
-                    return $.ajax({
-                        url: "/apis/api/method/iot.user_api.device_event",
-                        headers: {
-                            Accept: "application/json; charset=utf-8",
-                            "X-Frappe-CSRF-Token": auth_token
-                        },
-                        type: "POST",
-                        contentType: "application/json",
-                        data:JSON.stringify(param1),
-                        success: function (data) {
-                            if(data == ''){
-                                console.log('kong')
-                            }else{
-                                // console.log(data);
-                                callback(data);
-                            }
-                        }
-                    })
+
+                myfilters.limit = $('input[name=search_keyword0]').val();
+                var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+                if(sel_time){
+                    myfilters.filters = {"creation"  :[">", sel_time]}
                 }
-                table.settings()[0].ajax = myajax2;
-                table.ajax.reload();
+
+                load_device_event(myfilters, table)
 
             }else if(content == "3天"){
                 //获取当前时间前72小时
-                var three_day_ago = Date.parse(new Date()) - 72 * 60 * 60 * 1000;
-                var date3 = timestampToTime(three_day_ago);
+                var date3 = timestampToTime(Date.parse(new Date()) - 72 * 60 * 60 * 1000);
                 $('input[name=search_keyword2]').val(date3);
-                var param3 = {
-                    start: 0,
-                    limit: 4000,
-                    filters: {
-                        creation:[">",date3]
-                    }
-                };
-                // console.log(param3)
-                var myajax3 = function(data, callback, oSettings ) {
-                    return $.ajax({
-                        url: "/apis/api/method/iot.user_api.device_event",
-                        headers: {
-                            Accept: "application/json; charset=utf-8",
-                            "X-Frappe-CSRF-Token": auth_token
-                        },
-                        type: "POST",
-                        contentType: "application/json",
-                        data:JSON.stringify(param3),
-                        success: function (data) {
-                            callback(data);
-                            // console.log(data)
-                        }
-                    })
+
+                myfilters.limit = $('input[name=search_keyword0]').val();
+                var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+                if(sel_time){
+                    myfilters.filters = {"creation"  :[">", sel_time]}
                 }
-                table.settings()[0].ajax = myajax3;
-                table.ajax.reload();
+
+                load_device_event(myfilters, table)
             }
         });
 
@@ -830,7 +950,7 @@
                     .column(4)
                     .search("应用")
                     .draw();
-            }else if(content == "全部消息类型"){
+            }else if(content == "全部"){
                 table
                     .column(4)
                     .search("")
@@ -866,7 +986,7 @@
                     .column(5)
                     .search(99)
                     .draw();
-            }else if(content != "等级"){
+            }else if(content == "全部"){
                 table
                     .column(5)
                     .search("")
@@ -1051,66 +1171,16 @@
         //刷新数据
         $('button.event-refresh').click(function () {
             all_count();
-            // unread_count();
-            var is_look = $('input[name=isLook]').val();            //是否查看   isLook：0未查看
-            var mess_type = $('input[name=search_keyword1]').val(); //消息类型   search_keyword1
+            myfilters.limit = $('input[name=search_keyword0]').val();
             var sel_time = $('input[name=search_keyword2]').val();  //时间范围
-            var grade = $('input[name=search_keyword3]').val();  //等级
-            var param1 = {
-                start: 0,
-                limit: 500,
-                filters: {
-                    "disposed"  : is_look,
-                    "event_type" : mess_type,    //消息类型
-                    "event_level"      : grade,
-                    "creation"  :[">", sel_time]
-                }
-            };
-            var oneData;
-            var myajax1 = function(data, callback, oSettings ) {
-                return $.ajax({
-                    url: "/apis/api/method/iot.user_api.device_event",
-                    headers: {
-                        Accept: "application/json; charset=utf-8",
-                        "X-Frappe-CSRF-Token": auth_token
-                    },
-                    type: "POST",
-                    async:false,
-                    contentType: "application/json",
-                    data:JSON.stringify(param1),
-                    success: function (data) {
-                        oneData = data;
-                        if(JSON.stringify(data) == "{}"){
-                            var text = '暂时没有最新消息';
-                            errorAlert(text)
-                        }else{
-                            var a = 0;
-                            var list = data.message;
-                            for(var i=0;i<list.length;i++){
-                                if(list[i].disposed == 0){
-                                    a++;
-                                }
-                            }
-                            $('.disposed_message').text(a);
-                            if(a == 0){
-                                $('.confirmation').attr('disabled',true);
-                                $('.confirmationAll').attr('disabled',true);
-                            }else{
-                                $('.confirmation').attr('disabled',false);
-                                $('.confirmationAll').attr('disabled',false);
-                            }
-
-                            // console.log(data);
-                            callback(data);
-                        }
-                    }
-                })
-            };
-            if(JSON.stringify(oneData) !== "{}"){
-                table.settings()[0].ajax = myajax1;
-                table.ajax.reload();
+            if(sel_time){
+                myfilters.filters = {"creation"  :[">", sel_time]}
             }
-        })
+
+            load_device_event(myfilters, table);
+        });
+
+
     });
 
 
