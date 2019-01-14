@@ -262,9 +262,12 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li data-name="device_time1"><a style="cursor:pointer">今天</a></li>
-                            <li data-name="device_time1"><a style="cursor:pointer">昨天</a></li>
-                            <li data-name="device_time2"><a style="cursor:pointer">前天</a></li>
+                            <li data-name="device_time1"><a style="cursor:pointer">1小时</a></li>
+                            <li data-name="device_time2"><a style="cursor:pointer">6小时</a></li>
+                            <li data-name="device_time3"><a style="cursor:pointer">12小时</a></li>
+                            <li data-name="device_time4"><a style="cursor:pointer">今天</a></li>
+                            <li data-name="device_time5"><a style="cursor:pointer">昨天</a></li>
+                            <li data-name="device_time6"><a style="cursor:pointer">前天</a></li>
                         </ul>
                     </div>
 
@@ -410,18 +413,25 @@
 <!--<script src="user_js/My_Gates_apps/My_Gates_apps.js" type="text/javascript"></script>-->
 
 <script>
-    //时间戳转换
-    function timestampToTime(timestamp) {
+    //时间戳转换日期
+    function timestampTodate(timestamp) {
         var date = new Date(timestamp);
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
         var D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate());
-        // var D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()) + ' ';
-        var h = date.getHours() + ':';
+        return Y+M+D;
+    }
+
+    //时间戳转换时间
+    function timestampToTime(timestamp) {
+        var date = new Date(timestamp);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0'+(date.getHours()) : date.getHours()) + ':';
         var m = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
         var s = '00';
-        return Y+M+D;
-        // return Y+M+D+h+m+s;
+        return Y+M+D+h+m+s;
     }
 
     $(document).ready(function() {
@@ -888,11 +898,6 @@
 
             all_count();
             myfilters.limit = $('input[name=search_keyword0]').val();
-            var sel_time = $('input[name=search_keyword2]').val();  //时间范围
-            if(sel_time){
-                myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
-            }
-
             load_device_activity(myfilters, table)
 
         });
@@ -904,22 +909,20 @@
             // console.log(content);
             if(content == "今天"){
                 //获取当前时间前一小时
-                var date1 = timestampToTime(Date.parse(new Date()));
+                var date1 = timestampTodate(Date.parse(new Date()));
                 $('input[name=search_keyword2]').val(date1);
-                myfilters.limit = $('input[name=search_keyword0]').val();
                 var sel_time = $('input[name=search_keyword2]').val();  //时间范围
                 if(sel_time){
                     myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
                 }
-
+                console.log(content, sel_time, myfilters);
                 load_device_activity(myfilters, table)
 
 
             }else if(content == "昨天"){
-                var _Yesterday = timestampToTime(Date.parse(new Date()) - 1 * 60 * 60 * 24000);
+                var _Yesterday = timestampTodate(Date.parse(new Date()) - 1 * 60 * 60 * 24000);
                 $('input[name=search_keyword2]').val(_Yesterday);
 
-                myfilters.limit = $('input[name=search_keyword0]').val();
                 var sel_time = $('input[name=search_keyword2]').val();  //时间范围
                 if(sel_time){
                     myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
@@ -928,10 +931,9 @@
                 load_device_activity(myfilters, table)
 
             }else if(content == "前天"){
-                var _2day_ago = timestampToTime(Date.parse(new Date()) - 2 * 60 * 60 * 24000);
+                var _2day_ago = timestampTodate(Date.parse(new Date()) - 2 * 60 * 60 * 24000);
                 $('input[name=search_keyword2]').val(_2day_ago);
 
-                myfilters.limit = $('input[name=search_keyword0]').val();
                 var sel_time = $('input[name=search_keyword2]').val();  //时间范围
                 if(sel_time){
                     myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
@@ -939,6 +941,40 @@
 
                 load_device_activity(myfilters, table)
             }
+            else if(content == "1小时"){
+                var _1hour = timestampToTime(Date.parse(new Date()) - 1 * 60 * 60 * 1000);
+                $('input[name=search_keyword2]').val(_1hour);
+
+                var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+                if(sel_time){
+                    myfilters.filters = {"creation"  :[">", sel_time]}
+                }
+
+                load_device_activity(myfilters, table)
+            }
+            else if(content == "6小时"){
+                var _6hour = timestampToTime(Date.parse(new Date()) - 6 * 60 * 60 * 1000);
+                $('input[name=search_keyword2]').val(_6hour);
+
+                var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+                if(sel_time){
+                    myfilters.filters = {"creation"  :[">", sel_time]}
+                }
+
+                load_device_activity(myfilters, table)
+            }
+            else if(content == "12小时"){
+                var _12hour = timestampToTime(Date.parse(new Date()) - 12 * 60 * 60 * 1000);
+                $('input[name=search_keyword2]').val(_12hour);
+
+                var sel_time = $('input[name=search_keyword2]').val();  //时间范围
+                if(sel_time){
+                    myfilters.filters = {"creation"  :[">", sel_time]}
+                }
+
+                load_device_activity(myfilters, table)
+            }
+
 
 
         });
@@ -1125,12 +1161,6 @@
                                 console.log('error')
                             }, complete: function () {
                                 if(aList.length != 0){
-                                    myfilters.limit = $('input[name=search_keyword0]').val();
-                                    var sel_time = $('input[name=search_keyword2]').val();  //时间范围
-                                    if(sel_time){
-                                        myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
-                                    }
-
                                     load_device_activity(myfilters, table)
                                 }
                             }
@@ -1160,13 +1190,6 @@
         //刷新数据
         $('button.event-refresh').click(function () {
             all_count();
-
-            myfilters.limit = $('input[name=search_keyword0]').val();
-            var sel_time = $('input[name=search_keyword2]').val();  //时间范围
-            if(sel_time){
-                myfilters.filters = {"creation"  :["like", "%"+sel_time+"%"]}
-            }
-
             load_device_activity(myfilters, table)
         })
 
