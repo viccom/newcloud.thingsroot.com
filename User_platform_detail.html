@@ -489,10 +489,10 @@
                                         text = '网关开启数据上传';
                                     }
                                 }else if(obj.action == "enable/log"){
-                                    if(obj.data == ""){
-                                        text = '网关关闭日志上送';
-                                    }else if(obj.data == 120){
-                                        text = '网关开启日志上送';
+                                    if(typeof obj.data == "number" && Number(obj.data)>1 ){
+                                        return '网关开启日志上送';
+                                    }else{
+                                        return '网关关闭日志上送';
                                     }
                                 }else if(obj.action == "enable/comm"){
                                     if(obj.data.sec == 0){
