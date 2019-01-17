@@ -574,6 +574,8 @@
                                     return '设备上线';
                                 }else if(obj.device_status == "OFFLINE"){
                                     return '设备离线';
+                                }else{
+                                    return row;
                                 }
                                 //设备操作
                             }else if(obj.hasOwnProperty('action')){
@@ -584,6 +586,8 @@
                                             return '开启应用'+obj.data.inst+'开机自启动';
                                         }else if(obj.data.value == 0){
                                             return '关闭应用'+obj.data.inst+'开机自启动';
+                                        }else{
+                                            return row;
                                         }
                                     }else if(obj.action == "restart"){
                                         return '重启应用'+obj.data.inst;
@@ -598,6 +602,8 @@
                                             return '停止上传应用'+obj.data.inst+'报文';
                                         }else if(typeof obj.data.sec == "number"){
                                             return '上传应用'+obj.data.inst+'报文';
+                                        }else{
+                                            return row;
                                         }
                                     }else if(obj.action == "install"){
                                         return '安装应用'+obj.data.name+'实例名'+obj.data.inst;
@@ -613,6 +619,8 @@
                                         return '应用'+obj.data.inst+'升级到最新版本';
                                     }else if(obj.action == "rename"){
                                         return '应用'+obj.data.inst+'重命名为'+obj.data.new_name;
+                                    }else{
+                                        return row;
                                     }
                                 }  //app
                                 else if(obj.channel == "sys"){
@@ -630,15 +638,15 @@
                                         }
                                     }else if(obj.action == "enable/log"){
                                         if(typeof obj.data == "number" && Number(obj.data)>1 ){
-                                            return '网关开启日志上送';
+                                            return '网关开启日志上送' + obj.data + "秒";
                                         }else{
                                             return '网关关闭日志上送';
                                         }
                                     }else if(obj.action == "enable/comm"){
-                                        if(obj.data.sec == 0){
+                                        if(typeof obj.data.sec == "number" && Number(obj.data.sec)>1 ){
+                                            return '网关开启报文上送'+ obj.data.sec + "秒";
+                                        }else{
                                             return '网关停止报文上送';
-                                        }else if(obj.data.sec == 120){
-                                            return '网关开启报文上送';
                                         }
                                     }else if(obj.action == "restart"){
                                         return '网关IOT程序重启';
@@ -651,6 +659,8 @@
                                             return '网关关闭临时上传数据';
                                         }else if(typeof obj.data == "number"){
                                             return '网关开启临时上传数据';
+                                        }else{
+                                            return row;
                                         }
                                     }else if(obj.action == "ext/upgrade"){
                                         return '网关更新扩展库';
@@ -672,7 +682,10 @@
                                         return '网关IOT固件升级确认';
                                     }else if(obj.action == "data/query"){
                                         return '网关请求立刻上传数据';
+                                    }else{
+                                        return row;
                                     }
+
                                 }  //sys
                                 else if(obj.channel == "command"){
                                     return '网关应用设备执行'+obj.data.cmd+'指令';
