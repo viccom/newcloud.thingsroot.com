@@ -483,7 +483,8 @@ function create_appconfig_panel(data) {
                         {
                             "name": "flow_control",
                             "desc": "流控",
-                            "type": "boolean"
+                            "type": "dropdown",
+                            "value": ["ON","OFF"]
 
                         },
                         {
@@ -971,7 +972,8 @@ function get_panel_data(data){
                 {
                     "name": "flow_control",
                     "desc": "流控",
-                    "type": "boolean"
+                    "type": "dropdown",
+                    "value": ["ON","OFF"]
 
                 },
                 {
