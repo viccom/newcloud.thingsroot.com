@@ -934,8 +934,8 @@ function get_panel_data(data){
                 if (child[j].type == "number") {
                     app_config.socket[child[j].name] = Number($("input[name=" + child[j].name + "]").val())
                 }
-                if (child[j].type == "dropdown") {
-                    app_config.socket[child[j].name] = $("select[name=" + child[j].name + "]").val()
+                if (child[k].type == "dropdown") {
+                    app_config.serial[child[j].name] = Number($("select[name=" + child[k].name + "]").val())
                 }
                 if (child[j].type == "boolean") {
                     app_config.socket[child[j].name] = $("input[name=" + child[j].name + "]").prop('checked')
