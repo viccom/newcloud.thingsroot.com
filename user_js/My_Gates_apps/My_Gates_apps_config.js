@@ -457,7 +457,7 @@ function create_appconfig_panel(data) {
                 $('.c_content').append(head_html);
                 var child = [
                     {
-                        "name": "tty",
+                        "name": "port",
                         "desc": "端口",
                         "type": "dropdown",
                         "value": ["/dev/ttymcx0","/dev/ttymcx1"]
@@ -946,7 +946,7 @@ function get_panel_data(data){
         if(data[i].type=="section" && data[i].name=="serial_section") {
             var child = [
                 {
-                    "name": "tty",
+                    "name": "port",
                     "desc": "端口",
                     "type": "dropdown",
                     "value": ["/dev/ttymcx0","/dev/ttymcx1"]
