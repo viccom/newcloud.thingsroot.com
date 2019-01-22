@@ -1081,7 +1081,7 @@ function set_panel_data(){
     if(app_default.hasOwnProperty("serial")){
         $("select[name=baudrate]").val(app_default.serial.baudrate);
         $("select[name=data_bits]").val(app_default.serial.data_bits);
-        $("input[name=flow_control]").prop('checked',app_default.serial.flow_control);
+        $("select[name=flow_control]").val(app_default.serial.flow_control);
         $("select[name=parity]").val(app_default.serial.parity);
         $("select[name=stop_bits]").val(app_default.serial.stop_bits);
         $("select[name=tty]").val(app_default.serial.tty);
