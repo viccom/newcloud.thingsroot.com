@@ -1,5 +1,6 @@
 pagename = "Gates_vpn";
 cloud_url = "http://iot.symgrid.com";
+frps_host = "hs.symgrid.com";
 
 gate_sn_org  = getParam('sn');
 gate_sn = gate_sn_org;
@@ -84,6 +85,7 @@ $(document).ready(function(){
                 }
             }
             var tap_netmask  = $("select#tap_netmask").val();
+            frps_host = $("select#frps_host").val();
             var dev_ip = $("input#dev_ip").val();
             if(dev_ip=="" || dev_ip==null){
                 $('.popover-devip').popover('show');
@@ -130,7 +132,7 @@ $(document).ready(function(){
                 "common":{
                     "admin_addr":"127.0.0.1",
                     "admin_port":"7402",
-                    "server_addr":"iot.symgrid.com",
+                    "server_addr":frps_host,
                     "server_port":"5443",
                     "token":"BWYJVj2HYhVtdGZL",
                     "protocol":net_protocol,
