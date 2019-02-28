@@ -239,7 +239,7 @@ var    table_gates_log2 = $('#table_gates_log2').DataTable({
         "error": function (e) {
             console.log(e)
         },
-        "dataSrc":  function (d) {+-*
+        "dataSrc":  function (d) {
             if($.isEmptyObject(d)){
                 return []
             }else{
