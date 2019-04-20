@@ -1,15 +1,3 @@
-/**
- *	日志处理
- */
-function logMessage(type, ...content) {
-    if (type === "INFO") {
-        console.info(...content);
-    } else if (type === "ERROR") {
-        console.error(...content);
-    } else {
-        console.log(...content);
-    }
-}
 
 /**
  *	获取网关状态信息
@@ -99,7 +87,7 @@ function get_freeioe_Vserial_data(sn){
         data: {"sn": sn,"vsn": sn + '.freeioe_Vserial'},
         dataType:'json',
         success:function(req){
-            console.log(req);
+            // console.log(req);
             if(req.message!=null){
                 if(req.message.length>0){
                     var reg = RegExp(/mapport/);
@@ -108,6 +96,34 @@ function get_freeioe_Vserial_data(sn){
                         if(reg.test(req.message[i].name)){
                             if(req.message[i].pv){
                                 remote_portmap_array.push(req.message[i].pv)
+                            }
+
+                        }
+
+                    }
+
+                    var reg = RegExp(/net/);
+                    remote_comstate_object = {};
+                    for (var i = 0; i < req.message.length; i++) {
+                        if(reg.test(req.message[i].name)){
+                            if(req.message[i].pv){
+                                remote_comstate_object[req.message[i].name]=req.message[i].pv;
+                            }else{
+                                remote_comstate_object[req.message[i].name]=null;
+                            }
+
+                        }
+
+                    }
+
+                    var reg = RegExp(/mapport/);
+                    remote_mapport_object = {};
+                    for (var i = 0; i < req.message.length; i++) {
+                        if(reg.test(req.message[i].name)){
+                            if(req.message[i].pv){
+                                remote_mapport_object[req.message[i].name]=req.message[i].pv;
+                            }else{
+                                remote_mapport_object[req.message[i].name]=null;
                             }
 
                         }
@@ -125,27 +141,23 @@ function get_freeioe_Vserial_data(sn){
 /**
  *	向freeioe_Vserial提交数据
  */
-function post_freeioe_Vserial_data(sn){
-    $.ajax({
-        url: '/apis/api/method/iot_ui.iot_api.gate_device_data_array',
-        headers: {
-            Accept: "application/json; charset=utf-8",
-            "X-Frappe-CSRF-Token": auth_token
+function post_freeioe_Vserial_data(sn, device_sn, tag_name, output_val){
+    var app_action = "send_output";
+    var task_desc = '数据下置'+ '/ '+ device_sn  + '/ ' + tag_name + '/'+  output_val;
+    var id = 'send_output/' + sn + '/ '+ device_sn  + '/ '+ tag_name + '/'+  output_val + '/'+ Date.parse(new Date());
+    var _act = {
+        "device": sn,
+        "data": {
+            "device": device_sn,
+            "output": tag_name,
+            "value": output_val,
+            "prop": "value"
         },
-        type: 'get',
-        data: {"sn": sn,"vsn": sn + '.freeioe_Vserial'},
-        dataType:'json',
-        success:function(req){
-            console.log(req);
+        "id": id
+    };
 
-            if(req.message!=null){
+    gate_exec_action(app_action, _act, task_desc, "0", app_action, "0");
 
-            }
-        },
-        error:function(req){
-            console.log(req);
-        }
-    });
 }
 
 /**
@@ -223,6 +235,8 @@ local_coms = null;
 valid_com = null;
 remote_peer = {};
 remote_portmap_array = new Array();
+remote_comstate_object = {};
+remote_cmapport_object = {};
 action_result_list = new Array();
 vircom ={};
 
@@ -257,12 +271,13 @@ var mqtt_status_ret= setInterval(function(){
         vircom ={};
     }
 
-    console.log("is null:::::::::",$.isEmptyObject(vircom));
+    // console.log("is null:::::::::",$.isEmptyObject(vircom));
     if($.isEmptyObject(vircom)){
         $("button.com_open").text('开启');
         $("button.com_open").removeClass('btn-danger');
         $("button.com_open").data('opened',0);
         $("select.config_com").attr('disabled',false);
+        $("button.message_monitor").addClass('hide');
 
         $("span.local_com").text('');
         $("span.com_parameters").text('');
@@ -278,6 +293,7 @@ var mqtt_status_ret= setInterval(function(){
         $("button.com_open").addClass('btn-danger');
         $("button.com_open").data('opened',1);
         $("select.config_com").attr('disabled',true);
+        $("button.message_monitor").removeClass('hide');
 
         $("span.local_com").text(vircom.name);
 
@@ -287,8 +303,10 @@ var mqtt_status_ret= setInterval(function(){
         }else{
             $("span.com_status").text('已关闭');
         }
+        if(vircom.app_path){
+            $("span.com_proc").text(vircom.app_path.split("\\")[vircom.app_path.split("\\").length-1]);
+        }
 
-        $("span.com_proc").text(vircom.app_path.split("\\")[vircom.app_path.split("\\").length-1]);
         $("span.com_peer").text(vircom.target_host + ":" + vircom.target_port);
         $("span.com_peer_state").text(vircom.peer_state);
         $("span.com_received").text(vircom.recv_count+ '/' + vircom.send_count);
@@ -339,27 +357,24 @@ $("button.com_open").click(function(){
 
     }else{
 
-        var com_cfg = {
-            "serial":$("select[name=port]").val(),
-            "baudrate":$("select[name=baudrate]").val(),
-            "databit":$("select[name=data_bits]").val(),
-            "stopbit":$("select[name=stop_bits]").val(),
-            "parity":$("select[name=parity]").val()
-        };
-
-        console.log(com_cfg);
-
-
-
-        var Vcom_cfg = {
-            "by_name": 1,
-            "name": "COM1",
-            "peer": {
-                "type":"tcp_client",
-                "host": "thingsroot.com",
-                "port": 26969
-            }
-        };
+        // var com_cfg = {
+        //     "serial":$("select[name=port]").val(),
+        //     "baudrate":$("select[name=baudrate]").val(),
+        //     "databit":$("select[name=data_bits]").val(),
+        //     "stopbit":$("select[name=stop_bits]").val(),
+        //     "parity":$("select[name=parity]").val()
+        // };
+        //
+        //
+        // var Vcom_cfg = {
+        //     "by_name": 1,
+        //     "name": "COM1",
+        //     "peer": {
+        //         "type":"tcp_client",
+        //         "host": "thingsroot.com",
+        //         "port": 26969
+        //     }
+        // };
 
         var id = "query_local_coms/"+ Date.parse(new Date());
         query_local_coms(mqttc_connected, mqtt_client, id)

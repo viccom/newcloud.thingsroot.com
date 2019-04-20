@@ -325,9 +325,7 @@
                                                         <div class="btn-group">
                                                             <button type="button" class="btn btn-primary com_open">开启</button>
                                                         </div>
-                                                        <div class="btn-group">
-                                                            <button type="button" class="btn btn-primary message_monitor">报文监控</button>
-                                                        </div>
+
                                                     </div>
 
                                                 </div>
@@ -436,6 +434,7 @@
                                                 <th>连接状态</th>
                                                 <th>串口(收/发)</th>
                                                 <th>网络(收/发)</th>
+                                                <th width="6%">操作</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -447,7 +446,11 @@
                                                     <td><span class="com_peer_state"></span></td>
                                                     <td><span class="com_received"></span></td>
                                                     <td><span class="net_received"></span></td>
-
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-primary message_monitor hide">监视</button>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

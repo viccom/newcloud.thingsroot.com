@@ -266,11 +266,12 @@ function onMessageArrived(message) {
     if(arr_topic[0]==="VSPC_STATUS"){
 
         var ret = JSON.parse(message.payloadString);
-        console.log("topic: ",ret.name, vircom, remote_portmap_array);
+        // console.log("topic: ",ret.name, vircom, remote_portmap_array);
+        // console.log(($.inArray(ret.target_host+":"+ret.target_port, remote_portmap_array) !== -1));
         if($.inArray(ret.target_host+":"+ret.target_port, remote_portmap_array) !== -1){
             vircom = ret;
-            $("span.selected_com").text(vircom.name);
-            $("select.com_select").val(vircom.name.toLowerCase());
+            // $("span.selected_com").text(vircom.name);
+            // $("select.com_select").val(vircom.name.toLowerCase());
         }
     }
 
@@ -286,9 +287,10 @@ function onMessageArrived(message) {
                 console.log(q[i]);
                 // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
                 var ret = JSON.parse(message.payloadString);
-                console.log(ret.id, ret.result);
+                console.log(ret.id, ret);
+                var arr_action = ret.id.split("/");
                 if(ret.id==q[i] && ret.result){
-                    var arr_action = ret.id.split("/");
+
 
                     if(arr_action[0]=='query_local_Vcoms'){
                         if(ret.data.vir){
@@ -305,6 +307,14 @@ function onMessageArrived(message) {
                                 valid_com  = "COM"+j;
                                 console.log("valid_com:::",valid_com);
 
+                                var com_cfg = {
+                                    "serial":$("select[name=port]").val(),
+                                    "baudrate":$("select[name=baudrate]").val(),
+                                    "databit":$("select[name=data_bits]").val(),
+                                    "stopbit":$("select[name=stop_bits]").val(),
+                                    "parity":$("select[name=parity]").val()
+                                };
+                                var peer = remote_mapport_object[com_cfg.serial+'_mapport'].split(":");
                                 var id = "add_local_com/"+ Date.parse(new Date());
                                 var message = {
                                     "id":id,
@@ -312,16 +322,58 @@ function onMessageArrived(message) {
                                     "name": valid_com.toUpperCase(),
                                     "peer": {
                                         "type":"tcp_client",
-                                        "host": "thingsroot.com",
-                                        "port": 26969
+                                        "host": peer[0],
+                                        "port": parseInt(peer[1])
                                     }
                                 };
-                                add_local_com(mqttc_connected, mqtt_client, message);
+                                console.log(message);
+                                if($.isEmptyObject(remote_comstate_object)){
+
+                                }else{
+                                    if(remote_comstate_object[com_cfg.serial+'net']==1){
+                                        add_local_com(mqttc_connected, mqtt_client, message);
+                                    }else{
+                                        $("span.service_status").text("网关中串口映射服务未启动");
+                                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_config', com_cfg);
+
+                                        var remote_comstate_status_ret= setInterval(function(){
+                                            var com_cfg = {
+                                                "serial":$("select[name=port]").val(),
+                                                "baudrate":$("select[name=baudrate]").val(),
+                                                "databit":$("select[name=data_bits]").val(),
+                                                "stopbit":$("select[name=stop_bits]").val(),
+                                                "parity":$("select[name=parity]").val()
+                                            };
+                                            // console.log(Date.parse(new Date()), remote_comstate_object);
+                                            // console.log(Date.parse(new Date()), remote_comstate_object[com_cfg.serial+'net']==1);
+                                            if(remote_comstate_object[com_cfg.serial+'net']==1){
+                                                var peer = remote_mapport_object[com_cfg.serial+'_mapport'].split(":");
+                                                var id = "add_local_com/"+ Date.parse(new Date());
+                                                var message = {
+                                                    "id":id,
+                                                    "by_name": 1,
+                                                    "name": valid_com.toUpperCase(),
+                                                    "peer": {
+                                                        "type":"tcp_client",
+                                                        "host": peer[0],
+                                                        "port": parseInt(peer[1])
+                                                    }
+                                                };
+                                                // console.log(message);
+                                                add_local_com(mqttc_connected, mqtt_client, message);
+                                                clearInterval(remote_comstate_status_ret);
+                                            }
+                                        },2000);
+                                    }
+                                }
+
+
 
                                 break;
                             }
                         }
                     }
+
                     if(arr_action[0]=='add_local_com'){
 
                         console.log(ret);
@@ -330,8 +382,17 @@ function onMessageArrived(message) {
                     if(arr_action[0]=='remove_local_com'){
                         vircom ={};
                         console.log(ret);
+
+                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
                     }
 
+                }else{
+                    $("span.service_status").text(ret.error);
+                    if(arr_action[0]=='remove_local_com'){
+                        vircom ={};
+                        console.log(ret);
+                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
+                    }
                 }
                 q.splice(i,1);
 
@@ -375,7 +436,7 @@ function connect() {
     var keepAlive = 60;
     var timeout = 3;
     var tls = false;
-    var automaticReconnect = true;
+    var reconnect = true;
     var cleanSession = true;
     var lastWillTopic = null;
     var lastWillQos = 0;
@@ -402,7 +463,7 @@ function connect() {
         keepAliveInterval: keepAlive,
         cleanSession: cleanSession,
         useSSL: tls,
-        reconnect: true,
+        reconnect: reconnect,
         onSuccess: onConnect,
         onFailure: onFail
     };
