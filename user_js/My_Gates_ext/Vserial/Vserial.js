@@ -291,8 +291,8 @@ var mqtt_status_ret= setInterval(function(){
         $("span.com_proc").text(vircom.app_path.split("\\")[vircom.app_path.split("\\").length-1]);
         $("span.com_peer").text(vircom.target_host + ":" + vircom.target_port);
         $("span.com_peer_state").text(vircom.peer_state);
-        $("span.com_received").text(vircom.recv_count);
-        $("span.net_received").text(vircom.peer_recv_count);
+        $("span.com_received").text(vircom.recv_count+ '/' + vircom.send_count);
+        $("span.net_received").text(vircom.peer_recv_count + '/' +vircom.peer_send_count);
 
     }
 
