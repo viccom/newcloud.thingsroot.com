@@ -238,7 +238,7 @@ $(".tag_output_ok").click(function(){
             "data": {
                 "device": device_sn,
                 "output": tag_name,
-                "value": Number(output_val),
+                "value": output_val,
                 "prop": "value"
             },
             "id": id

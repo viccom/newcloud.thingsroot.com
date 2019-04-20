@@ -57,11 +57,7 @@ $(document).ready(function(){
 
 
 
-// 本地查询按钮------开始
-    $("button#query").click(function(){
-        check_local_status();
-    });
-// 本地查询按钮------结束
+
 
 // 选择按钮--VPN启动-----开始
     $("button#start_vpn").click(function(){
