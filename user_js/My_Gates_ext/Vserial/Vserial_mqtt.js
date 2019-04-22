@@ -17,6 +17,25 @@ mqttc_connected = false;
 //     }
 // }
 
+
+
+
+/**
+ *	获取当前时间
+ */
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "/";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1<10? "0"+(date.getMonth() + 1):date.getMonth() + 1;
+    var strDate = date.getDate()<10? "0" + date.getDate():date.getDate();
+    var sec = date.getSeconds() + 1<10? "0"+(date.getSeconds() + 1):date.getSeconds() + 1;
+    var currentdate = date.getFullYear() + seperator1  + month  + seperator1  + strDate
+        + " "  + date.getHours()  + seperator2  + date.getMinutes()
+        + seperator2 + sec;
+    return currentdate;
+}
+
 /**
  *	日志处理
  */
@@ -262,6 +281,8 @@ function onConnectionLost(responseObject) {
 function onMessageArrived(message) {
     // console.log("topic: ",message.destinationName);
     var arr_topic = message.destinationName.split("/");
+    var socket_reg = RegExp(/SOCKET_STREAM/);
+    var vspc_reg = RegExp(/VSPC_STREAM/);
 
     if(arr_topic[0]==="VSPC_STATUS"){
 
@@ -333,7 +354,7 @@ function onMessageArrived(message) {
                                     if(remote_comstate_object[com_cfg.serial+'net']==1){
                                         add_local_com(mqttc_connected, mqtt_client, message);
                                     }else{
-                                        $("span.service_status").text("网关中串口映射服务未启动");
+                                        $("span.remote_action_feedback").text("网关中串口映射服务未启动");
                                         post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_config', com_cfg);
 
                                         var remote_comstate_status_ret= setInterval(function(){
@@ -362,6 +383,7 @@ function onMessageArrived(message) {
                                                 // console.log(message);
                                                 add_local_com(mqttc_connected, mqtt_client, message);
                                                 clearInterval(remote_comstate_status_ret);
+                                                $("span.remote_action_feedback").text("");
                                             }
                                         },2000);
                                     }
@@ -383,15 +405,15 @@ function onMessageArrived(message) {
                         vircom ={};
                         console.log(ret);
 
-                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
+                        // post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
                     }
 
                 }else{
-                    $("span.service_status").text(ret.error);
+                    $("span.local_action_feedback").text(ret.error);
                     if(arr_action[0]=='remove_local_com'){
                         vircom ={};
                         console.log(ret);
-                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
+                        // post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
                     }
                 }
                 q.splice(i,1);
@@ -404,9 +426,51 @@ function onMessageArrived(message) {
 
 
 
-    }else if(_topic==="comm"){
+    }
+    // else if(socket_reg.test(_topic)){
+    //
+    //     if($("button.message_monitor").data('monitored')==1){
+    //         var topic_arr = _topic.split("/");
+    //         var timestamp = Date.parse(new Date());
+    //         var device_comm = CharToHex(base64decode(message.payloadString));
+    //         // console.log(timestamp);
+    //         // console.log(topic_arr);
+    //         // console.log(message.payloadString);
+    //
+    //         var arrayObj = [
+    //             new Date(timestamp).toLocaleString('zh',{hour12:false}),
+    //             topic_arr[0],
+    //             topic_arr[2],
+    //             device_comm
+    //         ]
+    //         table_log.row.add(arrayObj).draw();
+    //
+    //     }
+    // }
+    else if(vspc_reg.test(_topic)){
+
+        // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 ));
+        // console.log("dddd::::::",($("button.message-pause").data('paused')!==1));
+        // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1));
+        if($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1){
 
 
+            var topic_arr = _topic.split("/");
+
+            if(vircom.name == topic_arr[1]){
+                var timestamp = Date.parse(new Date());
+                var device_comm = CharToHex(base64decode(message.payloadString));
+                var arrayObj = [
+                    new Date(timestamp).toLocaleString('zh',{hour12:false}),
+                    '串口',
+                    topic_arr[2],
+                    device_comm
+                ]
+                table_log.row.add(arrayObj).draw();
+            }
+
+
+        }
     }
 
 

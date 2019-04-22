@@ -247,7 +247,79 @@ setTimeout(function () {
     connect();
 },600);
 
+$(function () {
+    /**
+     *	初始化日志表格
+     */
+    table_log = $('#table_log').DataTable({
+        "dom": '',
+        "filter": true,
+        "info": false,
+        // "scrollY":        "50px",
+        // "scrollCollapse": true,
+        "paging":         false,
+        "processing": true,
+        "bStateSave": false,
+        "order": [[ 0, "asc" ]],
+        "language": {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "消息为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        columnDefs: [
+            {
+                //   指定第第1列
+                targets:  0,
+                "width": '14%',
+                searchable: false,
+                orderable: false
 
+            },
+            {
+                //   指定第第2列
+                targets:  1,
+                "width": '8%',
+                orderable: false
+            },
+            {
+                //   指定第第3列
+                targets:  2,
+                "width": '8%',
+                orderable: false
+            },
+            {
+                //   指定第第4列
+                targets:  3,
+                "width": '70%',
+                searchable: true,
+                orderable: false
+            }
+        ],
+        "initComplete": function(settings, json) {
+            console.log("table_log init over")
+        }
+    });
+
+})
 
 /**
  *	周期检测mqtt状态
@@ -288,6 +360,17 @@ var mqtt_status_ret= setInterval(function(){
         $("span.com_received").text('');
         $("span.net_received").text('');
 
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+        $("div.message_log").addClass('hide');
+        $("button.message_monitor").removeClass('btn-danger');
+        $("button.message_monitor").text('监视');
+        $("button.message_monitor").data('monitored',0);
+        $("button.message-pause").data('paused',0);
+        $("button.message-pause").text('暂停');
+        $("button.message-pause").addClass('btn-warning');
+        table_log.clear().draw();
+        $("span.message_lens_feedback").text('');
+
     }else{
         $("button.com_open").text('停止');
         $("button.com_open").addClass('btn-danger');
@@ -297,7 +380,26 @@ var mqtt_status_ret= setInterval(function(){
 
         $("span.local_com").text(vircom.name);
 
-        $("span.com_parameters").text(vircom.BaudRate+'/'+vircom.DataBits+'/'+vircom.StopBits+'/'+vircom.Parity);
+
+        if(vircom.BaudRate){
+            var DataBits = '8';
+            var StopBits = '1';
+            var Parity = '0';
+            var Parity_arr = {'0': "N", "1":"O", "2":"E"};
+            if(vircom.DataBits){
+                DataBits = vircom.DataBits;
+
+            }
+            if(vircom.StopBits){
+                StopBits = vircom.StopBits;
+
+            }
+            if(vircom.Parity){
+                Parity = vircom.Parity;
+            }
+            $("span.com_parameters").text(vircom.BaudRate+'/'+DataBits+'/'+Parity_arr[Parity]+'/'+StopBits);
+        }
+
         if(vircom.pid>0){
             $("span.com_status").text('已打开');
         }else{
@@ -325,7 +427,17 @@ var mqtt_status_ret= setInterval(function(){
     get_freeioe_Vserial_data(gate_sn);
 },3000);
 
+var message_lens_ret= setInterval(function(){
+    var lens=table_log.data().length;
+    if(lens>500){
+        $("button.message-pause").data('paused',1);
+        $("button.message-pause").text('恢复');
+        $("span.message_lens_feedback").text('报文缓冲区已满');
+    }else{
 
+    }
+
+},5000);
 
 // $('.message_monitor').click(function () {
 //         $("div.message_log").removeClass("hide");
@@ -430,31 +542,47 @@ $("button.com_open").click(function(){
 
 $("button.message_monitor").click(function(){
 
-    if(mqttc_connected){
-        if(mes_subscribed){
-            mqtt_client.unsubscribe("+/#", {
-                onSuccess: unsubscribeSuccess,
-                onFailure: unsubscribeFailure,
-                invocationContext: { topic: '' }
-            });
-            mes_subscribed = false;
-            $("button.message_monitor").removeClass("btn-success");
-            $("button.message_monitor").text("报文监控");
-        }else{
-            try {
-                    mqtt_client.subscribe("+/#", {qos: 0});
-                    mes_subscribed = true;
-                    $("button.message_monitor").addClass("btn-success");
-                    $("button.message_monitor").text("停止监控");
+    if($("button.message_monitor").data('monitored')==1){
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+        $("div.message_log").addClass('hide');
+        $("button.message_monitor").removeClass('btn-danger');
+        $("button.message_monitor").text('监视');
+        $("button.message_monitor").data('monitored',0);
+        $("button.message-pause").data('paused',0);
+        $("button.message-pause").text('暂停');
+        $("button.message-pause").addClass('btn-warning');
+        table_log.clear().draw();
+        $("span.message_lens_feedback").text('');
+    }else{
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+        $("div.message_log").removeClass('hide');
+        $("button.message_monitor").addClass('btn-danger');
+        $("button.message_monitor").text('停止');
+        $("button.message_monitor").data('monitored',1);
+    }
 
-            } catch (error) {
-                console.log(error);
-                mqttc_connected = false;
-                mes_subscribed = false;
-                $("button.message_monitor").removeClass("btn-success");
-                $("button.message_monitor").text("报文监控");
-            }
+});
+
+$("button.message-pause").click(function(){
+
+    if($("button.message-pause").data('paused')==1){
+        var lens=table_log.data().length;
+        if(lens<500){
+            $("button.message-pause").data('paused',0);
+            $("button.message-pause").text('暂停');
+            $("button.message-pause").addClass('btn-warning');
         }
 
+    }else{
+
+            $("button.message-pause").data('paused',1);
+            $("button.message-pause").text('恢复');
+            $("button.message-pause").removeClass('btn-warning');
+
     }
+
+});
+$("button.message-clear").click(function(){
+    table_log.clear().draw();
+    $("span.message_lens_feedback").text('');
 });
