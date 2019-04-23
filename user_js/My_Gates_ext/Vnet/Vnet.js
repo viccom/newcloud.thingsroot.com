@@ -335,7 +335,7 @@ var mqtt_status_ret= setInterval(function(){
 
     }else{
 
-        $("span.service_status").html("    未能连接到本地串口服务，请确认freeioe_Vserial是否安装并运行。下载  <a href='http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_Vserial.zip'  class='navbar-link'>freeioe_Vserial</a>");
+        $("span.service_status").html("    未能连接到本地串口服务，请确认freeioe_Vserial是否安装并运行。下载  <a href='#'  class='navbar-link'>freeioe_Vserial</a>");
         $("button.com-reconnect").removeClass("hide");
         $("button.com_open").attr('disabled', true);
         $("button.message_monitor").attr('disabled', true);

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<script src="user_js/common/debug.js"></script>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>冬笋云 | 远程编程-Vnet</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Bootstrap switch -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/css/bootstrap-switch.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- DataTables-Responsive -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/css/responsive.dataTables.min.css">
+    <!-- Tooltip classes -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-yellow/tip-yellow.css" type="text/css" />
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-violet/tip-violet.css" type="text/css" />
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/tip-darkgray/tip-darkgray.css" type="text/css" />
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="http://thingscloud.oss-cn-beijing.aliyuncs.com/dist/css/skins/_all-skins.min.css">
+
+    <!-- global style -->
+    <link rel="stylesheet" href="user_css/global.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <![endif]-->
+
+    <!-- Google Font -->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">-->
+    <style type="text/css">
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 10px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+        .table th, .table td {
+            vertical-align: middle!important;
+        }
+
+    </style>
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <!-- top Nav menu start. -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>冬</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>冬笋云</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-user-md"></i>
+                            <span class="hidden-xs user-name" data-accesskey="">user</span>
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="User_Settings.html">
+                                            <h3>
+                                                <i class="fa fa-user"></i>
+                                                基本资料
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_Virtual_Gates.html">
+                                            <h3>
+                                                <i class="fa fa-laptop"></i>
+                                                虚拟网关
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="My_AccessKey.html">
+
+                                            <h3>
+                                                <i class="fa fa-key"></i>
+                                                AccessKey
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+
+                                <div>
+                                    <a href="javascript:logout();"  class="btn btn-warning btn-block btn-flat">退出</a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- Help can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa  fa-question-circle"></i>
+                            帮助
+                        </a>
+                        <ul class="dropdown-menu"  style="width: 180px;padding: 15px">
+
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a target="_blank" href="/guide">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                快速指南
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a target="_blank" href="/appguide">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                应用开发手册
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                    <li><!-- Task item -->
+                                        <a href="#">
+
+                                            <h3>
+                                                <i class="fa fa-users text-aqua"></i>
+                                                平台访问接口
+                                            </h3>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- top Nav menu end. -->
+
+    <!-- Left Nav menu start. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+
+                <li class="header">Dashboard</li>
+
+                <li><a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
+                <li class="header">我的资源</li>
+                <li class="active"><a href="My_Gates_list.html"><i class="fa fa-laptop  text-green"></i> <span>我的网关</span></a></li>
+                <li><a href="My_Apps_list.html"><i class="fa fa-th  text-teal"></i> <span>我的应用</span></a></li>
+                <li><a href="My_Template_list.html"><i class="fa fa-table  text-purple"></i> <span>我的模板</span></a></li>
+
+                <li class="header">消息中心</li>
+                <li><a href="User_Platform_Messages.html"><i class="fa fa-commenting-o text-yellow"></i> <span>平台消息</span></a></li>
+                <li><a href="User_Device_Messages.html"><i class="fa fa-commenting-o text-light-blue"></i> <span>设备消息</span></a></li>
+
+
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Left Nav menu end. contains the logo and sidebar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                <!--<a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a>-->
+                我的网关
+                <small><span class="gate_name"></span>>远程编程-Vnet</small>
+                <div class="pull-right"><a href="javascript:redirect('/My_Gates_list.html');"><button type="button" class="btn btn-default"><i class="fa fa-reply"></i>返回</button></a></div>
+
+            </h1>
+            <!--<ol class="breadcrumb">-->
+            <!--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>-->
+            <!--<li class="active">Dashboard</li>-->
+            <!--</ol>-->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- page left nav menu start -->
+                <div class="col-md-2">
+                    <span class="btn btn-success btn-block margin-bottom gate_status">在线</span>
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">基本功能</h3>
+
+                            <div class="box-tools">
+
+                            </div>
+                        </div>
+                        <div class="box-body no-padding">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="javascript:redirect('My_Gates_devices.html?sn='+ gate_sn);"><i class="fa fa-inbox"></i> 设备列表
+                                    <span class="label label-primary pull-right gate_devs_len">0</span></a></li>
+                                <li><a href="javascript:redirect('My_Gates_apps.html?sn='+ gate_sn);"><i class="fa fa-th"></i> 应用列表 <span class="label label-warning pull-right gate_apps_len">0</span></a>
+                                </li>
+                                <li><a href="javascript:redirect('My_Gates_detail.html?sn='+ gate_sn);"><i class="fa fa-area-chart"></i> 网关状态</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /. box -->
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">扩展功能</h3>
+
+                        </div>
+                        <div class="box-body no-padding">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li class="Gates_NetManager hide"><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
+                                <li class="Gates_Vnet active"><a href="javascript:redirect('My_Gates_Vnet.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> 远程编程-网络</a></li>
+                                <li class="Gates_Vserial "><a href="javascript:redirect('My_Gates_Vserial.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> 远程编程-串口</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- page left nav menu end -->
+
+                <div class="col-md-10" style="padding-left: 0">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+
+                            <div class="col-md-3"><i class="fa fa fa-dot-circle-o"></i> 名称：<span class="gate_name"></span></div>
+                            <div class="col-md-4"><i class="fa fa fa-dot-circle-o"></i> 描述：<span class="gate_desc"></span></div>
+                            <div class="col-md-5"><i class="fa fa fa-dot-circle-o"></i> 序号：<span class="gate_sn"></span></div>
+                            <!--<div class="col-md-2"><i class="fa fa-circle"></i> 调试模式：</div>-->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-body">
+
+                                <div class="col-md-6">
+                                    <div class="container-fluid">
+                                        <div class="bs-example"><div class="col-md-4"></div><h1>参数</h1></div>
+
+                                        <div class="bs-example">
+
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label"><span>中转节点:</span></label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control tunnel_config" id="frps_host">
+                                                            <!--<option value="255.255.254.0">255.255.255.128</option>-->
+                                                            <option selected="selected" value="hs.symgrid.com">上海</option>
+                                                            <option value="iot.symgrid.com">北京1</option>
+                                                            <option value="172.30.0.187">北京2</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">网关状态:</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-control" ><span class="gate_status_result" > </span></div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group hide">
+                                                    <label class="col-sm-4 control-label">授权码:</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control tunnel_config" id="authcode" placeholder="" value="" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">网关SN:</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control tunnel_config" id="gatesn" placeholder="" value="" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">连接模式:</label>
+                                                    <div class="col-sm-8">
+                                                        <button type="button" class="btn btn-default btn-primary active tunnel_config" id="virtual_network">虚拟网络</button>
+                                                        <button type="button" class="btn btn-default tunnel_config hide" id="virtual_serial">虚拟串口</button>
+                                                    </div>
+                                                </div>
+
+                                                <!-- vpn_network  -->
+                                                <div class="" id="v_network">
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label"><span id="vn_ipaddr">虚拟网卡IP:</span></label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control tunnel_config popover-warning-ip"  data-placement="top" data-content="IP地址不能为空" id="tap_ip" placeholder="定义虚拟IP" value="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label"><span id="vn_netmask">虚拟网卡netmask:</span></label>
+                                                        <div class="col-sm-8">
+                                                            <select class="form-control tunnel_config" id="tap_netmask">
+                                                                <!--<option value="255.255.254.0">255.255.255.128</option>-->
+                                                                <option selected="selected" value="255.255.255.0">255.255.255.0</option>
+                                                                <option value="255.255.254.0">255.255.254.0</option>
+                                                                <option value="255.255.252.0">255.255.252.0</option>
+                                                                <option value="255.255.128.0">255.255.128.0</option>
+                                                                <option value="255.255.0.0">255.255.0.0</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">网关IP:</label>
+                                                        <div class="col-sm-6" style="padding-right: 5px">
+                                                            <input type="text" class="form-control tunnel_config popover-devip"  data-placement="top" data-content="网关IP未获取到，点击刷新按钮" id="dev_ip" placeholder="device ipaddress" value="" readonly>
+                                                        </div>
+                                                        <div style="padding-right: 15px">
+                                                            <button type="button" class="btn btn-default pull-right query_gateip"><i class="fa fa-refresh"></i></button>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">传输协议:</label>
+                                                        <div class="col-sm-8">
+                                                            <button type="button" class="btn btn-default btn-primary active tunnel_config" id="protocol_tcp">tcp</button>
+
+                                                            <button type="button" class="btn btn-default tunnel_config" id="protocol_kcp">kcp</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">网络模式:</label>
+                                                        <div class="col-sm-8">
+                                                            <button type="button" class="btn btn-default btn-primary active tunnel_config" id="bridge">桥接模式</button>
+
+                                                            <button type="button" class="btn btn-default tunnel_config" id="router">路由模式</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-4 col-sm-8">
+                                                            <button type="button" class="btn btn-lg btn-default hide" id="start_vpn"></button>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-4 col-sm-8">
+                                                            <div class="alert alert-info hide" role="alert" id="vpn_ret_message">...</div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- vpn_network  -->
+
+                                                <!-- virtual_serial  -->
+                                                <div class="hide" id="v_serial">
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">本地虚拟串口:</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="local_virtual_serial" placeholder="com1">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">远程虚拟串口:</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="remote_virtual_serial" placeholder="com1">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">波特率:</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="baudrate" placeholder="9600">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">数据位:</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="data_bit" placeholder="8">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">校验位:</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="check_bit" placeholder="N">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label">停止位:</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="stop_bit" placeholder="1">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-4 col-sm-8">
+                                                            <button type="button" class="btn btn-default hide" id="start_serial"></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- virtual_serial  -->
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-4 col-sm-8">
+                                                        <button type="button" class="btn btn-lg btn-default btn-primary hide" id="mytest">测试</button>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="container-fluid">
+                                        <div class="bs-example"><h1>状态</h1></div>
+                                        <div class="bs-example hide">
+                                            <button type="button" class="btn btn-default btn-primary" id="query">本地状态</button>
+
+                                            <button type="button" class="btn btn-default btn-primary" id="cloud">代理状态</button>
+
+                                            <button type="button" class="btn btn-default btn-primary" id="check_env">运行环境</button>
+
+                                        </div>
+
+                                        <div class="bs-example">
+                                            <p><span>本地运行环境：</span> <span class="service_error" id="check_env_result"></span></p><br />
+                                            <p><span>本地服务状态：</span> <span id="check_local_result"></span></p><br />
+                                            <p><span>本地连接状态：</span> <span class="service_error" id="local_link_result"></span></p><br />
+                                            <p><span>云端隧道名称：</span> <span class="service_error" id="cloud_tunnel_name"></span></p><br />
+                                            <p><span>云端隧道状态：</span> <span class="service_error" id="cloud_tunnel_status"></span></p><br />
+                                            <p><span>本次启动时间：</span> <span class="service_error" id="this_start_time"></span></p><br />
+                                            <p><span>上次消耗流量：</span> <span class="service_error" id="last_Traffic_data"></span></p><br />
+                                            <p><span>Ping网关IP状态：</span> <span class="service_error" id="ping_devip_result"></span></p><br />
+
+
+
+
+                                            <table class="table" id="mes_table">
+
+                                                <thead>
+                                                <tr>
+                                                    <th width="30%">服务名称</th>
+                                                    <th width="40%">状态</th>
+                                                    <th width="30%"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+
+                                            <div class="alert alert-info hide" role="alert" id="cloud_ret_message">...</div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <!-- Control Sidebar start-->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- /.control-sidebar end-->
+
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="user_js/common/oem.js"></script> <!-- jQuery UI 1.11.4 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap switch -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- bootstrap-notify -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/bootstrap-notify/js/bootstrap-notify.min.js"></script>
+<!-- DataTables -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/DataTables-Responsive/js/dataTables.responsive.min.js"></script>
+<!-- SlimScroll -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<script src="user_js/common/skin.js"></script>
+<!-- jQuery and the Poshy Tip plugin files -->
+<script type="text/javascript" src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/poshytip-1.2/src/jquery.poshytip.js"></script>
+
+<!-- load common js-->
+<script src="user_js/common/jQuery.cookie.js"></script>
+
+
+
+<script type="text/javascript">
+    document.write("<script type='text/javascript' src='user_js/common/common.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/common/add_back_task.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/common/user.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/My_Gates_ext/Vnet/Vnet_mqtt.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/My_Gates_ext/Vnet/Vnet.js?v="+jsversion+"'></s"+"cript>");
+</script>
+
+<script>
+    $(function () {
+        // $(".switch").bootstrapSwitch();
+
+
+
+    });
+
+
+</script>
+</body>
+</html>
