@@ -273,7 +273,7 @@ function onMessageArrived(message) {
     // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
 
     if(_topic==="/v1/vnet/VNET_STATUS/SERVICES"){
-
+        // console.log("data: ",message.payloadString);
     }
 
     if(_topic==="/v1/vnet/VNET_STATUS/LOCAL_PROXY"){
@@ -294,24 +294,66 @@ function onMessageArrived(message) {
                 console.log(q[i]);
                 // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
                 var ret = JSON.parse(message.payloadString);
-                console.log(ret.id, ret);
+                // console.log(ret.id, ret);
                 var arr_action = ret.id.split("/");
                 if(ret.id==q[i] && ret.result){
-
-
-                    if(arr_action[0]=='query_local_Vcoms'){
-                        if(ret.data.vir){
+                    if(arr_action[0]=='check_env'){
+                        // console.log(ret);
+                        vnet_obj.env = true;
+                        $.each(ret.data, function(k, v) {
+                            console.log(k,v);
+                            if (!(v)){
+                                vnet_obj.env = false;
+                                return false;
+                            }
+                        });
+                        var html_env = '<span class="text-success">运行环境正常 </span>';
+                        var tap_nic_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                        var frpc_bin_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                        var frpc_Vnet_service_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                        var tinc_bin_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                        var tofreeioebridge_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                        var tofreeioerouter_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                        if(!vnet_obj.env){
+                            if(ret.data.tap_nic){
+                                tap_nic_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                            }
+                            if(ret.data.frpc_bin){
+                                frpc_bin_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                            }
+                            if(ret.data.frpc_Vnet_service ){
+                                frpc_Vnet_service_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                            }
+                            if(ret.data.tinc_bin){
+                                tinc_bin_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                            }
+                            if(ret.data["tinc.tofreeioebridge"]){
+                                tofreeioebridge_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                            }
+                            if(ret.data["tinc.tofreeioerouter"]){
+                                tofreeioerouter_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                            }
+                            html_env = '<span class="text-danger">运行环境异常 </span><button type="button" class="btn btn-sm  one_key_repair">一键修复</button>'
 
                         }
+                        console.log(html_env);
+                        $("span.check_env_result").html(html_env);
+
+
+
                     }
 
-                    if(arr_action[0]=='add_local_com'){
+                    if(arr_action[0]=='query_taps'){
+
+                    }
+
+                    if(arr_action[0]=='start_vnet'){
 
                         console.log(ret);
                     }
 
-                    if(arr_action[0]=='remove_local_com'){
-                        vircom ={};
+                    if(arr_action[0]=='stop_vnet'){
+                        vnet_obj ={};
                         console.log(ret);
 
                         // post_freeioe_Vnet_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
@@ -320,7 +362,7 @@ function onMessageArrived(message) {
                 }else{
                     $("span.local_action_feedback").text(ret.error);
                     if(arr_action[0]=='remove_local_com'){
-                        vircom ={};
+                        vnet_obj ={};
                         console.log(ret);
 
                     }

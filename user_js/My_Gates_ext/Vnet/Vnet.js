@@ -146,10 +146,43 @@ function post_freeioe_Vnet_data(sn, device_sn, tag_name, output_val){
 
 }
 
+
 /**
- *	查询本地所有串口
+ *	检查本地运行环境
  */
-function query_local_coms(connect_falg,client,id){
+function check_env(connect_falg,client,message){
+    var id = message.id;
+    // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
+    if(connect_falg){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/vnet/api/checkenv";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
+/**
+ *	检查本地运行环境
+ */
+function fix_env(connect_falg,client,message){
+    var id = message.id;
+    // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
+    if(connect_falg){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/vnet/api/fixenv";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
+/**
+ *	查询所有虚拟网卡
+ */
+function query_taps(connect_falg,client,id){
     var message = JSON.stringify({"id":id});
     // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
@@ -162,32 +195,16 @@ function query_local_coms(connect_falg,client,id){
     }
 }
 
-/**
- *	查询本地所有虚拟串口
- */
-function query_local_Vcoms(connect_falg,client,id){
-    var message = JSON.stringify({"id":id});
-    // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
-    if(connect_falg){
-        message = new Paho.Message(message);
-        message.destinationName = "v1/vspc/api/list_vir";
-        message.qos = 0;
-        message.retained = false;
-        client.send(message);
-        action_result_list.push(id);
-    }
-}
-
 
 /**
- *	创建本地虚拟串口
+ *	启动虚拟网络
  */
-function add_local_com(connect_falg, client, message){
+function start_Vnet(connect_falg, client, message){
     // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     var id = message.id;
     if(connect_falg){
         message = new Paho.Message(JSON.stringify(message));
-        message.destinationName = "v1/vspc/api/add";
+        message.destinationName = "v1/vnet/api/service_start";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -198,12 +215,12 @@ function add_local_com(connect_falg, client, message){
 /**
  *	删除本地虚拟串口
  */
-function remove_local_com(connect_falg,client,message){
+function stop_Vnet(connect_falg,client,message){
     var id = message.id;
     // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
         message = new Paho.Message(JSON.stringify(message));
-        message.destinationName = "v1/vspc/api/remove";
+        message.destinationName = "v1/vnet/api/service_stop";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -213,23 +230,17 @@ function remove_local_com(connect_falg,client,message){
 
 
 pagename = "Gates_Vnet";
-gate_sn_org  = getParam('sn');
-gate_sn = gate_sn_org;
+gate_sn = getParam('sn');;
 mes_subscribed = false;
-com_opened = false;
-local_coms = null;
-valid_com = null;
-remote_peer = {};
-remote_portmap_array = new Array();
-remote_comstate_object = {};
-remote_cmapport_object = {};
+
 action_result_list = new Array();
-vircom ={};
+gate_obj = {};
+vnet_obj ={};
 vnet_cfg = {};
 vnet_cfg.net_mode = "bridge";
 vnet_cfg.node = "shanghai";
-vnet_cfg.net_protocol =  "kcp";
-gate_obj = {};
+vnet_cfg.net_protocol =  "tcp";
+
 
 
 
@@ -248,12 +259,15 @@ setTimeout(function () {
 var mqtt_status_ret= setInterval(function(){
     if(mqttc_connected){
         $(".tunnel_config").attr("disabled",false);
+        $("button.com-reconnect").addClass("hide");
+        mqtt_client.subscribe(["+/#"], {qos: 0});
+        $("span.check_local_result").text("服务正常");
     }else{
-
+        $(".tunnel_config").attr("disabled",true);
+        $("button.com-reconnect").removeClass("hide");
+        $("span.check_local_result").html("服务异常");
 
     }
-
-
 
 },1000);
 
@@ -267,10 +281,44 @@ var mqtt_status_ret= setInterval(function(){
 },3000);
 
 
+/**
+ *	打开时检查本地运行环境
+ */
+setTimeout(function(){
+
+    if(mqttc_connected){
+        var id = "check_env/"+ Date.parse(new Date());
+        var message = {
+            "id":id
+        };
+        check_env(mqttc_connected, mqtt_client, message);
+    }
+
+},2000);
+
+
 // $('.message_monitor').click(function () {
 //         $("div.message_log").removeClass("hide");
 // });
 
+$("button.vnet-reconnect").click(function(){
+    if(!mqttc_connected){
+        connect();
+        setTimeout(function(){
+
+            if(mqttc_connected){
+                var id = "check_env/"+ Date.parse(new Date());
+                var message = {
+                    "id":id
+                };
+                check_env(mqttc_connected, mqtt_client, message);
+            }
+
+        },2000);
+    }
+});
+
+// $("button.start_vpn").text('');
 
 // 选择按钮--VPN启动-----开始
 $("button.start_vpn").click(function(){
@@ -282,10 +330,22 @@ $("button.start_vpn").click(function(){
     console.log(vnet_cfg);
 
     if($("button.start_vpn").data('running')!==1){
+        var id = "start_Vnet/"+ Date.parse(new Date());
+        var message = {
+            "id":id,
+            "vnet_cfg": vnet_cfg
+        };
+        start_Vnet(mqttc_connected, mqtt_client, message);
 
     }
     else{
 
+        var id = "start_Vnet/"+ Date.parse(new Date());
+        var message = {
+            "id":id,
+            "vnet_cfg": vnet_cfg
+        };
+        stop_Vnet(mqttc_connected, mqtt_client, message);
 
     }
 
@@ -296,11 +356,28 @@ $("button.start_vpn").click(function(){
 
 $("button.bridge").click(function(){
     vnet_cfg.net_mode = "bridge";
+    $("button.bridge").addClass('btn-primary');
+    $("button.router").removeClass('btn-primary')
 });
 
 
-$("button.bridge").click(function(){
+$("button.router").click(function(){
     vnet_cfg.net_mode = "router";
+    $("button.router").addClass('btn-primary');
+    $("button.bridge").removeClass('btn-primary')
+});
+
+$("button.protocol_tcp").click(function(){
+    vnet_cfg.net_protocol = "tcp";
+    $("button.protocol_tcp").addClass('btn-primary');
+    $("button.protocol_kcp").removeClass('btn-primary')
+});
+
+
+$("button.protocol_kcp").click(function(){
+    vnet_cfg.net_protocol = "kcp";
+    $("button.protocol_kcp").addClass('btn-primary');
+    $("button.protocol_tcp").removeClass('btn-primary')
 });
 
 $("select.com_select").change(function(){
@@ -309,54 +386,19 @@ $("select.com_select").change(function(){
     $("span.selected_com").text(key.toUpperCase());
 });
 
-$("button.com-reconnect").click(function(){
+$("button.vnet-reconnect").click(function(){
     if(!mqttc_connected){
         connect();
     }
 });
 
-$("button.com_open").click(function(){
 
-    if($("button.com_open").data('opened')==1){
-
-        var id = "remove_local_com/"+ Date.parse(new Date());
+$("button.one_key_repair").click(function(){
+    if(mqttc_connected){
+        var id = "fix_env/"+ Date.parse(new Date());
         var message = {
-            "id":id,
-            "by_name": 1,
-            "name": vircom.name.toUpperCase()
+            "id":id
         };
-        remove_local_com(mqttc_connected, mqtt_client, message);
-
-    }else{
-
-        // var com_cfg = {
-        //     "serial":$("select[name=port]").val(),
-        //     "baudrate":$("select[name=baudrate]").val(),
-        //     "databit":$("select[name=data_bits]").val(),
-        //     "stopbit":$("select[name=stop_bits]").val(),
-        //     "parity":$("select[name=parity]").val()
-        // };
-        //
-        //
-        // var Vcom_cfg = {
-        //     "by_name": 1,
-        //     "name": "COM1",
-        //     "peer": {
-        //         "type":"tcp_client",
-        //         "host": "thingsroot.com",
-        //         "port": 26969
-        //     }
-        // };
-
-        var id = "query_local_coms/"+ Date.parse(new Date());
-        query_local_coms(mqttc_connected, mqtt_client, id)
-
+        fix_env(mqttc_connected, mqtt_client, message);
     }
-
-});
-
-
-
-$("button.message-clear").click(function(){
-
 });

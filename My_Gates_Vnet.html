@@ -367,12 +367,12 @@
 
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">网关IP:</label>
-                                                        <div class="col-sm-6" style="padding-right: 5px">
+                                                        <div class="col-sm-8" style="padding-right: 15px">
                                                             <input type="text" class="form-control tunnel_config popover-devip dev_ip"  data-placement="top" data-content="网关IP未获取到，点击刷新按钮"  placeholder="device ipaddress" value="" readonly>
                                                         </div>
-                                                        <div style="padding-right: 15px">
-                                                            <button type="button" class="btn btn-default pull-right query_gateip"><i class="fa fa-refresh"></i></button>
-                                                        </div>
+                                                        <!--<div style="padding-right: 15px">-->
+                                                            <!--<button type="button" class="btn btn-default pull-right query_gateip"><i class="fa fa-refresh"></i></button>-->
+                                                        <!--</div>-->
 
                                                     </div>
 
@@ -428,7 +428,11 @@
                                         <div class="bs-example"><h1>状态</h1></div>
                                          <div class="bs-example">
                                             <p><span>本地运行环境：</span> <span class="service_error check_env_result"></span></p><br />
-                                            <p><span>本地服务状态：</span> <span class="check_local_result"></span></p><br />
+                                            <p>
+                                                <span>本地服务状态：</span> <span class="check_local_result"></span>
+                                                <button type="button" class="btn btn-sm vnet-reconnect pull-right hide" >连接</button>
+
+                                            </p><br />
                                             <p><span>本地连接状态：</span> <span class="service_error local_link_result" ></span></p><br />
                                             <p><span>云端隧道名称：</span> <span class="service_error cloud_tunnel_name" ></span></p><br />
                                             <p><span>云端隧道状态：</span> <span class="service_error cloud_tunnel_status" ></span></p><br />
