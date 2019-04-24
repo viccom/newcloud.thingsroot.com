@@ -35,6 +35,7 @@ function set_label(sn){
     if(gateinfo!=null && typeof(gateinfo) != "undefined"){
         gateinfo = JSON.parse(gateinfo);
         $(".gate_status").html(gateinfo.basic.status);
+
         if(gateinfo.basic.status=="ONLINE"){
             $(".gate_status").addClass("btn-success");
             $(".gate_status").removeClass("btn-warning");
@@ -48,6 +49,8 @@ function set_label(sn){
             $(".gate_status").html("OFFLINE");
         }
         $(".gate_sn").html(gateinfo.basic.sn);
+        $('input.gate_sn').val(gateinfo.basic.sn);
+
         $(".gate_name").html(gateinfo.basic.name);
         $(".gate_desc").html(gateinfo.basic.desc);
         $(".gate_apps_len").html(gateinfo.apps_len);
@@ -74,9 +77,9 @@ function set_label(sn){
 }
 
 /**
- *	获取freeioe_Vserial设备数据
+ *	获取freeioe_Vnet设备数据
  */
-function get_freeioe_Vserial_data(sn){
+function get_freeioe_Vnet_data(sn){
     $.ajax({
         url: '/apis/api/method/iot_ui.iot_api.gate_device_data_array',
         headers: {
@@ -84,48 +87,31 @@ function get_freeioe_Vserial_data(sn){
             "X-Frappe-CSRF-Token": auth_token
         },
         type: 'get',
-        data: {"sn": sn,"vsn": sn + '.freeioe_Vserial'},
+        data: {"sn": sn,"vsn": sn + '.freeioe_Vnet'},
         dataType:'json',
         success:function(req){
             // console.log(req);
             if(req.message!=null){
                 if(req.message.length>0){
-                    var reg = RegExp(/mapport/);
-                    remote_portmap_array = [];
-                    for (var i = 0; i < req.message.length; i++) {
-                        if(reg.test(req.message[i].name)){
-                            if(req.message[i].pv){
-                                remote_portmap_array.push(req.message[i].pv)
-                            }
 
+                    var reg = RegExp(/net/)
+
+                    for (var i = 0; i < req.message.length; i++) {
+                        if(req.message[i].name=='lan_ip'){
+                            gate_obj.lan_ip = req.message[i].pv;
+                            $("input.dev_ip").val(req.message[i].pv);
                         }
-
-                    }
-
-                    var reg = RegExp(/net/);
-                    remote_comstate_object = {};
-                    for (var i = 0; i < req.message.length; i++) {
-                        if(reg.test(req.message[i].name)){
-                            if(req.message[i].pv){
-                                remote_comstate_object[req.message[i].name]=req.message[i].pv;
-                            }else{
-                                remote_comstate_object[req.message[i].name]=null;
-                            }
-
+                        if(req.message[i].name=='router_run'){
+                            gate_obj.router_run = req.message[i].pv;
                         }
-
-                    }
-
-                    var reg = RegExp(/mapport/);
-                    remote_mapport_object = {};
-                    for (var i = 0; i < req.message.length; i++) {
-                        if(reg.test(req.message[i].name)){
-                            if(req.message[i].pv){
-                                remote_mapport_object[req.message[i].name]=req.message[i].pv;
-                            }else{
-                                remote_mapport_object[req.message[i].name]=null;
-                            }
-
+                        if(req.message[i].name=='bridge_run'){
+                            gate_obj.bridge_run = req.message[i].pv;
+                        }
+                        if(req.message[i].name=='bridge_config'){
+                            gate_obj.bridge_config = req.message[i].pv;
+                        }
+                        if(req.message[i].name=='router_config'){
+                            gate_obj.router_config = req.message[i].pv;
                         }
 
                     }
@@ -141,7 +127,7 @@ function get_freeioe_Vserial_data(sn){
 /**
  *	向freeioe_Vserial提交数据
  */
-function post_freeioe_Vserial_data(sn, device_sn, tag_name, output_val){
+function post_freeioe_Vnet_data(sn, device_sn, tag_name, output_val){
     var app_action = "send_output";
     var task_desc = '数据下置'+ '/ '+ device_sn  + '/ ' + tag_name + '/'+  output_val;
     var id = 'send_output/' + sn + '/ '+ device_sn  + '/ '+ tag_name + '/'+  output_val + '/'+ Date.parse(new Date());
@@ -226,7 +212,7 @@ function remove_local_com(connect_falg,client,message){
 }
 
 
-pagename = "Gates_Verial";
+pagename = "Gates_Vnet";
 gate_sn_org  = getParam('sn');
 gate_sn = gate_sn_org;
 mes_subscribed = false;
@@ -239,7 +225,15 @@ remote_comstate_object = {};
 remote_cmapport_object = {};
 action_result_list = new Array();
 vircom ={};
+vnet_cfg = {};
+vnet_cfg.net_mode = "bridge";
+vnet_cfg.node = "shanghai";
+vnet_cfg.net_protocol =  "kcp";
+gate_obj = {};
 
+
+
+$(".tunnel_config").attr("disabled",true);
 
 gate_info(gate_sn);
 
@@ -247,174 +241,18 @@ setTimeout(function () {
     connect();
 },600);
 
-$(function () {
-    /**
-     *	初始化日志表格
-     */
-    table_log = $('#table_log').DataTable({
-        "dom": '',
-        "filter": true,
-        "info": false,
-        // "scrollY":        "50px",
-        // "scrollCollapse": true,
-        "paging":         false,
-        "processing": true,
-        "bStateSave": false,
-        "order": [[ 0, "asc" ]],
-        "language": {
-            "sProcessing": "处理中...",
-            "sLengthMenu": "显示 _MENU_ 项结果",
-            "sZeroRecords": "没有匹配结果",
-            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-            "sInfoPostFix": "",
-            "sSearch": "搜索:",
-            "sUrl": "",
-            "sEmptyTable": "消息为空",
-            "sLoadingRecords": "载入中...",
-            "sInfoThousands": ",",
-            "oPaginate": {
-                "sFirst": "首页",
-                "sPrevious": "上页",
-                "sNext": "下页",
-                "sLast": "末页"
-            },
-            "oAria": {
-                "sSortAscending": ": 以升序排列此列",
-                "sSortDescending": ": 以降序排列此列"
-            }
-        },
-        columnDefs: [
-            {
-                //   指定第第1列
-                targets:  0,
-                "width": '14%',
-                searchable: false,
-                orderable: false
-
-            },
-            {
-                //   指定第第2列
-                targets:  1,
-                "width": '8%',
-                orderable: false
-            },
-            {
-                //   指定第第3列
-                targets:  2,
-                "width": '8%',
-                orderable: false
-            },
-            {
-                //   指定第第4列
-                targets:  3,
-                "width": '70%',
-                searchable: true,
-                orderable: false
-            }
-        ],
-        "initComplete": function(settings, json) {
-            console.log("table_log init over")
-        }
-    });
-
-})
 
 /**
  *	周期检测mqtt状态
  */
 var mqtt_status_ret= setInterval(function(){
     if(mqttc_connected){
-
-        $("span.service_status").text("");
-        $("button.com-reconnect").addClass("hide");
-        mqtt_client.subscribe(["+/#"], {qos: 0});
-        $("button.com_open").attr('disabled', false);
-        $("button.message_monitor").attr('disabled', false);
-
+        $(".tunnel_config").attr("disabled",false);
     }else{
 
-        $("span.service_status").html("    未能连接到本地串口服务，请确认freeioe_Vserial是否安装并运行。下载  <a href='#'  class='navbar-link'>freeioe_Vserial</a>");
-        $("button.com-reconnect").removeClass("hide");
-        $("button.com_open").attr('disabled', true);
-        $("button.message_monitor").attr('disabled', true);
-
-        vircom ={};
-    }
-
-    // console.log("is null:::::::::",$.isEmptyObject(vircom));
-    if($.isEmptyObject(vircom)){
-        $("button.com_open").text('开启');
-        $("button.com_open").removeClass('btn-danger');
-        $("button.com_open").data('opened',0);
-        $("select.config_com").attr('disabled',false);
-        $("button.message_monitor").addClass('hide');
-
-        $("span.local_com").text('');
-        $("span.com_parameters").text('');
-        $("span.com_status").text('');
-        $("span.com_proc").text('');
-        $("span.com_peer").text('');
-        $("span.com_peer_state").text('');
-        $("span.com_received").text('');
-        $("span.net_received").text('');
-
-        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-        $("div.message_log").addClass('hide');
-        $("button.message_monitor").removeClass('btn-danger');
-        $("button.message_monitor").text('监视');
-        $("button.message_monitor").data('monitored',0);
-        $("button.message-pause").data('paused',0);
-        $("button.message-pause").text('暂停');
-        $("button.message-pause").addClass('btn-warning');
-        table_log.clear().draw();
-        $("span.message_lens_feedback").text('');
-
-    }else{
-        $("button.com_open").text('停止');
-        $("button.com_open").addClass('btn-danger');
-        $("button.com_open").data('opened',1);
-        $("select.config_com").attr('disabled',true);
-        $("button.message_monitor").removeClass('hide');
-
-        $("span.local_com").text(vircom.name);
-
-
-        if(vircom.BaudRate){
-            var DataBits = '8';
-            var StopBits = '1';
-            var Parity = '0';
-            var Parity_arr = {'0': "N", "1":"O", "2":"E"};
-            if(vircom.DataBits){
-                DataBits = vircom.DataBits;
-
-            }
-            if(vircom.StopBits){
-                StopBits = vircom.StopBits;
-
-            }
-            if(vircom.Parity){
-                Parity = vircom.Parity;
-            }
-            $("span.com_parameters").text(vircom.BaudRate+'/'+DataBits+'/'+Parity_arr[Parity]+'/'+StopBits);
-        }
-
-        if(vircom.pid>0){
-            $("span.com_status").text('已打开');
-        }else{
-            $("span.com_status").text('已关闭');
-        }
-        if(vircom.app_path){
-            $("span.com_proc").text(vircom.app_path.split("\\")[vircom.app_path.split("\\").length-1]);
-        }
-
-        $("span.com_peer").text(vircom.target_host + ":" + vircom.target_port);
-        $("span.com_peer_state").text(vircom.peer_state);
-        $("span.com_received").text(vircom.recv_count+ '/' + vircom.send_count);
-        $("span.net_received").text(vircom.peer_recv_count + '/' +vircom.peer_send_count);
 
     }
+
 
 
 },1000);
@@ -422,26 +260,48 @@ var mqtt_status_ret= setInterval(function(){
 /**
  *	周期获取数据
  */
-get_freeioe_Vserial_data(gate_sn);
+get_freeioe_Vnet_data(gate_sn);
 var mqtt_status_ret= setInterval(function(){
-    get_freeioe_Vserial_data(gate_sn);
+    gate_info(gate_sn);
+    get_freeioe_Vnet_data(gate_sn);
 },3000);
 
-var message_lens_ret= setInterval(function(){
-    var lens=table_log.data().length;
-    if(lens>500){
-        $("button.message-pause").data('paused',1);
-        $("button.message-pause").text('恢复');
-        $("span.message_lens_feedback").text('报文缓冲区已满');
-    }else{
-
-    }
-
-},5000);
 
 // $('.message_monitor').click(function () {
 //         $("div.message_log").removeClass("hide");
 // });
+
+
+// 选择按钮--VPN启动-----开始
+$("button.start_vpn").click(function(){
+    vnet_cfg.gate_sn = $("input.gate_sn").val();
+    vnet_cfg.tap_ip= $("input.tap_ip").val();
+    vnet_cfg.tap_netmask= $("select.tap_netmask").val();
+    vnet_cfg.dest_ip= $("input.dev_ip").val();
+
+    console.log(vnet_cfg);
+
+    if($("button.start_vpn").data('running')!==1){
+
+    }
+    else{
+
+
+    }
+
+
+});
+// 选择按钮--VPN启动-----结束
+
+
+$("button.bridge").click(function(){
+    vnet_cfg.net_mode = "bridge";
+});
+
+
+$("button.bridge").click(function(){
+    vnet_cfg.net_mode = "router";
+});
 
 $("select.com_select").change(function(){
     var key = $(this).val();
@@ -493,96 +353,10 @@ $("button.com_open").click(function(){
 
     }
 
-
-    // var id = "query_local_Vcoms/"+ Date.parse(new Date());
-    // query_local_Vcoms(connect_falg,client,id);
-
-
-
-
-    // if(mqttc_connected){
-    //     mqtt_client.publish("v1/vspc/api/add", {
-    //         onSuccess: unsubscribeSuccess,
-    //         onFailure: unsubscribeFailure,
-    //         invocationContext: { topic: '' }
-    //     });
-    // }
-
-/*    if(mqttc_connected){
-        if(com_opened){
-            mqtt_client.publish("v1/vspc/api/add", {
-                onSuccess: unsubscribeSuccess,
-                onFailure: unsubscribeFailure,
-                invocationContext: { topic: '' }
-            });
-            com_opened = false;
-            $("button.com_open").removeClass("btn-danger");
-            $("button.com_open").text("关闭");
-        }else{
-            try {
-                mqtt_client.publish("+/#", {qos: 0});
-                com_opened = true;
-                $("button.com_open").addClass("btn-danger");
-                $("button.com_open").text("开启");
-
-            } catch (error) {
-                console.log(error);
-                mqttc_connected = false;
-                com_opened = false;
-                $("button.com_open").removeClass("btn-danger");
-                $("button.com_open").text("关闭");
-            }
-        }
-
-    }*/
-
-
-
 });
 
-$("button.message_monitor").click(function(){
 
-    if($("button.message_monitor").data('monitored')==1){
-        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-        $("div.message_log").addClass('hide');
-        $("button.message_monitor").removeClass('btn-danger');
-        $("button.message_monitor").text('监视');
-        $("button.message_monitor").data('monitored',0);
-        $("button.message-pause").data('paused',0);
-        $("button.message-pause").text('暂停');
-        $("button.message-pause").addClass('btn-warning');
-        table_log.clear().draw();
-        $("span.message_lens_feedback").text('');
-    }else{
-        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-        $("div.message_log").removeClass('hide');
-        $("button.message_monitor").addClass('btn-danger');
-        $("button.message_monitor").text('停止');
-        $("button.message_monitor").data('monitored',1);
-    }
 
-});
-
-$("button.message-pause").click(function(){
-
-    if($("button.message-pause").data('paused')==1){
-        var lens=table_log.data().length;
-        if(lens<500){
-            $("button.message-pause").data('paused',0);
-            $("button.message-pause").text('暂停');
-            $("button.message-pause").addClass('btn-warning');
-        }
-
-    }else{
-
-            $("button.message-pause").data('paused',1);
-            $("button.message-pause").text('恢复');
-            $("button.message-pause").removeClass('btn-warning');
-
-    }
-
-});
 $("button.message-clear").click(function(){
-    table_log.clear().draw();
-    $("span.message_lens_feedback").text('');
+
 });

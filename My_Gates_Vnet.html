@@ -300,9 +300,9 @@
 
                                             <form class="form-horizontal">
                                                 <div class="form-group">
-                                                    <label class="col-sm-4 control-label"><span>中转节点:</span></label>
+                                                    <label class="col-sm-4 control-label"><span>服务节点:</span></label>
                                                     <div class="col-sm-8">
-                                                        <select class="form-control tunnel_config" id="frps_host">
+                                                        <select class="form-control tunnel_config frps_host">
                                                             <!--<option value="255.255.254.0">255.255.255.128</option>-->
                                                             <option selected="selected" value="hs.symgrid.com">上海</option>
                                                             <option value="iot.symgrid.com">北京1</option>
@@ -315,7 +315,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-4 control-label">网关状态:</label>
                                                     <div class="col-sm-8">
-                                                        <div class="form-control" ><span class="gate_status_result" > </span></div>
+                                                        <div class="form-control" ><span class="gate_status" > </span></div>
 
                                                     </div>
                                                 </div>
@@ -323,37 +323,37 @@
                                                 <div class="form-group hide">
                                                     <label class="col-sm-4 control-label">授权码:</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control tunnel_config" id="authcode" placeholder="" value="" readonly>
+                                                        <input type="text" class="form-control tunnel_config authcode" placeholder="" value="" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-4 control-label">网关SN:</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control tunnel_config" id="gatesn" placeholder="" value="" readonly>
+                                                        <input type="text" class="form-control tunnel_config gate_sn"  placeholder="" value="" readonly>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-4 control-label">连接模式:</label>
-                                                    <div class="col-sm-8">
-                                                        <button type="button" class="btn btn-default btn-primary active tunnel_config" id="virtual_network">虚拟网络</button>
-                                                        <button type="button" class="btn btn-default tunnel_config hide" id="virtual_serial">虚拟串口</button>
-                                                    </div>
-                                                </div>
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="col-sm-4 control-label">连接模式:</label>-->
+                                                    <!--<div class="col-sm-8">-->
+                                                        <!--<button type="button" class="btn btn-default btn-primary active tunnel_config" id="virtual_network">虚拟网络</button>-->
+                                                        <!--<button type="button" class="btn btn-default tunnel_config hide" id="virtual_serial">虚拟串口</button>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
 
                                                 <!-- vpn_network  -->
-                                                <div class="" id="v_network">
+                                                <div class="v_network" >
 
                                                     <div class="form-group">
-                                                        <label class="col-sm-4 control-label"><span id="vn_ipaddr">虚拟网卡IP:</span></label>
+                                                        <label class="col-sm-4 control-label"><span class="vn_ipaddr">虚拟网卡IP:</span></label>
                                                         <div class="col-sm-8">
-                                                            <input type="text" class="form-control tunnel_config popover-warning-ip"  data-placement="top" data-content="IP地址不能为空" id="tap_ip" placeholder="定义虚拟IP" value="">
+                                                            <input type="text" class="form-control tunnel_config popover-warning-ip tap_ip"  data-placement="top" data-content="IP地址不能为空" placeholder="定义虚拟IP" value="">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="col-sm-4 control-label"><span id="vn_netmask">虚拟网卡netmask:</span></label>
+                                                        <label class="col-sm-4 control-label"><span class="vn_netmask">虚拟网卡netmask:</span></label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control tunnel_config" id="tap_netmask">
+                                                            <select class="form-control tunnel_config tap_netmask">
                                                                 <!--<option value="255.255.254.0">255.255.255.128</option>-->
                                                                 <option selected="selected" value="255.255.255.0">255.255.255.0</option>
                                                                 <option value="255.255.254.0">255.255.254.0</option>
@@ -368,7 +368,7 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">网关IP:</label>
                                                         <div class="col-sm-6" style="padding-right: 5px">
-                                                            <input type="text" class="form-control tunnel_config popover-devip"  data-placement="top" data-content="网关IP未获取到，点击刷新按钮" id="dev_ip" placeholder="device ipaddress" value="" readonly>
+                                                            <input type="text" class="form-control tunnel_config popover-devip dev_ip"  data-placement="top" data-content="网关IP未获取到，点击刷新按钮"  placeholder="device ipaddress" value="" readonly>
                                                         </div>
                                                         <div style="padding-right: 15px">
                                                             <button type="button" class="btn btn-default pull-right query_gateip"><i class="fa fa-refresh"></i></button>
@@ -379,90 +379,35 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">传输协议:</label>
                                                         <div class="col-sm-8">
-                                                            <button type="button" class="btn btn-default btn-primary active tunnel_config" id="protocol_tcp">tcp</button>
+                                                            <button type="button" class="btn btn-default btn-primary active tunnel_config protocol_tcp">tcp</button>
 
-                                                            <button type="button" class="btn btn-default tunnel_config" id="protocol_kcp">kcp</button>
+                                                            <button type="button" class="btn btn-default tunnel_config protocol_kcp">kcp</button>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">网络模式:</label>
                                                         <div class="col-sm-8">
-                                                            <button type="button" class="btn btn-default btn-primary active tunnel_config" id="bridge">桥接模式</button>
-
-                                                            <button type="button" class="btn btn-default tunnel_config" id="router">路由模式</button>
+                                                            <button type="button" class="btn btn-default btn-primary active tunnel_config bridge" >桥接模式</button>
+                                                            <button type="button" class="btn btn-default tunnel_config router">路由模式</button>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <div class="col-sm-offset-4 col-sm-8">
-                                                            <button type="button" class="btn btn-lg btn-default hide" id="start_vpn"></button>
+                                                            <button type="button" class="btn btn-lg btn-default start_vpn">---</button>
                                                         </div>
                                                     </div>
 
 
                                                     <div class="form-group">
                                                         <div class="col-sm-offset-4 col-sm-8">
-                                                            <div class="alert alert-info hide" role="alert" id="vpn_ret_message">...</div>
+                                                            <div class="alert alert-info vpn_ret_message hide" role="alert">...</div>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                                 <!-- vpn_network  -->
-
-                                                <!-- virtual_serial  -->
-                                                <div class="hide" id="v_serial">
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">本地虚拟串口:</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="local_virtual_serial" placeholder="com1">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">远程虚拟串口:</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="remote_virtual_serial" placeholder="com1">
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">波特率:</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="baudrate" placeholder="9600">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">数据位:</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="data_bit" placeholder="8">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">校验位:</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="check_bit" placeholder="N">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-sm-4 control-label">停止位:</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="stop_bit" placeholder="1">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="col-sm-offset-4 col-sm-8">
-                                                            <button type="button" class="btn btn-default hide" id="start_serial"></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- virtual_serial  -->
 
                                                 <div class="form-group">
                                                     <div class="col-sm-offset-4 col-sm-8">
@@ -481,39 +426,44 @@
                                 <div class="col-md-6">
                                     <div class="container-fluid">
                                         <div class="bs-example"><h1>状态</h1></div>
-                                        <div class="bs-example hide">
-                                            <button type="button" class="btn btn-default btn-primary" id="query">本地状态</button>
-
-                                            <button type="button" class="btn btn-default btn-primary" id="cloud">代理状态</button>
-
-                                            <button type="button" class="btn btn-default btn-primary" id="check_env">运行环境</button>
-
-                                        </div>
-
-                                        <div class="bs-example">
-                                            <p><span>本地运行环境：</span> <span class="service_error" id="check_env_result"></span></p><br />
-                                            <p><span>本地服务状态：</span> <span id="check_local_result"></span></p><br />
-                                            <p><span>本地连接状态：</span> <span class="service_error" id="local_link_result"></span></p><br />
-                                            <p><span>云端隧道名称：</span> <span class="service_error" id="cloud_tunnel_name"></span></p><br />
-                                            <p><span>云端隧道状态：</span> <span class="service_error" id="cloud_tunnel_status"></span></p><br />
-                                            <p><span>本次启动时间：</span> <span class="service_error" id="this_start_time"></span></p><br />
-                                            <p><span>上次消耗流量：</span> <span class="service_error" id="last_Traffic_data"></span></p><br />
-                                            <p><span>Ping网关IP状态：</span> <span class="service_error" id="ping_devip_result"></span></p><br />
+                                         <div class="bs-example">
+                                            <p><span>本地运行环境：</span> <span class="service_error check_env_result"></span></p><br />
+                                            <p><span>本地服务状态：</span> <span class="check_local_result"></span></p><br />
+                                            <p><span>本地连接状态：</span> <span class="service_error local_link_result" ></span></p><br />
+                                            <p><span>云端隧道名称：</span> <span class="service_error cloud_tunnel_name" ></span></p><br />
+                                            <p><span>云端隧道状态：</span> <span class="service_error cloud_tunnel_status" ></span></p><br />
+                                            <p><span>本次启动时间：</span> <span class="service_error this_start_time"></span></p><br />
+                                            <p><span>上次消耗流量：</span> <span class="service_error last_Traffic_data"></span></p><br />
+                                            <p><span>Ping网关IP状态：</span> <span class="service_error ping_devip_result"></span></p><br />
 
 
 
 
-                                            <table class="table" id="mes_table">
+                                            <table class="table service_status_table">
 
                                                 <thead>
                                                 <tr>
                                                     <th width="30%">服务名称</th>
-                                                    <th width="40%">状态</th>
-                                                    <th width="30%"></th>
+                                                    <th width="40%">描述</th>
+                                                    <th width="30%">状态</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-
+                                                    <tr>
+                                                        <td><span class="Service_Name">frpc_Vnet_service</span></td>
+                                                        <td><span class="Service_status">----</span></td>
+                                                        <td><span class="com_proc">------</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="Service_Name">tinc.tofreeioebridge</span></td>
+                                                        <td><span class="Service_status">----</span></td>
+                                                        <td><span class="com_proc"></span>------</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="Service_Name">tinc.tofreeioerouter</span></td>
+                                                        <td><span class="Service_status">---</span></td>
+                                                        <td><span class="com_proc"></span>-----</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
 
@@ -608,7 +558,8 @@
 <!-- load common js-->
 <script src="user_js/common/jQuery.cookie.js"></script>
 
-
+<!-- paho.mqtt App -->
+<script src="http://thingscloud.oss-cn-beijing.aliyuncs.com/plugins/paho.mqtt/paho-mqtt-min.js"></script>
 
 <script type="text/javascript">
     document.write("<script type='text/javascript' src='user_js/common/common.js?v="+jsversion+"'></s"+"cript>");
