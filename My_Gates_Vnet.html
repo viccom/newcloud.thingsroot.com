@@ -304,9 +304,9 @@
                                                     <div class="col-sm-8">
                                                         <select class="form-control tunnel_config frps_host">
                                                             <!--<option value="255.255.254.0">255.255.255.128</option>-->
-                                                            <option selected="selected" value="hs.symgrid.com">上海</option>
-                                                            <option value="iot.symgrid.com">北京1</option>
-                                                            <option value="172.30.0.187">北京2</option>
+                                                            <option selected="selected" value="hs.symgrid.com">北京1</option>
+                                                            <option value="iot.symgrid.com">北京2</option>
+                                                            <option value="172.30.0.187">北京3</option>
 
                                                         </select>
                                                     </div>
@@ -368,7 +368,7 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-4 control-label">网关IP:</label>
                                                         <div class="col-sm-8" style="padding-right: 15px">
-                                                            <input type="text" class="form-control tunnel_config popover-devip dev_ip"  data-placement="top" data-content="网关IP未获取到，点击刷新按钮"  placeholder="device ipaddress" value="" readonly>
+                                                            <input type="text" class="form-control tunnel_config popover-devip dev_ip"  data-placement="top" data-content="网关IP未获取到，点击刷新按钮"  placeholder="device ipaddress" value="">
                                                         </div>
                                                         <!--<div style="padding-right: 15px">-->
                                                             <!--<button type="button" class="btn btn-default pull-right query_gateip"><i class="fa fa-refresh"></i></button>-->
@@ -395,7 +395,7 @@
 
                                                     <div class="form-group">
                                                         <div class="col-sm-offset-4 col-sm-8">
-                                                            <button type="button" class="btn btn-lg btn-default start_vpn">---</button>
+                                                            <button type="button" class="btn btn-lg btn-default start_vpn hide">---</button>
                                                         </div>
                                                     </div>
 
@@ -427,18 +427,22 @@
                                     <div class="container-fluid">
                                         <div class="bs-example"><h1>状态</h1></div>
                                          <div class="bs-example">
-                                            <p><span>本地运行环境：</span> <span class="service_error check_env_result"></span></p><br />
+                                            <p><span>本地运行环境：</span> <span class="service_error check_env_result"></span>
+                                                <button type="button" class="btn btn-sm check_env pull-right hide" >检测</button>
+                                            </p><br />
                                             <p>
                                                 <span>本地服务状态：</span> <span class="check_local_result"></span>
                                                 <button type="button" class="btn btn-sm vnet-reconnect pull-right hide" >连接</button>
 
                                             </p><br />
-                                            <p><span>本地连接状态：</span> <span class="service_error local_link_result" ></span></p><br />
-                                            <p><span>云端隧道名称：</span> <span class="service_error cloud_tunnel_name" ></span></p><br />
-                                            <p><span>云端隧道状态：</span> <span class="service_error cloud_tunnel_status" ></span></p><br />
-                                            <p><span>本次启动时间：</span> <span class="service_error this_start_time"></span></p><br />
-                                            <p><span>上次消耗流量：</span> <span class="service_error last_Traffic_data"></span></p><br />
-                                            <p><span>Ping网关IP状态：</span> <span class="service_error ping_devip_result"></span></p><br />
+                                            <p><span>本地连接状态：</span> <span class="service_stop local_link_result" >-----</span></p><br />
+                                            <!--<p><span>云端隧道名称：</span> <span class="service_stop cloud_tunnel_name" >-&#45;&#45;&#45;&#45;</span></p><br />-->
+                                            <p><span>云端隧道状态：</span> <span class="service_stop cloud_tunnel_status" >-----</span></p><br />
+                                             <p><span>网关桥接隧道状态：</span> <span class="gate_bridge_result" >-----</span></p><br />
+                                             <p><span>网关路由隧道状态：</span> <span class="gate_router_result" >-----</span></p><br />
+                                            <p><span>本次启动时间：</span> <span class="service_stop this_start_time">-----</span></p><br />
+                                            <p><span>今日流量统计：</span> <span class="service_stop today_Traffic_data">-----</span></p><br />
+                                            <p><span>Ping网关IP状态：</span> <span class="service_stop ping_devip_result">-----</span></p><br />
 
 
 
@@ -454,19 +458,19 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><span class="Service_Name">frpc_Vnet_service</span></td>
-                                                        <td><span class="Service_status">----</span></td>
-                                                        <td><span class="com_proc">------</span></td>
+                                                        <td><span>frpc_Vnet_service</span></td>
+                                                        <td><span>隧道服务</span></td>
+                                                        <td><span class="frpc_Vnet_status">-----</span></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span class="Service_Name">tinc.tofreeioebridge</span></td>
-                                                        <td><span class="Service_status">----</span></td>
-                                                        <td><span class="com_proc"></span>------</td>
+                                                        <td><span>tinc.tofreeioebridge</span></td>
+                                                        <td><span>桥接服务</span></td>
+                                                        <td><span class="bridge_status">-----</span></td>
                                                     </tr>
                                                     <tr>
-                                                        <td><span class="Service_Name">tinc.tofreeioerouter</span></td>
-                                                        <td><span class="Service_status">---</span></td>
-                                                        <td><span class="com_proc"></span>-----</td>
+                                                        <td><span>tinc.tofreeioerouter</span></td>
+                                                        <td><span>路由服务</span></td>
+                                                        <td><span class="router_status">-----</span></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

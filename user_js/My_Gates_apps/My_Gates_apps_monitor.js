@@ -29,7 +29,7 @@ $(function () {
         "paging":         false,
         "processing": true,
         "bStateSave": false,
-        "order": [[ 0, "desc" ]],
+        "order": [[ 0, "asc" ]],
         "language": {
             "sProcessing": "处理中...",
             "sLengthMenu": "显示 _MENU_ 项结果",
@@ -60,18 +60,20 @@ $(function () {
                 targets:  0,
                 "width": '14%',
                 searchable: false,
-                orderable: true
+                orderable: false
 
             },
             {
                 //   指定第第2列
                 targets:  1,
-                "width": '8%'
+                "width": '8%',
+                orderable: false
             },
             {
                 //   指定第第3列
                 targets:  2,
-                "width": '8%'
+                "width": '8%',
+                orderable: false
             },
             {
                 //   指定第第4列
@@ -99,7 +101,7 @@ $(function () {
         "paging":         false,
         "processing": true,
         "bStateSave": false,
-        "order": [[ 0, "desc" ]],
+        "order": [[ 0, "asc" ]],
         "language": {
             "sProcessing": "处理中...",
             "sLengthMenu": "显示 _MENU_ 项结果",
@@ -130,18 +132,20 @@ $(function () {
                 //   指定第第1列
                 targets:  0,
                 searchable: false,
-                orderable: true,
+                orderable: false,
                 "width": '14%'
             },
             {
                 //   指定第第2列
                 targets:  1,
-                "width": '25%'
+                "width": '25%',
+                orderable: false
             },
             {
                 //   指定第第3列
                 targets:  2,
-                "width": '8%'
+                "width": '8%',
+                orderable: false
             },
             {
                 //   指定第第4列

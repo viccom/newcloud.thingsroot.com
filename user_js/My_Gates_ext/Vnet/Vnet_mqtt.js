@@ -251,6 +251,7 @@ function onFail(context) {
 
 // called when the client loses its connection
 function onConnectionLost(responseObject) {
+    console.log(responseObject);
     if (responseObject.errorCode !== 0) {
         logMessage("INFO", "Connection Lost. [Error Message: ", responseObject.errorMessage, "]");
     }
@@ -261,134 +262,219 @@ function onConnectionLost(responseObject) {
 
 // called when a message arrives
 function onMessageArrived(message) {
-    // console.log("topic: ",message.destinationName);
-    var arr_topic = message.destinationName.split("/");
-    var socket_reg = RegExp(/SOCKET_STREAM/);
-    var vspc_reg = RegExp(/VSPC_STREAM/);
-
-
-
-
+    // console.log(message);
+    // var arr_topic = message.destinationName.split("/");
+    var dest_reg = RegExp(/DEST_STATUS/);
     var _topic = message.destinationName;
     // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
-
-    if(_topic==="/v1/vnet/VNET_STATUS/SERVICES"){
-        // console.log("data: ",message.payloadString);
-    }
-
-    if(_topic==="/v1/vnet/VNET_STATUS/LOCAL_PROXY"){
-
-    }
-
-    if(_topic==="/v1/vnet/VNET_STATUS/CLOUD_PROXY"){
-
-    }
-
-
-    if(_topic==="v1/vnet/api/RESULT"){
-        var q = action_result_list;
-        if(q==null || q.length<1){
-            return false;
-        }else{
-            for (var i = 0; i < q.length; i++) {
-                console.log(q[i]);
-                // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
+    if(message.payloadString!=='null'){
+        if(_topic==="v1/vnet/VNET_STATUS/SERVICES"){
+            if(message.payloadString){
                 var ret = JSON.parse(message.payloadString);
-                // console.log(ret.id, ret);
-                var arr_action = ret.id.split("/");
-                if(ret.id==q[i] && ret.result){
-                    if(arr_action[0]=='check_env'){
-                        // console.log(ret);
-                        vnet_obj.env = true;
-                        $.each(ret.data, function(k, v) {
-                            console.log(k,v);
-                            if (!(v)){
-                                vnet_obj.env = false;
-                                return false;
-                            }
-                        });
-                        var html_env = '<span class="text-success">运行环境正常 </span>';
-                        var tap_nic_icon = '<i class="glyphicon glyphicon-remove"></i>';
-                        var frpc_bin_icon = '<i class="glyphicon glyphicon-remove"></i>';
-                        var frpc_Vnet_service_icon = '<i class="glyphicon glyphicon-remove"></i>';
-                        var tinc_bin_icon = '<i class="glyphicon glyphicon-remove"></i>';
-                        var tofreeioebridge_icon = '<i class="glyphicon glyphicon-remove"></i>';
-                        var tofreeioerouter_icon = '<i class="glyphicon glyphicon-remove"></i>';
-                        if(!vnet_obj.env){
-                            if(ret.data.tap_nic){
-                                tap_nic_icon = '<i class="glyphicon glyphicon-ok"></i>';
-                            }
-                            if(ret.data.frpc_bin){
-                                frpc_bin_icon = '<i class="glyphicon glyphicon-ok"></i>';
-                            }
-                            if(ret.data.frpc_Vnet_service ){
-                                frpc_Vnet_service_icon = '<i class="glyphicon glyphicon-ok"></i>';
-                            }
-                            if(ret.data.tinc_bin){
-                                tinc_bin_icon = '<i class="glyphicon glyphicon-ok"></i>';
-                            }
-                            if(ret.data["tinc.tofreeioebridge"]){
-                                tofreeioebridge_icon = '<i class="glyphicon glyphicon-ok"></i>';
-                            }
-                            if(ret.data["tinc.tofreeioerouter"]){
-                                tofreeioerouter_icon = '<i class="glyphicon glyphicon-ok"></i>';
-                            }
-                            html_env = '<span class="text-danger">运行环境异常 </span><button type="button" class="btn btn-sm  one_key_repair">一键修复</button>'
-
-                        }
-                        console.log(html_env);
-                        $("span.check_env_result").html(html_env);
-
-
-
-                    }
-
-                    if(arr_action[0]=='query_taps'){
-
-                    }
-
-                    if(arr_action[0]=='start_vnet'){
-
-                        console.log(ret);
-                    }
-
-                    if(arr_action[0]=='stop_vnet'){
-                        vnet_obj ={};
-                        console.log(ret);
-
-                        // post_freeioe_Vnet_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
-                    }
-
-                }else{
-                    $("span.local_action_feedback").text(ret.error);
-                    if(arr_action[0]=='remove_local_com'){
-                        vnet_obj ={};
-                        console.log(ret);
-
-                    }
+                // console.log("SERVICES: ",ret);
+                if(ret.is_running){
+                    vnet_obj.is_running = ret.is_running;
                 }
-                q.splice(i,1);
+                $("span.frpc_Vnet_status").text(ret.frpc_Vnet_service);
+                $("span.bridge_status").text(ret['tinc.tofreeioebridge']);
+                $("span.router_status").text(ret['tinc.tofreeioerouter']);
+            }
 
+
+        }
+
+        if(_topic==="v1/vnet/VNET_STATUS/CONFIG"){
+            if(message.payloadString){
+                var ret = JSON.parse(message.payloadString);
+                vnet_obj.is_running = ret.is_running;
+                if(ret.vnet_cfg){
+                    vnet_obj.vnet_cfg =ret.vnet_cfg;
+                }
+            }
+
+
+            // console.log("CONFIG: ",ret);
+        }
+
+        if(dest_reg.test(_topic)){
+            if(message.payloadString){
+                var ret = JSON.parse(message.payloadString);
+                $("span.ping_devip_result").text(ret.message);
+                if(ret.message=='online'){
+                    $("span.ping_devip_result").addClass('text-success');
+                }else{
+                    $("span.ping_devip_result").removeClass('text-success');
+                }
+            }
+
+
+            // console.log("CONFIG: ",ret);
+        }
+
+        if(_topic==="v1/vnet/PROXY_STATUS/LOCAL_PROXY"){
+
+            if(message.payloadString){
+                var ret = JSON.parse(message.payloadString);
+                $("span.local_link_result").text(ret.status);
+                if(ret.status=='running'){
+                    $("span.local_link_result").addClass('text-success');
+                }else{
+                    $("span.local_link_result").removeClass('text-success');
+                }
             }
 
         }
-    }
 
-    if(vspc_reg.test(_topic)){
+        if(_topic==="v1/vnet/PROXY_STATUS/CLOUD_PROXY"){
+            if(message.payloadString){
+                var ret = JSON.parse(message.payloadString);
+                // console.log("CLOUD_PROXY: ",ret);
 
-        // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 ));
-        // console.log("dddd::::::",($("button.message-pause").data('paused')!==1));
-        // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1));
-        if($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1){
+                $("span.cloud_tunnel_name").text(ret.name);
+                $("span.this_start_time").text(ret.last_start_time);
+                $("span.today_Traffic_data").text( Math.ceil((ret.today_traffic_in + ret.today_traffic_out)/1024) + " KB");
 
-
-            var topic_arr = _topic.split("/");
-
-
+                if(ret.cur_conns>0){
+                    $("span.cloud_tunnel_status").text('connected');
+                    $("span.cloud_tunnel_status").addClass('text-success');
+                }else{
+                    $("span.cloud_tunnel_status").text('disconnected');
+                    $("span.cloud_tunnel_status").removeClass('text-success');
+                }
+            }
 
 
         }
+
+
+        if(_topic==="v1/vnet/api/RESULT"){
+            // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
+
+            var q = action_result_list;
+            if(q==null || q.length<1){
+                return false;
+            }else{
+                //console.log(q);
+                for (var i = 0; i < q.length; i++) {
+
+                    var ret = JSON.parse(message.payloadString);
+                    //console.log(q[i], ret.id);
+                    var arr_action = ret.id.split("/");
+                    console.log(arr_action, ret.result);
+                    if(ret.id==q[i])
+                    {
+                        if(arr_action[0]=='check_env'){
+                            // console.log(ret);
+                            vnet_obj.env = true;
+                            $.each(ret.data, function(k, v) {
+                                // console.log(k,v);
+                                if (!(v)){
+                                    vnet_obj.env = false;
+                                    return false;
+                                }
+                            });
+                            var html_env = '<span class="text-success">运行环境正常 </span>';
+                            var tap_nic_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                            var frpc_bin_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                            var frpc_Vnet_service_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                            var tinc_bin_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                            var tofreeioebridge_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                            var tofreeioerouter_icon = '<i class="glyphicon glyphicon-remove"></i>';
+                            if(!vnet_obj.env){
+                                if(ret.data.tap_nic){
+                                    tap_nic_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                                }
+                                if(ret.data.frpc_bin){
+                                    frpc_bin_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                                }
+                                if(ret.data.frpc_Vnet_service ){
+                                    frpc_Vnet_service_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                                }
+                                if(ret.data.tinc_bin){
+                                    tinc_bin_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                                }
+                                if(ret.data["tinc.tofreeioebridge"]){
+                                    tofreeioebridge_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                                }
+                                if(ret.data["tinc.tofreeioerouter"]){
+                                    tofreeioerouter_icon = '<i class="glyphicon glyphicon-ok"></i>';
+                                }
+                                html_env = '<span class="text-danger">运行环境异常 </span><button type="button" class="btn btn-sm  one_key_repair">一键修复</button>'
+
+                            }
+                            //console.log(html_env);
+                            $("span.check_env_result").html(html_env);
+
+
+
+                        }
+
+                        if(arr_action[0]=='query_taps'){
+
+                        }
+
+                        if(arr_action[0]=='start_vnet'){
+                            console.log(ret);
+
+                            var id = "post_gate/"+ Date.parse(new Date());
+                            var message = {
+                                "id":id,
+                                "auth_code":$("span.user-name").data("accesskey"),
+                                "output": "vnet_config"
+                            };
+                            post_to_gate(mqttc_connected, mqtt_client, message);
+                        }
+
+
+                        if(arr_action[0]=='stop_vnet'){
+                            vnet_obj ={};
+                            console.log(ret);
+                            $("span.service_stop").text('----');
+                            if(ret.data.services_start){
+
+                            }
+                            if(ret.data.services_stop){
+                                var id = "post_gate/"+ Date.parse(new Date());
+                                var message = {
+                                    "id":id,
+                                    "auth_code":$("span.user-name").data("accesskey"),
+                                    "output": "vnet_stop"
+                                };
+                                post_to_gate(mqttc_connected, mqtt_client, message);
+                            }
+
+                        }
+
+                        if(arr_action[0]=='fix_env'){
+                            console.log(ret);
+
+                        }
+
+                        if(arr_action[0]=='post_gate'){
+                            console.log(ret);
+
+                        }
+
+                        q.splice(i,1);
+
+                    }
+                    else
+                    {
+                        if(arr_action[0]=='stop_vnet'){
+                            vnet_obj ={};
+                            console.log(ret);
+
+                        }
+                    }
+
+
+                }
+
+            }
+        }
+
     }
+
 
 
 
@@ -399,7 +485,7 @@ function onMessageArrived(message) {
 function connect() {
     var hostname = "127.0.0.1";
     var port = "7884";
-    var clientId = "webclient-"+makeid();
+    var clientId = "webclient";
 
     var path = "/mqtt";
     // var user = getCookie('usr');
