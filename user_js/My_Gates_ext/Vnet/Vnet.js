@@ -432,6 +432,7 @@ $("button.start_vpn").click(function(){
         };
         start_Vnet(mqttc_connected, mqtt_client, message);
         $("button.start_vpn").addClass('hide');
+        $("div.vnet_loading").text('启动中……');
         $("div.vnet_loading").removeClass('hide');
         delay_load(6000);
 
@@ -445,6 +446,9 @@ $("button.start_vpn").click(function(){
         };
         stop_Vnet(mqttc_connected, mqtt_client, message);
         $("button.start_vpn").addClass('hide');
+        $(".tunnel_config").attr("disabled",true);
+
+        $("div.vnet_loading").text('停止中……');
         $("div.vnet_loading").removeClass('hide');
         delay_load(6000);
 
@@ -501,7 +505,8 @@ $("button.vnet-reconnect").click(function(){
     }
 });
 
-$("button.one_key_repair").click(function(){
+$("body").on("click", "button.one_key_repair", function () {
+    console.log("one_key_repair")
     if(mqttc_connected){
         var id = "fix_env/"+ Date.parse(new Date());
         var message = {

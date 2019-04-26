@@ -371,7 +371,7 @@ function onMessageArrived(message) {
                                     return false;
                                 }
                             });
-                            var html_env = '<span class="text-success">运行环境正常 </span>';
+                            var html_env = '<span class="text-success">运行环境正常</span>';
                             var tap_nic_icon = '<i class="glyphicon glyphicon-remove"></i>';
                             var frpc_bin_icon = '<i class="glyphicon glyphicon-remove"></i>';
                             var frpc_Vnet_service_icon = '<i class="glyphicon glyphicon-remove"></i>';
@@ -420,7 +420,13 @@ function onMessageArrived(message) {
                                 "auth_code":$("span.user-name").data("accesskey"),
                                 "output": "vnet_config"
                             };
-                            post_to_gate(mqttc_connected, mqtt_client, message);
+
+                            setTimeout(function(){
+                                if(mqttc_connected){
+                                    post_to_gate(mqttc_connected, mqtt_client, message);
+                                }
+                            },2000);
+
                         }
 
 
@@ -438,13 +444,32 @@ function onMessageArrived(message) {
                                     "auth_code":$("span.user-name").data("accesskey"),
                                     "output": "vnet_stop"
                                 };
-                                post_to_gate(mqttc_connected, mqtt_client, message);
+
+                                setTimeout(function(){
+                                    if(mqttc_connected){
+                                        post_to_gate(mqttc_connected, mqtt_client, message);
+                                    }
+                                },2000);
+
+
                             }
 
                         }
 
                         if(arr_action[0]=='fix_env'){
                             console.log(ret);
+
+                            setTimeout(function(){
+                                  if(mqttc_connected){
+                                    var id = "check_env/"+ Date.parse(new Date());
+                                    var message = {
+                                        "id":id
+                                    };
+                                    check_env(mqttc_connected, mqtt_client, message);
+                                }else{
+                                    $("button.check_env").removeClass('hide');
+                                }
+                            },3000);
 
                         }
 
