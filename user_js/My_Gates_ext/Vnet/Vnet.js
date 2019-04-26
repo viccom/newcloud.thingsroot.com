@@ -151,7 +151,6 @@ function post_freeioe_Vnet_data(sn, device_sn, tag_name, output_val){
 
 }
 
-
 /**
  *	检查本地运行环境
  */
@@ -199,7 +198,6 @@ function query_taps(connect_falg,client,id){
     }
 }
 
-
 /**
  *	启动虚拟网络
  */
@@ -217,7 +215,7 @@ function start_Vnet(connect_falg, client, message){
 }
 
 /**
- *	删除本地虚拟串口
+ *	停止虚拟网络
  */
 function stop_Vnet(connect_falg,client,message){
     var id = message.id;
@@ -250,8 +248,6 @@ function post_to_gate(connect_falg,client,message){
 
 pagename = "Gates_Vnet";
 gate_sn = getParam('sn');
-mes_subscribed = false;
-
 action_result_list = new Array();
 gate_obj = {};
 vnet_obj ={};
@@ -327,7 +323,7 @@ var mqtt_status_ret= setInterval(function(){
  *	周期获取数据
  */
 get_freeioe_Vnet_data(gate_sn);
-var mqtt_status_ret= setInterval(function(){
+var mqtt_status_ret = setInterval(function(){
     gate_info(gate_sn);
     get_freeioe_Vnet_data(gate_sn);
     // console.log(id);
@@ -356,7 +352,7 @@ setTimeout(function(){
         }else{
             $("button.check_env").removeClass('hide');
         }
-},5000);
+},3000);
 
 $("button.check_env").click(function(){
     if(mqttc_connected){
@@ -372,9 +368,6 @@ $("button.check_env").click(function(){
         $("button.check_env").removeClass('hide');
     }
 });
-// $('.message_monitor').click(function () {
-//         $("div.message_log").removeClass("hide");
-// });
 
 $("button.vnet-reconnect").click(function(){
     if(!mqttc_connected){
@@ -453,7 +446,6 @@ $("button.bridge").click(function(){
     }
 });
 
-
 $("button.router").click(function(){
     vnet_cfg.net_mode = "router";
     $("button.router").addClass('btn-primary');
@@ -470,7 +462,6 @@ $("button.protocol_tcp").click(function(){
     $("button.protocol_tcp").addClass('btn-primary');
     $("button.protocol_kcp").removeClass('btn-primary')
 });
-
 
 $("button.protocol_kcp").click(function(){
     vnet_cfg.net_protocol = "kcp";
@@ -489,7 +480,6 @@ $("button.vnet-reconnect").click(function(){
         connect();
     }
 });
-
 
 $("button.one_key_repair").click(function(){
     if(mqttc_connected){
