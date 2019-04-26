@@ -31,8 +31,6 @@ function logMessage(type, ...content) {
     }
 }
 
-
-
 function makeid() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -480,12 +478,10 @@ function onMessageArrived(message) {
 
 }
 
-
-
 function connect() {
     var hostname = "127.0.0.1";
     var port = "7884";
-    var clientId = "webclient";
+    var clientId = "webclient_vnet";
 
     var path = "/mqtt";
     // var user = getCookie('usr');
@@ -575,11 +571,7 @@ function disconnect() {
     log_subscribed = false;
     comm_subscribed = false;
 
-
 }
-
-
-
 
 function publish() {
     var topic = document.getElementById("publishTopicInput").value;
@@ -593,7 +585,6 @@ function publish() {
     message.retained = retain;
     mqtt_client.send(message);
 }
-
 
 function subscribe() {
     var topic = document.getElementById("subscribeTopicInput").value;
@@ -611,7 +602,6 @@ function unsubscribe() {
         invocationContext: { topic: topic }
     });
 }
-
 
 function unsubscribeSuccess(context) {
     logMessage("INFO", "Unsubscribed. [Topic: ", context.invocationContext.topic, "]");
