@@ -287,8 +287,8 @@
                     </div>
 
                     <div class="row">
-
                             <div class="col-xs-12">
+
                                 <div class="box">
                                     <div class="box-header with-border">
                                         <h3 class="box-title text-blue">网关串口：<span class="selected_com text-blue">COM1</span><span class="remote_service_status text-danger"></span></h3>
@@ -417,7 +417,33 @@
 
                                     </div>
 
+                                    <div class="box-body no-padding">
+                                        <table class="table coms_status_table">
 
+                                            <thead>
+                                            <tr>
+                                                <th width="30%">服务名称</th>
+                                                <th width="40%">服务描述</th>
+                                                <th width="30%">服务状态</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><span>com1net</span></td>
+                                                <td><span>网关串口1映射服务</span></td>
+                                                <td><span class="com1net_status">-----</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span>com2net</span></td>
+                                                <td><span>网关串口2映射服务</span></td>
+                                                <td><span class="com2net_status">-----</span></td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box">
                                     <div class="box-header with-border">
                                         <h3 class="box-title text-green">本地串口：<span class="local_com text-green"></span><span class="service_status text-danger"></h3>
 

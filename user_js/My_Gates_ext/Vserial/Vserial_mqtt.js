@@ -346,10 +346,9 @@ function onMessageArrived(message) {
                                     }
                                 };
                                 console.log(message);
-                                if($.isEmptyObject(remote_comstate_object)){
-
-                                }else{
-                                    if(remote_comstate_object[com_cfg.serial+'net']==1){
+                                if(!$.isEmptyObject(remote_comstate_object)){
+                                    if(remote_comstate_object[com_cfg.serial+'net']=='running'){
+                                        $("span.remote_action_feedback").text("");
                                         add_local_com(mqttc_connected, mqtt_client, message);
                                     }else{
                                         $("span.remote_action_feedback").text("网关中串口映射服务未启动");
@@ -365,7 +364,7 @@ function onMessageArrived(message) {
                                             };
                                             // console.log(Date.parse(new Date()), remote_comstate_object);
                                             // console.log(Date.parse(new Date()), remote_comstate_object[com_cfg.serial+'net']==1);
-                                            if(remote_comstate_object[com_cfg.serial+'net']==1){
+                                            if(remote_comstate_object[com_cfg.serial+'net']=='running'){
                                                 var peer = remote_mapport_object[com_cfg.serial+'_mapport'].split(":");
                                                 var id = "add_local_com/"+ Date.parse(new Date());
                                                 var message = {
@@ -378,7 +377,7 @@ function onMessageArrived(message) {
                                                         "port": parseInt(peer[1])
                                                     }
                                                 };
-                                                // console.log(message);
+                                                console.log(message);
                                                 add_local_com(mqttc_connected, mqtt_client, message);
                                                 clearInterval(remote_comstate_status_ret);
                                                 $("span.remote_action_feedback").text("");

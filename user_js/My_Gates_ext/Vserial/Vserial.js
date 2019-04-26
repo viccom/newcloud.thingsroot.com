@@ -90,36 +90,33 @@ function get_freeioe_Vserial_data(sn){
             // console.log(req);
             if(req.message!=null){
                 if(req.message.length>0){
-                    var reg = RegExp(/mapport/);
+
                     remote_portmap_array = [];
-                    for (var i = 0; i < req.message.length; i++) {
-                        if(reg.test(req.message[i].name)){
-                            if(req.message[i].pv){
-                                remote_portmap_array.push(req.message[i].pv)
-                            }
-                        }
-                    }
-                    var reg = RegExp(/net/);
                     remote_comstate_object = {};
-                    for (var i = 0; i < req.message.length; i++) {
-                        if(reg.test(req.message[i].name)){
-                            if(req.message[i].pv){
-                                remote_comstate_object[req.message[i].name]=req.message[i].pv;
-                            }else{
-                                remote_comstate_object[req.message[i].name]=null;
-                            }
-                        }
-                    }
-                    var reg = RegExp(/mapport/);
                     remote_mapport_object = {};
+                    var reg1 = RegExp(/mapport/);
+                    var reg2 = RegExp(/net/);
                     for (var i = 0; i < req.message.length; i++) {
-                        if(reg.test(req.message[i].name)){
+
+                        if(reg1.test(req.message[i].name)){
                             if(req.message[i].pv){
+                                remote_portmap_array.push(req.message[i].pv);
                                 remote_mapport_object[req.message[i].name]=req.message[i].pv;
                             }else{
                                 remote_mapport_object[req.message[i].name]=null;
                             }
                         }
+
+                        if(reg2.test(req.message[i].name)){
+                            if(req.message[i].pv){
+                                remote_comstate_object[req.message[i].name]=req.message[i].pv;
+                                $("span." + req.message[i].name + "_status").text(req.message[i].pv);
+                            }else{
+                                remote_comstate_object[req.message[i].name]=null;
+                                $("span." + req.message[i].name + "_status").text('stopped');
+                            }
+                        }
+
                     }
                 }
             }
