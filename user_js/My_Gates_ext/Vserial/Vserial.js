@@ -97,11 +97,8 @@ function get_freeioe_Vserial_data(sn){
                             if(req.message[i].pv){
                                 remote_portmap_array.push(req.message[i].pv)
                             }
-
                         }
-
                     }
-
                     var reg = RegExp(/net/);
                     remote_comstate_object = {};
                     for (var i = 0; i < req.message.length; i++) {
@@ -111,11 +108,8 @@ function get_freeioe_Vserial_data(sn){
                             }else{
                                 remote_comstate_object[req.message[i].name]=null;
                             }
-
                         }
-
                     }
-
                     var reg = RegExp(/mapport/);
                     remote_mapport_object = {};
                     for (var i = 0; i < req.message.length; i++) {
@@ -125,9 +119,7 @@ function get_freeioe_Vserial_data(sn){
                             }else{
                                 remote_mapport_object[req.message[i].name]=null;
                             }
-
                         }
-
                     }
                 }
             }
@@ -191,7 +183,6 @@ function query_local_Vcoms(connect_falg,client,id){
         action_result_list.push(id);
     }
 }
-
 
 /**
  *	创建本地虚拟串口
@@ -329,7 +320,7 @@ var mqtt_status_ret= setInterval(function(){
 
         $("span.service_status").text("");
         $("button.com-reconnect").addClass("hide");
-        mqtt_client.subscribe(["+/#"], {qos: 0});
+        mqtt_client.subscribe(["v1/vspc/#"], {qos: 0});
         $("button.com_open").attr('disabled', false);
         $("button.message_monitor").attr('disabled', false);
 
@@ -409,7 +400,7 @@ var mqtt_status_ret= setInterval(function(){
             $("span.com_proc").text(vircom.app_path.split("\\")[vircom.app_path.split("\\").length-1]);
         }
 
-        $("span.com_peer").text(vircom.target_host + ":" + vircom.target_port);
+        $("span.com_peer").text(vircom.host + ":" + vircom.port);
         $("span.com_peer_state").text(vircom.peer_state);
         $("span.com_received").text(vircom.recv_count+ '/' + vircom.send_count);
         $("span.net_received").text(vircom.peer_recv_count + '/' +vircom.peer_send_count);

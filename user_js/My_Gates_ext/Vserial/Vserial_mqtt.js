@@ -280,25 +280,24 @@ function onConnectionLost(responseObject) {
 // called when a message arrives
 function onMessageArrived(message) {
     // console.log("topic: ",message.destinationName);
-    var arr_topic = message.destinationName.split("/");
+    // var arr_topic = message.destinationName.split("/");
     var socket_reg = RegExp(/SOCKET_STREAM/);
     var vspc_reg = RegExp(/VSPC_STREAM/);
+    var status_reg = RegExp(/VSPC_STATUS/);
 
-    if(arr_topic[0]==="VSPC_STATUS"){
+    var _topic = message.destinationName;
+    // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
 
+    if(status_reg.test(_topic)){
         var ret = JSON.parse(message.payloadString);
-        // console.log("topic: ",ret.name, vircom, remote_portmap_array);
-        // console.log(($.inArray(ret.target_host+":"+ret.target_port, remote_portmap_array) !== -1));
-        if($.inArray(ret.target_host+":"+ret.target_port, remote_portmap_array) !== -1){
+        // console.log("topic: ",ret.name);
+        // console.log(($.inArray(ret.host+":"+ret.port, remote_portmap_array) !== -1));
+        if($.inArray(ret.host+":"+ret.port, remote_portmap_array) !== -1){
             vircom = ret;
             // $("span.selected_com").text(vircom.name);
             // $("select.com_select").val(vircom.name.toLowerCase());
         }
     }
-
-    var _topic = message.destinationName;
-    // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
-
     if(_topic==="v1/vspc/api/RESULT"){
         var q = action_result_list;
         if(q==null || q.length<1){
@@ -318,7 +317,6 @@ function onMessageArrived(message) {
 
                         }
                     }
-
 
                     if(arr_action[0]=='query_local_coms'){
                         local_coms = ret.data.phy.concat(ret.data.vir);
@@ -405,18 +403,19 @@ function onMessageArrived(message) {
                         vircom ={};
                         console.log(ret);
 
-                        // post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
+                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
                     }
 
+                    q.splice(i,1);
                 }else{
                     $("span.local_action_feedback").text(ret.error);
                     if(arr_action[0]=='remove_local_com'){
                         vircom ={};
                         console.log(ret);
-                        // post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
+                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
                     }
                 }
-                q.splice(i,1);
+
 
             }
 
@@ -448,7 +447,7 @@ function onMessageArrived(message) {
     //     }
     // }
     else if(vspc_reg.test(_topic)){
-
+        // console.log(message.payloadString)
         // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 ));
         // console.log("dddd::::::",($("button.message-pause").data('paused')!==1));
         // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1));
@@ -457,13 +456,13 @@ function onMessageArrived(message) {
 
             var topic_arr = _topic.split("/");
 
-            if(vircom.name == topic_arr[1]){
+            if(vircom.name == topic_arr[3]){
                 var timestamp = Date.parse(new Date());
                 var device_comm = CharToHex(base64decode(message.payloadString));
                 var arrayObj = [
                     new Date(timestamp).toLocaleString('zh',{hour12:false}),
                     '串口',
-                    topic_arr[2],
+                    topic_arr[4],
                     device_comm
                 ]
                 table_log.row.add(arrayObj).draw();
@@ -491,7 +490,7 @@ function connectionToggle() {
 function connect() {
     var hostname = "127.0.0.1";
     var port = "7884";
-    var clientId = "webclient-"+makeid();
+    var clientId = "webclient-vspc";
 
     var path = "/mqtt";
     // var user = getCookie('usr');

@@ -246,6 +246,20 @@ function post_to_gate(connect_falg,client,message){
     }
 }
 
+/**
+ *	延时加载
+ */
+function delay_load(delay_time){
+    setTimeout(function(){
+        if(mqttc_connected){
+            $("div.vnet_loading").addClass('hide');
+            $("button.start_vpn").removeClass('hide');
+        }
+
+    },delay_time);
+}
+
+
 pagename = "Gates_Vnet";
 gate_sn = getParam('sn');
 action_result_list = new Array();
@@ -273,7 +287,7 @@ setTimeout(function () {
  */
 var mqtt_status_ret= setInterval(function(){
     if(mqttc_connected){
-        $("button.start_vpn").removeClass('hide');
+
         $(".tunnel_config").attr("disabled",false);
         $("button.vnet-reconnect").addClass("hide");
         mqtt_client.subscribe(["v1/vnet/+"], {qos: 0});
@@ -336,23 +350,25 @@ var mqtt_status_ret = setInterval(function(){
  */
 setTimeout(function(){
 
-        var dest_ip = $("input.dev_ip").val();
-        if(dest_ip){
-            var tempip = dest_ip.split(".",3).join(".") + "." + parseInt(Math.random()*200 + 10, 10);
-            $("input.tap_ip").val(tempip);
-        }
-        if(mqttc_connected){
+    var dest_ip = $("input.dev_ip").val();
+    if(dest_ip){
+        var tempip = dest_ip.split(".",3).join(".") + "." + parseInt(Math.random()*200 + 10, 10);
+        $("input.tap_ip").val(tempip);
+    }
+    if(mqttc_connected){
 
-            var id = "check_env/"+ Date.parse(new Date());
-            var message = {
-                "id":id
-            };
-            // console.log(id);
-            check_env(mqttc_connected, mqtt_client, message);
-        }else{
-            $("button.check_env").removeClass('hide');
-        }
+        var id = "check_env/"+ Date.parse(new Date());
+        var message = {
+            "id":id
+        };
+        // console.log(id);
+        check_env(mqttc_connected, mqtt_client, message);
+    }else{
+        $("button.check_env").removeClass('hide');
+    }
 },3000);
+
+delay_load(8000);
 
 $("button.check_env").click(function(){
     if(mqttc_connected){
@@ -415,7 +431,9 @@ $("button.start_vpn").click(function(){
             "vnet_cfg": vnet_cfg
         };
         start_Vnet(mqttc_connected, mqtt_client, message);
-        $("button.start_vpn").text('启动中……');
+        $("button.start_vpn").addClass('hide');
+        $("div.vnet_loading").removeClass('hide');
+        delay_load(6000);
 
     }
     else{
@@ -426,7 +444,9 @@ $("button.start_vpn").click(function(){
             "vnet_cfg": vnet_cfg
         };
         stop_Vnet(mqttc_connected, mqtt_client, message);
-        $("button.start_vpn").text('停止中……');
+        $("button.start_vpn").addClass('hide');
+        $("div.vnet_loading").removeClass('hide');
+        delay_load(6000);
 
     }
 
