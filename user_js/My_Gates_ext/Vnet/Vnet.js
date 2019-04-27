@@ -70,6 +70,16 @@ function set_label(sn){
             }else{
                 $("li.Gates_NetManager").addClass("hide");
             }
+            if(applist.hasOwnProperty("freeioe_Vserial")){
+                $("li.Gates_Vserial").removeClass("hide");
+            }else{
+                $("li.Gates_Vserial").addClass("hide");
+            }
+            if(applist.hasOwnProperty("freeioe_Vnet")){
+                $("li.Gates_Vnet").removeClass("hide");
+            }else{
+                $("li.Gates_Vnet").addClass("hide");
+            }
         }
 
     }
@@ -328,7 +338,7 @@ var mqtt_status_ret= setInterval(function(){
         $(".tunnel_config").attr("disabled",true);
         $("button.vnet-reconnect").removeClass("hide");
         $("span.check_local_result").html("服务异常");
-
+        $("span.service_status").html("    未能连接到远程编程服务，请确认freeioe_Rprogramming是否安装并运行。下载  <a href='http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_Rprogramming.zip'  class='navbar-link'>freeioe_Rprogramming</a>");
     }
 
 },3000);

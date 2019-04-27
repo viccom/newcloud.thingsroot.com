@@ -4,6 +4,8 @@ pagename = "Gates_detail";
 ex_setting = new Object();
 ex_setting.ioe_frpc=false;
 ex_setting.Net_Manager=false;
+ex_setting.freeioe_Vserial=false;
+ex_setting.freeioe_Vnet=false;
 event_upload_input = false;
 data_upload_period_input = false;
 data_upload_cov_ttl_input = false;
@@ -106,8 +108,6 @@ $("button.set_data_upload_period").click( function(){
 } );
 
 
-
-
 $(".data_upload_cov_ttl input").focus( function(){
 
     data_upload_cov_ttl_input = true;
@@ -126,6 +126,7 @@ $(".data_upload_cov_ttl input").blur( function(){
     }
 } );
 
+// 开启数据上传
 $("button.set_data_upload_cov_ttl").click( function(){
 
     var data_upload_cov_ttl = Number($("input[name=data_upload_cov_ttl]").val());
@@ -182,6 +183,7 @@ $(".event_upload input").blur( function(){
     }
 } );
 
+// 更改事件上传等级
 $("button.set_event_upload").click( function(){
 
     var event_level = Number($("input[name=event_upload]").val());
@@ -215,16 +217,15 @@ $("button.set_event_upload").click( function(){
 
 } );
 
-
+// FreeIOE重启
 $("button.FreeIOE_restart").click( function(){
     sys_restart(gate_sn);
 } );
 
+// 网关设备重启
 $("button.thingslink_restart").click( function(){
     sys_reboot(gate_sn);
 } );
-
-
 
 // 给固件升级按钮绑定事件，给后台任务调用；
 $('.update_check').bind("updateClick", function(){

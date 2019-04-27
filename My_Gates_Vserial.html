@@ -265,8 +265,9 @@
                         <div class="box-body no-padding">
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="Gates_NetManager hide"><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
-                                <li class="Gates_Vnet "><a href="javascript:redirect('My_Gates_Vnet.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> 远程编程-网络</a></li>
-                                <li class="Gates_Vserial active"><a href="javascript:redirect('My_Gates_Vserial.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-yellow"></i> 远程编程-串口</a></li>
+                                <li class="Gates_vpn hide"><a href="javascript:redirect('My_Gates_vpn.html?sn='+ gate_sn);"><i class="fa fa-sliders text-green"></i> VPN通道</a></li>
+                                <li class="Gates_Vserial active hide"><a href="javascript:redirect('My_Gates_Vserial.html?sn='+ gate_sn);"><i class="fa fa-sliders text-red"></i> 远程编程-串口</a></li>
+                                <li class="Gates_Vnet hide"><a href="javascript:redirect('My_Gates_Vnet.html?sn='+ gate_sn);"><i class="fa fa-sliders text-green"></i> 远程编程-网络</a></li>
                             </ul>
                         </div>
                         <!-- /.box-body -->
@@ -292,7 +293,9 @@
                                 <div class="box">
                                     <div class="box-header with-border">
                                         <div class="col-xs-12" style="padding: 0px">
-                                            <div><span>虚拟串口服务关联网关：</span> <span class="related_gate" >-----</span></div><br />
+                                            <div><span>虚拟串口服务关联网关：</span> <span class="related_gate" >-----</span>
+                                                <div class="pull-right" style="padding-right: 20px"><span class="service_status text-danger "></span></div>
+                                            </div><br />
                                         </div>
                                         <div class="col-xs-6 hide">
                                             <p><span>本次串口服务工作状态：</span> <span class="gate_bridge_result" >-----</span></p><br />
@@ -331,7 +334,8 @@
                                                             <span class="remote_action_feedback"></span>
                                                         </div>
                                                         <div class="btn-group">
-                                                            <button type="button" class="btn btn-primary com_open">开启</button>
+                                                            <button type="button" class="btn com-loading" >加载中…</button>
+                                                            <button type="button" class="btn btn-primary com_open hide">开启</button>
                                                         </div>
 
                                                     </div>
@@ -425,34 +429,37 @@
                                     </div>
 
                                     <div class="box-body no-padding">
-                                        <table class="table coms_status_table">
+                                        <div class="col-xs-12" style="padding-right: 20px">
+                                            <table class="table coms_status_table table-bordered row-border  nowrap">
 
-                                            <thead>
-                                            <tr>
-                                                <th width="30%">服务名称</th>
-                                                <th width="40%">服务描述</th>
-                                                <th width="30%">服务状态</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td><span>com1net</span></td>
-                                                <td><span>网关串口1映射服务</span></td>
-                                                <td><span class="com1net_status">-----</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span>com2net</span></td>
-                                                <td><span>网关串口2映射服务</span></td>
-                                                <td><span class="com2net_status">-----</span></td>
-                                            </tr>
+                                                <thead>
+                                                <tr>
+                                                    <th width="30%">服务名称</th>
+                                                    <th width="40%">服务描述</th>
+                                                    <th width="30%">服务状态</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td><span>com1net</span></td>
+                                                    <td><span>网关串口1映射服务</span></td>
+                                                    <td><span class="com1net_status">-----</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>com2net</span></td>
+                                                    <td><span>网关串口2映射服务</span></td>
+                                                    <td><span class="com2net_status">-----</span></td>
+                                                </tr>
 
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="box">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title text-green">本地串口：<span class="local_com text-green"></span><span class="service_status text-danger"></h3>
+                                        <h3 class="box-title text-green">本地串口：<span class="local_com text-green"></span></h3>
 
                                         <div class="pull-right">
                                             <div class="btn-group">
@@ -467,7 +474,7 @@
 
                                         <div class="col-xs-12" style="padding-right: 20px">
 
-                                            <table id="com1" class="table table-bordered row-border  nowrap" cellspacing="0" width="100%">
+                                            <table class="table table-bordered row-border  nowrap" cellspacing="0" width="100%">
                                                 <thead>
                                                 <tr>
                                                     <th>串口参数</th>

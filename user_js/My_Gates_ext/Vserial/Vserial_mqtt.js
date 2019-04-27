@@ -352,7 +352,7 @@ function onMessageArrived(message) {
                                         $("span.remote_action_feedback").text("");
                                         add_local_com(mqttc_connected, mqtt_client, message);
                                     }else{
-                                        $("span.remote_action_feedback").text("网关中串口映射服务未启动");
+                                        $("span.remote_action_feedback").text("串口映射服务启动中…");
                                         post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_config', com_cfg);
 
                                         var remote_comstate_status_ret= setInterval(function(){

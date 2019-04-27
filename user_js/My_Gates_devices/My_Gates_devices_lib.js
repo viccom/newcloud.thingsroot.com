@@ -71,6 +71,16 @@ function set_label(sn){
             }else{
                 $("li.Gates_NetManager").addClass("hide");
             }
+            if(applist.hasOwnProperty("freeioe_Vserial")){
+                $("li.Gates_Vserial").removeClass("hide");
+            }else{
+                $("li.Gates_Vserial").addClass("hide");
+            }
+            if(applist.hasOwnProperty("freeioe_Vnet")){
+                $("li.Gates_Vnet").removeClass("hide");
+            }else{
+                $("li.Gates_Vnet").addClass("hide");
+            }
         }
 
     }

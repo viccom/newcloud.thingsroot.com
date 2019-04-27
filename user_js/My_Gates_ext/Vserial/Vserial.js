@@ -67,6 +67,16 @@ function set_label(sn){
             }else{
                 $("li.Gates_NetManager").addClass("hide");
             }
+            if(applist.hasOwnProperty("freeioe_Vserial")){
+                $("li.Gates_Vserial").removeClass("hide");
+            }else{
+                $("li.Gates_Vserial").addClass("hide");
+            }
+            if(applist.hasOwnProperty("freeioe_Vnet")){
+                $("li.Gates_Vnet").removeClass("hide");
+            }else{
+                $("li.Gates_Vnet").addClass("hide");
+            }
         }
 
     }
@@ -331,7 +341,7 @@ var mqtt_status_ret= setInterval(function(){
 
     }else{
 
-        $("span.service_status").html("    未能连接到本地串口服务，请确认freeioe_Vserial是否安装并运行。下载  <a href='http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_Vserial.zip'  class='navbar-link'>freeioe_Vserial</a>");
+        $("span.service_status").html("    未能连接到远程编程服务，请确认freeioe_Rprogramming是否安装并运行。下载  <a href='http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_Rprogramming.zip'  class='navbar-link'>freeioe_Rprogramming</a>");
         $("button.com-reconnect").removeClass("hide");
         $("button.com_open").attr('disabled', true);
         $("button.message_monitor").attr('disabled', true);
@@ -444,9 +454,13 @@ var message_lens_ret= setInterval(function(){
 
 },5000);
 
-// $('.message_monitor').click(function () {
-//         $("div.message_log").removeClass("hide");
-// });
+setTimeout(function(){
+    $("button.com-loading").addClass('hide');
+    if(mqttc_connected){
+        $("button.com_open").removeClass('hide');
+    }
+
+},2000);
 
 $("select.com_select").change(function(){
     var key = $(this).val();
@@ -458,6 +472,11 @@ $("button.com-reconnect").click(function(){
     if(!mqttc_connected){
         connect();
     }
+    setTimeout(function(){
+        if(mqttc_connected){
+            $("button.com_open").removeClass('hide');
+        }
+    },2000);
 });
 
 $("button.com_open").click(function(){

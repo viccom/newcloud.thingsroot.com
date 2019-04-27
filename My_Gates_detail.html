@@ -269,6 +269,10 @@
                             <ul class="nav nav-pills nav-stacked">
                                 <li class="Gates_NetManager hide"><a href="javascript:redirect('My_Gates_NetManager.html?sn='+ gate_sn);"><i class="fa fa-circle-o text-red"></i> 网络配置</a></li>
                                 <li class="Gates_vpn hide"><a href="javascript:redirect('My_Gates_vpn.html?sn='+ gate_sn);"><i class="fa fa-sliders text-green"></i> VPN通道</a></li>
+
+                                <li class="Gates_Vserial hide"><a href="javascript:redirect('My_Gates_Vserial.html?sn='+ gate_sn);"><i class="fa fa-sliders text-red"></i> 远程编程-串口</a></li>
+                                <li class="Gates_Vnet hide"><a href="javascript:redirect('My_Gates_Vnet.html?sn='+ gate_sn);"><i class="fa fa-sliders text-green"></i> 远程编程-网络</a></li>
+
                             </ul>
                         </div>
                         <!-- /.box-body -->
@@ -629,6 +633,42 @@
                                                         <td style="width: 400px">
 
                                                             <h4>
+                                                                <i class="fa fa-key"></i> 远程串口编程
+                                                                <small>[*开启后可使用远程串口编程功能]</small>
+                                                            </h4>
+
+                                                        </td>
+                                                        <td style="width: 35%">
+                                                            <span class="hide freeioe_Vserial" >处理中……</span>
+                                                            <div  class="freeioe_Vserial" data-on="success" data-off="warning">
+                                                                <input data-inst="freeioe_Vserial" class="switch five" type="checkbox"  />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="width: 5%"></td>
+                                                        <td style="width: 400px">
+
+                                                            <h4>
+                                                                <i class="fa fa-key"></i> 远程网络编程
+                                                                <small>[*开启后可使用远程网络编程功能]</small>
+                                                            </h4>
+
+                                                        </td>
+                                                        <td style="width: 35%">
+                                                            <span class="hide freeioe_Vnet" >处理中……</span>
+                                                            <div  class="freeioe_Vnet" data-on="success" data-off="warning">
+                                                                <input data-inst="freeioe_Vnet" class="switch five" type="checkbox"  />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="width: 5%"></td>
+                                                        <td style="width: 400px">
+
+                                                            <h4>
                                                                 <i class="fa fa-key"></i> 日志上传等级
                                                                 <small>[*事件上传的最低等级]</small>
                                                             </h4>
@@ -883,9 +923,13 @@
 <script src="user_js/common/user.js"></script>
 
 <!-- load user is -->
-<script src="user_js/My_Gates_detail/My_Gates_detail_lib.js" type="text/javascript"></script>
-<script src="user_js/My_Gates_detail/My_Gates_detail.js" type="text/javascript"></script>
+<!--<script src="user_js/My_Gates_detail/My_Gates_detail_lib.js" type="text/javascript"></script>-->
+<!--<script src="user_js/My_Gates_detail/My_Gates_detail.js" type="text/javascript"></script>-->
 
+<script type="text/javascript">
+    document.write("<script type='text/javascript' src='user_js/My_Gates_detail/My_Gates_detail_lib.js?v="+jsversion+"'></s"+"cript>");
+    document.write("<script type='text/javascript' src='user_js/My_Gates_detail/My_Gates_detail.js?v="+jsversion+"'></s"+"cript>");
+</script>
 
 <script>
     $(function () {

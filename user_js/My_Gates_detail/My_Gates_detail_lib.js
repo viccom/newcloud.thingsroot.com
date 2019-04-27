@@ -223,6 +223,16 @@ function set_label(sn){
             }else{
                 $("li.Gates_NetManager").addClass("hide");
             }
+            if(applist.hasOwnProperty("freeioe_Vserial")){
+                $("li.Gates_Vserial").removeClass("hide");
+            }else{
+                $("li.Gates_Vserial").addClass("hide");
+            }
+            if(applist.hasOwnProperty("freeioe_Vnet")){
+                $("li.Gates_Vnet").removeClass("hide");
+            }else{
+                $("li.Gates_Vnet").addClass("hide");
+            }
         }
 
 
@@ -451,6 +461,16 @@ function switch_setting(){
             }else{
                 ex_setting.Net_Manager=false;
             }
+            if(applist.hasOwnProperty("freeioe_Vnet")){
+                ex_setting.freeioe_Vnet=true;
+            }else{
+                ex_setting.freeioe_Vnet=false;
+            }
+            if(applist.hasOwnProperty("freeioe_Vserial")){
+                ex_setting.freeioe_Vserial=true;
+            }else{
+                ex_setting.freeioe_Vserial=false;
+            }
         }
 
 
@@ -508,6 +528,20 @@ function switch_setting(){
             html = '<input  data-inst="ioe_frpc" class="switch" type="checkbox"/>\n'
         }
         $("div.ioe_frpc").html(html);
+
+        if(ex_setting.freeioe_Vserial){
+            html = '<input data-inst="freeioe_Vserial" class="switch" type="checkbox" checked />\n'
+        }else{
+            html = '<input  data-inst="freeioe_Vserial" class="switch" type="checkbox"/>\n'
+        }
+        $("div.freeioe_Vserial").html(html);
+
+        if(ex_setting.freeioe_Vnet){
+            html = '<input data-inst="freeioe_Vnet" class="switch" type="checkbox" checked />\n'
+        }else{
+            html = '<input  data-inst="freeioe_Vnet" class="switch" type="checkbox"/>\n'
+        }
+        $("div.freeioe_Vnet").html(html);
 
     }
 
@@ -635,6 +669,52 @@ function switch_setting(){
                             "token": "BWYJVj2HYhVtdGZL",
                             "auto_start": true
                         },
+                        "version":'latest'
+                    }}
+            }else if(inst=="freeioe_Vserial"){
+
+                if (state==false){
+                    action = "app_uninstall";
+                    task_desc = '关闭网关'+ gate_sn +'远程串口编程';
+                    id = 'uninstall/' + gate_sn + '/freeioe_Vserial/'+ Date.parse(new Date());
+                    data = 0;
+                }else{
+                    action = "app_install";
+                    task_desc = '开启网关'+ gate_sn +'远程串口编程';
+                    id = 'install/' + gate_sn + '/freeioe_Vserial/'+ Date.parse(new Date());
+                    data = 1;
+                }
+                post_data = {
+                    "device": gate_sn,
+                    "id": id,
+                    "data": {
+                        "inst": "freeioe_Vserial",
+                        "name": "APP00000130",
+                        "from_web": 1,
+                        "conf": {},
+                        "version":'latest'
+                    }}
+            }else if(inst=="freeioe_Vnet"){
+
+                if (state==false){
+                    action = "app_uninstall";
+                    task_desc = '关闭网关'+ gate_sn +'远程网络编程';
+                    id = 'uninstall/' + gate_sn + '/freeioe_Vnet/'+ Date.parse(new Date());
+                    data = 0;
+                }else{
+                    action = "app_install";
+                    task_desc = '开启网关'+ gate_sn +'远程网络编程';
+                    id = 'install/' + gate_sn + '/freeioe_Vnet/'+ Date.parse(new Date());
+                    data = 1;
+                }
+                post_data = {
+                    "device": gate_sn,
+                    "id": id,
+                    "data": {
+                        "inst": "freeioe_Vnet",
+                        "name": "APP00000135",
+                        "from_web": 1,
+                        "conf": {},
                         "version":'latest'
                     }}
             }
