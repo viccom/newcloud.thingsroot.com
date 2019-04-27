@@ -342,7 +342,8 @@ function onMessageArrived(message) {
                                     "peer": {
                                         "type":"tcp_client",
                                         "host": peer[0],
-                                        "port": parseInt(peer[1])
+                                        "port": parseInt(peer[1]),
+                                        "info":{"sn": gate_sn, "com_cfg": com_cfg}
                                     }
                                 };
                                 console.log(message);
@@ -374,7 +375,8 @@ function onMessageArrived(message) {
                                                     "peer": {
                                                         "type":"tcp_client",
                                                         "host": peer[0],
-                                                        "port": parseInt(peer[1])
+                                                        "port": parseInt(peer[1]),
+                                                        "info":{"sn": gate_sn, "com_cfg": com_cfg}
                                                     }
                                                 };
                                                 console.log(message);

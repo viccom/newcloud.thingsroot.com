@@ -96,6 +96,7 @@ function get_freeioe_Vserial_data(sn){
                     remote_mapport_object = {};
                     var reg1 = RegExp(/mapport/);
                     var reg2 = RegExp(/net/);
+                    var reg3 = RegExp(/_config/);
                     for (var i = 0; i < req.message.length; i++) {
 
                         if(reg1.test(req.message[i].name)){
@@ -117,6 +118,13 @@ function get_freeioe_Vserial_data(sn){
                             }
                         }
 
+                        if(reg3.test(req.message[i].name)){
+                            if(req.message[i].pv){
+                                remote_comstate_object[req.message[i].name]=req.message[i].pv;
+                            }else{
+                                remote_comstate_object[req.message[i].name]=null;
+                            }
+                        }
                     }
                 }
             }
@@ -339,6 +347,7 @@ var mqtt_status_ret= setInterval(function(){
         $("select.config_com").attr('disabled',false);
         $("button.message_monitor").addClass('hide');
 
+        $("span.related_gate").text('-----');
         $("span.local_com").text('');
         $("span.com_parameters").text('');
         $("span.com_status").text('');
@@ -365,6 +374,14 @@ var mqtt_status_ret= setInterval(function(){
         $("button.com_open").data('opened',1);
         $("select.config_com").attr('disabled',true);
         $("button.message_monitor").removeClass('hide');
+
+        $("span.related_gate").text(vircom.info.sn);
+        $("span.selected_com").text(vircom.info.com_cfg.serial.toUpperCase());
+        $("select[name=port]").val(vircom.info.com_cfg.serial);
+        $("select[name=baudrate]").val(vircom.info.com_cfg.baudrate);
+        $("select[name=data_bits]").val(vircom.info.com_cfg.databit);
+        $("select[name=stop_bits]").val(vircom.info.com_cfg.stopbit);
+        $("select[name=parity]").val(vircom.info.com_cfg.parity);
 
         $("span.local_com").text(vircom.name);
 
