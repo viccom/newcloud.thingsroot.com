@@ -172,7 +172,7 @@ function post_freeioe_Vserial_data(sn, device_sn, tag_name, output_val){
  */
 function query_local_coms(connect_falg,client,id){
     var message = JSON.stringify({"id":id});
-    // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
+    logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
         message = new Paho.Message(message);
         message.destinationName = "v1/vspc/api/list";
@@ -482,7 +482,7 @@ $("button.com-reconnect").click(function(){
 $("button.com_open").click(function(){
 
     if($("button.com_open").data('opened')==1){
-
+        console.log("aaaaaaaaaa");
         var id = "remove_local_com/"+ Date.parse(new Date());
         var message = {
             "id":id,
@@ -492,7 +492,7 @@ $("button.com_open").click(function(){
         remove_local_com(mqttc_connected, mqtt_client, message);
 
     }else{
-
+        console.log("bbbbbbbbbb");
         // var com_cfg = {
         //     "serial":$("select[name=port]").val(),
         //     "baudrate":$("select[name=baudrate]").val(),
