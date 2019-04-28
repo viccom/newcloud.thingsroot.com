@@ -279,7 +279,7 @@ function onConnectionLost(responseObject) {
 
 // called when a message arrives
 function onMessageArrived(message) {
-    console.log("topic: ",message.destinationName);
+    // console.log("topic: ",message.destinationName);
     // var arr_topic = message.destinationName.split("/");
     var socket_reg = RegExp(/SOCKET_STREAM/);
     var vspc_reg = RegExp(/VSPC_STREAM/);
