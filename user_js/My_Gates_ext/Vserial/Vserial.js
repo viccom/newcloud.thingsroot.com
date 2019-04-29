@@ -338,6 +338,7 @@ var mqtt_status_ret= setInterval(function(){
         mqtt_client.subscribe(["v1/vspc/#"], {qos: 0});
         $("button.com_open").attr('disabled', false);
         $("button.message_monitor").attr('disabled', false);
+        $("span.service_status").html(" ");
 
     }else{
 
@@ -345,40 +346,42 @@ var mqtt_status_ret= setInterval(function(){
         $("button.com-reconnect").removeClass("hide");
         $("button.com_open").attr('disabled', true);
         $("button.message_monitor").attr('disabled', true);
-
         vircom ={};
     }
 
     // console.log("is null:::::::::",$.isEmptyObject(vircom));
-    if($.isEmptyObject(vircom)){
-        $("button.com_open").text('开启');
-        $("button.com_open").removeClass('btn-danger');
-        $("button.com_open").data('opened',0);
-        $("select.config_com").attr('disabled',false);
-        $("button.message_monitor").addClass('hide');
+    if($.isEmptyObject(vircom))
+        {
+            $("button.com_open").text('开启');
+            $("button.com_open").removeClass('btn-danger');
+            $("button.com_open").data('opened',0);
+            $("select.config_com").attr('disabled',false);
+            $("button.message_monitor").addClass('hide');
 
-        $("span.related_gate").text('-----');
-        $("span.local_com").text('');
-        $("span.com_parameters").text('');
-        $("span.com_status").text('');
-        $("span.com_proc").text('');
-        $("span.com_peer").text('');
-        $("span.com_peer_state").text('');
-        $("span.com_received").text('');
-        $("span.net_received").text('');
+            $("span.related_gate").text('-----');
+            $("span.local_com").text('');
+            $("span.com_parameters").text('');
+            $("span.com_status").text('');
+            $("span.com_proc").text('');
+            $("span.com_peer").text('');
+            $("span.com_peer_state").text('');
+            $("span.com_received").text('');
+            $("span.net_received").text('');
 
-        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-        $("div.message_log").addClass('hide');
-        $("button.message_monitor").removeClass('btn-danger');
-        $("button.message_monitor").text('监视');
-        $("button.message_monitor").data('monitored',0);
-        $("button.message-pause").data('paused',0);
-        $("button.message-pause").text('暂停');
-        $("button.message-pause").addClass('btn-warning');
-        table_log.clear().draw();
-        $("span.message_lens_feedback").text('');
+            $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+            $("div.message_log").addClass('hide');
+            $("button.message_monitor").removeClass('btn-danger');
+            $("button.message_monitor").text('监视');
+            $("button.message_monitor").data('monitored',0);
+            $("button.message-pause").data('paused',0);
+            $("button.message-pause").text('暂停');
+            $("button.message-pause").addClass('btn-warning');
+            table_log.clear().draw();
+            $("span.message_lens_feedback").text('');
 
-    }else{
+        }
+    else
+        {
         $("button.com_open").text('停止');
         $("button.com_open").addClass('btn-danger');
         $("button.com_open").data('opened',1);
@@ -606,6 +609,7 @@ $("button.message-pause").click(function(){
     }
 
 });
+
 $("button.message-clear").click(function(){
     table_log.clear().draw();
     $("span.message_lens_feedback").text('');
