@@ -339,10 +339,12 @@ var mqtt_status_ret= setInterval(function(){
         $("button.com_open").attr('disabled', false);
         $("button.message_monitor").attr('disabled', false);
         $("span.service_status").html(" ");
+        $("span.local_status").html("服务正常");
 
     }else{
 
         $("span.service_status").html("    未能连接到远程编程服务，请确认freeioe_Rprogramming是否安装并运行。下载  <a href='http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_Rprogramming.zip'  class='navbar-link'>freeioe_Rprogramming</a>");
+        $("span.local_status").html("服务异常");
         $("button.com-reconnect").removeClass("hide");
         $("button.com_open").attr('disabled', true);
         $("button.message_monitor").attr('disabled', true);

@@ -293,18 +293,32 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box box-body">
+                                <div class="box-header with-border">
 
-                                <div class="col-md-6">
-                                    <div class="container-fluid">
-                                        <div class="bs-example"><div class="col-md-4"></div><h1>参数</h1></div>
+                                    <div class="col-xs-12">
+                                        <div class="col-md-4">
+                                            <form class="form-horizontal ">
 
-                                        <div class="bs-example">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">本地服务:</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-control" ><span class="check_local_result" > </span></div>
 
-                                            <form class="form-horizontal">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">关联网关:</label>
+                                                    <div class="col-sm-8">
+                                                        <!--<div class="form-control" ><span class="related_gate" >-&#45;&#45;&#45;&#45;</span></div>-->
+                                                        <input type="text" class="form-control tunnel_config gate_sn"  placeholder="" value="" readonly>
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group">
                                                     <label class="col-sm-4 control-label"><span>服务节点:</span></label>
                                                     <div class="col-sm-8">
-                                                        <select class="form-control tunnel_config frps_host">
+                                                        <select class="form-control frps_host" disabled>
                                                             <!--<option value="255.255.254.0">255.255.255.128</option>-->
                                                             <option selected="selected" value="hs.symgrid.com">北京1</option>
                                                             <option value="iot.symgrid.com">北京2</option>
@@ -313,6 +327,49 @@
                                                         </select>
                                                     </div>
                                                 </div>
+
+
+                                            </form>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <div class="pull-right">
+                                                <span class="service_status text-danger "></span>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm vnet-reconnect pull-right hide" >连接</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="box box-body">
+
+                                <div class="col-md-6">
+                                    <div class="container-fluid">
+                                        <div class="bs-example"><div class="col-md-4"></div><h1>参数</h1></div>
+
+                                        <div class="bs-example">
+
+                                            <form class="form-horizontal">
+
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="col-sm-4 control-label"><span>服务节点:</span></label>-->
+                                                    <!--<div class="col-sm-8">-->
+                                                        <!--<select class="form-control tunnel_config frps_host">-->
+                                                            <!--&lt;!&ndash;<option value="255.255.254.0">255.255.255.128</option>&ndash;&gt;-->
+                                                            <!--<option selected="selected" value="hs.symgrid.com">北京1</option>-->
+                                                            <!--<option value="iot.symgrid.com">北京2</option>-->
+                                                            <!--<option value="172.30.0.187">北京3</option>-->
+
+                                                        <!--</select>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
 
                                                 <div class="form-group">
                                                     <label class="col-sm-4 control-label">网关状态:</label>
@@ -328,7 +385,7 @@
                                                         <input type="text" class="form-control tunnel_config authcode" placeholder="" value="" readonly>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group hide">
                                                     <label class="col-sm-4 control-label">网关SN:</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control tunnel_config gate_sn"  placeholder="" value="" readonly>
@@ -430,15 +487,12 @@
                                     <div class="container-fluid">
                                         <div class="bs-example"><h1>状态</h1></div>
                                          <div class="bs-example">
-                                            <p><span>本地运行环境：</span> <span class="service_error check_env_result"></span><span class="service_status text-danger"></span>
+
+                                            <p><span>本地运行环境：</span> <span class="service_error check_env_result"></span>
                                                 <button type="button" class="btn btn-sm check_env pull-right hide" >检测</button>
 
                                             </p><br />
-                                            <p>
-                                                <span>本地服务状态：</span> <span class="check_local_result"></span>
-                                                <button type="button" class="btn btn-sm vnet-reconnect pull-right hide" >连接</button>
 
-                                            </p><br />
                                             <p><span>本地连接状态：</span> <span class="service_stop local_link_result" >-----</span></p><br />
                                             <!--<p><span>云端隧道名称：</span> <span class="service_stop cloud_tunnel_name" >-&#45;&#45;&#45;&#45;</span></p><br />-->
                                             <p><span>云端隧道状态：</span> <span class="service_stop cloud_tunnel_status" >-----</span></p><br />

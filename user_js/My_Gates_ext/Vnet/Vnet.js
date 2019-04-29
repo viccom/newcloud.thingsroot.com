@@ -302,6 +302,7 @@ var mqtt_status_ret= setInterval(function(){
         $("button.vnet-reconnect").addClass("hide");
         mqtt_client.subscribe(["v1/vnet/+"], {qos: 0});
         $("span.check_local_result").text("服务正常");
+        $("span.service_status").html('');
 
         if(vnet_obj.is_running){
             $("button.start_vpn").data('running', 1);

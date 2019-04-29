@@ -18,15 +18,32 @@ freeioe提供的工业设备远程编程技术使用云端节点作为高速中�
 
 #### 如何开启
 
-1. 用户登录平台后，选择希望开启远程编程功能的网关。进入网关状态页面，如下图所示：
+* 用户登录平台后，选择希望开启远程编程功能的网关。进入网关状态页面，如下图所示：
    
 ![](../../assets/Rprograming01.png)
 
-2. 在高级设置面板中开启“远程串口编程”或“远程网络编程”即可，如下图所示：
+
+* 在高级设置面板中开启“远程串口编程”或“远程网络编程”即可，如下图所示：
 
 ![](../../assets/Rprograming02.png)
 
 
+
+#### freeioe远程编程软件在本地的安装和启动
+
+* 通过下面的下载链接将freeioe_Rprogramming.zip下载到本地后，在任意路径下解压，进入freeioe_Rprogramming目录后，运行freeioe_Rprogramming程序，如下图所示：
+   
+![](../../assets/freeioe_Rprogramming01.png)
+
+
+* 在服务控制面板中点击“安装”按钮在本机安装freeioe_Rprogramming_Service,如安装成功，在下面的列表中将出现freeioe_Rprogramming_Service及相关信息，如下图所示：
+
+![](../../assets/freeioe_Rprogramming02.png)
+
+
+* 在服务控制面板中点击“运行”按钮运行freeioe_Rprogramming_Service，如下图所示：
+
+![](../../assets/freeioe_Rprogramming03.png)
 
 
 #### 下载链接：

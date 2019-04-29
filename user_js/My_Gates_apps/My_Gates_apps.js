@@ -151,7 +151,7 @@ $(".ren_cancel").click(function(){
 });
 
 $(".uninstall_confirm").click(function(){
-    var inst = $(".uninstall-appname").data("inst");
+    var inst = String($(".uninstall-appname").data("inst"));
     var app_action = "app_uninstall";
     var oldval = 0;
     var task_desc = '卸载应用'+ inst;
