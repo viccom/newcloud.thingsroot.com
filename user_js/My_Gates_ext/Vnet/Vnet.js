@@ -49,7 +49,11 @@ function set_label(sn){
             $(".gate_status").html("OFFLINE");
         }
         $(".gate_sn").html(gateinfo.basic.sn);
-        $('input.gate_sn').val(gateinfo.basic.sn);
+        if(!$.isEmptyObject(vnet_obj)){
+            if(!vnet_obj.is_running) {
+                $('input.gate_sn').val(gateinfo.basic.sn);
+            }
+        }
 
         $(".gate_name").html(gateinfo.basic.name);
         $(".gate_desc").html(gateinfo.basic.desc);
