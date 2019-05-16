@@ -323,6 +323,25 @@ function keep_alive_local(connect_falg,client){
 }
 
 /**
+ *	检查自动升级状态
+ */
+function check_update_status(connect_falg,client){
+    var id = "check_update_status/"+ Date.parse(new Date());
+    var message = {
+        "id":id
+    };
+    if(connect_falg){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/update/api/update_status";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
+
+/**
  *	延时加载
  */
 function delay_load(delay_time){
@@ -344,8 +363,7 @@ vnet_obj ={};
 vnet_cfg = {};
 vnet_cfg.net_mode = "bridge";
 vnet_cfg.net_protocol = "tcp";
-
-
+freeioe_Rprogramming_lastest = null;
 
 
 $(".tunnel_config").attr("disabled",true);
@@ -428,6 +446,8 @@ var mqtt_status_ret = setInterval(function(){
 var keep_alive_ret= setInterval(function() {
     if (mqttc_connected) {
         keep_alive_local(mqttc_connected, mqtt_client);
+        check_version(mqttc_connected, mqtt_client);
+        check_servers_list(mqttc_connected, mqtt_client);
     }
 },20000);
 
@@ -605,4 +625,31 @@ $("body").on("click", "button.one_key_repair", function () {
         };
         fix_env(mqttc_connected, mqtt_client, message);
     }
+});
+
+
+$("body").on("click", "button.update_lastest", function () {
+    console.log("update_lastest" ,freeioe_Rprogramming_lastest);
+
+    if(freeioe_Rprogramming_lastest){
+        var id = "update_lastest/"+ Date.parse(new Date());
+        var message = {
+            "id":id,
+            "update_confirm":freeioe_Rprogramming_lastest.update,
+            "new_version":freeioe_Rprogramming_lastest.new_version,
+            "new_version_filename":freeioe_Rprogramming_lastest.new_version_filename
+        };
+        if(mqttc_connected){
+            message = new Paho.Message(JSON.stringify(message));
+            message.destinationName = "v1/update/api/update";
+            message.qos = 0;
+            message.retained = false;
+            mqtt_client.send(message);
+            action_result_list.push(id);
+        }
+        $(this).text("升级中……");
+        $(this).attr('disabled', true);
+    }
+
+
 });

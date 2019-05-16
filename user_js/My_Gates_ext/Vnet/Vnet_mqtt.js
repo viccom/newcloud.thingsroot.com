@@ -355,16 +355,46 @@ function onMessageArrived(message) {
                     var ret = JSON.parse(message.payloadString);
                     //console.log(q[i], ret.id);
                     var arr_action = ret.id.split("/");
-                    console.log(arr_action, ret.result);
+                    // console.log(arr_action, ret.result);
                     if (ret.id == q[i]) {
                         if(arr_action[0]=='check_version'){
                             var html_version = '已是最新版本！';
                             if(ret.data.update){
                                 html_version = '<button type="button" class="btn btn-sm update_lastest" >升级到最新版</button>';
+                                freeioe_Rprogramming_lastest = ret.data;
                             }
                             $("span.check_local_version").html(html_version);
                         }
 
+
+                        if(arr_action[0]=='update_lastest'){
+                            console.log("update_lastest", ret);
+                                update_status_ret= setInterval(function(){
+                                    check_update_status(mqttc_connected, mqtt_client);
+                                },1000);
+                        }
+
+                        if(arr_action[0]=='check_update_status'){
+                            console.log("check_update_status", ret);
+                            if(ret.data.status!=='upgrading'){
+                                clearInterval(update_status_ret);
+
+
+                                setTimeout(function(){
+
+                                        $("button.update_lastest").attr('disabled', false);
+
+                                        $("button.update_lastest").addClass('hide');
+
+                                        $("button.start_vpn").removeClass('hide');
+
+
+                                },6000);
+
+
+                            }
+
+                        }
 
                         if(arr_action[0]=='check_servers_list'){
                             console.log("_servers_list::::::", ret.data);
@@ -389,7 +419,7 @@ function onMessageArrived(message) {
         }
 
         if(_topic==="v1/vnet/api/RESULT"){
-            // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
+            logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
 
             var q = action_result_list;
             if(q==null || q.length<1){
@@ -401,7 +431,7 @@ function onMessageArrived(message) {
                     var ret = JSON.parse(message.payloadString);
                     //console.log(q[i], ret.id);
                     var arr_action = ret.id.split("/");
-                    console.log(arr_action, ret.result);
+                    // console.log(arr_action, ret.result);
                     if(ret.id==q[i])
                     {
 

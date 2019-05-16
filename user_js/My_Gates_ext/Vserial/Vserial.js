@@ -780,3 +780,4 @@ $("button.message-clear").click(function(){
     table_log.clear().draw();
     $("span.message_lens_feedback").text('');
 });
+
