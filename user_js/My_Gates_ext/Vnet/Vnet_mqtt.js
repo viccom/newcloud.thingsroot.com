@@ -360,7 +360,7 @@ function onMessageArrived(message) {
                         if(arr_action[0]=='check_version'){
                             var html_version = '已是最新版本！';
                             if(ret.data.update){
-                                html_version = html_version + ' ' + '<button type="button" class="btn btn-sm update_lastest" >升级到最新版</button>';
+                                html_version = '<button type="button" class="btn btn-sm update_lastest" >升级到最新版</button>';
                             }
                             $("span.check_local_version").html(html_version);
                         }
