@@ -168,9 +168,12 @@ function post_freeioe_Vnet_data(sn, device_sn, tag_name, output_val){
 /**
  *	检查本地运行环境
  */
-function check_env(connect_falg,client,message){
-    var id = message.id;
-    if(connect_falg){
+function check_env(connect_flag,client){
+    var id = "check_env/"+ Date.parse(new Date());
+    var message = {
+        "id":id
+    };
+    if(connect_flag){
         message = new Paho.Message(JSON.stringify(message));
         message.destinationName = "v1/vnet/api/checkenv";
         message.qos = 0;
@@ -179,6 +182,44 @@ function check_env(connect_falg,client,message){
         action_result_list.push(id);
     }
 }
+
+/**
+ *	检查本地运行环境版本
+ */
+function check_version(connect_flag,client){
+    var id = "check_version/"+ Date.parse(new Date());
+    var message = {
+        "id":id
+    };
+    if(connect_flag){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/update/api/version";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
+
+/**
+ *	检查可用的代理服务器列表
+ */
+function check_servers_list(connect_flag,client){
+    var id = "check_servers_list/"+ Date.parse(new Date());
+    var message = {
+        "id":id
+    };
+    if(connect_flag){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/update/api/servers_list";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
 
 /**
  *	检查本地运行环境
@@ -281,7 +322,6 @@ gate_obj = {};
 vnet_obj ={};
 vnet_cfg = {};
 vnet_cfg.net_mode = "bridge";
-vnet_cfg.node = "shanghai";
 vnet_cfg.net_protocol = "tcp";
 
 
@@ -304,7 +344,7 @@ var mqtt_status_ret= setInterval(function(){
 
         $(".tunnel_config").attr("disabled",false);
         $("button.vnet-reconnect").addClass("hide");
-        mqtt_client.subscribe(["v1/vnet/+"], {qos: 0});
+        mqtt_client.subscribe(["v1/vnet/+", "v1/update/+"], {qos: 0});
         $("span.check_local_result").text("服务正常");
         $("span.service_status").html('');
 
@@ -315,6 +355,7 @@ var mqtt_status_ret= setInterval(function(){
             $("input.gate_sn").val(vnet_obj.vnet_cfg.gate_sn);
             $("input.tap_ip").val(vnet_obj.vnet_cfg.tap_ip);
             $("select.tap_netmask").val(vnet_obj.vnet_cfg.tap_netmask);
+            $("select.frps_host").val(vnet_obj.vnet_cfg.node);
             $("input.dev_ip").val(vnet_obj.vnet_cfg.dest_ip);
             if(vnet_obj.vnet_cfg.net_mode=='router'){
                 $("button.router").addClass('btn-primary');
@@ -371,13 +412,11 @@ setTimeout(function(){
         $("input.tap_ip").val(tempip);
     }
     if(mqttc_connected){
+        check_env(mqttc_connected, mqtt_client);
 
-        var id = "check_env/"+ Date.parse(new Date());
-        var message = {
-            "id":id
-        };
-        // console.log(id);
-        check_env(mqttc_connected, mqtt_client, message);
+        check_version(mqttc_connected, mqtt_client);
+
+        check_servers_list(mqttc_connected, mqtt_client);
     }else{
         $("button.check_env").removeClass('hide');
     }
@@ -387,13 +426,8 @@ delay_load(8000);
 
 $("button.check_env").click(function(){
     if(mqttc_connected){
-
-        var id = "check_env/"+ Date.parse(new Date());
-        var message = {
-            "id":id
-        };
         // console.log(id);
-        check_env(mqttc_connected, mqtt_client, message);
+        check_env(mqttc_connected, mqtt_client);
         $("button.check_env").addClass('hide');
     }else{
         $("button.check_env").removeClass('hide');
@@ -406,11 +440,12 @@ $("button.vnet-reconnect").click(function(){
         setTimeout(function(){
 
             if(mqttc_connected){
-                var id = "check_env/"+ Date.parse(new Date());
-                var message = {
-                    "id":id
-                };
-                check_env(mqttc_connected, mqtt_client, message);
+                check_env(mqttc_connected, mqtt_client);
+                $("button.start_vpn").removeClass('hide');
+
+                check_version(mqttc_connected, mqtt_client);
+
+                check_servers_list(mqttc_connected, mqtt_client);
             }
 
         },2000);
@@ -441,10 +476,14 @@ $("button.start_vpn").click(function(){
 
     if($("button.start_vpn").data('running')!==1){
         var id = "start_vnet/"+ Date.parse(new Date());
+        vnet_cfg.node = $("select.frps_host").val();
+        var frps_cfg = {"server_addr": $("select.frps_host").val()};
         var message = {
             "id":id,
-            "vnet_cfg": vnet_cfg
+            "vnet_cfg": vnet_cfg,
+            "frps_cfg": frps_cfg
         };
+        console.log(message);
         start_Vnet(mqttc_connected, mqtt_client, message);
         $("button.start_vpn").addClass('hide');
         $("div.vnet_loading").text('启动中……');
@@ -473,6 +512,9 @@ $("button.start_vpn").click(function(){
 });
 // 选择按钮--VPN启动-----结束
 
+$("span.frps_host").click(function(){
+    check_servers_list(mqttc_connected, mqtt_client);
+});
 
 $("button.bridge").click(function(){
     vnet_cfg.net_mode = "bridge";

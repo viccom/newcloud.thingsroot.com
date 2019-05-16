@@ -344,6 +344,48 @@ function onMessageArrived(message) {
 
         }
 
+        if(_topic==="v1/update/api/RESULT"){
+            var q = action_result_list;
+            if(q==null || q.length<1){
+                return false;
+            }else{
+                for (var i = 0; i < q.length; i++) {
+
+                    var ret = JSON.parse(message.payloadString);
+                    //console.log(q[i], ret.id);
+                    var arr_action = ret.id.split("/");
+                    console.log(arr_action, ret.result);
+                    if (ret.id == q[i]) {
+                        if(arr_action[0]=='check_version'){
+                            var html_version = '已是最新版本！';
+                            if(ret.data.update){
+                                html_version = html_version + ' ' + '<button type="button" class="btn btn-sm update_lastest" >升级到最新版</button>';
+                            }
+                            $("span.check_local_version").html(html_version);
+                        }
+
+
+                        if(arr_action[0]=='check_servers_list'){
+                            console.log("_servers_list::::::", ret.data);
+                            if(ret.data!=='no_servers'){
+                                $("select.frps_host").empty();
+
+                                $.each(ret.data,function(index,value){
+                                    console.log(value)
+                                    var html = '<option value="'+ value.host +'" >'+ value.desc + '------' + value.delay +'</option>';
+
+                                    $("select.frps_host").append(html);
+                                });
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+        }
 
         if(_topic==="v1/vnet/api/RESULT"){
             // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
@@ -361,8 +403,9 @@ function onMessageArrived(message) {
                     console.log(arr_action, ret.result);
                     if(ret.id==q[i])
                     {
+
                         if(arr_action[0]=='check_env'){
-                            // console.log(ret);
+                            console.log(ret);
                             vnet_obj.env = true;
                             $.each(ret.data, function(k, v) {
                                 // console.log(k,v);

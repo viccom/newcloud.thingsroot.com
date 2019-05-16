@@ -314,13 +314,13 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="col-sm-4 control-label"><span>服务节点:</span></label>
+                                                        <label class="col-sm-4 control-label"><span class="frps_host" style="cursor: pointer">服务节点:</span></label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-control tunnel_config frps_host" disabled>
+                                                            <select class="form-control config_com frps_host">
                                                                 <!--<option value="255.255.254.0">255.255.255.128</option>-->
-                                                                <option selected="selected" value="hs.symgrid.com">北京1</option>
-                                                                <option value="iot.symgrid.com">北京2</option>
-                                                                <option value="172.30.0.187">北京3</option>
+                                                                <!--<option selected="selected" value="bj.proxy.thingsroot.com">北京1</option>-->
+                                                                <!--<option value="zjk.proxy.thingsroot.com">北京2</option>-->
+                                                                <!--<option value="sz.proxy.thingsroot.com">深圳1</option>-->
 
                                                             </select>
                                                         </div>
@@ -331,6 +331,7 @@
                                             </div>
 
                                             <div class="col-md-8">
+                                                <div><span class="check_local_version" > </span></div>
                                                 <div class="pull-right">
                                                     <span class="service_status text-danger "></span>
                                                     <div class="btn-group">
@@ -489,16 +490,11 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr>
-                                                    <td><span>com1net</span></td>
-                                                    <td><span>网关串口1映射服务</span></td>
-                                                    <td><span class="com1net_status">-----</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>com2net</span></td>
-                                                    <td><span>网关串口2映射服务</span></td>
-                                                    <td><span class="com2net_status">-----</span></td>
-                                                </tr>
 
+                                                    <td><span class="current_com">-----</span></td>
+                                                    <td><span>串口映射服务</span></td>
+                                                    <td><span class="ser2net_status">-----</span></td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>

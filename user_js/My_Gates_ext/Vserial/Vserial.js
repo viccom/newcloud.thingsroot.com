@@ -83,6 +83,47 @@ function set_label(sn){
 
 }
 
+
+
+/**
+ *	检查本地运行环境版本
+ */
+function check_version(connect_flag,client){
+    var id = "check_version/"+ Date.parse(new Date());
+    var message = {
+        "id":id
+    };
+    if(connect_flag){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/update/api/version";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
+
+/**
+ *	检查可用的代理服务器列表
+ */
+function check_servers_list(connect_flag,client){
+    var id = "check_servers_list/"+ Date.parse(new Date());
+    var message = {
+        "id":id
+    };
+    if(connect_flag){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/update/api/servers_list";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
+
+
 /**
  *	获取freeioe_Vserial设备数据
  */
@@ -101,40 +142,35 @@ function get_freeioe_Vserial_data(sn){
             if(req.message!=null){
                 if(req.message.length>0){
 
-                    remote_portmap_array = [];
-                    remote_comstate_object = {};
-                    remote_mapport_object = {};
-                    var reg1 = RegExp(/mapport/);
-                    var reg2 = RegExp(/net/);
-                    var reg3 = RegExp(/_config/);
+                    // var reg1 = RegExp(/mapport/);
+                    // var reg2 = RegExp(/net/);
+                    // var reg3 = RegExp(/_config/);
                     for (var i = 0; i < req.message.length; i++) {
 
-                        if(reg1.test(req.message[i].name)){
+                        if(req.message[i].name == 'com_to_net_run'){
                             if(req.message[i].pv){
-                                remote_portmap_array.push(req.message[i].pv);
-                                remote_mapport_object[req.message[i].name]=req.message[i].pv;
+                                remote_comstate_object = req.message[i].pv;
                             }else{
-                                remote_mapport_object[req.message[i].name]=null;
+                                remote_comstate_object = null;
                             }
                         }
 
-                        if(reg2.test(req.message[i].name)){
+                        if(req.message[i].name == 'com_to_net_mapport'){
                             if(req.message[i].pv){
-                                remote_comstate_object[req.message[i].name]=req.message[i].pv;
-                                $("span." + req.message[i].name + "_status").text(req.message[i].pv);
+                                remote_mapport_object = req.message[i].pv;
                             }else{
-                                remote_comstate_object[req.message[i].name]=null;
-                                $("span." + req.message[i].name + "_status").text('stopped');
+                                remote_mapport_object = null;
                             }
                         }
 
-                        if(reg3.test(req.message[i].name)){
+                        if(req.message[i].name == 'current_com'){
                             if(req.message[i].pv){
-                                remote_comstate_object[req.message[i].name]=req.message[i].pv;
+                                remote_current_com = req.message[i].pv;
                             }else{
-                                remote_comstate_object[req.message[i].name]=null;
+                                remote_current_com = null;
                             }
                         }
+
                     }
                 }
             }
@@ -166,6 +202,54 @@ function post_freeioe_Vserial_data(sn, device_sn, tag_name, output_val){
     gate_exec_action(app_action, _act, task_desc, "0", app_action, "0");
 
 }
+
+
+/**
+ *	保持和本地服务的心跳
+ */
+function keep_alive_local(connect_falg,client){
+    var id = "keep_alive/"+ Date.parse(new Date());
+    var message = {
+        "id":id,
+        "enable_heartbeat": true,
+        "heartbeat_timeout" : 60
+    };
+    if(connect_falg){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/vspc/api/keep_alive";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
+/**
+ *	保持和远程网关的心跳
+ */
+function keep_alive_remote(){
+    var app_action = "send_output";
+    var tag_name = 'heartbeat_timeout';
+    var output_val = 60;
+    var device_sn = gate_sn+'.freeioe_Vserial';
+    var task_desc = '保持心跳'+ '/ '+ device_sn  + '/ ' + tag_name + '/'+  output_val;
+    var id = 'send_output/' + gate_sn + '/ '+ device_sn  + '/ '+ tag_name + '/'+  output_val + '/'+ Date.parse(new Date());
+    var _act = {
+        "device": gate_sn,
+        "data": {
+            "device": gate_sn+'.freeioe_Vserial',
+            "output": tag_name,
+            "value": output_val,
+            "prop": "value"
+        },
+        "id": id
+    };
+
+    gate_exec_action(app_action, _act, task_desc, "0", app_action, "0");
+
+
+}
+
 
 /**
  *	查询本地所有串口
@@ -240,9 +324,11 @@ com_opened = false;
 local_coms = null;
 valid_com = null;
 remote_peer = {};
-remote_portmap_array = new Array();
-remote_comstate_object = {};
-remote_cmapport_object = {};
+
+remote_comstate_object = null;
+remote_mapport_object = null;
+remote_current_com = null;
+
 action_result_list = new Array();
 vircom ={};
 
@@ -327,6 +413,39 @@ $(function () {
 
 })
 
+
+
+
+/**
+ *	打开时检查本地运行环境
+ */
+setTimeout(function(){
+    if(mqttc_connected){
+
+        check_version(mqttc_connected, mqtt_client);
+
+        check_servers_list(mqttc_connected, mqtt_client);
+    }else{
+        $("button.check_env").removeClass('hide');
+    }
+},1500);
+
+/**
+ *	周期发送心跳
+ */
+if (mqttc_connected) {
+    keep_alive_local(mqttc_connected, mqtt_client);
+}
+keep_alive_remote();
+var keep_alive_ret= setInterval(function() {
+    if (mqttc_connected) {
+        keep_alive_local(mqttc_connected, mqtt_client);
+    }
+    keep_alive_remote();
+},20000);
+
+
+
 /**
  *	周期检测mqtt状态
  */
@@ -335,7 +454,7 @@ var mqtt_status_ret= setInterval(function(){
 
         $("span.service_status").text("");
         $("button.com-reconnect").addClass("hide");
-        mqtt_client.subscribe(["v1/vspc/#"], {qos: 0});
+        mqtt_client.subscribe(["v1/vspc/#", "v1/update/+"], {qos: 0});
         $("button.com_open").attr('disabled', false);
         $("button.message_monitor").attr('disabled', false);
         $("span.service_status").html(" ");
@@ -434,6 +553,14 @@ var mqtt_status_ret= setInterval(function(){
         $("span.com_received").text(vircom.recv_count+ '/' + vircom.send_count);
         $("span.net_received").text(vircom.peer_recv_count + '/' +vircom.peer_send_count);
 
+    }
+
+    if(remote_current_com){
+        $("span.current_com").html('ser2net_'+remote_current_com);
+    }
+
+    if(remote_comstate_object){
+        $("span.ser2net_status").html(remote_comstate_object);
     }
 
 
@@ -568,6 +695,12 @@ $("button.com_open").click(function(){
 
 
 });
+
+
+$("span.frps_host").click(function(){
+    check_servers_list(mqttc_connected, mqtt_client);
+});
+
 
 $("button.message_monitor").click(function(){
 

@@ -284,6 +284,7 @@ function onMessageArrived(message) {
     var socket_reg = RegExp(/SOCKET_STREAM/);
     var vspc_reg = RegExp(/VSPC_STREAM/);
     var status_reg = RegExp(/VSPC_STATUS/);
+    var notify_reg = RegExp(/VSPC_NOTIFY/);
 
     var _topic = message.destinationName;
     // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
@@ -291,13 +292,63 @@ function onMessageArrived(message) {
     if(status_reg.test(_topic)){
         var ret = JSON.parse(message.payloadString);
         // console.log("topic: ",ret.name);
-        // console.log(($.inArray(ret.host+":"+ret.port, remote_portmap_array) !== -1));
-        if($.inArray(ret.host+":"+ret.port, remote_portmap_array) !== -1){
+
+        if(ret.host+":"+ret.port == remote_mapport_object){
             vircom = ret;
-            // $("span.selected_com").text(vircom.name);
-            // $("select.com_select").val(vircom.name.toLowerCase());
         }
     }
+
+    if(notify_reg.test(_topic)){
+        var ret = JSON.parse(message.payloadString);
+        console.log("notify: ",ret);
+
+    }
+
+    if(_topic==="v1/update/api/RESULT"){
+        var q = action_result_list;
+        if(q==null || q.length<1){
+            return false;
+        }else{
+            for (var i = 0; i < q.length; i++) {
+
+                var ret = JSON.parse(message.payloadString);
+                console.log(q[i], ret.id);
+                var arr_action = ret.id.split("/");
+                console.log(arr_action, ret.result);
+                if (ret.id == q[i]) {
+                    if(arr_action[0]=='check_version'){
+                        var html_version = '已是最新版本！';
+                        if(ret.data.update){
+                            html_version = html_version + ' ' + '<button type="button" class="btn btn-sm update_lastest" >升级到最新版</button>';
+                        }
+                        $("span.check_local_version").html(html_version);
+                    }
+
+
+                    if(arr_action[0]=='check_servers_list'){
+                        console.log("_servers_list::::::", ret.data);
+                        if(ret.data!=='no_servers'){
+                            $("select.frps_host").empty();
+
+                            $.each(ret.data,function(index,value){
+                                console.log(value)
+                                var html = '<option value="'+ value.host +'" >'+ value.desc + '------' + value.delay +'</option>';
+
+                                $("select.frps_host").append(html);
+                            });
+
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+    }
+
+
+
     if(_topic==="v1/vspc/api/RESULT"){
         var q = action_result_list;
         if(q==null || q.length<1){
@@ -323,9 +374,10 @@ function onMessageArrived(message) {
                         console.log("local_coms:::",local_coms);
                         for (var j=1;j<100;j++){
                             if($.inArray("COM"+j, local_coms) == -1){
-                                valid_com  = "COM"+j;
+                                var valid_com  = "COM"+j;
                                 console.log("valid_com:::",valid_com);
                                 var com_cfg = {
+                                    "server_addr":$("select.frps_host").val(),
                                     "serial":$("select[name=port]").val(),
                                     "baudrate":$("select[name=baudrate]").val(),
                                     "databit":$("select[name=data_bits]").val(),
@@ -333,64 +385,37 @@ function onMessageArrived(message) {
                                     "parity":$("select[name=parity]").val()
                                 };
 
-                                if(!$.isEmptyObject(remote_comstate_object)){
-                                    if(remote_comstate_object[com_cfg.serial+'net']=='running'){
-                                        $("span.remote_action_feedback").text("");
+                                $("span.remote_action_feedback").text("串口映射服务启动中…");
+                                post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_config', com_cfg);
+                                remote_mapport_object = null;
+                                var remote_comstate_status_ret= setInterval(function(){
 
-                                        if(!$.isEmptyObject(remote_mapport_object)){
-                                            var peer = remote_mapport_object[com_cfg.serial+'_mapport'].split(":");
-                                            var id = "add_local_com/"+ Date.parse(new Date());
-                                            var message = {
-                                                "id":id,
-                                                "by_name": 1,
-                                                "name": valid_com.toUpperCase(),
-                                                "peer": {
-                                                    "type":"tcp_client",
-                                                    "host": peer[0],
-                                                    "port": parseInt(peer[1]),
-                                                    "info":{"sn": gate_sn, "com_cfg": com_cfg}
-                                                }
-                                            };
-                                            console.log(message);
-                                            add_local_com(mqttc_connected, mqtt_client, message);
-                                        }
-
-                                    }else{
-                                        $("span.remote_action_feedback").text("串口映射服务启动中…");
-                                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_config', com_cfg);
-
-                                        var remote_comstate_status_ret= setInterval(function(){
-
-                                            // console.log(Date.parse(new Date()), remote_comstate_object);
-                                            // console.log(Date.parse(new Date()), remote_comstate_object[com_cfg.serial+'net']==1);
-                                            if(!$.isEmptyObject(remote_comstate_object)){
-                                                if(remote_comstate_object[com_cfg.serial+'net']=='running'){
-                                                    if(!$.isEmptyObject(remote_mapport_object)){
-                                                        var peer = remote_mapport_object[com_cfg.serial+'_mapport'].split(":");
-                                                        var id = "add_local_com/"+ Date.parse(new Date());
-                                                        var message = {
-                                                            "id":id,
-                                                            "by_name": 1,
-                                                            "name": valid_com.toUpperCase(),
-                                                            "peer": {
-                                                                "type":"tcp_client",
-                                                                "host": peer[0],
-                                                                "port": parseInt(peer[1]),
-                                                                "info":{"sn": gate_sn, "com_cfg": com_cfg}
-                                                            }
-                                                        };
-                                                        console.log(message);
-                                                        add_local_com(mqttc_connected, mqtt_client, message);
-                                                        clearInterval(remote_comstate_status_ret);
-                                                        $("span.remote_action_feedback").text("");
-                                                    }
-
-                                                }
+                                if(remote_mapport_object){
+                                    var peer = remote_mapport_object.split(":");
+                                    console.log('peer::',peer);
+                                    if( parseInt(peer[1]) > 0){
+                                        var id = "add_local_com/"+ Date.parse(new Date());
+                                        var message = {
+                                            "id":id,
+                                            "by_name": 1,
+                                            "name": valid_com.toUpperCase(),
+                                            "peer": {
+                                                "type":"tcp_client",
+                                                "host": peer[0],
+                                                "port": parseInt(peer[1]),
+                                                "info":{"sn": gate_sn, "com_cfg": com_cfg}
                                             }
-
-                                        },2000);
+                                        };
+                                        console.log(message);
+                                        add_local_com(mqttc_connected, mqtt_client, message);
+                                        clearInterval(remote_comstate_status_ret);
+                                        $("span.remote_action_feedback").text("");
                                     }
+
                                 }
+
+
+                                },2000);
 
 
 

@@ -302,7 +302,10 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-4 control-label">本地服务:</label>
                                                     <div class="col-sm-8">
-                                                        <div class="form-control" ><span class="check_local_result" > </span></div>
+                                                        <div class="form-control" >
+
+                                                            <span class="check_local_result" > </span>
+                                                        </div>
 
                                                     </div>
                                                 </div>
@@ -316,16 +319,20 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="col-sm-4 control-label"><span>服务节点:</span></label>
+                                                    <label class="col-sm-4 control-label">
+                                                        <span class="frps_host" style="cursor: pointer">服务节点:</span>
+                                                    </label>
                                                     <div class="col-sm-8">
-                                                        <select class="form-control frps_host" disabled>
+                                                        <select class="form-control tunnel_config frps_host">
                                                             <!--<option value="255.255.254.0">255.255.255.128</option>-->
-                                                            <option selected="selected" value="hs.symgrid.com">北京1</option>
-                                                            <option value="iot.symgrid.com">北京2</option>
-                                                            <option value="172.30.0.187">北京3</option>
+                                                            <!--<option selected="selected" value="bj.proxy.thingsroot.com">北京1</option>-->
+                                                            <!--<option value="zjk.proxy.thingsroot.com">北京2</option>-->
+                                                            <!--<option value="sz.proxy.thingsroot.com">深圳1</option>-->
 
                                                         </select>
+
                                                     </div>
+
                                                 </div>
 
 
@@ -333,6 +340,7 @@
                                         </div>
 
                                         <div class="col-md-8">
+                                            <div><span class="check_local_version" > </span></div>
                                             <div class="pull-right">
                                                 <span class="service_status text-danger "></span>
                                                 <div class="btn-group">
