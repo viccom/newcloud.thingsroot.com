@@ -300,6 +300,27 @@ function post_to_gate(connect_falg,client,message){
         action_result_list.push(id);
     }
 }
+/**
+ *	保持和本地服务的心跳
+ */
+function keep_alive_local(connect_falg,client){
+    var id = "keep_alive/"+ Date.parse(new Date());
+    var message = {
+        "id":id,
+        "enable_heartbeat": true,
+        "heartbeat_timeout" : 60,
+        "gate_sn": gate_sn,
+        "auth_code": $("span.user-name").data("accesskey")
+    };
+    if(connect_falg){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/vnet/api/keep_alive";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
 
 /**
  *	延时加载
@@ -400,6 +421,16 @@ var mqtt_status_ret = setInterval(function(){
 
 },3000);
 
+/**
+ *	周期发送心跳
+ */
+
+var keep_alive_ret= setInterval(function() {
+    if (mqttc_connected) {
+        keep_alive_local(mqttc_connected, mqtt_client);
+    }
+},20000);
+
 
 /**
  *	打开时检查本地运行环境
@@ -420,6 +451,9 @@ setTimeout(function(){
     }else{
         $("button.check_env").removeClass('hide');
     }
+
+    keep_alive_local(mqttc_connected, mqtt_client);
+
 },3000);
 
 delay_load(8000);

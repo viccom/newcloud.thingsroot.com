@@ -84,6 +84,35 @@ function set_label(sn){
 }
 
 
+/**
+ *	下置数据到网关
+ */
+function post_to_gate(act_post){
+    $.ajax({
+        url: '/apis/api/method/iot.device_api.send_output',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'post',
+        async: false,
+        data: JSON.stringify(act_post),
+        contentType: "application/json; charset=utf-8",
+        dataType:'json',
+        success:function(req){
+            if(req.message){
+                console.log("success", req);
+            }else{
+                console.log("fail", req);
+            }
+        },
+        error:function(req){
+            console.log(req);
+
+        }
+    });
+
+}
 
 /**
  *	检查本地运行环境版本
@@ -199,8 +228,8 @@ function post_freeioe_Vserial_data(sn, device_sn, tag_name, output_val){
         "id": id
     };
 
-    gate_exec_action(app_action, _act, task_desc, "0", app_action, "0");
-
+    // gate_exec_action(app_action, _act, task_desc, "0", app_action, "0");
+    post_to_gate(_act)
 }
 
 
@@ -228,25 +257,25 @@ function keep_alive_local(connect_falg,client){
  *	保持和远程网关的心跳
  */
 function keep_alive_remote(){
-    var app_action = "send_output";
-    var tag_name = 'heartbeat_timeout';
-    var output_val = 60;
-    var device_sn = gate_sn+'.freeioe_Vserial';
-    var task_desc = '保持心跳'+ '/ '+ device_sn  + '/ ' + tag_name + '/'+  output_val;
-    var id = 'send_output/' + gate_sn + '/ '+ device_sn  + '/ '+ tag_name + '/'+  output_val + '/'+ Date.parse(new Date());
+    // var app_action = "send_output";
+    // var tag_name = 'heartbeat_timeout';
+    // var output_val = 60;
+    // var device_sn = gate_sn+'.freeioe_Vserial';
+    // var task_desc = '保持心跳'+ '/ '+ device_sn  + '/ ' + tag_name + '/'+  output_val;
+    var id = 'send_output/' + gate_sn + '/ '+ gate_sn+'.freeioe_Vserial'  + '/ '+ 'heartbeat_timeout' + '/'+  60 + '/'+ Date.parse(new Date());
     var _act = {
         "device": gate_sn,
         "data": {
             "device": gate_sn+'.freeioe_Vserial',
-            "output": tag_name,
-            "value": output_val,
+            "output": 'heartbeat_timeout',
+            "value": 60,
             "prop": "value"
         },
         "id": id
     };
 
-    gate_exec_action(app_action, _act, task_desc, "0", app_action, "0");
-
+    // gate_exec_action(app_action, _act, task_desc, "0", app_action, "0");
+    post_to_gate(_act)
 
 }
 
@@ -433,10 +462,7 @@ setTimeout(function(){
 /**
  *	周期发送心跳
  */
-if (mqttc_connected) {
-    keep_alive_local(mqttc_connected, mqtt_client);
-}
-keep_alive_remote();
+
 var keep_alive_ret= setInterval(function() {
     if (mqttc_connected) {
         keep_alive_local(mqttc_connected, mqtt_client);
@@ -591,6 +617,11 @@ setTimeout(function(){
     if(mqttc_connected){
         $("button.com_open").removeClass('hide');
     }
+
+    if (mqttc_connected) {
+        keep_alive_local(mqttc_connected, mqtt_client);
+    }
+    keep_alive_remote();
 
 },2000);
 

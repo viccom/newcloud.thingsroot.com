@@ -298,6 +298,7 @@ function onMessageArrived(message) {
             if(message.payloadString){
                 var ret = JSON.parse(message.payloadString);
                 $("span.ping_devip_result").text(ret.message);
+                $("span.ping_devip_delay").text(ret.delay);
                 if(ret.message=='online'){
                     $("span.ping_devip_result").addClass('text-success');
                 }else{
