@@ -357,7 +357,7 @@ remote_peer = {};
 remote_comstate_object = null;
 remote_mapport_object = null;
 remote_current_com = null;
-
+freeioe_Rprogramming_lastest = null;
 action_result_list = new Array();
 vircom ={};
 
