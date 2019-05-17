@@ -449,6 +449,9 @@ var keep_alive_ret= setInterval(function() {
         check_version(mqttc_connected, mqtt_client);
         check_servers_list(mqttc_connected, mqtt_client);
     }
+    if(!mqttc_connected){
+        connect();
+    }
 },20000);
 
 

@@ -488,6 +488,10 @@ var keep_alive_ret= setInterval(function() {
         check_servers_list(mqttc_connected, mqtt_client);
     }
     keep_alive_remote();
+
+    if(!mqttc_connected){
+        connect();
+    }
 },20000);
 
 
