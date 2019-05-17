@@ -279,6 +279,24 @@ function keep_alive_remote(){
 
 }
 
+/**
+ *	检查自动升级状态
+ */
+function check_update_status(connect_falg,client){
+    var id = "check_update_status/"+ Date.parse(new Date());
+    var message = {
+        "id":id
+    };
+    if(connect_falg){
+        message = new Paho.Message(JSON.stringify(message));
+        message.destinationName = "v1/update/api/update_status";
+        message.qos = 0;
+        message.retained = false;
+        client.send(message);
+        action_result_list.push(id);
+    }
+}
+
 
 /**
  *	查询本地所有串口
