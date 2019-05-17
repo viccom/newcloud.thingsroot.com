@@ -320,6 +320,7 @@ function onMessageArrived(message) {
                         var html_version = '已是最新版本！';
                         if(ret.data.update){
                             html_version = '<button type="button" class="btn btn-sm update_lastest" >升级到最新版</button>';
+                            freeioe_Rprogramming_lastest = ret.data;
                         }
                         $("span.check_local_version").html(html_version);
                     }
