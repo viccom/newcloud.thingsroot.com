@@ -8,18 +8,19 @@ freeioe提供的工业设备远程编程技术使用云端节点作为高速中�
 
 1. freeioe的远程编程功能是在freeioe边缘计算应用开发框架上实现的，因此远程编程功能离不开安装了freeioe软件的网关和提供管理操作的ThingsCloud平台。因此用户需要在ThingsCloud平台上注册自己的账户，并使用安装了freeioe软件的网关连接现场设备，还须让网关连接到ThingsCloud平台。
 
-2. 远程编程是在freeioe V1141版本之后开发的，因此现场网关的freeioe版本必须升级到V1141版本或更新版本。
+2. 远程编程是在freeioe V1141版本之后开发的，因此**现场网关的freeioe版本必须升级到V1141版本或更新版本。**
 
 3. 远程编程的所有操作都是通过ThingsCloud平台完成，但这并不是说freeioe的远程编程无需在用户电脑中安装软件了，由于需要在用户的Windows系统中创建虚拟网卡和虚拟串口，因此需要用户在使用远程编程功能时安装freeioe_Rprogramming软件，这个软件可通过平台的操作页面上按照提示安装下载。也可在此帮页面的最后下载。
 
-4. 需要说明的是freeioe的远程编程用户端软件仅仅支持Windows 7/8/10 操作系统，也支持Windows Server 2008/2012/2016 操作系统。理论上也支持微软后期的Windows 系统。以上的操作系统32位和64位都可支持。
+4. 需要说明的是**freeioe的远程编程用户端软件仅仅支持Windows 7/8/10 操作系统，也支持Windows Server 2008/2012/2016 操作系统**。理论上也支持微软后期的Windows 系统。以上的操作系统32位和64位都可支持。
 
 5. freeioe的远程编程功能默并未内置到freeioe中，因此用户必须通过ThingsCloud平台去开启网关的远程串口编程和远程网络编程功能，实际上非常简单，只需通过ThingsCloud平台选择网关后，在网关状态页面中的高级设置中就可开启这两项功能。
 
 #### 如何开启
 
 * 用户登录平台后，选择希望开启远程编程功能的网关。进入网关状态页面，如下图所示：
-   
+  
+
 ![](../../assets/Rprograming01.png)
 
 
@@ -31,8 +32,16 @@ freeioe提供的工业设备远程编程技术使用云端节点作为高速中�
 
 #### freeioe远程编程软件在本地的安装和启动
 
-* 通过下面的下载链接将freeioe_Rprogramming.zip下载到本地后，在任意路径下解压，进入freeioe_Rprogramming目录后，运行freeioe_Rprogramming程序，如下图所示：
-   
+
+
+* 通过下面的下载链接将freeioe_Rprogramming.zip下载到本地。**下载链接：**
+  
+  freeioe远程编程软件[http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_Rprogramming.zip]
+  
+  
+  
+* 在任意路径下解压，进入freeioe_Rprogramming目录后，运行freeioe_Rprogramming_panel程序，如下图所示：
+
 ![](../../assets/freeioe_Rprogramming01.png)
 
 
@@ -44,8 +53,4 @@ freeioe提供的工业设备远程编程技术使用云端节点作为高速中�
 * 在服务控制面板中点击“运行”按钮运行freeioe_Rprogramming_Service，如下图所示：
 
 ![](../../assets/freeioe_Rprogramming03.png)
-
-
-#### 下载链接：
-freeioe远程编程软件[http://thingscloud.oss-cn-beijing.aliyuncs.com/download/freeioe_Rprogramming.zip]
 
