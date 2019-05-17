@@ -120,8 +120,6 @@ function gate_applist(sn, tableobj){
         }
     });
 
-
-
 }
 
 

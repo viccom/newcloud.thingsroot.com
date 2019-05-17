@@ -26,6 +26,52 @@ function gate_info(sn){
     });
 }
 
+
+/**
+ *	获取网关已安装应用列表
+ */
+function gate_applist(sn){
+
+    $.ajax({
+        url: '/apis/api/method/iot_ui.iot_api.gate_applist',
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            "X-Frappe-CSRF-Token": auth_token
+        },
+        type: 'get',
+        data: {"sn": sn},
+        dataType:'json',
+        success:function(req){
+
+            if(req.message!=null){
+
+                $.each(req.message, function(i, val){
+
+                    if(val.inst=='freeioe_Vnet'){
+                        console.log(i,val);
+                        $("span.app_version").text(val.info.version);
+                        if (Math.floor(val.cloud.ver) > Math.floor(val.info.version)){
+
+                            $("span.check_app_version").html('<button type="button" data-appid="'+ val.cloud.name + '" data-cloudver="' + val.cloud.ver +'" class="btn btn-sm update_app" >升级到最新版</button>')
+                        }else{
+                            $("span.check_app_version").text('已是最新版本！')
+                        }
+
+                    }
+
+                });
+
+                localStorage.setItem("gate_apps/"+ sn, JSON.stringify(req.message));
+            }
+
+        },
+        error:function(req){
+            console.log(req);
+        }
+    });
+
+}
+
 /**
  *	使用网关状态信息更新标签
  */
@@ -370,6 +416,8 @@ $(".tunnel_config").attr("disabled",true);
 
 gate_info(gate_sn);
 
+gate_applist(gate_sn);
+
 setTimeout(function () {
     connect();
 },600);
@@ -653,6 +701,33 @@ $("body").on("click", "button.update_lastest", function () {
         $(this).text("升级中……");
         $(this).attr('disabled', true);
     }
+
+
+});
+
+
+$("body").on("click", "button.update_app", function () {
+    console.log("update_app" );
+
+    var appid = $(this).data("appid");
+    var app_action = "app_upgrade";
+    var task_desc = '升级应用'+ 'freeioe_Vnet';
+    var id = 'app_upgrade/' + gate_sn + '/ '+ 'freeioe_Vnet' +'/'+ Date.parse(new Date())
+    var _act = {
+        "device": gate_sn,
+        "data": {"inst": 'freeioe_Vnet', "name":appid},
+        "id": id
+    };
+
+    gate_exec_action(app_action, _act, task_desc, 'freeioe_Vnet', app_action, "1");
+
+
+    $(this).text("升级中……");
+    $(this).attr('disabled', true);
+
+    setTimeout(function () {
+        gate_applist(gate_sn);
+    },6000);
 
 
 });
