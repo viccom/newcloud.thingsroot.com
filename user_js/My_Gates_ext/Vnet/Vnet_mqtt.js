@@ -388,9 +388,7 @@ function onMessageArrived(message) {
 
                                         $("button.start_vpn").removeClass('hide');
 
-
                                 },6000);
-
 
                             }
 

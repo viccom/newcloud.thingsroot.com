@@ -325,6 +325,32 @@ function onMessageArrived(message) {
                     }
 
 
+                    if(arr_action[0]=='update_lastest'){
+                        console.log("update_lastest", ret);
+                        update_status_ret= setInterval(function(){
+                            check_update_status(mqttc_connected, mqtt_client);
+                        },1000);
+                    }
+
+                    if(arr_action[0]=='check_update_status'){
+                        console.log("check_update_status", ret);
+                        if(ret.data.status!=='upgrading'){
+                            clearInterval(update_status_ret);
+
+                            setTimeout(function(){
+
+                                $("button.update_lastest").attr('disabled', false);
+
+                                $("button.update_lastest").addClass('hide');
+
+
+                            },6000);
+
+                        }
+
+                    }
+
+
                     if(arr_action[0]=='check_servers_list'){
                         console.log("_servers_list::::::", ret.data);
                         if(ret.data!=='no_servers'){
