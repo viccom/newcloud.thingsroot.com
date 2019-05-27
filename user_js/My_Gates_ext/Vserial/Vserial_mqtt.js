@@ -282,9 +282,9 @@ function onMessageArrived(message) {
     // console.log("topic: ",message.destinationName);
     // var arr_topic = message.destinationName.split("/");
     var socket_reg = RegExp(/SOCKET_STREAM/);
-    var vspc_reg = RegExp(/VSPC_STREAM/);
-    var status_reg = RegExp(/VSPC_STATUS/);
-    var notify_reg = RegExp(/VSPC_NOTIFY/);
+    var vspc_reg = RegExp(/VSPAX_STREAM/);
+    var status_reg = RegExp(/VSPAX_STATUS/);
+    var notify_reg = RegExp(/VSPAX_NOTIFY/);
 
     var _topic = message.destinationName;
     // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
@@ -376,7 +376,7 @@ function onMessageArrived(message) {
 
 
 
-    if(_topic==="v1/vspc/api/RESULT"){
+    if(_topic==="v1/vspax/api/RESULT"){
         var q = action_result_list;
         if(q==null || q.length<1){
             return false;
@@ -397,7 +397,8 @@ function onMessageArrived(message) {
                     }
 
                     if(arr_action[0]=='query_local_coms'){
-                        local_coms = ret.data.phy.concat(ret.data.vir);
+                        // local_coms = ret.data.phy.concat(ret.data.vir);
+                        local_coms = ret.data;
                         console.log("local_coms:::",local_coms);
                         for (var j=1;j<100;j++){
                             if($.inArray("COM"+j, local_coms) == -1){

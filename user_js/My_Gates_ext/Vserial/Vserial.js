@@ -181,6 +181,7 @@ function check_version(connect_flag,client){
  *	检查可用的代理服务器列表
  */
 function check_servers_list(connect_flag,client){
+    console.log("check_servers_list::::::");
     var id = "check_servers_list/"+ Date.parse(new Date());
     var message = {
         "id":id
@@ -289,7 +290,7 @@ function keep_alive_local(connect_falg,client){
     };
     if(connect_falg){
         message = new Paho.Message(JSON.stringify(message));
-        message.destinationName = "v1/vspc/api/keep_alive";
+        message.destinationName = "v1/vspax/api/keep_alive";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -347,10 +348,10 @@ function check_update_status(connect_falg,client){
  */
 function query_local_coms(connect_falg,client,id){
     var message = JSON.stringify({"id":id});
-    logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
+    logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspax/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
         message = new Paho.Message(message);
-        message.destinationName = "v1/vspc/api/list";
+        message.destinationName = "v1/vspax/api/list";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -366,7 +367,7 @@ function query_local_Vcoms(connect_falg,client,id){
     // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
         message = new Paho.Message(message);
-        message.destinationName = "v1/vspc/api/list_vir";
+        message.destinationName = "v1/vspax/api/list_vir";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -382,7 +383,7 @@ function add_local_com(connect_falg, client, message){
     var id = message.id;
     if(connect_falg){
         message = new Paho.Message(JSON.stringify(message));
-        message.destinationName = "v1/vspc/api/add";
+        message.destinationName = "v1/vspax/api/add";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -398,7 +399,7 @@ function remove_local_com(connect_falg,client,message){
     // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
         message = new Paho.Message(JSON.stringify(message));
-        message.destinationName = "v1/vspc/api/remove";
+        message.destinationName = "v1/vspax/api/remove";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -550,7 +551,7 @@ var mqtt_status_ret= setInterval(function(){
 
         $("span.service_status").text("");
         $("button.com-reconnect").addClass("hide");
-        mqtt_client.subscribe(["v1/vspc/#", "v1/update/+"], {qos: 0});
+        mqtt_client.subscribe(["v1/vspax/#", "v1/update/+"], {qos: 0});
         $("button.com_open").attr('disabled', false);
         $("button.message_monitor").attr('disabled', false);
         $("span.service_status").html(" ");
