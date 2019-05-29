@@ -645,6 +645,8 @@ var mqtt_status_ret= setInterval(function(){
         }
         if(vircom.app_path){
             $("span.com_proc").text(vircom.app_path.split("\\")[vircom.app_path.split("\\").length-1]);
+        }else{
+            $("span.com_proc").text('');
         }
 
         $("span.com_peer").text(vircom.host + ":" + vircom.port);
