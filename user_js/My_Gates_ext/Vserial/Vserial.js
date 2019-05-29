@@ -638,15 +638,18 @@ var mqtt_status_ret= setInterval(function(){
             $("span.com_parameters").text(vircom.BaudRate+'/'+DataBits+'/'+Parity_arr[Parity]+'/'+StopBits);
         }
 
-        if(vircom.pid>0){
-            $("span.com_status").text('已打开');
-        }else{
-            $("span.com_status").text('已关闭');
-        }
+        // if(vircom.pid>0){
+        //     $("span.com_status").text('已打开');
+        // }else{
+        //     $("span.com_status").text('已关闭');
+        // }
+
         if(vircom.app_path){
             $("span.com_proc").text(vircom.app_path.split("\\")[vircom.app_path.split("\\").length-1]);
+            $("span.com_status").text('已打开');
         }else{
             $("span.com_proc").text('');
+            $("span.com_status").text('已关闭');
         }
 
         $("span.com_peer").text(vircom.host + ":" + vircom.port);
