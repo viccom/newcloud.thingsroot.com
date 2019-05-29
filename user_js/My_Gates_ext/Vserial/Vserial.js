@@ -290,7 +290,7 @@ function keep_alive_local(connect_falg,client){
     };
     if(connect_falg){
         message = new Paho.Message(JSON.stringify(message));
-        message.destinationName = "v1/vspax/api/keep_alive";
+        message.destinationName = "v1/" + serial_driver + "/api/keep_alive";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -348,10 +348,10 @@ function check_update_status(connect_falg,client){
  */
 function query_local_coms(connect_falg,client,id){
     var message = JSON.stringify({"id":id});
-    logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspax/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
+    logMessage("INFO", "Publishing Message: [Topic: ", "v1/" + serial_driver + "/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
         message = new Paho.Message(message);
-        message.destinationName = "v1/vspax/api/list";
+        message.destinationName = "v1/" + serial_driver +"/api/list";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -367,7 +367,7 @@ function query_local_Vcoms(connect_falg,client,id){
     // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
         message = new Paho.Message(message);
-        message.destinationName = "v1/vspax/api/list_vir";
+        message.destinationName = "v1/"+ serial_driver + "/api/list_vir";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -383,7 +383,7 @@ function add_local_com(connect_falg, client, message){
     var id = message.id;
     if(connect_falg){
         message = new Paho.Message(JSON.stringify(message));
-        message.destinationName = "v1/vspax/api/add";
+        message.destinationName = "v1/" + serial_driver + "/api/add";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -399,7 +399,7 @@ function remove_local_com(connect_falg,client,message){
     // logMessage("INFO", "Publishing Message: [Topic: ", "v1/vspc/api/list", ", Payload: ", message, ", QoS: ", 0, ", Retain: ", 0, "]");
     if(connect_falg){
         message = new Paho.Message(JSON.stringify(message));
-        message.destinationName = "v1/vspax/api/remove";
+        message.destinationName = "v1/" + serial_driver + "/api/remove";
         message.qos = 0;
         message.retained = false;
         client.send(message);
@@ -416,7 +416,7 @@ com_opened = false;
 local_coms = null;
 valid_com = null;
 remote_peer = {};
-
+serial_driver = 'vspax';
 remote_comstate_object = null;
 remote_mapport_object = null;
 remote_current_com = null;
@@ -551,7 +551,7 @@ var mqtt_status_ret= setInterval(function(){
 
         $("span.service_status").text("");
         $("button.com-reconnect").addClass("hide");
-        mqtt_client.subscribe(["v1/vspax/#", "v1/update/+"], {qos: 0});
+        mqtt_client.subscribe(["v1/vspax/#", "v1/vspc/#","v1/update/+"], {qos: 0});
         $("button.com_open").attr('disabled', false);
         $("button.message_monitor").attr('disabled', false);
         $("span.service_status").html(" ");
@@ -609,6 +609,8 @@ var mqtt_status_ret= setInterval(function(){
         $("span.related_gate").text(vircom.info.sn);
         $("span.selected_com").text(vircom.info.com_cfg.serial.toUpperCase());
         $("select[name=port]").val(vircom.info.com_cfg.serial);
+        $("select[name=serial_driver]").val(vircom.info.serial_driver);
+        serial_driver = $("select[name=serial_driver]").val();
         $("select[name=baudrate]").val(vircom.info.com_cfg.baudrate);
         $("select[name=data_bits]").val(vircom.info.com_cfg.databit);
         $("select[name=stop_bits]").val(vircom.info.com_cfg.stopbit);
@@ -701,6 +703,22 @@ $("select.com_select").change(function(){
     // console.log(key);
     $("span.selected_com").text(key.toUpperCase());
 });
+
+$("select.driver_select").change(function(){
+    var key = $(this).val();
+    serial_driver = key;
+    console.log("serial_driver_type:::", serial_driver);
+
+    $("button.com_open").text('切换中……');
+    $("button.com_open").attr('disabled',true);
+
+    setTimeout(function(){
+        $("button.com_open").text('开启');
+        $("button.com_open").attr('disabled',false);
+    },2000);
+
+});
+
 
 $("button.com-reconnect").click(function(){
     if(!mqttc_connected){

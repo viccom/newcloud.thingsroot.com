@@ -282,27 +282,17 @@ function onMessageArrived(message) {
     // console.log("topic: ",message.destinationName);
     // var arr_topic = message.destinationName.split("/");
     var socket_reg = RegExp(/SOCKET_STREAM/);
-    var vspc_reg = RegExp(/VSPAX_STREAM/);
-    var status_reg = RegExp(/VSPAX_STATUS/);
-    var notify_reg = RegExp(/VSPAX_NOTIFY/);
+    var vspax_reg = RegExp(/VSPAX_STREAM/);
+    var vspax_status_reg = RegExp(/VSPAX_STATUS/);
+    var vspax_notify_reg = RegExp(/VSPAX_NOTIFY/);
+
+    var vspc_reg = RegExp(/VSPC_STREAM/);
+    var vspc_status_reg = RegExp(/VSPC_STATUS/);
+    var vspc_notify_reg = RegExp(/VSPC_NOTIFY/);
 
     var _topic = message.destinationName;
     // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
 
-    if(status_reg.test(_topic)){
-        var ret = JSON.parse(message.payloadString);
-        // console.log("topic: ",ret.name);
-
-        if(ret.host+":"+ret.port == remote_mapport_object){
-            vircom = ret;
-        }
-    }
-
-    if(notify_reg.test(_topic)){
-        var ret = JSON.parse(message.payloadString);
-        console.log("notify: ",ret);
-
-    }
 
     if(_topic==="v1/update/api/RESULT"){
         var q = action_result_list;
@@ -374,8 +364,6 @@ function onMessageArrived(message) {
         }
     }
 
-
-
     if(_topic==="v1/vspax/api/RESULT"){
         var q = action_result_list;
         if(q==null || q.length<1){
@@ -431,7 +419,7 @@ function onMessageArrived(message) {
                                                 "type":"tcp_client",
                                                 "host": peer[0],
                                                 "port": parseInt(peer[1]),
-                                                "info":{"sn": gate_sn, "com_cfg": com_cfg}
+                                                "info":{"sn": gate_sn, "com_cfg": com_cfg, "serial_driver":serial_driver}
                                             }
                                         };
                                         console.log(message);
@@ -484,6 +472,119 @@ function onMessageArrived(message) {
 
 
     }
+
+
+    if(_topic==="v1/vspc/api/RESULT"){
+        var q = action_result_list;
+        if(q==null || q.length<1){
+            return false;
+        }else{
+            for (var i = 0; i < q.length; i++) {
+                console.log(q[i]);
+                // logMessage("INFO", "Message Recieved: [Topic: ", message.destinationName, ", Payload: ", message.payloadString, ", QoS: ", message.qos, ", Retained: ", message.retained, ", Duplicate: ", message.duplicate, "]");
+                var ret = JSON.parse(message.payloadString);
+                console.log(ret.id, ret);
+                var arr_action = ret.id.split("/");
+                if(ret.id==q[i] && ret.result){
+
+
+                    if(arr_action[0]=='query_local_Vcoms'){
+                        if(ret.data.vir){
+
+                        }
+                    }
+
+                    if(arr_action[0]=='query_local_coms'){
+                        local_coms = ret.data.phy.concat(ret.data.vir);
+                        // local_coms = ret.data;
+                        console.log("local_coms:::",local_coms);
+                        for (var j=1;j<100;j++){
+                            if($.inArray("COM"+j, local_coms) == -1){
+                                var valid_com  = "COM"+j;
+                                console.log("valid_com:::",valid_com);
+                                var com_cfg = {
+                                    "server_addr":$("select.frps_host").val(),
+                                    "serial":$("select[name=port]").val(),
+                                    "baudrate":$("select[name=baudrate]").val(),
+                                    "databit":$("select[name=data_bits]").val(),
+                                    "stopbit":$("select[name=stop_bits]").val(),
+                                    "parity":$("select[name=parity]").val()
+                                };
+
+                                $("span.remote_action_feedback").text("串口映射服务启动中…");
+                                post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_config', com_cfg);
+                                remote_mapport_object = null;
+                                var remote_comstate_status_ret= setInterval(function(){
+
+                                    if(remote_mapport_object){
+                                        var peer = remote_mapport_object.split(":");
+                                        console.log('peer::',peer);
+                                        if( parseInt(peer[1]) > 0){
+                                            var id = "add_local_com/"+ Date.parse(new Date());
+                                            var message = {
+                                                "id":id,
+                                                "by_name": 1,
+                                                "name": valid_com.toUpperCase(),
+                                                "peer": {
+                                                    "type":"tcp_client",
+                                                    "host": peer[0],
+                                                    "port": parseInt(peer[1]),
+                                                    "info":{"sn": gate_sn, "com_cfg": com_cfg, "serial_driver":serial_driver}
+                                                }
+                                            };
+                                            console.log(message);
+                                            add_local_com(mqttc_connected, mqtt_client, message);
+                                            clearInterval(remote_comstate_status_ret);
+                                            $("span.remote_action_feedback").text("");
+                                        }
+
+                                    }
+
+
+                                },2000);
+
+
+
+                                break;
+                            }
+                        }
+                    }
+
+                    if(arr_action[0]=='add_local_com'){
+
+                        console.log(ret);
+                    }
+
+                    if(arr_action[0]=='remove_local_com'){
+                        vircom ={};
+                        console.log(ret);
+
+                        post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
+                    }
+
+                    q.splice(i,1);
+                }else{
+                    $("span.local_action_feedback").text(ret.error);
+                    // if(arr_action[0]=='remove_local_com'){
+                    //     vircom ={};
+                    //     console.log(ret);
+                    //     post_freeioe_Vserial_data(gate_sn, gate_sn+'.freeioe_Vserial', 'serial_stop', {"serial":$("select[name=port]").val()});
+                    // }
+                }
+
+
+            }
+
+
+        }
+
+
+
+
+    }
+
+
+
     // else if(socket_reg.test(_topic)){
     //
     //     if($("button.message_monitor").data('monitored')==1){
@@ -504,31 +605,94 @@ function onMessageArrived(message) {
     //
     //     }
     // }
-    else if(vspc_reg.test(_topic)){
-        // console.log(message.payloadString)
-        // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 ));
-        // console.log("dddd::::::",($("button.message-pause").data('paused')!==1));
-        // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1));
-        if($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1){
 
 
-            var topic_arr = _topic.split("/");
+        if(vspax_reg.test(_topic)){
+            // console.log(message.payloadString)
+            // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 ));
+            // console.log("dddd::::::",($("button.message-pause").data('paused')!==1));
+            // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1));
+            if($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1){
 
-            if(vircom.name == topic_arr[3]){
-                var timestamp = Date.parse(new Date());
-                var device_comm = CharToHex(base64decode(message.payloadString));
-                var arrayObj = [
-                    new Date(timestamp).toLocaleString('zh',{hour12:false}),
-                    '串口',
-                    topic_arr[4],
-                    device_comm
-                ]
-                table_log.row.add(arrayObj).draw();
+
+                var topic_arr = _topic.split("/");
+
+                if(vircom.name == topic_arr[3]){
+                    var timestamp = Date.parse(new Date());
+                    var device_comm = CharToHex(base64decode(message.payloadString));
+                    var arrayObj = [
+                        new Date(timestamp).toLocaleString('zh',{hour12:false}),
+                        '串口',
+                        topic_arr[4],
+                        device_comm
+                    ]
+                    table_log.row.add(arrayObj).draw();
+                }
+
+
             }
+        }
 
+        if(vspax_status_reg.test(_topic)){
+            var ret = JSON.parse(message.payloadString);
+            // console.log("topic: ",ret.name);
+
+            if(ret.host+":"+ret.port == remote_mapport_object){
+                vircom = ret;
+            }
+        }
+
+        if(vspax_notify_reg.test(_topic)){
+            var ret = JSON.parse(message.payloadString);
+            console.log("notify: ",ret);
 
         }
-    }
+
+
+
+        if(vspc_reg.test(_topic)){
+            // console.log(message.payloadString)
+            // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 ));
+            // console.log("dddd::::::",($("button.message-pause").data('paused')!==1));
+            // console.log("dddd::::::",($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1));
+            if($("button.message_monitor").data('monitored')==1 && $("button.message-pause").data('paused')!==1){
+
+
+                var topic_arr = _topic.split("/");
+
+                if(vircom.name == topic_arr[3]){
+                    var timestamp = Date.parse(new Date());
+                    var device_comm = CharToHex(base64decode(message.payloadString));
+                    var arrayObj = [
+                        new Date(timestamp).toLocaleString('zh',{hour12:false}),
+                        '串口',
+                        topic_arr[4],
+                        device_comm
+                    ]
+                    table_log.row.add(arrayObj).draw();
+                }
+
+
+            }
+        }
+
+        if(vspc_status_reg.test(_topic)){
+            var ret = JSON.parse(message.payloadString);
+            // console.log("topic: ",ret.name);
+
+            if(ret.host+":"+ret.port == remote_mapport_object){
+                vircom = ret;
+            }
+        }
+
+        if(vspc_notify_reg.test(_topic)){
+            var ret = JSON.parse(message.payloadString);
+            console.log("notify: ",ret);
+
+        }
+
+
+
 
 
 
