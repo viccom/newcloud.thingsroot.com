@@ -736,7 +736,7 @@ $("button.com_open").click(function(){
     if($("button.com_open").data('opened')==1){
         console.log("aaaaaaaaaa");
 
-        if(vircom.pid>0){
+        if(typeof(vircom.app_path)==='string' && vircom.app_path!==''){
             $("span.serial_name").text(vircom.name);
             $("span.proc_name").text(vircom.app_path.split("\\")[vircom.app_path.split("\\").length-1]);
             $("#modal-serial-close").modal('show');
