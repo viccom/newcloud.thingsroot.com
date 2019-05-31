@@ -610,6 +610,7 @@ var mqtt_status_ret= setInterval(function(){
         $("span.selected_com").text(vircom.info.com_cfg.serial.toUpperCase());
         $("select[name=port]").val(vircom.info.com_cfg.serial);
         $("select[name=serial_driver]").val(vircom.info.serial_driver);
+        $("select[name=frps_host]").val(vircom.info.com_cfg.server_addr);
         serial_driver = $("select[name=serial_driver]").val();
         $("select[name=baudrate]").val(vircom.info.com_cfg.baudrate);
         $("select[name=data_bits]").val(vircom.info.com_cfg.databit);
